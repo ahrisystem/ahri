@@ -1,7 +1,7 @@
 package model;
 
 public class ClienteModel{
-    private String sucesso;
+    private String agoraVai;
     private String cod;
     private String nome;
     private String tipo;
