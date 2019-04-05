@@ -1,6 +1,7 @@
 package model;
 
 public class ClienteModel{
+    private String naoSeiSeVamosConseguir;
     private String conseguimos;
     private String cod;
     private String nome;
