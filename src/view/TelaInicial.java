@@ -610,6 +610,7 @@ public class TelaInicial extends javax.swing.JFrame {
         estoque = false;
         financeiro = false;
         ferramentas = false;
+        vendas = false;
         ajuda = false;
         btnInicial.setBackground(itemBranco);
         btnCadastros.setBackground(itemAzul);
@@ -637,6 +638,7 @@ public class TelaInicial extends javax.swing.JFrame {
         estoque = false;
         financeiro = false;
         ferramentas = false;
+        vendas = false;
         ajuda = false;
         btnInicial.setBackground(itemAzul);
         btnCadastros.setBackground(itemBranco);
@@ -664,6 +666,7 @@ public class TelaInicial extends javax.swing.JFrame {
         estoque = true;
         financeiro = false;
         ferramentas = false;
+        vendas = false;
         ajuda = false;
         btnInicial.setBackground(itemAzul);
         btnCadastros.setBackground(itemAzul);
@@ -690,6 +693,7 @@ public class TelaInicial extends javax.swing.JFrame {
         estoque = false;
         financeiro = false;
         ferramentas = true;
+        vendas = false;
         ajuda = false;
         btnInicial.setBackground(itemAzul);
         btnCadastros.setBackground(itemAzul);
@@ -757,6 +761,7 @@ public class TelaInicial extends javax.swing.JFrame {
         estoque = false;
         financeiro = true;
         ferramentas = false;
+        vendas = false;
         ajuda = false;
         btnInicial.setBackground(itemAzul);
         btnCadastros.setBackground(itemAzul);
@@ -783,6 +788,7 @@ public class TelaInicial extends javax.swing.JFrame {
         estoque = false;
         financeiro = false;
         ferramentas = false;
+        vendas = false;
         ajuda = true;
         btnInicial.setBackground(itemAzul);
         btnCadastros.setBackground(itemAzul);
