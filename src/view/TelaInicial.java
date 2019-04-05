@@ -10,6 +10,7 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import view.cadastros.Clientes;
 import view.pdv.PDV;
 import view.cadastros.NovoCliente;
 import view.cadastros.Orcamentos;
@@ -372,8 +373,8 @@ public class TelaInicial extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 opcao2MouseExited(evt);
             }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                opcao2MouseReleased(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                opcao2MousePressed(evt);
             }
         });
         painelMenu.add(opcao2);
@@ -750,13 +751,6 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcao4MouseReleased
 
-    private void opcao2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao2MouseReleased
-        if (inicial) {
-            NovoCliente novoCliente = NovoCliente.getInstancia();
-            novoCliente.setVisible(true);
-        }
-    }//GEN-LAST:event_opcao2MouseReleased
-
     private void btnFinanceiroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinanceiroMousePressed
         inicial = false;
         cadastros = false;
@@ -960,12 +954,20 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.add("Produtos", produtos);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
-            
         }
         if (cadastros) {
             
         }
     }//GEN-LAST:event_opcao6MousePressed
+
+    private void opcao2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao2MousePressed
+        if (inicial) {
+            Clientes clientes = Clientes.getInstancia();
+            painelPrincipal.add("Clientes", clientes);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+    }//GEN-LAST:event_opcao2MousePressed
     
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
