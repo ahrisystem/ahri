@@ -1,16 +1,28 @@
 package model;
 
-public class ClienteModel{
+public class ClienteModel {
+
     private String cod;
-    private String nome;
     private String tipo;
-    private String razaosocial;
-    private String cpfcnpj;
-    private String uf;
-    private String cidade;
-    private String contato1;
-    private String contato2;
-    private String email;
+
+    private int CNPJ; //CNPJ ou CPF do destinatário	
+    private String xNome; //Razão  Social  ou  nome do destinatário	
+//<enderDest>
+    private String xLgr; //Logradouro	
+    private int nro; //Número	
+    private String xCpl; //Complemento	
+    private String xBairro; //Bairro	
+    private int cMun; //Código do município	
+    private String xMun;//Nome do município	
+    private String UF; //Sigla da UF	
+    private int CEP; //Código do CEP	
+    private int cPais; //Código do País	
+    private String xPais; //Nome do País
+//</enderDest>
+    private int fone; //Telefone	
+    private int IE; //Inscrição Estatual	
+    private int ISUF; //Inscrição na SUFRAMA	
+    private String email; //email do emitente
 
     public String getCod() {
         return cod;
@@ -18,14 +30,6 @@ public class ClienteModel{
 
     public void setCod(String cod) {
         this.cod = cod;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getTipo() {
@@ -36,53 +40,124 @@ public class ClienteModel{
         this.tipo = tipo;
     }
 
-    public String getRazaosocial() {
-        return razaosocial;
+    public int getCNPJ() {
+        return CNPJ;
     }
 
-    public void setRazaosocial(String razaosocial) {
-        this.razaosocial = razaosocial;
+    public void setCNPJ(int CNPJ) {
+        this.CNPJ = CNPJ;
     }
 
-    public String getCpfcnpj() {
-        return cpfcnpj;
+    public String getxNome() {
+        return xNome;
     }
 
-    public void setCpfcnpj(String cpfcnpj) {
-        this.cpfcnpj = cpfcnpj;
+    public void setxNome(String xNome) {
+        this.xNome = xNome;
     }
 
-
-    public String getUf() {
-        return uf;
+    public String getxLgr() {
+        return xLgr;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setxLgr(String xLgr) {
+        this.xLgr = xLgr;
     }
 
-    public String getCidade() {
-        return cidade;
+    public int getNro() {
+        return nro;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setNro(int nro) {
+        this.nro = nro;
     }
 
-    public String getContato1() {
-        return contato1;
+    public String getxCpl() {
+        return xCpl;
     }
 
-    public void setContato1(String contato1) {
-        this.contato1 = contato1;
+    public void setxCpl(String xCpl) {
+        this.xCpl = xCpl;
     }
 
-    public String getContato2() {
-        return contato2;
+    public String getxBairro() {
+        return xBairro;
     }
 
-    public void setContato2(String contato2) {
-        this.contato2 = contato2;
+    public void setxBairro(String xBairro) {
+        this.xBairro = xBairro;
+    }
+
+    public int getcMun() {
+        return cMun;
+    }
+
+    public void setcMun(int cMun) {
+        this.cMun = cMun;
+    }
+
+    public String getxMun() {
+        return xMun;
+    }
+
+    public void setxMun(String xMun) {
+        this.xMun = xMun;
+    }
+
+    public String getUF() {
+        return UF;
+    }
+
+    public void setUF(String UF) {
+        this.UF = UF;
+    }
+
+    public int getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(int CEP) {
+        this.CEP = CEP;
+    }
+
+    public int getcPais() {
+        return cPais;
+    }
+
+    public void setcPais(int cPais) {
+        this.cPais = cPais;
+    }
+
+    public String getxPais() {
+        return xPais;
+    }
+
+    public void setxPais(String xPais) {
+        this.xPais = xPais;
+    }
+
+    public int getFone() {
+        return fone;
+    }
+
+    public void setFone(int fone) {
+        this.fone = fone;
+    }
+
+    public int getIE() {
+        return IE;
+    }
+
+    public void setIE(int IE) {
+        this.IE = IE;
+    }
+
+    public int getISUF() {
+        return ISUF;
+    }
+
+    public void setISUF(int ISUF) {
+        this.ISUF = ISUF;
     }
 
     public String getEmail() {
@@ -92,6 +167,5 @@ public class ClienteModel{
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    
+
 }
