@@ -1,9 +1,10 @@
 package model;
 
-public class ClienteModel {
+public class EntidadeModel {
 
     private String cod;
-    private String tipo;
+    private int tipoPessoa; //Jurídica - 0; física - 1
+    private String constarEm; //Clientes - 0; Fornecedores - 1; Clientes e fornecedores - 2;
 
     private int CNPJ; //CNPJ ou CPF do destinatário	
     private String xNome; //Razão  Social  ou  nome do destinatário	
@@ -20,6 +21,7 @@ public class ClienteModel {
     private String xPais; //Nome do País
 //</enderDest>
     private int fone; //Telefone	
+    private int fone2; //Telefone	
     private int IE; //Inscrição Estatual	
     private int ISUF; //Inscrição na SUFRAMA	
     private String email; //email do emitente
@@ -32,13 +34,23 @@ public class ClienteModel {
         this.cod = cod;
     }
 
-    public String getTipo() {
-        return tipo;
+    public int getTipoPessoa() {
+        return tipoPessoa;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTipoPessoa(int tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
     }
+
+    public String getConstarEm() {
+        return constarEm;
+    }
+
+    public void setConstarEm(String constarEm) {
+        this.constarEm = constarEm;
+    }
+
+    
 
     public int getCNPJ() {
         return CNPJ;
@@ -143,6 +155,15 @@ public class ClienteModel {
     public void setFone(int fone) {
         this.fone = fone;
     }
+
+    public int getFone2() {
+        return fone2;
+    }
+
+    public void setFone2(int fone2) {
+        this.fone2 = fone2;
+    }
+    
 
     public int getIE() {
         return IE;
