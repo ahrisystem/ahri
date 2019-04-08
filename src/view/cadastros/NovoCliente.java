@@ -34,14 +34,13 @@ public class NovoCliente extends javax.swing.JFrame {
         lblTitulo10 = new javax.swing.JLabel();
         lblTitulo11 = new javax.swing.JLabel();
         lblTitulo12 = new javax.swing.JLabel();
-        txtContato1 = new javax.swing.JFormattedTextField();
         txtCPF = new javax.swing.JFormattedTextField();
         lblTitulo6 = new javax.swing.JLabel();
         btnDescartar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         lblTitulo13 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        lblTitulo8 = new javax.swing.JLabel();
+        lblRazao = new javax.swing.JLabel();
         txtRazao = new javax.swing.JTextField();
         lblNomeFantasia5 = new javax.swing.JLabel();
         txtCNPJ1 = new javax.swing.JFormattedTextField();
@@ -59,6 +58,11 @@ public class NovoCliente extends javax.swing.JFrame {
         txtNomeFantasia4 = new javax.swing.JTextField();
         txtContato3 = new javax.swing.JFormattedTextField();
         txtContato4 = new javax.swing.JFormattedTextField();
+        txtServico = new javax.swing.JCheckBox();
+        lblTitulo15 = new javax.swing.JLabel();
+        txtCodigo1 = new javax.swing.JTextField();
+        lblTitulo16 = new javax.swing.JLabel();
+        txtCodigo2 = new javax.swing.JTextField();
         lblTítulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -83,8 +87,8 @@ public class NovoCliente extends javax.swing.JFrame {
         lblTitulo1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo1.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo1.setText("Nome");
-        painelPrincipal.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
+        lblTitulo1.setText("Nome*");
+        painelPrincipal.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 100, 20));
 
         lblTitulo3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTitulo3.setForeground(new java.awt.Color(51, 105, 191));
@@ -125,33 +129,25 @@ public class NovoCliente extends javax.swing.JFrame {
                 sldPessoaMouseReleased(evt);
             }
         });
-        painelPrincipal.add(sldPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 470, 20));
+        painelPrincipal.add(sldPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 470, 20));
 
         lblTitulo10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo10.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo10.setText("Código");
+        lblTitulo10.setText("Código*");
         painelPrincipal.add(lblTitulo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
 
         lblTitulo11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo11.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo11.setText("Física");
-        painelPrincipal.add(lblTitulo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 100, 20));
+        painelPrincipal.add(lblTitulo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
 
         lblTitulo12.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo12.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo12.setText("Contato");
         painelPrincipal.add(lblTitulo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 100, 20));
-
-        try {
-            txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtContato1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 160, 20));
 
         try {
             txtCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -165,7 +161,7 @@ public class NovoCliente extends javax.swing.JFrame {
         lblTitulo6.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo6.setText("Jurídica");
-        painelPrincipal.add(lblTitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 70, 100, 20));
+        painelPrincipal.add(lblTitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 100, 20));
 
         btnDescartar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnDescartar.setText("Descartar");
@@ -175,7 +171,7 @@ public class NovoCliente extends javax.swing.JFrame {
                 btnDescartarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 470, -1, -1));
+        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, -1, -1));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -185,7 +181,7 @@ public class NovoCliente extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 470, 80, -1));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 340, 80, -1));
 
         lblTitulo13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo13.setForeground(new java.awt.Color(51, 105, 191));
@@ -195,13 +191,13 @@ public class NovoCliente extends javax.swing.JFrame {
 
         txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 550, 20));
+        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 550, 20));
 
-        lblTitulo8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo8.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo8.setText("Razão Social");
-        painelPrincipal.add(lblTitulo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 100, 20));
+        lblRazao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblRazao.setForeground(new java.awt.Color(51, 105, 191));
+        lblRazao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblRazao.setText("Razão Social");
+        painelPrincipal.add(lblRazao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 100, 20));
 
         txtRazao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtRazao.setEnabled(false);
@@ -307,12 +303,42 @@ public class NovoCliente extends javax.swing.JFrame {
         txtContato4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         painelPrincipal.add(txtContato4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 250, 160, 20));
 
+        txtServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtServico.setText("Fornecedor");
+        txtServico.setOpaque(false);
+        txtServico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtServicoMouseReleased(evt);
+            }
+        });
+        painelPrincipal.add(txtServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 120, 20));
+
+        lblTitulo15.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblTitulo15.setForeground(new java.awt.Color(51, 105, 191));
+        lblTitulo15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTitulo15.setText("IE");
+        painelPrincipal.add(lblTitulo15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 100, 20));
+
+        txtCodigo1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCodigo1.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 310, 170, 20));
+
+        lblTitulo16.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblTitulo16.setForeground(new java.awt.Color(51, 105, 191));
+        lblTitulo16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTitulo16.setText("I. SUFRAMA");
+        painelPrincipal.add(lblTitulo16, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 100, 20));
+
+        txtCodigo2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCodigo2.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtCodigo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 310, 170, 20));
+
         jScrollPane1.setViewportView(painelPrincipal);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 770, 360));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 770, 380));
 
         lblTítulo.setBackground(new java.awt.Color(51, 51, 51));
-        lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTítulo.setText("Cadastro cliente");
@@ -328,15 +354,16 @@ public class NovoCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void sldPessoaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldPessoaMouseReleased
-        
         if (sldPessoa.getValue() == fisica) {
             txtCPF.setEnabled(true);
             txtCNPJ.setEnabled(false);
             txtRazao.setEnabled(false);
+            lblRazao.setText("Razão Social");
         } else {
             txtCPF.setEnabled(false);
             txtCNPJ.setEnabled(true);
             txtRazao.setEnabled(true);
+            lblRazao.setText("Razão Social*");
         }
     }//GEN-LAST:event_sldPessoaMouseReleased
 
@@ -356,6 +383,14 @@ public class NovoCliente extends javax.swing.JFrame {
     private void txtRazaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRazaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRazaoActionPerformed
+
+    private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
+        if (txtServico.isSelected()) {
+            
+        } else {
+         
+        }
+    }//GEN-LAST:event_txtServicoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -398,17 +433,19 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeFantasia3;
     private javax.swing.JLabel lblNomeFantasia4;
     private javax.swing.JLabel lblNomeFantasia5;
+    private javax.swing.JLabel lblRazao;
     private javax.swing.JLabel lblTitulo1;
     private javax.swing.JLabel lblTitulo10;
     private javax.swing.JLabel lblTitulo11;
     private javax.swing.JLabel lblTitulo12;
     private javax.swing.JLabel lblTitulo13;
     private javax.swing.JLabel lblTitulo14;
+    private javax.swing.JLabel lblTitulo15;
+    private javax.swing.JLabel lblTitulo16;
     private javax.swing.JLabel lblTitulo3;
     private javax.swing.JLabel lblTitulo4;
     private javax.swing.JLabel lblTitulo6;
     private javax.swing.JLabel lblTitulo7;
-    private javax.swing.JLabel lblTitulo8;
     private javax.swing.JLabel lblTítulo;
     private javax.swing.JLabel lblUF;
     private javax.swing.JPanel painelPrincipal;
@@ -417,7 +454,8 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtCNPJ1;
     private javax.swing.JFormattedTextField txtCPF;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JFormattedTextField txtContato1;
+    private javax.swing.JTextField txtCodigo1;
+    private javax.swing.JTextField txtCodigo2;
     private javax.swing.JFormattedTextField txtContato3;
     private javax.swing.JFormattedTextField txtContato4;
     private javax.swing.JTextField txtEmail;
@@ -427,6 +465,7 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txtNomeFantasia3;
     private javax.swing.JTextField txtNomeFantasia4;
     private javax.swing.JTextField txtRazao;
+    private javax.swing.JCheckBox txtServico;
     private javax.swing.JComboBox<String> txtUF1;
     private javax.swing.JComboBox<String> txtUF2;
     // End of variables declaration//GEN-END:variables

@@ -59,6 +59,7 @@ public class Clientes extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -258,7 +259,7 @@ public class Clientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoProduto novo = NovoProduto.getInstancia();
+        NovoCliente novo = NovoCliente.getInstancia();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
