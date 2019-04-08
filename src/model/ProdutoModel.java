@@ -11,6 +11,7 @@ public class ProdutoModel {
     private int estoque;
     private double preco;
     private String ncm;
+    
 
     public int getCod() {
         return cod;
@@ -76,8 +77,6 @@ public class ProdutoModel {
         this.preco = preco;
     }
 
-
-
     public String getNcm() {
         return ncm;
     }
@@ -85,6 +84,6 @@ public class ProdutoModel {
     public void setNcm(String ncm) {
         this.ncm = ncm;
     }
-
+    
     
 }

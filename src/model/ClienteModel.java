@@ -1,7 +1,6 @@
 package model;
 
 public class ClienteModel{
-    private String teste;
     private String cod;
     private String nome;
     private String tipo;
