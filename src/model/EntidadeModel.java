@@ -50,8 +50,6 @@ public class EntidadeModel {
         this.constarEm = constarEm;
     }
 
-    
-
     public int getCNPJ() {
         return CNPJ;
     }
