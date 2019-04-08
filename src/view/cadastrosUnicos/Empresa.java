@@ -44,8 +44,14 @@ public class Empresa extends javax.swing.JFrame {
         lblTitulo6 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JFormattedTextField();
         lblTitulo16 = new javax.swing.JLabel();
+        lblTitulo14 = new javax.swing.JLabel();
+        txtUF3 = new javax.swing.JComboBox<>();
+        lblNomeFantasia6 = new javax.swing.JLabel();
+        txtNomeFantasia5 = new javax.swing.JTextField();
+        lblIE1 = new javax.swing.JLabel();
+        txtIE1 = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cadastroEmpresa.setBackground(new java.awt.Color(255, 255, 255));
@@ -64,29 +70,29 @@ public class Empresa extends javax.swing.JFrame {
         lblNomeFantasia.setForeground(new java.awt.Color(51, 105, 191));
         lblNomeFantasia.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNomeFantasia.setText("Nome");
-        cadastroEmpresa.add(lblNomeFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 100, 20));
+        cadastroEmpresa.add(lblNomeFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 100, 20));
 
         txtNomeFantasia.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNomeFantasia.setToolTipText("Nome fantasia");
         txtNomeFantasia.setPreferredSize(new java.awt.Dimension(200, 20));
-        cadastroEmpresa.add(txtNomeFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 540, 20));
+        cadastroEmpresa.add(txtNomeFantasia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 550, 20));
 
         lblRazaoSocial.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblRazaoSocial.setForeground(new java.awt.Color(51, 105, 191));
         lblRazaoSocial.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblRazaoSocial.setText("Razão Social");
-        cadastroEmpresa.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 100, 20));
+        cadastroEmpresa.add(lblRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 100, 20));
 
         txtRazaoSocial.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtRazaoSocial.setToolTipText("Nome fantasia");
         txtRazaoSocial.setPreferredSize(new java.awt.Dimension(200, 20));
-        cadastroEmpresa.add(txtRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 540, 20));
+        cadastroEmpresa.add(txtRazaoSocial, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 550, 20));
 
         lblCNPJ.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCNPJ.setForeground(new java.awt.Color(51, 105, 191));
         lblCNPJ.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCNPJ.setText("CNPJ");
-        cadastroEmpresa.add(lblCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 100, 20));
+        cadastroEmpresa.add(lblCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 100, 20));
 
         try {
             txtCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -94,27 +100,27 @@ public class Empresa extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCNPJ.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cadastroEmpresa.add(txtCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 150, 20));
+        cadastroEmpresa.add(txtCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 150, 20));
 
         lblIE.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblIE.setForeground(new java.awt.Color(51, 105, 191));
         lblIE.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblIE.setText("IE");
-        cadastroEmpresa.add(lblIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 50, 20));
+        cadastroEmpresa.add(lblIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 50, 20));
 
         txtIE.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         txtIE.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cadastroEmpresa.add(txtIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, 120, 20));
+        cadastroEmpresa.add(txtIE, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 120, 20));
 
         lblUF.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblUF.setForeground(new java.awt.Color(51, 105, 191));
         lblUF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblUF.setText("UF");
-        cadastroEmpresa.add(lblUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 40, 20));
+        cadastroEmpresa.add(lblUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 40, 20));
 
         txtUF.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        cadastroEmpresa.add(txtUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 70, 20));
+        cadastroEmpresa.add(txtUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 70, 20));
 
         btnDescartar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnDescartar.setText("Sair");
@@ -124,7 +130,7 @@ public class Empresa extends javax.swing.JFrame {
                 btnDescartarActionPerformed(evt);
             }
         });
-        cadastroEmpresa.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 70, 40));
+        cadastroEmpresa.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, 70, 40));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -134,67 +140,67 @@ public class Empresa extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        cadastroEmpresa.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 330, -1, 40));
+        cadastroEmpresa.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 340, -1, 40));
 
         lblNomeFantasia1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNomeFantasia1.setForeground(new java.awt.Color(51, 105, 191));
         lblNomeFantasia1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNomeFantasia1.setText("Nº");
-        cadastroEmpresa.add(lblNomeFantasia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 30, 20));
+        cadastroEmpresa.add(lblNomeFantasia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, 30, 20));
 
         txtNomeFantasia1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNomeFantasia1.setToolTipText("Nome fantasia");
         txtNomeFantasia1.setPreferredSize(new java.awt.Dimension(200, 20));
-        cadastroEmpresa.add(txtNomeFantasia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 50, 20));
+        cadastroEmpresa.add(txtNomeFantasia1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 220, 50, 20));
 
         txtNomeFantasia2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNomeFantasia2.setToolTipText("Nome fantasia");
         txtNomeFantasia2.setPreferredSize(new java.awt.Dimension(200, 20));
-        cadastroEmpresa.add(txtNomeFantasia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 450, 20));
+        cadastroEmpresa.add(txtNomeFantasia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 450, 20));
 
         lblNomeFantasia2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNomeFantasia2.setForeground(new java.awt.Color(51, 105, 191));
         lblNomeFantasia2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNomeFantasia2.setText("Logradouro");
-        cadastroEmpresa.add(lblNomeFantasia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 100, 20));
+        cadastroEmpresa.add(lblNomeFantasia2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 100, 20));
 
         lblNomeFantasia3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNomeFantasia3.setForeground(new java.awt.Color(51, 105, 191));
         lblNomeFantasia3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNomeFantasia3.setText("Complemento");
-        cadastroEmpresa.add(lblNomeFantasia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 100, 20));
+        cadastroEmpresa.add(lblNomeFantasia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 100, 20));
 
         txtNomeFantasia3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNomeFantasia3.setToolTipText("Nome fantasia");
         txtNomeFantasia3.setPreferredSize(new java.awt.Dimension(200, 20));
-        cadastroEmpresa.add(txtNomeFantasia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 280, 20));
+        cadastroEmpresa.add(txtNomeFantasia3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, 280, 20));
 
         lblTitulo13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo13.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo13.setText("Município");
-        cadastroEmpresa.add(lblTitulo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 70, 20));
+        cadastroEmpresa.add(lblTitulo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 70, 20));
 
         txtUF2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtUF2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        cadastroEmpresa.add(txtUF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 220, 20));
+        cadastroEmpresa.add(txtUF2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 220, 20));
 
         lblNomeFantasia4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNomeFantasia4.setForeground(new java.awt.Color(51, 105, 191));
         lblNomeFantasia4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNomeFantasia4.setText("Bairro");
-        cadastroEmpresa.add(lblNomeFantasia4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 250, 80, 20));
+        cadastroEmpresa.add(lblNomeFantasia4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 70, 20));
 
         txtNomeFantasia4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNomeFantasia4.setToolTipText("Nome fantasia");
         txtNomeFantasia4.setPreferredSize(new java.awt.Dimension(200, 20));
-        cadastroEmpresa.add(txtNomeFantasia4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, 170, 20));
+        cadastroEmpresa.add(txtNomeFantasia4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 190, 20));
 
         lblNomeFantasia5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNomeFantasia5.setForeground(new java.awt.Color(51, 105, 191));
         lblNomeFantasia5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNomeFantasia5.setText("CEP");
-        cadastroEmpresa.add(lblNomeFantasia5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 100, 20));
+        cadastroEmpresa.add(lblNomeFantasia5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 100, 20));
 
         try {
             txtCNPJ1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
@@ -202,37 +208,68 @@ public class Empresa extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         txtCNPJ1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cadastroEmpresa.add(txtCNPJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 110, 20));
+        cadastroEmpresa.add(txtCNPJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 190, 110, 20));
 
         txtIM.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         txtIM.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cadastroEmpresa.add(txtIM, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 150, 20));
+        cadastroEmpresa.add(txtIM, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 150, 20));
 
         lblIM.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblIM.setForeground(new java.awt.Color(51, 105, 191));
         lblIM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblIM.setText("IM");
-        cadastroEmpresa.add(lblIM, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 50, 20));
+        cadastroEmpresa.add(lblIM, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 50, 20));
 
         txtFone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("(##)####-####"))));
         txtFone.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cadastroEmpresa.add(txtFone, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 150, 20));
+        cadastroEmpresa.add(txtFone, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 150, 20));
 
         lblTitulo6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo6.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo6.setText("Telefone");
-        cadastroEmpresa.add(lblTitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 70, 20));
+        cadastroEmpresa.add(lblTitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 70, 20));
 
         txtEmail.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("(##)####-####"))));
         txtEmail.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cadastroEmpresa.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 320, 20));
+        cadastroEmpresa.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, 320, 20));
 
         lblTitulo16.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo16.setForeground(new java.awt.Color(51, 105, 191));
         lblTitulo16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo16.setText("Email");
-        cadastroEmpresa.add(lblTitulo16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 70, 20));
+        cadastroEmpresa.add(lblTitulo16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, 70, 20));
+
+        lblTitulo14.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblTitulo14.setForeground(new java.awt.Color(51, 105, 191));
+        lblTitulo14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTitulo14.setText("Regime Tributário");
+        cadastroEmpresa.add(lblTitulo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 140, 20));
+
+        txtUF3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtUF3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 – Simples Nacional", "2 – Simples Nacional – Excesso de sublimite de receita bruta", "3 – Regime Normal" }));
+        cadastroEmpresa.add(txtUF3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 550, 20));
+
+        lblNomeFantasia6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblNomeFantasia6.setForeground(new java.awt.Color(51, 105, 191));
+        lblNomeFantasia6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNomeFantasia6.setText("CNAE");
+        cadastroEmpresa.add(lblNomeFantasia6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 50, 20));
+
+        txtNomeFantasia5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtNomeFantasia5.setToolTipText("Nome fantasia");
+        txtNomeFantasia5.setPreferredSize(new java.awt.Dimension(200, 20));
+        cadastroEmpresa.add(txtNomeFantasia5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 120, 20));
+
+        lblIE1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblIE1.setForeground(new java.awt.Color(51, 105, 191));
+        lblIE1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblIE1.setText("IEST");
+        cadastroEmpresa.add(lblIE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 50, 20));
+
+        txtIE1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        txtIE1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cadastroEmpresa.add(txtIE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 150, 20));
 
         getContentPane().add(cadastroEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 390));
 
@@ -261,6 +298,7 @@ public class Empresa extends javax.swing.JFrame {
     private javax.swing.JPanel cadastroEmpresa;
     private javax.swing.JLabel lblCNPJ;
     private javax.swing.JLabel lblIE;
+    private javax.swing.JLabel lblIE1;
     private javax.swing.JLabel lblIM;
     private javax.swing.JLabel lblNomeFantasia;
     private javax.swing.JLabel lblNomeFantasia1;
@@ -268,8 +306,10 @@ public class Empresa extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeFantasia3;
     private javax.swing.JLabel lblNomeFantasia4;
     private javax.swing.JLabel lblNomeFantasia5;
+    private javax.swing.JLabel lblNomeFantasia6;
     private javax.swing.JLabel lblRazaoSocial;
     private javax.swing.JLabel lblTitulo13;
+    private javax.swing.JLabel lblTitulo14;
     private javax.swing.JLabel lblTitulo16;
     private javax.swing.JLabel lblTitulo6;
     private javax.swing.JLabel lblTítulo;
@@ -279,14 +319,17 @@ public class Empresa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtEmail;
     private javax.swing.JFormattedTextField txtFone;
     private javax.swing.JFormattedTextField txtIE;
+    private javax.swing.JFormattedTextField txtIE1;
     private javax.swing.JFormattedTextField txtIM;
     private javax.swing.JTextField txtNomeFantasia;
     private javax.swing.JTextField txtNomeFantasia1;
     private javax.swing.JTextField txtNomeFantasia2;
     private javax.swing.JTextField txtNomeFantasia3;
     private javax.swing.JTextField txtNomeFantasia4;
+    private javax.swing.JTextField txtNomeFantasia5;
     private javax.swing.JTextField txtRazaoSocial;
     private javax.swing.JComboBox<String> txtUF;
     private javax.swing.JComboBox<String> txtUF2;
+    private javax.swing.JComboBox<String> txtUF3;
     // End of variables declaration//GEN-END:variables
 }
