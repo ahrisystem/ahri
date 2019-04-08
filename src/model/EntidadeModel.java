@@ -4,7 +4,8 @@ public class EntidadeModel {
 
     private String cod;
     private int tipoPessoa; //Jurídica - 0; física - 1
-    private String constarEm; //Clientes - 0; Fornecedores - 1; Clientes e fornecedores - 2;
+    private String cliente; //0 - não; 1 - sim;
+    private String fornecedor; //0 - não; 1 - sim;
 
     private int CNPJ; //CNPJ ou CPF do destinatário	
     private String xNome; //Razão  Social  ou  nome do destinatário	
@@ -42,13 +43,23 @@ public class EntidadeModel {
         this.tipoPessoa = tipoPessoa;
     }
 
-    public String getConstarEm() {
-        return constarEm;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setConstarEm(String constarEm) {
-        this.constarEm = constarEm;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
+
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(String fornecedor) {
+        this.fornecedor = fornecedor;
+    }
+
+    
 
     public int getCNPJ() {
         return CNPJ;
