@@ -21,7 +21,7 @@ public class Orcamentos extends javax.swing.JPanel {
     ProdutoController prodc = new ProdutoController();
     
     public void listar(){
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblOrcamentos.getModel();
         modelo.setNumRows(0);
         for (ProdutoModel p : prodc.listaProdutos(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
@@ -40,7 +40,7 @@ public class Orcamentos extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
+        tblOrcamentos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -59,7 +59,7 @@ public class Orcamentos extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrcamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -77,21 +77,21 @@ public class Orcamentos extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblProdutos.setFocusable(false);
-        tblProdutos.setGridColor(new java.awt.Color(204, 204, 204));
-        tblProdutos.setRowHeight(20);
-        tblProdutos.setSelectionBackground(new java.awt.Color(0, 153, 0));
-        tblProdutos.getTableHeader().setReorderingAllowed(false);
-        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblOrcamentos.setFocusable(false);
+        tblOrcamentos.setGridColor(new java.awt.Color(204, 204, 204));
+        tblOrcamentos.setRowHeight(20);
+        tblOrcamentos.setSelectionBackground(new java.awt.Color(0, 153, 0));
+        tblOrcamentos.getTableHeader().setReorderingAllowed(false);
+        tblOrcamentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblProdutosMouseReleased(evt);
+                tblOrcamentosMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblProdutos);
-        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
-            tblProdutos.getColumnModel().getColumn(0).setPreferredWidth(30);
-            tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(160);
-            tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(40);
+        jScrollPane1.setViewportView(tblOrcamentos);
+        if (tblOrcamentos.getColumnModel().getColumnCount() > 0) {
+            tblOrcamentos.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblOrcamentos.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tblOrcamentos.getColumnModel().getColumn(3).setPreferredWidth(40);
         }
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -264,26 +264,26 @@ public class Orcamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        if (tblProdutos.getSelectedRow()<0) {
+        if (tblOrcamentos.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
-        if (tblProdutos.getSelectedRow()<0) {
+        if (tblOrcamentos.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o produto?",
                 "Excluir/Inativar?", 2) == 0) {
-                prodc.excluirProduto(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+                prodc.excluirProduto(tblOrcamentos.getValueAt(tblOrcamentos.getSelectedRow(), 0).toString());
                 listar();
             }
         }
     }//GEN-LAST:event_btnExcluirMouseReleased
 
-    private void tblProdutosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseReleased
+    private void tblOrcamentosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrcamentosMouseReleased
         
-    }//GEN-LAST:event_tblProdutosMouseReleased
+    }//GEN-LAST:event_tblOrcamentosMouseReleased
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
@@ -302,7 +302,7 @@ public class Orcamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnAlterarCodigoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarCodigoMouseReleased
-        if (tblProdutos.getSelectedRow()<0) {
+        if (tblOrcamentos.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         }
     }//GEN-LAST:event_btnAlterarCodigoMouseReleased
@@ -319,7 +319,7 @@ public class Orcamentos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblProdutos;
+    private javax.swing.JTable tblOrcamentos;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,6 +9,7 @@ import view.TelaInicial;
 public class NovoProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
     private static final NovoProduto INSTANCIA = new NovoProduto();
+    
 
     public static NovoProduto getInstancia() {
         return INSTANCIA;
@@ -17,6 +18,11 @@ public class NovoProduto extends javax.swing.JFrame {
     private NovoProduto() {
         initComponents();
         setLocationRelativeTo(null);
+        if (pc.getEditar() > 0) {
+            System.out.println("editar");
+        } else {
+            System.out.println("novo");
+        }
     }
 
     @SuppressWarnings("unchecked")

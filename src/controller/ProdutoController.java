@@ -14,7 +14,11 @@ import model.ProdutoModel;
 public class ProdutoController {
 
     private final Connection conexao;
-
+    
+    int editar = 0;
+    public int getEditar() {return editar;}
+    public void setEditar(int editar) {this.editar = editar;}
+    
     public ProdutoController() {
         this.conexao = new connection().obterConexao();
     }
