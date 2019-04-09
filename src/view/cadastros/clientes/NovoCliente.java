@@ -1,4 +1,4 @@
-package view.cadastros;
+package view.cadastros.clientes;
 
 import javax.swing.JOptionPane;
 import view.TelaInicial;

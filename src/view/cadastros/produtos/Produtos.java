@@ -1,4 +1,4 @@
-package view.cadastros;
+package view.cadastros.produtos;
 
 import controller.ProdutoController;
 import javax.swing.JOptionPane;
@@ -269,7 +269,7 @@ public class Produtos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             NovoProduto novo = NovoProduto.getInstancia();
-            prodc.setEditar(1);
+            novo.pc.setEditar(1);
             novo.setVisible(true);
             
         }

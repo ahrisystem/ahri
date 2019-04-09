@@ -1,5 +1,6 @@
-package view.cadastros;
+package view.cadastros.vendas;
 
+import view.cadastros.clientes.NovoCliente;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.vendas.OrcamentoModel;

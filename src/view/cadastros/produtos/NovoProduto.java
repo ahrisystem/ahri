@@ -1,4 +1,4 @@
-package view.cadastros;
+package view.cadastros.produtos;
 
 import controller.ProdutoController;
 import java.awt.Color;
