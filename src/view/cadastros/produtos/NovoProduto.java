@@ -18,11 +18,6 @@ public class NovoProduto extends javax.swing.JFrame {
     private NovoProduto() {
         initComponents();
         setLocationRelativeTo(null);
-        if (pc.getEditar() > 0) {
-            System.out.println("editar");
-        } else {
-            System.out.println("novo");
-        }
     }
 
     @SuppressWarnings("unchecked")

@@ -15,10 +15,6 @@ public class ProdutoController {
 
     private final Connection conexao;
     
-    private int editar;
-    public int getEditar() {return editar;}
-    public void setEditar(int editar) {this.editar = editar;}
-    
     public ProdutoController() {
         this.conexao = new connection().obterConexao();
     }
