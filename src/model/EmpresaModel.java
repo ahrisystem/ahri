@@ -1,9 +1,9 @@
 package model;
 
-public class EmitenteModel {
+public class EmpresaModel {
 
     private int CNPJ; //formato 00000000000000 CNPJ do emitente
-    private String CPF; //CPF do remetente
+    private int CPF; //CPF do remetente
     private String xNome; //Razão Social ou Nome do emitente
     private String xFant; //Nome fantasia
 //<enderEmit>
@@ -19,8 +19,8 @@ public class EmitenteModel {
     private String xPais; //Nome do País
 //</enderEmit>
     private int fone; //Telefone
-    private String IE; //IE
-    private String IEST; //IE do Substituto Tributário
+    private int IE; //IE
+    private int IEST; //IE do Substituto Tributário
     private int IM; //Inscrição Municipal
     private int CNAE; //CNAE fiscal
     private int CRT; //Código de Regime Tributário 1 – Simples Nacional 2 – Simples Nacional – Excesso de sublimite de receita bruta 3 – Regime Normal
@@ -33,13 +33,14 @@ public class EmitenteModel {
         this.CNPJ = CNPJ;
     }
 
-    public String getCPF() {
+    public int getCPF() {
         return CPF;
     }
 
-    public void setCPF(String CPF) {
+    public void setCPF(int CPF) {
         this.CPF = CPF;
     }
+
 
     public String getxNome() {
         return xNome;
@@ -145,19 +146,19 @@ public class EmitenteModel {
         this.fone = fone;
     }
 
-    public String getIE() {
+    public int getIE() {
         return IE;
     }
 
-    public void setIE(String IE) {
+    public void setIE(int IE) {
         this.IE = IE;
     }
 
-    public String getIEST() {
+    public int getIEST() {
         return IEST;
     }
 
-    public void setIEST(String IEST) {
+    public void setIEST(int IEST) {
         this.IEST = IEST;
     }
 
