@@ -10,16 +10,19 @@ public class NovoProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
     private static final NovoProduto INSTANCIA = new NovoProduto();
     
-
     public static NovoProduto getInstancia() {
         return INSTANCIA;
     }
+    
     public void alterarTitulo(String titulo){
         lblTítulo.setText(titulo);
-   }
+    }
 
     private NovoProduto() {
         initComponents();
+        if (lblTítulo.getText().contains("NOVO")) {
+            
+        }
         setLocationRelativeTo(null);
     }
     public void limpaCampos(){
