@@ -14,7 +14,7 @@ import model.ProdutoModel;
 public class ProdutoController {
 
     private final Connection conexao;
-
+    
     public ProdutoController() {
         this.conexao = new connection().obterConexao();
     }

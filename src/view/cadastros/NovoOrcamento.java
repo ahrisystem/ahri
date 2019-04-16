@@ -30,15 +30,12 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblCliente = new javax.swing.JLabel();
         txtCliente = new javax.swing.JTextField();
         btnNovoCliente = new javax.swing.JButton();
-        lblTitulo1 = new javax.swing.JLabel();
         lblPlaca = new javax.swing.JLabel();
         txtPlaca = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         txtPesquisaProduto = new javax.swing.JTextField();
         lblNomeCliente = new javax.swing.JLabel();
-        lblTitulo4 = new javax.swing.JLabel();
-        lblTitulo5 = new javax.swing.JLabel();
         lblCodCliente = new javax.swing.JLabel();
         lblTitulo7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -52,6 +49,10 @@ public class NovoOrcamento extends javax.swing.JFrame {
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jFormattedTextField2 = new javax.swing.JFormattedTextField();
         lblTitulo10 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtTotal = new javax.swing.JTextField();
+        txtDescontos = new javax.swing.JTextField();
+        txtTotalBruto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Novo orçamento");
@@ -107,11 +108,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo1.setText("Bruto");
-        lblTitulo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
-
         lblPlaca.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblPlaca.setForeground(new java.awt.Color(51, 105, 191));
         lblPlaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -161,16 +157,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblNomeCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNomeCliente.setText("Nenhum");
         lblNomeCliente.setToolTipText("Nome do cliente");
-
-        lblTitulo4.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblTitulo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo4.setText("Total");
-        lblTitulo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
-
-        lblTitulo5.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblTitulo5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo5.setText("Descontos");
-        lblTitulo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
 
         lblCodCliente.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblCodCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -259,6 +245,53 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo10.setText("Desconto");
 
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalActionPerformed(evt);
+            }
+        });
+
+        txtDescontos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescontosActionPerformed(evt);
+            }
+        });
+
+        txtTotalBruto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalBrutoActionPerformed(evt);
+            }
+        });
+        txtTotalBruto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTotalBrutoKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTotalBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
@@ -286,37 +319,29 @@ public class NovoOrcamento extends javax.swing.JFrame {
                                     .addComponent(lblNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18))
                             .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                        .addComponent(lblTitulo7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(lblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblTitulo5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblTitulo4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
-                                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                                        .addGap(111, 111, 111)
-                                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(txtPesquisaProduto))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblTitulo9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtPesquisaProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addComponent(jScrollPane2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelPrincipalLayout.createSequentialGroup()
                                 .addComponent(lblTitulo8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
+                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelPrincipalLayout.createSequentialGroup()
+                                        .addComponent(lblTitulo7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                                .addGap(111, 111, 111)
+                                                .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txtPesquisaProduto))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblTitulo9, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPesquisaProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
@@ -352,11 +377,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitulo4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitulo5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -387,66 +409,82 @@ public class NovoOrcamento extends javax.swing.JFrame {
         telainicial.opcoes = false;
     }//GEN-LAST:event_formWindowClosed
 
+    private void txtPesquisaProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaProduto1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaProduto1ActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
+        btnSalvar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnSalvarMouseExited
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        btnSalvar.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void btnSair2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSair2ActionPerformed
+
+    private void btnSair2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair2MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSair2MouseExited
+
+    private void btnSair2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair2MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSair2MouseEntered
+
+    private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSair1ActionPerformed
+
+    private void btnSair1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSair1MouseExited
+
+    private void btnSair1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSair1MouseEntered
+
     private void txtPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaProdutoActionPerformed
 
     }//GEN-LAST:event_txtPesquisaProdutoActionPerformed
-
-    private void btnNovoClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoClienteMouseEntered
-        btnNovoCliente.setForeground(Color.RED);
-    }//GEN-LAST:event_btnNovoClienteMouseEntered
-
-    private void btnNovoClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoClienteMouseExited
-        btnNovoCliente.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnNovoClienteMouseExited
 
     private void btnNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoClienteActionPerformed
         NovoCliente novo = NovoCliente.getInstancia();
         novo.setVisible(true);
     }//GEN-LAST:event_btnNovoClienteActionPerformed
 
-    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
-        btnSalvar.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnSalvarMouseEntered
+    private void btnNovoClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoClienteMouseExited
+        btnNovoCliente.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnNovoClienteMouseExited
 
-    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
-        btnSalvar.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnSalvarMouseExited
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    private void btnNovoClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoClienteMouseEntered
+        btnNovoCliente.setForeground(Color.RED);
+    }//GEN-LAST:event_btnNovoClienteMouseEntered
 
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-        
+
     }//GEN-LAST:event_txtClienteActionPerformed
 
-    private void btnSair1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair1MouseEntered
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSair1MouseEntered
+    }//GEN-LAST:event_txtTotalActionPerformed
 
-    private void btnSair1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair1MouseExited
+    private void txtDescontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescontosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSair1MouseExited
+    }//GEN-LAST:event_txtDescontosActionPerformed
 
-    private void btnSair1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair1ActionPerformed
+    private void txtTotalBrutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalBrutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSair1ActionPerformed
+    }//GEN-LAST:event_txtTotalBrutoActionPerformed
 
-    private void txtPesquisaProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaProduto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesquisaProduto1ActionPerformed
-
-    private void btnSair2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSair2MouseEntered
-
-    private void btnSair2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSair2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSair2MouseExited
-
-    private void btnSair2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSair2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSair2ActionPerformed
+    private void txtTotalBrutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTotalBrutoKeyReleased
+        txtTotal.setText(String.valueOf(Integer.parseInt(txtTotalBruto.getText()) - Integer.parseInt(txtDescontos.getText())));
+    }//GEN-LAST:event_txtTotalBrutoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -488,6 +526,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblCliente;
@@ -496,18 +535,18 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeCliente;
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo1;
     private javax.swing.JLabel lblTitulo10;
-    private javax.swing.JLabel lblTitulo4;
-    private javax.swing.JLabel lblTitulo5;
     private javax.swing.JLabel lblTitulo7;
     private javax.swing.JLabel lblTitulo8;
     private javax.swing.JLabel lblTitulo9;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtDescontos;
     private javax.swing.JTextField txtPesquisaProduto;
     private javax.swing.JTextField txtPesquisaProduto1;
     private javax.swing.JTextField txtPlaca;
+    private javax.swing.JTextField txtTotal;
+    private javax.swing.JTextField txtTotalBruto;
     // End of variables declaration//GEN-END:variables
 }
