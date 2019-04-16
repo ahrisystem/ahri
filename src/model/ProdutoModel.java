@@ -3,7 +3,7 @@ package model;
 public class ProdutoModel {
     
     private int cod;
-    private int codigoBarras;
+    private String codigoBarras;
     private boolean inativo;
     private String nome;
     private String grupo;
@@ -21,13 +21,14 @@ public class ProdutoModel {
         this.cod = cod;
     }
 
-    public int getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(int codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
+
 
     public boolean isInativo() {
         return inativo;

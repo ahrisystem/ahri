@@ -24,7 +24,7 @@ public class ProdutoController {
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, pModel.getCod());
-            pstmt.setInt(2, pModel.getCodigoBarras());
+            pstmt.setString(2, pModel.getCodigoBarras());
             pstmt.setBoolean(3, pModel.isInativo());
             pstmt.setString(4, pModel.getNome());
             pstmt.setString(5, pModel.getGrupo());
@@ -49,7 +49,7 @@ public class ProdutoController {
             while (rs.next()) {
                 ProdutoModel p = new ProdutoModel();
                 p.setCod(rs.getInt("cod"));
-                p.setCodigoBarras(rs.getInt("codigoBarras"));
+                p.setCodigoBarras(rs.getString("codigoBarras"));
                 p.setNome(rs.getString("nome"));
                 p.setUnidadeMedida(rs.getString("unidadeMedida"));
                 p.setPreco(rs.getDouble("preco"));
@@ -83,7 +83,7 @@ public class ProdutoController {
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, produtoModel.getCod());
-            pstmt.setInt(2, produtoModel.getCodigoBarras());
+            pstmt.setString(2, produtoModel.getCodigoBarras());
             pstmt.setString(3, produtoModel.getNome());
             pstmt.executeUpdate();
             pstmt.close();
