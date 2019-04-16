@@ -59,6 +59,7 @@ public class Produtos extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -78,6 +79,9 @@ public class Produtos extends javax.swing.JPanel {
             }
         });
         tblProdutos.setFocusable(false);
+        tblProdutos.setGridColor(new java.awt.Color(204, 204, 204));
+        tblProdutos.setRowHeight(18);
+        tblProdutos.setSelectionBackground(new java.awt.Color(102, 153, 255));
         tblProdutos.getTableHeader().setReorderingAllowed(false);
         tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -239,7 +243,7 @@ public class Produtos extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -270,7 +274,7 @@ public class Produtos extends javax.swing.JPanel {
         } else {
             NovoProduto novo = NovoProduto.getInstancia();
             novo.setVisible(true);
-            novo.alterarTitulo("PRODUTO "+tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2));
+            novo.alterarTitulo("Editando o produto "+tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2));
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 

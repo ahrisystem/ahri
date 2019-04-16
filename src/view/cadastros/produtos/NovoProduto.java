@@ -16,13 +16,11 @@ public class NovoProduto extends javax.swing.JFrame {
     
     public void alterarTitulo(String titulo){
         lblTítulo.setText(titulo);
+        
     }
 
     private NovoProduto() {
         initComponents();
-        if (lblTítulo.getText().contains("NOVO")) {
-            
-        }
         setLocationRelativeTo(null);
     }
     public void limpaCampos(){
