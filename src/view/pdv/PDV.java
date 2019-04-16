@@ -1,18 +1,10 @@
 package view.pdv;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public class PDV extends javax.swing.JFrame{
-
-    int numeroContas = 20;
-    JLabel[] meulabel = new JLabel[numeroContas];
-    
-    
     public PDV() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -31,10 +23,11 @@ public class PDV extends javax.swing.JFrame{
         jPanel2 = new javax.swing.JPanel();
         lblTotal = new javax.swing.JLabel();
         lblTotal1 = new javax.swing.JLabel();
+        txtDescontoTotal = new javax.swing.JFormattedTextField();
         lblTotal3 = new javax.swing.JLabel();
         lblTotal4 = new javax.swing.JLabel();
         scpTabelaItens1 = new javax.swing.JScrollPane();
-        tabelaItens1 = new javax.swing.JTable();
+        tabelaPesquisa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ponto de venda");
@@ -126,6 +119,13 @@ public class PDV extends javax.swing.JFrame{
         lblTotal1.setFocusable(false);
         jPanel2.add(lblTotal1);
 
+        txtDescontoTotal.setBackground(new java.awt.Color(240, 240, 240));
+        txtDescontoTotal.setBorder(null);
+        txtDescontoTotal.setForeground(new java.awt.Color(0, 153, 0));
+        txtDescontoTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        txtDescontoTotal.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jPanel2.add(txtDescontoTotal);
+
         lblTotal3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTotal3.setForeground(new java.awt.Color(0, 204, 0));
         lblTotal3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -143,9 +143,9 @@ public class PDV extends javax.swing.JFrame{
         scpTabelaItens1.setFocusable(false);
         scpTabelaItens1.setOpaque(false);
 
-        tabelaItens1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        tabelaItens1.setForeground(new java.awt.Color(255, 255, 255));
-        tabelaItens1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabelaPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        tabelaPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -161,14 +161,14 @@ public class PDV extends javax.swing.JFrame{
                 return canEdit [columnIndex];
             }
         });
-        tabelaItens1.setFocusable(false);
-        tabelaItens1.setGridColor(new java.awt.Color(102, 102, 102));
-        tabelaItens1.setOpaque(false);
-        tabelaItens1.setRowHeight(20);
-        tabelaItens1.setSelectionBackground(new java.awt.Color(0, 102, 204));
-        scpTabelaItens1.setViewportView(tabelaItens1);
-        if (tabelaItens1.getColumnModel().getColumnCount() > 0) {
-            tabelaItens1.getColumnModel().getColumn(1).setPreferredWidth(130);
+        tabelaPesquisa.setFocusable(false);
+        tabelaPesquisa.setGridColor(new java.awt.Color(102, 102, 102));
+        tabelaPesquisa.setOpaque(false);
+        tabelaPesquisa.setRowHeight(20);
+        tabelaPesquisa.setSelectionBackground(new java.awt.Color(0, 102, 204));
+        scpTabelaItens1.setViewportView(tabelaPesquisa);
+        if (tabelaPesquisa.getColumnModel().getColumnCount() > 0) {
+            tabelaPesquisa.getColumnModel().getColumn(1).setPreferredWidth(130);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -230,7 +230,7 @@ public class PDV extends javax.swing.JFrame{
             if (txtInput.getText().equalsIgnoreCase("")) {
             } else {
                 if (Integer.parseInt(txtInput.getText()) > 0) {
-                    if (meulabel[Integer.parseInt(txtInput.getText())].isVisible()) {
+                    if (true) {
                         
                         
                     } else {
@@ -303,7 +303,8 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JScrollPane scpTabelaItens;
     private javax.swing.JScrollPane scpTabelaItens1;
     private javax.swing.JTable tabelaItens;
-    private javax.swing.JTable tabelaItens1;
+    private javax.swing.JTable tabelaPesquisa;
+    private javax.swing.JFormattedTextField txtDescontoTotal;
     private javax.swing.JTextField txtInput;
     // End of variables declaration//GEN-END:variables
 
