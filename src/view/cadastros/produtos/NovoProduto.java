@@ -26,6 +26,12 @@ public class NovoProduto extends javax.swing.JFrame {
     public void limpaCampos(){
         txtCodigo.setText("");
         txtEAN.setText("");
+        txtNome.setText("");
+        txtPreco.setText("");
+        txtCusto.setText("");
+        txtNCM.setText("");
+        txtCEST.setText("");
+        txtAliquota.setText("");
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -493,18 +499,19 @@ public class NovoProduto extends javax.swing.JFrame {
             } else {
                 ProdutoModel pm = new ProdutoModel();
                 pm.setCod(Integer.parseInt(txtCodigo.getText()));
+                pm.setServico(txtServico.isEnabled());
                 pm.setCodigoBarras(txtEAN.getText());
                 pm.setNome(txtNome.getText());
                 pm.setInativo(false);
                 pm.setGrupo(txtGrupo.getSelectedItem().toString());
                 pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
                 pm.setEstoque(0);
-                double preco = Double.parseDouble(txtPreco.getText().replaceAll(",", "."));
-                pm.setPreco(preco);
+                pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
+                pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
                 pm.setNcm(txtNCM.getText());
+                pm.setCest(txtCEST.getText());
                 pc.cadastraProduto(pm);
-
-                System.exit(0);
+                limpaCampos();
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
