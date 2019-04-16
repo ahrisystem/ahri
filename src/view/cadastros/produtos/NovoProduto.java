@@ -14,6 +14,9 @@ public class NovoProduto extends javax.swing.JFrame {
     public static NovoProduto getInstancia() {
         return INSTANCIA;
     }
+    public void alterarTitulo(String titulo){
+        lblTítulo.setText(titulo);
+   }
 
     private NovoProduto() {
         initComponents();
