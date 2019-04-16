@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class connection {
 
@@ -24,7 +25,15 @@ public class connection {
             conexao = DriverManager.getConnection(URL, USER, PASS);
             System.out.println("Conexão com o banco efetuada.");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            if (JOptionPane.showConfirmDialog(null, "Problema para conectar ao banco de dados.\n"
+                    + "Verifique em SERVIÇOS se está iniciado o postgresql\n"
+                    + "Verifique as credenciais de acesso ao banco de dados\n"
+                    + "Veja se o FIREWALL está ativo (caso este não for o servidor).\n"
+                    + "Mostrar o erro ocorrido?", "Ops, um problema!", 0)== 0) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } else {
+                
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(connection.class.getName()).log(Level.SEVERE, null, ex);
         }
