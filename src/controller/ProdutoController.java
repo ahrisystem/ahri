@@ -20,18 +20,21 @@ public class ProdutoController {
     }
 
     public void cadastraProduto(ProdutoModel pModel) {
-        String sql = "INSERT INTO public.produto(cod, \"codigoBarras\", inativo, nome, grupo, \"unidadeMedida\", estoque, preco, ncm) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO public.produto(cod,servico, \"codigoBarras\", inativo, nome, grupo, \"unidadeMedida\",estoque, preco, custo, ncm, cest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, pModel.getCod());
-            pstmt.setString(2, pModel.getCodigoBarras());
-            pstmt.setBoolean(3, pModel.isInativo());
-            pstmt.setString(4, pModel.getNome());
-            pstmt.setString(5, pModel.getGrupo());
-            pstmt.setString(6, pModel.getUnidadeMedida());
-            pstmt.setInt(7, pModel.getEstoque());
-            pstmt.setDouble(8, pModel.getPreco());
-            pstmt.setString(9, pModel.getNcm());
+            pstmt.setBoolean(2, pModel.isServico());
+            pstmt.setString(3, pModel.getCodigoBarras());
+            pstmt.setBoolean(4, pModel.isInativo());
+            pstmt.setString(5, pModel.getNome());
+            pstmt.setString(6, pModel.getGrupo());
+            pstmt.setString(7, pModel.getUnidadeMedida());
+            pstmt.setInt(8, pModel.getEstoque());
+            pstmt.setDouble(9, pModel.getPreco());
+            pstmt.setDouble(10, pModel.getCusto());
+            pstmt.setString(11, pModel.getNcm());
+            pstmt.setString(12, pModel.getCest());
             pstmt.execute();
             pstmt.close();
             JOptionPane.showMessageDialog(null, "Produto "+pModel.getNome()+" salvo com sucesso!");
@@ -77,9 +80,9 @@ public class ProdutoController {
         return cod;
     }
 
-    public void alterarProduto(ProdutoModel produtoModel) {
+    public void alterarProduto(ProdutoModel produtoModel, int codigo) {
 
-        String sql = "UPDATE cliente SET nome = ?, email = ?, telefone = ? WHERE idcliente = ?";
+        String sql = "UPDATE public.produto SET servico=?, cod=?, \"codigoBarras\"=?, inativo=?, nome=?, grupo=?, \"unidadeMedida\"=?, estoque=?, preco=?, custo=?, ncm=?, cest=? WHERE cod = "+codigo+";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, produtoModel.getCod());
