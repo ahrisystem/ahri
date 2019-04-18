@@ -58,7 +58,7 @@ public class NovoProduto extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         painelAbas = new javax.swing.JTabbedPane();
         painelInformacoesFiscais = new javax.swing.JPanel();
-        lblCodigo1 = new javax.swing.JLabel();
+        lblNCM = new javax.swing.JLabel();
         txtNCMdescricao = new javax.swing.JTextField();
         txtNCM = new javax.swing.JTextField();
         lblCodigo2 = new javax.swing.JLabel();
@@ -250,11 +250,11 @@ public class NovoProduto extends javax.swing.JFrame {
         painelInformacoesFiscais.setBackground(new java.awt.Color(255, 255, 255));
         painelInformacoesFiscais.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblCodigo1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo1.setForeground(new java.awt.Color(51, 105, 191));
-        lblCodigo1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo1.setText("NCM");
-        painelInformacoesFiscais.add(lblCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
+        lblNCM.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblNCM.setForeground(new java.awt.Color(51, 105, 191));
+        lblNCM.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNCM.setText("NCM");
+        painelInformacoesFiscais.add(lblNCM, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 20));
 
         txtNCMdescricao.setEditable(false);
         txtNCMdescricao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -497,21 +497,25 @@ public class NovoProduto extends javax.swing.JFrame {
             if (txtPreco.getText().equalsIgnoreCase("") || txtPreco.getText().equalsIgnoreCase("0,00")) {
                 JOptionPane.showMessageDialog(null, "Verifique o preço!");
             } else {
-                ProdutoModel pm = new ProdutoModel();
-                pm.setCod(Integer.parseInt(txtCodigo.getText()));
-                pm.setServico(txtServico.isEnabled());
-                pm.setCodigoBarras(txtEAN.getText());
-                pm.setNome(txtNome.getText());
-                pm.setInativo(false);
-                pm.setGrupo(txtGrupo.getSelectedItem().toString());
-                pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
-                pm.setEstoque(0);
-                pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
-                pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
-                pm.setNcm(txtNCM.getText());
-                pm.setCest(txtCEST.getText());
-                pc.cadastraProduto(pm);
-                limpaCampos();
+                if (txtNCM.getText().equalsIgnoreCase("")) {
+                    JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
+                } else {
+                    ProdutoModel pm = new ProdutoModel();
+                    pm.setCod(Integer.parseInt(txtCodigo.getText()));
+                    pm.setServico(txtServico.isEnabled());
+                    pm.setCodigoBarras(txtEAN.getText());
+                    pm.setNome(txtNome.getText());
+                    pm.setInativo(false);
+                    pm.setGrupo(txtGrupo.getSelectedItem().toString());
+                    pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
+                    pm.setEstoque(0);
+                    pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
+                    pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
+                    pm.setNcm(txtNCM.getText());
+                    pm.setCest(txtCEST.getText());
+                    pc.cadastraProduto(pm);
+                    limpaCampos();
+                }
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -599,9 +603,10 @@ public class NovoProduto extends javax.swing.JFrame {
     private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
         if (txtServico.isSelected()) {
             txtEAN.setEnabled(false);
-            painelInformacoesFiscais.setEnabled(false);
+            lblNCM.setText("NBS");
         } else {
             txtEAN.setEnabled(true);
+            lblNCM.setText("NCM");
         }
     }//GEN-LAST:event_txtServicoMouseReleased
 
@@ -651,7 +656,6 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel lblCOFINS;
     private javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblCodigo1;
     private javax.swing.JLabel lblCodigo11;
     private javax.swing.JLabel lblCodigo13;
     private javax.swing.JLabel lblCodigo14;
@@ -665,6 +669,7 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblCusto;
     private javax.swing.JLabel lblEAN;
     private javax.swing.JLabel lblGrupo;
+    private javax.swing.JLabel lblNCM;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPIS;
     private javax.swing.JLabel lblPreco;
