@@ -1,6 +1,7 @@
 package model;
 
 public class ProdutoModel {
+    private int editar;
     
     private int cod;
     private boolean servico;
@@ -14,6 +15,14 @@ public class ProdutoModel {
     private double custo;
     private String ncm;
     private String cest;
+
+    public int getEditar() {
+        return editar;
+    }
+
+    public void setEditar(int editar) {
+        this.editar = editar;
+    }
 
     public int getCod() {
         return cod;
