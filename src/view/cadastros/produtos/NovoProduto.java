@@ -4,28 +4,13 @@ import controller.ProdutoController;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.ProdutoModel;
-import view.TelaInicial;
 
 public class NovoProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
     private static final NovoProduto INSTANCIA = new NovoProduto();
-    boolean novo;
-    static String cod;
     
-    /**
-     * @param novo = diz se é um novo produto ou a edição de um produto
-     * @param codigo = se for edição, informar o código
-     * @return
-     */
-    public static NovoProduto getInstancia(boolean novo, String codigo) {
-        if (novo) {
-            //gerar a tela normalmente para um novo produto
-            novo=false;
-        } else {
-            //preencher os campos com a variável código, no caso de edição de produto
-            novo=true;
-            cod=codigo;
-        }
+    
+    public static NovoProduto getInstancia() {
         return INSTANCIA;
     }
     
@@ -36,13 +21,6 @@ public class NovoProduto extends javax.swing.JFrame {
     private NovoProduto() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-    
-    public void puxarDados(String codigo){
-        ProdutoModel pm = new ProdutoModel();
-        pc.puxarDados(pm, Integer.parseInt(codigo));
-        txtCodigo.setText(codigo);
-        txtEAN.setText(pm.getCodigoBarras());
     }
     
     public void limpaCampos(){

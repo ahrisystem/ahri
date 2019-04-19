@@ -267,7 +267,7 @@ public class Produtos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoProduto novo = NovoProduto.getInstancia(true, null);
+        NovoProduto novo = NovoProduto.getInstancia();
         novo.alterarTitulo("NOVO PRODUTO");
         novo.setVisible(true);
         listar();
@@ -277,7 +277,7 @@ public class Produtos extends javax.swing.JPanel {
         if (tblProdutos.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            NovoProduto novo = NovoProduto.getInstancia(false, tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
+            NovoProduto novo = NovoProduto.getInstancia();
             novo.setVisible(true);
             novo.alterarTitulo("Editando o produto "+tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2));
         }
