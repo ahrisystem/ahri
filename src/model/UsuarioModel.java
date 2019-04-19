@@ -1,17 +1,29 @@
 package model;
 
-public class UsuarioModel {
-    private String cod;
-    private String nome;
-    private String dataCadastro;
-    private String codigoPerfilUsuario;
+import java.util.Date;
 
-    public String getCod() {
-        return cod;
+public class UsuarioModel {
+    private String login;
+    private boolean administrador;
+    private String nome;
+    private String PerfilUsuario;
+    private String Senha;
+    private Date dataCadastro;
+
+    public String getLogin() {
+        return login;
     }
 
-    public void setCod(String cod) {
-        this.cod = cod;
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public boolean isAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(boolean administrador) {
+        this.administrador = administrador;
     }
 
     public String getNome() {
@@ -22,21 +34,29 @@ public class UsuarioModel {
         this.nome = nome;
     }
 
-    public String getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(String dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public String getCodigoPerfilUsuario() {
-        return codigoPerfilUsuario;
+    
+
+    public String getPerfilUsuario() {
+        return PerfilUsuario;
     }
 
-    public void setCodigoPerfilUsuario(String codigoPerfilUsuario) {
-        this.codigoPerfilUsuario = codigoPerfilUsuario;
+    public void setPerfilUsuario(String PerfilUsuario) {
+        this.PerfilUsuario = PerfilUsuario;
     }
-    
-    
+
+    public String getSenha() {
+        return Senha;
+    }
+
+    public void setSenha(String Senha) {
+        this.Senha = Senha;
+    }
 }

@@ -1,11 +1,16 @@
 package view.cadastros.usuarios;
 
+import controller.UsuarioController;
+import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import model.UsuarioModel;
 import view.TelaInicial;
 
 
 public class NovoUsuario extends javax.swing.JFrame {
-    int fisica = 0;
+    UsuarioController pc = new UsuarioController();
     private static final NovoUsuario INSTANCIA = new NovoUsuario();
 
     public static NovoUsuario getInstancia() {
@@ -17,32 +22,33 @@ public class NovoUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-
+    
+    public void limpaCampos(){
+        txtLogin.setText("");
+        txtNome.setText("");
+        txtSenha.setText("");
+        txtAdministrador.setSelected(false);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        lblTitulo9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        lblTitulo1 = new javax.swing.JLabel();
-        lblTitulo2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        lblTitulo3 = new javax.swing.JLabel();
-        lblTitulo7 = new javax.swing.JLabel();
-        lblTitulo8 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
-        jTextField2 = new javax.swing.JTextField();
-        lblTitulo10 = new javax.swing.JLabel();
-        txtTelFixo = new javax.swing.JFormattedTextField();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
-        lblTitulo11 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        lblTitulo12 = new javax.swing.JLabel();
-        btnSalvar1 = new javax.swing.JButton();
-        btnDescartar1 = new javax.swing.JButton();
+        painelPrincipal = new javax.swing.JPanel();
+        lblAjudaPerfil = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
+        txtPerfil = new javax.swing.JComboBox<>();
+        lblAjudaLogin = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
+        txtLogin = new javax.swing.JTextField();
+        lblPerfil = new javax.swing.JLabel();
+        txtAdministrador = new javax.swing.JCheckBox();
+        btnSalvar = new javax.swing.JButton();
+        btnSair = new javax.swing.JButton();
+        lblNome = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -51,156 +57,117 @@ public class NovoUsuario extends javax.swing.JFrame {
                 formWindowClosed(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 105, 191));
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("NOVO USUÁRIO");
+        lblTitulo.setText("NOVO USUÁRIO DO SISTEMA");
         lblTitulo.setOpaque(true);
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 50));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        painelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo9.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo9.setText("?");
-        lblTitulo9.setToolTipText("Permissões pré-definidas que usuário terá no sistema.");
-        jPanel2.add(lblTitulo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, 30, 20));
+        lblAjudaPerfil.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblAjudaPerfil.setForeground(new java.awt.Color(51, 105, 191));
+        lblAjudaPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAjudaPerfil.setText("?");
+        lblAjudaPerfil.setToolTipText("Permissões pré-definidas que usuário terá no sistema.\nCaso seja ADMINISTRADOR, não será necessário.");
+        painelPrincipal.add(lblAjudaPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 30, 20));
 
-        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 20));
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 510, 20));
+        txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 510, 20));
 
-        lblTitulo1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo1.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo1.setText("Nome");
-        jPanel2.add(lblTitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 80, 20));
+        lblSenha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblSenha.setForeground(new java.awt.Color(51, 105, 191));
+        lblSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSenha.setText("Senha");
+        painelPrincipal.add(lblSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
 
-        lblTitulo2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo2.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo2.setText("Cidade");
-        jPanel2.add(lblTitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 110, 20));
+        txtPerfil.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        painelPrincipal.add(txtPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 430, 20));
 
-        jComboBox1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 430, 20));
+        lblAjudaLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblAjudaLogin.setForeground(new java.awt.Color(51, 105, 191));
+        lblAjudaLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAjudaLogin.setText("?");
+        lblAjudaLogin.setToolTipText("Campo para logar no sistema");
+        painelPrincipal.add(lblAjudaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 30, 20));
 
-        lblTitulo3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo3.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo3.setText("?");
-        lblTitulo3.setToolTipText("Campo para logar no sistema");
-        jPanel2.add(lblTitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 30, 20));
+        lblLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblLogin.setForeground(new java.awt.Color(51, 105, 191));
+        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogin.setText("Login");
+        painelPrincipal.add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, 20));
 
-        lblTitulo7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo7.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo7.setText("Login");
-        jPanel2.add(lblTitulo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 20));
+        txtLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
+        txtLogin.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 190, 20));
 
-        lblTitulo8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo8.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo8.setText("UF");
-        jPanel2.add(lblTitulo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
+        lblPerfil.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblPerfil.setForeground(new java.awt.Color(51, 105, 191));
+        lblPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPerfil.setText("Perfil");
+        painelPrincipal.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 80, 20));
 
-        jComboBox2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 70, 20));
-
-        try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextField2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jPanel2.add(jFormattedTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 10, 210, 20));
-
-        jTextField2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
-        jTextField2.setPreferredSize(new java.awt.Dimension(200, 20));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 190, 20));
-
-        lblTitulo10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo10.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo10.setText("Perfil");
-        jPanel2.add(lblTitulo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 20));
-
-        try {
-            txtTelFixo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtTelFixo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtTelFixo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTelFixoActionPerformed(evt);
+        txtAdministrador.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtAdministrador.setText("Administrador");
+        txtAdministrador.setOpaque(false);
+        txtAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtAdministradorMouseReleased(evt);
             }
         });
-        jPanel2.add(txtTelFixo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 210, -1));
+        painelPrincipal.add(txtAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 120, 20));
 
-        try {
-            jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextField4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jPanel2.add(jFormattedTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 210, -1));
-
-        lblTitulo11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo11.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo11.setText("CPF");
-        jPanel2.add(lblTitulo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 80, 20));
-
-        jComboBox3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 330, 20));
-
-        lblTitulo12.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo12.setForeground(new java.awt.Color(51, 105, 191));
-        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo12.setText("Contato");
-        jPanel2.add(lblTitulo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
-
-        btnSalvar1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnSalvar1.setText("Salvar");
-        btnSalvar1.setFocusable(false);
-        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvar1ActionPerformed(evt);
+        btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.setFocusable(false);
+        btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSalvarMouseExited(evt);
             }
         });
-        jPanel2.add(btnSalvar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 80, 40));
-
-        btnDescartar1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnDescartar1.setText("Descartar");
-        btnDescartar1.setFocusable(false);
-        btnDescartar1.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDescartar1ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnDescartar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, -1, 40));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 80, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE))
-        );
+        btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setFocusable(false);
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSairMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSairMouseExited(evt);
+            }
+        });
+        btnSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSairActionPerformed(evt);
+            }
+        });
+        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 80, 40));
+
+        lblNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblNome.setForeground(new java.awt.Color(51, 105, 191));
+        lblNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNome.setText("Nome");
+        painelPrincipal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 80, 20));
+        painelPrincipal.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 350, -1));
+
+        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 610, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -210,27 +177,57 @@ public class NovoUsuario extends javax.swing.JFrame {
         telainicial.opcoes = false;
     }//GEN-LAST:event_formWindowClosed
 
-    private void txtTelFixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelFixoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelFixoActionPerformed
+    private void txtAdministradorMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAdministradorMouseReleased
+        if (txtAdministrador.isSelected()) {
+            txtPerfil.setEnabled(false);
+        } else {
+            txtPerfil.setEnabled(true);
+        }
+    }//GEN-LAST:event_txtAdministradorMouseReleased
 
-    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
-        int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Salvar alterações?", "Salvar", opcao) == 0) {
-            if (JOptionPane.showInputDialog(null, "Senha do usuário", "Nova senha", 1).equalsIgnoreCase("")) {
+    private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
+        btnSair.setForeground(Color.RED);
+    }//GEN-LAST:event_btnSairMouseEntered
 
+    private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
+        btnSair.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnSairMouseExited
+
+    private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
+        this.dispose();
+        limpaCampos();
+    }//GEN-LAST:event_btnSairActionPerformed
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        btnSalvar.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
+        btnSalvar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnSalvarMouseExited
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (txtLogin.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Preencha o login!");
+        } else {
+            if (txtNome.getText().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(null, "Preencha o nome!");
             } else {
-                this.dispose();
+                UsuarioModel um = new UsuarioModel();
+                um.setLogin(txtLogin.getText());
+                um.setAdministrador(txtAdministrador.isSelected());
+                um.setNome(txtNome.getText());
+                if (txtPerfil.getSelectedItem() == null) {
+                    um.setPerfilUsuario("0");
+                } else {
+                    um.setPerfilUsuario(txtPerfil.getSelectedItem().toString());
+                }
+                um.setSenha(txtSenha.getText());
+                pc.cadastraUsuario(um);
+                limpaCampos();
             }
         }
-    }//GEN-LAST:event_btnSalvar1ActionPerformed
-
-    private void btnDescartar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescartar1ActionPerformed
-        int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Descartar alterações?", "Cancelar", opcao) == 0) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnDescartar1ActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,26 +262,20 @@ public class NovoUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDescartar1;
-    private javax.swing.JButton btnSalvar1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JLabel lblAjudaLogin;
+    private javax.swing.JLabel lblAjudaPerfil;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblPerfil;
+    private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo1;
-    private javax.swing.JLabel lblTitulo10;
-    private javax.swing.JLabel lblTitulo11;
-    private javax.swing.JLabel lblTitulo12;
-    private javax.swing.JLabel lblTitulo2;
-    private javax.swing.JLabel lblTitulo3;
-    private javax.swing.JLabel lblTitulo7;
-    private javax.swing.JLabel lblTitulo8;
-    private javax.swing.JLabel lblTitulo9;
-    private javax.swing.JFormattedTextField txtTelFixo;
+    private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JCheckBox txtAdministrador;
+    private javax.swing.JTextField txtLogin;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JComboBox<String> txtPerfil;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
