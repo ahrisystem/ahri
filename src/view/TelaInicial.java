@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import view.cadastros.clientes.Clientes;
 import view.pdv.PDV;
 import view.cadastros.clientes.NovoCliente;
-import view.cadastros.vendas.Orcamentos;
 import view.cadastros.produtos.Produtos;
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -811,19 +810,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao3MousePressed
         if (inicial) {
-            Orcamentos orcamentos = Orcamentos.getInstancia();
-            painelPrincipal.addTab("Orçamentos", orcamentos);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
-            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+            
         }
         if (cadastros) {
             
         }
         if (vendas) {
-            Orcamentos orcamentos = Orcamentos.getInstancia();
-            painelPrincipal.addTab("Orçamentos", orcamentos);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
-            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+            
         }
     }//GEN-LAST:event_opcao3MousePressed
 

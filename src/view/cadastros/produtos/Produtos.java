@@ -58,6 +58,11 @@ public class Produtos extends javax.swing.JPanel {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                jPanel1ComponentHidden(evt);
+            }
+        });
 
         tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -262,7 +267,7 @@ public class Produtos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoProduto novo = NovoProduto.getInstancia();
+        NovoProduto novo = NovoProduto.getInstancia(true, null);
         novo.alterarTitulo("NOVO PRODUTO");
         novo.setVisible(true);
         listar();
@@ -272,8 +277,7 @@ public class Produtos extends javax.swing.JPanel {
         if (tblProdutos.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            
-            NovoProduto novo = NovoProduto.getInstancia();
+            NovoProduto novo = NovoProduto.getInstancia(false, tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
             novo.setVisible(true);
             novo.alterarTitulo("Editando o produto "+tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2));
         }
@@ -316,6 +320,10 @@ public class Produtos extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         }
     }//GEN-LAST:event_btnAlterarCodigoMouseReleased
+
+    private void jPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentHidden
+        System.out.println("passou");
+    }//GEN-LAST:event_jPanel1ComponentHidden
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

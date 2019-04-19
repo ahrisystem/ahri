@@ -9,26 +9,48 @@ import view.TelaInicial;
 public class NovoProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
     private static final NovoProduto INSTANCIA = new NovoProduto();
+    boolean novo;
+    static String cod;
     
-    public static NovoProduto getInstancia() {
+    /**
+     * @param novo = diz se é um novo produto ou a edição de um produto
+     * @param codigo = se for edição, informar o código
+     * @return
+     */
+    public static NovoProduto getInstancia(boolean novo, String codigo) {
+        if (novo) {
+            //gerar a tela normalmente para um novo produto
+            novo=false;
+        } else {
+            //preencher os campos com a variável código, no caso de edição de produto
+            novo=true;
+            cod=codigo;
+        }
         return INSTANCIA;
     }
     
     public void alterarTitulo(String titulo){
         lblTítulo.setText(titulo);
-        
     }
 
     private NovoProduto() {
         initComponents();
         setLocationRelativeTo(null);
     }
+    
+    public void puxarDados(String codigo){
+        ProdutoModel pm = new ProdutoModel();
+        pc.puxarDados(pm, Integer.parseInt(codigo));
+        txtCodigo.setText(codigo);
+        txtEAN.setText(pm.getCodigoBarras());
+    }
+    
     public void limpaCampos(){
         txtCodigo.setText("");
         txtEAN.setText("");
         txtNome.setText("");
-        txtPreco.setText("");
-        txtCusto.setText("");
+        txtPreco.setText("0,00");
+        txtCusto.setText("0,00");
         txtNCM.setText("");
         txtCEST.setText("");
         txtAliquota.setText("");
@@ -96,6 +118,9 @@ public class NovoProduto extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -194,7 +219,7 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal.add(lblPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 70, 30));
 
         txtPreco.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         painelPrincipal.add(txtPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 30));
 
@@ -205,8 +230,13 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal.add(lblCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 70, 30));
 
         txtCusto.setForeground(new java.awt.Color(204, 0, 51));
-        txtCusto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        txtCusto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtCusto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        txtCusto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCustoActionPerformed(evt);
+            }
+        });
         painelPrincipal.add(txtCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 100, 30));
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -486,8 +516,7 @@ public class NovoProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        TelaInicial telainicial = new TelaInicial();
-        telainicial.opcoes = false;
+        
     }//GEN-LAST:event_formWindowClosed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -522,6 +551,7 @@ public class NovoProduto extends javax.swing.JFrame {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.dispose();
+        limpaCampos();
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
@@ -621,6 +651,15 @@ public class NovoProduto extends javax.swing.JFrame {
             txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
         }
     }//GEN-LAST:event_txtCodigoFocusLost
+
+    private void txtCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCustoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        System.out.println("aberta");
+    }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
