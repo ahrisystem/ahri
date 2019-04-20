@@ -2,12 +2,12 @@ package model;
 
 public class EntidadeModel {
 
-    private String cod;
+    private int cod;
     private int tipoPessoa; //Jurídica - 0; física - 1
-    private String cliente; //0 - não; 1 - sim;
-    private String fornecedor; //0 - não; 1 - sim;
+    private int cliente; //0 - não; 1 - sim;
+    private int fornecedor; //0 - não; 1 - sim;
 
-    private int CNPJ; //CNPJ ou CPF do destinatário	
+    private String CNPJ; //CNPJ ou CPF do destinatário	
     private String xNome; //Razão  Social  ou  nome do destinatário	
 //<enderDest>
     private String xLgr; //Logradouro	
@@ -27,14 +27,13 @@ public class EntidadeModel {
     private int ISUF; //Inscrição na SUFRAMA	
     private String email; //email do emitente
 
-    public String getCod() {
+    public int getCod() {
         return cod;
     }
 
-    public void setCod(String cod) {
+    public void setCod(int cod) {
         this.cod = cod;
     }
-
     public int getTipoPessoa() {
         return tipoPessoa;
     }
@@ -43,32 +42,29 @@ public class EntidadeModel {
         this.tipoPessoa = tipoPessoa;
     }
 
-    public String getCliente() {
+    public int getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(int cliente) {
         this.cliente = cliente;
     }
 
-    public String getFornecedor() {
+    public int getFornecedor() {
         return fornecedor;
     }
 
-    public void setFornecedor(String fornecedor) {
+    public void setFornecedor(int fornecedor) {
         this.fornecedor = fornecedor;
     }
 
-    
-
-    public int getCNPJ() {
+    public String getCNPJ() {
         return CNPJ;
     }
 
-    public void setCNPJ(int CNPJ) {
+    public void setCNPJ(String CNPJ) {
         this.CNPJ = CNPJ;
     }
-
     public String getxNome() {
         return xNome;
     }

@@ -30,7 +30,7 @@
           <Group type="102" attributes="0">
               <Component id="lblCod" min="-2" pref="120" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblTitulo" min="-2" pref="565" max="-2" attributes="0"/>
+              <Component id="lblTitulo" max="32767" attributes="0"/>
           </Group>
           <Component id="painelPrincipal" max="32767" attributes="0"/>
       </Group>
@@ -38,9 +38,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblCod" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="lblTitulo" min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblTitulo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="lblCod" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="painelPrincipal" max="32767" attributes="0"/>
@@ -95,44 +95,28 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblCliente" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCliente" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="lblPlaca" min="-2" pref="90" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPlaca" min="-2" pref="154" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtCliente2" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="btnNovoCliente" min="-2" pref="40" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtPlaca2" max="32767" attributes="0"/>
-                      </Group>
                       <Component id="lblTitulo11" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtPesquisaProduto2" max="32767" attributes="0"/>
+                                      <Component id="txtProduto" max="32767" attributes="0"/>
                                       <Component id="lblTitulo8" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="jFormattedTextField1" min="-2" pref="107" max="-2" attributes="0"/>
+                                          <Component id="txtValorUnitarioProduto" min="-2" pref="107" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="lblTitulo10" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="jFormattedTextField2" min="-2" pref="107" max="-2" attributes="0"/>
+                                          <Component id="txtValorDescontoProduto" min="-2" pref="107" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="lblTitulo9" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtPesquisaProduto1" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <Component id="txtQuantidadeProduto" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="txtPesquisaProduto" max="32767" attributes="0"/>
+                                      <Component id="txtDescricaoProduto" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
@@ -141,17 +125,37 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="lblTitulo12" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jFormattedTextField5" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="txtValorBruto" min="-2" pref="107" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jFormattedTextField4" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="txtTotalDescontos" min="-2" pref="107" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jFormattedTextField3" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="txtTotal" min="-2" pref="107" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnSalvar" min="-2" pref="110" max="-2" attributes="0"/>
                               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lblPlaca" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="lblPlaca1" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtPlaca" pref="106" max="32767" attributes="0"/>
+                              <Component id="txtCliente" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="txtCliente2" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnNovoCliente" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="txtPlaca2" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -162,20 +166,17 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblCliente" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lblPlaca" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="txtPlaca" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="txtCliente" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtCliente" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="txtCliente2" alignment="3" pref="30" max="32767" attributes="0"/>
+                      <Component id="btnNovoCliente" alignment="1" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="lblPlaca" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtPlaca2" alignment="0" pref="30" max="32767" attributes="0"/>
-                      <Component id="txtCliente2" alignment="0" pref="30" max="32767" attributes="0"/>
-                      <Component id="btnNovoCliente" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtPlaca2" alignment="0" pref="31" max="32767" attributes="0"/>
+                      <Component id="lblPlaca1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtPlaca" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblTitulo11" min="-2" max="-2" attributes="0"/>
@@ -183,29 +184,29 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtPesquisaProduto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txtPesquisaProduto2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtDescricaoProduto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtProduto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="lblTitulo8" max="32767" attributes="0"/>
-                                  <Component id="jFormattedTextField2" alignment="0" pref="30" max="32767" attributes="0"/>
-                                  <Component id="jFormattedTextField1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtValorDescontoProduto" alignment="0" pref="30" max="32767" attributes="0"/>
+                                  <Component id="txtValorUnitarioProduto" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lblTitulo10" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="lblTitulo9" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="txtPesquisaProduto1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txtQuantidadeProduto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jFormattedTextField5" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jFormattedTextField4" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jFormattedTextField3" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtValorBruto" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtTotalDescontos" alignment="1" max="32767" attributes="0"/>
+                              <Component id="txtTotal" alignment="1" max="32767" attributes="0"/>
                               <Component id="lblTitulo12" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -222,15 +223,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblCliente">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="15" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Cliente"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JTextField" name="txtCliente2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -268,7 +260,7 @@
               <Color blue="bf" green="69" red="33" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Placa"/>
+            <Property name="text" type="java.lang.String" value="Cliente"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPlaca">
@@ -298,7 +290,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tblClientes">
+            <Component class="javax.swing.JTable" name="tblProdutos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -316,6 +308,7 @@
                     <Column editable="false" title="Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
+                <Property name="toolTipText" type="java.lang.String" value="Tabela de produtos"/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -362,9 +355,9 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="txtPesquisaProduto">
+        <Component class="javax.swing.JTextField" name="txtDescricaoProduto">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesquisaProdutoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDescricaoProdutoActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel1">
@@ -388,7 +381,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="0" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="40" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -407,26 +400,26 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="40" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="80" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="btnSair4">
+            <Component class="javax.swing.JButton" name="btnAdicionarProduto">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Editar"/>
+                <Property name="text" type="java.lang.String" value="Adicionar"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSair4MouseEntered"/>
-                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSair4MouseExited"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSair4ActionPerformed"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAdicionarProdutoMouseEntered"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAdicionarProdutoMouseExited"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarProdutoActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="80" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="0" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -441,7 +434,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="210" width="110" height="30"/>
+                  <AbsoluteConstraints x="0" y="240" width="110" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -459,7 +452,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="130" width="110" height="20"/>
+                  <AbsoluteConstraints x="0" y="160" width="110" height="20"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -474,7 +467,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="150" width="110" height="30"/>
+                  <AbsoluteConstraints x="0" y="180" width="110" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -489,7 +482,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="180" width="110" height="30"/>
+                  <AbsoluteConstraints x="0" y="210" width="110" height="30"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -504,9 +497,9 @@
             <Property name="text" type="java.lang.String" value="Quantidade:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPesquisaProduto1">
+        <Component class="javax.swing.JTextField" name="txtQuantidadeProduto">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesquisaProduto1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQuantidadeProdutoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo8">
@@ -518,14 +511,14 @@
             <Property name="text" type="java.lang.String" value="Valor Un:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
+        <Component class="javax.swing.JFormattedTextField" name="txtValorUnitarioProduto">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format subtype="0" type="4"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField2">
+        <Component class="javax.swing.JFormattedTextField" name="txtValorDescontoProduto">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format subtype="0" type="4"/>
@@ -597,9 +590,9 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtPesquisaProduto2">
+        <Component class="javax.swing.JTextField" name="txtProduto">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesquisaProduto2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProdutoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPlaca2">
@@ -615,38 +608,55 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlaca2ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField3">
+        <Component class="javax.swing.JFormattedTextField" name="txtTotal">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="0" type="4"/>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="99" red="33" type="rgb"/>
             </Property>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format format="#,##0.00" subtype="-1" type="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="0,00"/>
             <Property name="toolTipText" type="java.lang.String" value="Total"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="OCR A Extended" size="18" style="0"/>
+              <Font name="Consolas" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField4">
+        <Component class="javax.swing.JFormattedTextField" name="txtTotalDescontos">
           <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="0" type="4"/>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="0" red="cc" type="rgb"/>
             </Property>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+              <Format format="#,##0.00" subtype="-1" type="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="0,00"/>
             <Property name="toolTipText" type="java.lang.String" value="Total descontos"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="OCR A Extended" size="18" style="0"/>
+              <Font name="Consolas" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalDescontosActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField5">
+        <Component class="javax.swing.JFormattedTextField" name="txtValorBruto">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format subtype="0" type="4"/>
+              <Format format="#,##0.00" subtype="-1" type="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="0,00"/>
             <Property name="toolTipText" type="java.lang.String" value="total bruto"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="OCR A Extended" size="18" style="0"/>
+              <Font name="Consolas" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorBrutoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo12">
           <Properties>
@@ -655,6 +665,18 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Totais"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPlaca1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="bf" green="69" red="33" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Placa"/>
           </Properties>
         </Component>
       </SubComponents>
