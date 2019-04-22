@@ -3,11 +3,12 @@ package model;
 public class EntidadeModel {
 
     private int cod;
+    private boolean inativo;
     private int tipoPessoa; //Jurídica - 0; física - 1
     private int cliente; //0 - não; 1 - sim;
     private int fornecedor; //0 - não; 1 - sim;
-
     private String CNPJ; //CNPJ ou CPF do destinatário	
+    private String nome; //Razão  Social  ou  nome do destinatário	
     private String xNome; //Razão  Social  ou  nome do destinatário	
 //<enderDest>
     private String xLgr; //Logradouro	
@@ -34,6 +35,15 @@ public class EntidadeModel {
     public void setCod(int cod) {
         this.cod = cod;
     }
+
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+
     public int getTipoPessoa() {
         return tipoPessoa;
     }
@@ -65,6 +75,15 @@ public class EntidadeModel {
     public void setCNPJ(String CNPJ) {
         this.CNPJ = CNPJ;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getxNome() {
         return xNome;
     }
@@ -168,7 +187,6 @@ public class EntidadeModel {
     public void setFone2(int fone2) {
         this.fone2 = fone2;
     }
-    
 
     public int getIE() {
         return IE;
@@ -193,5 +211,4 @@ public class EntidadeModel {
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

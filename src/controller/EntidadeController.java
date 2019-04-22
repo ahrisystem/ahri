@@ -13,48 +13,49 @@ import model.EntidadeModel;
 public class EntidadeController {
 
     private final Connection conexao;
-    
+
     public EntidadeController() {
         this.conexao = new connection().obterConexao();
     }
 
     public void cadastraEntidade(EntidadeModel eModel) {
-        
-        String sql = "INSERT INTO public.entidade(cod, tipopessoa, cliente, fornecedor, cnpj, xnome, xlgr, nro, xcpl, xbairro, cmun, xmun, uf, cep, cpais, xpais, fone, fone2, ie, isuf, email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO public.entidade(cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,cmun,xmun,uf,cep,cpais,xpais,fone,fone2,ie,isuf,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, eModel.getCod());
-            pstmt.setInt(2, eModel.getTipoPessoa());
-            pstmt.setInt(3, eModel.getCliente());
-            pstmt.setInt(4, eModel.getFornecedor());
-            pstmt.setString(5, eModel.getCNPJ());
-            pstmt.setString(6, eModel.getxNome());
-            pstmt.setString(7, eModel.getxLgr());
-            pstmt.setInt(8, eModel.getNro());
-            pstmt.setString(9, eModel.getxCpl());
-            pstmt.setString(10, eModel.getxBairro());
-            pstmt.setInt(11, eModel.getcMun());
-            pstmt.setString(12, eModel.getxMun());
-            pstmt.setString(13, eModel.getUF());
-            pstmt.setInt(14, eModel.getCEP());
-            pstmt.setInt(15, eModel.getcPais());
-            pstmt.setString(16, eModel.getxPais());
-            pstmt.setInt(17, eModel.getFone());
-            pstmt.setInt(18, eModel.getFone2());
-            pstmt.setInt(19, eModel.getIE());
-            pstmt.setInt(20, eModel.getISUF());
-            pstmt.setString(21, eModel.getEmail());
+            pstmt.setInt(2, eModel.getCod());
+            pstmt.setInt(3, eModel.getTipoPessoa());
+            pstmt.setInt(4, eModel.getCliente());
+            pstmt.setInt(5, eModel.getFornecedor());
+            pstmt.setString(6, eModel.getCNPJ());
+            pstmt.setString(7, eModel.getNome());
+            pstmt.setString(8, eModel.getxNome());
+            pstmt.setString(9, eModel.getxLgr());
+            pstmt.setInt(10, eModel.getNro());
+            pstmt.setString(11, eModel.getxCpl());
+            pstmt.setString(12, eModel.getxBairro());
+            pstmt.setInt(13, eModel.getcMun());
+            pstmt.setString(14, eModel.getxMun());
+            pstmt.setString(15, eModel.getUF());
+            pstmt.setInt(16, eModel.getCEP());
+            pstmt.setInt(17, eModel.getcPais());
+            pstmt.setString(18, eModel.getxPais());
+            pstmt.setInt(19, eModel.getFone());
+            pstmt.setInt(20, eModel.getFone2());
+            pstmt.setInt(21, eModel.getIE());
+            pstmt.setInt(22, eModel.getISUF());
+            pstmt.setString(23, eModel.getEmail());
             pstmt.execute();
             pstmt.close();
-            JOptionPane.showMessageDialog(null, "Entidade "+eModel.getxNome()+" salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Entidade " + eModel.getxNome() + " salvo com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar.\n" + e.getMessage());
         }
     }
 
     public List<EntidadeModel> listaClientes(String nome) {
-        List<EntidadeModel> entidades = new ArrayList<>();
-        String sql = "Select cod, xnome, xMun from entidade where cliente = 1";
+        List<EntidadeModel> clientes = new ArrayList<>();
+        String sql = "Select cod,xnome,cnpj from entidade where inativo = false and cliente = 1";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -62,18 +63,19 @@ public class EntidadeController {
                 EntidadeModel eModel = new EntidadeModel();
                 eModel.setCod(rs.getInt("cod"));
                 eModel.setxNome(rs.getString("xnome"));
-                eModel.setxMun(rs.getString("xmun"));
-                entidades.add(eModel);
+                eModel.setCNPJ(rs.getString("cnpj"));
+                clientes.add(eModel);
             }
             stmt.close();
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
         }
-        return entidades;
+        return clientes;
     }
+
     public List<EntidadeModel> listaFornecedores(String nome) {
         List<EntidadeModel> entidades = new ArrayList<>();
-        String sql = "Select cod, xnome, xMun from entidade where fornecedor = 1";
+        String sql = "Select cod,xnome,xMun from entidade where inativo = false and fornecedor = 1";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -90,8 +92,8 @@ public class EntidadeController {
         }
         return entidades;
     }
-    
-    public int pegaCodigo(){
+
+    public int pegaCodigo() {
         String sql = "select max(cod) from entidade;";
         int cod = 1;
         try {
@@ -100,26 +102,29 @@ public class EntidadeController {
             rs.next();
             cod = cod + Integer.parseInt(rs.getString("max"));
             stmt.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
         }
         return cod;
     }
+
     // id | cod | servico | codigoBarras | inativo | nome | grupo | unidadeMedida | estoque | preco | custo | ncm | cest
     public void puxarDados(EntidadeModel eModel, int cod) {
-        String sql = "select * from entidade where cod = "+cod+";";
+        String sql = "select * from entidade where cod = " + cod + ";";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
             eModel.setCod(rs.getInt("cod"));
-        } catch (Exception e){
+            
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
         }
-        
+
     }
+
     public void alterar(EntidadeModel eModel, int cod) {
-        String sql = "UPDATE public.produto SET cod=?, servico=?, \"codigoBarras\"=?, inativo=?, nome=?, grupo=?, \"unidadeMedida\"=?, estoque=?, preco=?, custo=?, ncm=?, cest=? WHERE cod = "+cod+";";
+        String sql = " WHERE cod = " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, eModel.getCod());
@@ -132,7 +137,7 @@ public class EntidadeController {
 
     public void excluir(String cod) {
 
-        String sql = "update produto set inativo=true where cod= "+cod+";";
+        String sql = "update entidade set inativo=true where cod= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.execute();
@@ -141,15 +146,16 @@ public class EntidadeController {
             JOptionPane.showMessageDialog(null, "Falha ao excluir.\n" + e.getMessage());
         }
     }
+
     public void restaurar(String cod) {
 
-        String sql = "update produto set inativo=false where cod= "+cod+";";
+        String sql = "update entidade set inativo=false where cod= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.execute();
             pstmt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao restaurar produto.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao restaurar.\n" + e.getMessage());
         }
     }
 }

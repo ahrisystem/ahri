@@ -1,9 +1,9 @@
 package view.cadastros.clientes;
 
-import controller.ProdutoController;
+import controller.EntidadeController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ProdutoModel;
+import model.EntidadeModel;
 import view.cadastros.funcoes.RegistrosExcluidos;
 
 public class Clientes extends javax.swing.JPanel {
@@ -18,19 +18,16 @@ public class Clientes extends javax.swing.JPanel {
         listar();
     }
     
-    ProdutoController prodc = new ProdutoController();
+    EntidadeController ec = new EntidadeController();
     
     public void listar(){
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (ProdutoModel p : prodc.listaProdutos(txtPesquisa.getText())) {
+        for (EntidadeModel e : ec.listaClientes(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
-                p.getCod(),
-                p.getCodigoBarras(),
-                p.getNome(),
-                p.getUnidadeMedida(),
-                p.getPreco(),
-                p.getGrupo(),
+                e.getCod(),
+                e.getxNome(),
+                e.getCNPJ(),
             });
         }
     }
@@ -40,7 +37,7 @@ public class Clientes extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -49,7 +46,6 @@ public class Clientes extends javax.swing.JPanel {
         btnExcluir = new javax.swing.JLabel();
         btnEditar1 = new javax.swing.JLabel();
         btnEditar2 = new javax.swing.JLabel();
-        btnAlterarCodigo = new javax.swing.JLabel();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -59,37 +55,40 @@ public class Clientes extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Código", "Cod. Barras", "Nome", "UN", "Valor", "Grupo"
+                "Código", "Nome", "CPF/CNPJ"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblProdutos.setFocusable(false);
-        tblProdutos.getTableHeader().setReorderingAllowed(false);
-        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.setFocusable(false);
+        tabela.setGridColor(new java.awt.Color(153, 204, 255));
+        tabela.setRowHeight(18);
+        tabela.setSelectionBackground(new java.awt.Color(51, 105, 191));
+        tabela.getTableHeader().setReorderingAllowed(false);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblProdutosMouseReleased(evt);
+                tabelaMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblProdutos);
-        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
-            tblProdutos.getColumnModel().getColumn(2).setPreferredWidth(160);
-            tblProdutos.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tblProdutos.getColumnModel().getColumn(4).setPreferredWidth(40);
+        jScrollPane1.setViewportView(tabela);
+        if (tabela.getColumnModel().getColumnCount() > 0) {
+            tabela.getColumnModel().getColumn(2).setPreferredWidth(160);
+            tabela.getColumnModel().getColumn(3).setPreferredWidth(40);
+            tabela.getColumnModel().getColumn(4).setPreferredWidth(40);
         }
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -107,7 +106,7 @@ public class Clientes extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        btnNovo.setBackground(new java.awt.Color(102, 153, 255));
+        btnNovo.setBackground(new java.awt.Color(51, 105, 191));
         btnNovo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnNovo.setForeground(new java.awt.Color(255, 255, 255));
         btnNovo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -120,7 +119,7 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
-        btnEditar.setBackground(new java.awt.Color(102, 153, 255));
+        btnEditar.setBackground(new java.awt.Color(51, 105, 191));
         btnEditar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,7 +132,7 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(102, 153, 255));
+        btnExcluir.setBackground(new java.awt.Color(51, 105, 191));
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
         btnExcluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -161,6 +160,7 @@ public class Clientes extends javax.swing.JPanel {
 
         btnEditar2.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnEditar2.setForeground(new java.awt.Color(51, 105, 191));
         btnEditar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnEditar2.setText("Ajuda");
         btnEditar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -171,36 +171,19 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
-        btnAlterarCodigo.setBackground(new java.awt.Color(102, 153, 255));
-        btnAlterarCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnAlterarCodigo.setForeground(new java.awt.Color(255, 255, 255));
-        btnAlterarCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAlterarCodigo.setText("Alt. código");
-        btnAlterarCodigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAlterarCodigo.setOpaque(true);
-        btnAlterarCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAlterarCodigoMouseReleased(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEditar1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnAlterarCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,8 +194,6 @@ public class Clientes extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAlterarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,26 +246,26 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        if (tblProdutos.getSelectedRow()<0) {
+        if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
-        if (tblProdutos.getSelectedRow()<0) {
+        if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o produto?",
+            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
                 "Excluir/Inativar?", 2) == 0) {
-                prodc.excluirProduto(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+                ec.excluir(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
                 listar();
             }
         }
     }//GEN-LAST:event_btnExcluirMouseReleased
 
-    private void tblProdutosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseReleased
+    private void tabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseReleased
         
-    }//GEN-LAST:event_tblProdutosMouseReleased
+    }//GEN-LAST:event_tabelaMouseReleased
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
@@ -302,15 +283,8 @@ public class Clientes extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
-    private void btnAlterarCodigoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarCodigoMouseReleased
-        if (tblProdutos.getSelectedRow()<0) {
-            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
-        }
-    }//GEN-LAST:event_btnAlterarCodigoMouseReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnAlterarCodigo;
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnEditar1;
     private javax.swing.JLabel btnEditar2;
@@ -320,7 +294,7 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblProdutos;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }
