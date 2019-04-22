@@ -19,11 +19,11 @@ public class EntidadeController {
     }
 
     public void cadastraEntidade(EntidadeModel eModel) {
-        String sql = "INSERT INTO public.entidade(cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,cmun,xmun,uf,cep,cpais,xpais,fone,fone2,ie,isuf,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO public.entidade(cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,cmun,xmun,uf,cep,cpais,xpais,fone1,fone2,fone3,ie,isuf,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, eModel.getCod());
-            pstmt.setInt(2, eModel.getCod());
+            pstmt.setBoolean(2, false);
             pstmt.setInt(3, eModel.getTipoPessoa());
             pstmt.setInt(4, eModel.getCliente());
             pstmt.setInt(5, eModel.getFornecedor());
@@ -40,13 +40,13 @@ public class EntidadeController {
             pstmt.setInt(16, eModel.getCEP());
             pstmt.setInt(17, eModel.getcPais());
             pstmt.setString(18, eModel.getxPais());
-            pstmt.setInt(19, eModel.getFone());
-            pstmt.setInt(20, eModel.getFone2());
-            pstmt.setInt(21, eModel.getIE());
-            pstmt.setInt(22, eModel.getISUF());
-            pstmt.setString(23, eModel.getEmail());
+            pstmt.setString(19, eModel.getFone1());
+            pstmt.setString(20, eModel.getFone2());
+            pstmt.setString(21, eModel.getFone3());
+            pstmt.setInt(22, eModel.getIE());
+            pstmt.setInt(23, eModel.getISUF());
+            pstmt.setString(24, eModel.getEmail());
             pstmt.execute();
-            pstmt.close();
             JOptionPane.showMessageDialog(null, "Entidade " + eModel.getxNome() + " salvo com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar.\n" + e.getMessage());

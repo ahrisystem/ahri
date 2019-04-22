@@ -22,8 +22,9 @@ public class EntidadeModel {
     private int cPais; //Código do País	
     private String xPais; //Nome do País
 //</enderDest>
-    private int fone; //Telefone	
-    private int fone2; //Telefone	
+    private String fone1; //Telefone	
+    private String fone2; //Telefone	
+    private String fone3; //Telefone	
     private int IE; //Inscrição Estatual	
     private int ISUF; //Inscrição na SUFRAMA	
     private String email; //email do emitente
@@ -172,21 +173,31 @@ public class EntidadeModel {
         this.xPais = xPais;
     }
 
-    public int getFone() {
-        return fone;
+    public String getFone1() {
+        return fone1;
     }
 
-    public void setFone(int fone) {
-        this.fone = fone;
+    public void setFone1(String fone1) {
+        this.fone1 = fone1;
     }
 
-    public int getFone2() {
+    public String getFone2() {
         return fone2;
     }
 
-    public void setFone2(int fone2) {
+    public void setFone2(String fone2) {
         this.fone2 = fone2;
     }
+
+    public String getFone3() {
+        return fone3;
+    }
+
+    public void setFone3(String fone3) {
+        this.fone3 = fone3;
+    }
+
+   
 
     public int getIE() {
         return IE;
