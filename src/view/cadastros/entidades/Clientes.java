@@ -1,4 +1,4 @@
-package view.cadastros.clientes;
+package view.cadastros.entidades;
 
 import controller.EntidadeController;
 import javax.swing.JOptionPane;

@@ -10,9 +10,9 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import view.cadastros.clientes.Clientes;
+import view.cadastros.entidades.Clientes;
 import view.pdv.PDV;
-import view.cadastros.clientes.NovoCliente;
+import view.cadastros.entidades.NovoCliente;
 import view.cadastros.produtos.Produtos;
 
 public class TelaInicial extends javax.swing.JFrame {

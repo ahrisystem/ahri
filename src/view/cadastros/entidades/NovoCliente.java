@@ -1,6 +1,8 @@
-package view.cadastros.clientes;
+package view.cadastros.entidades;
 
 import controller.EntidadeController;
+import controller.LocalController;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.EntidadeModel;
 import view.TelaInicial;
@@ -18,6 +20,7 @@ public class NovoCliente extends javax.swing.JFrame {
     private NovoCliente() {
         initComponents();
         setLocationRelativeTo(null);
+        preencheCidades();
     }
     
     public void limpaCampos(){
@@ -38,6 +41,14 @@ public class NovoCliente extends javax.swing.JFrame {
         txtEmail.setText("");
         txtIE.setText("");
         txtISUF.setText("");
+    }
+    public void preencheCidades() {
+        LocalController lc = new LocalController();
+        DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(lc.listaCidades(txtUF.getSelectedItem().toString()).toArray());
+        txtMun.setModel(defaultComboBox);
+    }
+    public void buscaCodigo(){
+        txtCodigo.setText(Integer.toString(ec.pegaCodigo()));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -265,7 +276,7 @@ public class NovoCliente extends javax.swing.JFrame {
         painelPrincipal.add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 210, 20));
 
         try {
-            txtCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -282,7 +293,7 @@ public class NovoCliente extends javax.swing.JFrame {
         painelPrincipal.add(txtCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 110, 20));
 
         txtUF.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        txtUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SC", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SP", "SE", "TO" }));
         painelPrincipal.add(txtUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 70, 20));
 
         txtMun.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -407,12 +418,22 @@ public class NovoCliente extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         int fornecedor;
-        String cnpj;
         if (txtFornecedor.isSelected()) {
             fornecedor = 1;
         } else {
             fornecedor = 0;
         }
+        
+        String cnpj = "0";
+        if (sldPessoa.getValue()==fisica) {
+            cnpj = txtCPF.getText().replaceAll(".", "");
+        } else {
+            cnpj = txtCNPJ.getText().replaceAll(".", "");
+            cnpj = cnpj.replaceAll("/", "");
+            cnpj = cnpj.replaceAll("-", "");
+            System.out.println(cnpj);
+        }
+        
         
         if (sldPessoa.getValue()==fisica & txtNome.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Preencha o nome!");
@@ -434,7 +455,16 @@ public class NovoCliente extends javax.swing.JFrame {
                     em.setTipoPessoa(sldPessoa.getValue());
                     em.setCliente(1);
                     em.setFornecedor(fornecedor);
-                    em.setCNPJ(txtCNPJ.getText().replaceAll(".", ""));
+                    em.setCNPJ(cnpj);
+                    em.setNome(txtNome.getText());
+                    em.setxNome(txtRazao.getText());
+                    em.setxLgr(txtLgr.getText());
+                    em.setNro(Integer.parseInt(txtNro.getText()));
+                    em.setxCpl(txtNro.getText());
+                    em.setxBairro(txtBairro.getText());
+                    em.setxMun(txtMun.getSelectedItem().toString());
+                    em.setUF(txtUF.getSelectedItem().toString());
+                    em.setCEP(Integer.parseInt(txtCEP.getText()));
                     ec.cadastraEntidade(em);
                     limpaCampos();
                 }
