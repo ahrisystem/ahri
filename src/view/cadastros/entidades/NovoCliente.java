@@ -294,6 +294,11 @@ public class NovoCliente extends javax.swing.JFrame {
 
         txtUF.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SC", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SP", "SE", "TO" }));
+        txtUF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUFActionPerformed(evt);
+            }
+        });
         painelPrincipal.add(txtUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 70, 20));
 
         txtMun.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -475,6 +480,10 @@ public class NovoCliente extends javax.swing.JFrame {
     private void txtRazaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRazaoActionPerformed
         
     }//GEN-LAST:event_txtRazaoActionPerformed
+
+    private void txtUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUFActionPerformed
+        preencheCidades();
+    }//GEN-LAST:event_txtUFActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel">
