@@ -11,9 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
+import view.cadastros.produtos.Produtos;
 import view.pdv.PDV;
 import view.cadastros.entidades.NovoCliente;
-import view.cadastros.produtos.Produtos;
+
 
 public class TelaInicial extends javax.swing.JFrame {
 

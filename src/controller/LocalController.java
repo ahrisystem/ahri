@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.ProdutoModel;
-import model.funcoes.LocalModel;
 
 public class LocalController {
 
@@ -34,7 +33,7 @@ public class LocalController {
     
     public List<String> listaCidades(String uf) {
         List<String> cidades = new ArrayList<>();
-        String sql = "SELECT nome from municipio where UF = '"+uf+"';";
+        String sql = "SELECT nome from municipio where UF = '"+uf+"' order by nome;";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

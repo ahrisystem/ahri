@@ -19,7 +19,7 @@ public class EntidadeController {
     }
 
     public void cadastraEntidade(EntidadeModel eModel) {
-        String sql = "INSERT INTO public.entidade(cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,cmun,xmun,uf,cep,cpais,xpais,fone1,fone2,fone3,ie,isuf,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO public.entidade(cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,xmun,uf,cep,xpais,fone1,fone2,fone3,ie,isuf,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, eModel.getCod());
@@ -34,18 +34,16 @@ public class EntidadeController {
             pstmt.setInt(10, eModel.getNro());
             pstmt.setString(11, eModel.getxCpl());
             pstmt.setString(12, eModel.getxBairro());
-            pstmt.setInt(13, eModel.getcMun());
-            pstmt.setString(14, eModel.getxMun());
-            pstmt.setString(15, eModel.getUF());
-            pstmt.setInt(16, eModel.getCEP());
-            pstmt.setInt(17, eModel.getcPais());
-            pstmt.setString(18, eModel.getxPais());
-            pstmt.setString(19, eModel.getFone1());
-            pstmt.setString(20, eModel.getFone2());
-            pstmt.setString(21, eModel.getFone3());
-            pstmt.setInt(22, eModel.getIE());
-            pstmt.setInt(23, eModel.getISUF());
-            pstmt.setString(24, eModel.getEmail());
+            pstmt.setString(13, eModel.getxMun());
+            pstmt.setString(14, eModel.getUF());
+            pstmt.setString(15, eModel.getCEP());
+            pstmt.setString(16, eModel.getxPais());
+            pstmt.setString(17, eModel.getFone1());
+            pstmt.setString(18, eModel.getFone2());
+            pstmt.setString(19, eModel.getFone3());
+            pstmt.setString(20, eModel.getIE());
+            pstmt.setString(21, eModel.getISUF());
+            pstmt.setString(22, eModel.getEmail());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Entidade " + eModel.getxNome() + " salvo com sucesso!");
         } catch (Exception e) {
@@ -100,7 +98,11 @@ public class EntidadeController {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            cod = cod + Integer.parseInt(rs.getString("max"));
+            if (rs.getString("max") == null) {
+                cod = 1;
+            } else {
+                cod = cod + Integer.parseInt(rs.getString("max"));
+            }
             stmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());

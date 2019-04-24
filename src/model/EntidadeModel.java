@@ -15,18 +15,16 @@ public class EntidadeModel {
     private int nro; //Número	
     private String xCpl; //Complemento	
     private String xBairro; //Bairro	
-    private int cMun; //Código do município	
     private String xMun;//Nome do município	
     private String UF; //Sigla da UF	
-    private int CEP; //Código do CEP	
-    private int cPais; //Código do País	
+    private String CEP; //Código do CEP
     private String xPais; //Nome do País
 //</enderDest>
     private String fone1; //Telefone	
     private String fone2; //Telefone	
     private String fone3; //Telefone	
-    private int IE; //Inscrição Estatual	
-    private int ISUF; //Inscrição na SUFRAMA	
+    private String IE; //Inscrição Estatual	
+    private String ISUF; //Inscrição na SUFRAMA	
     private String email; //email do emitente
 
     public int getCod() {
@@ -125,14 +123,6 @@ public class EntidadeModel {
         this.xBairro = xBairro;
     }
 
-    public int getcMun() {
-        return cMun;
-    }
-
-    public void setcMun(int cMun) {
-        this.cMun = cMun;
-    }
-
     public String getxMun() {
         return xMun;
     }
@@ -147,22 +137,6 @@ public class EntidadeModel {
 
     public void setUF(String UF) {
         this.UF = UF;
-    }
-
-    public int getCEP() {
-        return CEP;
-    }
-
-    public void setCEP(int CEP) {
-        this.CEP = CEP;
-    }
-
-    public int getcPais() {
-        return cPais;
-    }
-
-    public void setcPais(int cPais) {
-        this.cPais = cPais;
     }
 
     public String getxPais() {
@@ -197,24 +171,29 @@ public class EntidadeModel {
         this.fone3 = fone3;
     }
 
-   
+    public String getCEP() {
+        return CEP;
+    }
 
-    public int getIE() {
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
+    }
+
+    public String getIE() {
         return IE;
     }
 
-    public void setIE(int IE) {
+    public void setIE(String IE) {
         this.IE = IE;
     }
 
-    public int getISUF() {
+    public String getISUF() {
         return ISUF;
     }
 
-    public void setISUF(int ISUF) {
+    public void setISUF(String ISUF) {
         this.ISUF = ISUF;
     }
-
     public String getEmail() {
         return email;
     }

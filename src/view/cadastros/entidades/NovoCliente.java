@@ -21,10 +21,11 @@ public class NovoCliente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         preencheCidades();
+        buscaCodigo();
     }
     
     public void limpaCampos(){
-        txtCodigo.setText("");
+        buscaCodigo();
         txtFornecedor.setSelected(false);
         txtNome.setText("");
         txtRazao.setText("");
@@ -57,7 +58,6 @@ public class NovoCliente extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
-        lblAjudaCodigo = new javax.swing.JLabel();
         lblFisica = new javax.swing.JLabel();
         lblJuridica = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
@@ -119,15 +119,8 @@ public class NovoCliente extends javax.swing.JFrame {
         lblCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCodigo.setForeground(new java.awt.Color(51, 105, 191));
         lblCodigo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo.setText("Código*");
+        lblCodigo.setText("Código");
         painelPrincipal.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
-
-        lblAjudaCodigo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblAjudaCodigo.setForeground(new java.awt.Color(51, 105, 191));
-        lblAjudaCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblAjudaCodigo.setText("?");
-        lblAjudaCodigo.setToolTipText("Campo para logar no sistema");
-        painelPrincipal.add(lblAjudaCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 30, 20));
 
         lblFisica.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblFisica.setForeground(new java.awt.Color(51, 105, 191));
@@ -234,14 +227,14 @@ public class NovoCliente extends javax.swing.JFrame {
         txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 150, 20));
+        painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 80, 20));
 
         txtFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtFornecedor.setText("Fornecedor");
         txtFornecedor.setToolTipText("Marque caso ele seja também um fornecedor.");
         txtFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtFornecedor.setOpaque(false);
-        painelPrincipal.add(txtFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 120, 20));
+        painelPrincipal.add(txtFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 120, 20));
 
         sldPessoa.setMaximum(1);
         sldPessoa.setValue(0);
@@ -428,18 +421,24 @@ public class NovoCliente extends javax.swing.JFrame {
         } else {
             fornecedor = 0;
         }
-        
+        //Formatando cnpj
         String cnpj = "0";
         if (sldPessoa.getValue()==fisica) {
             cnpj = txtCPF.getText().replaceAll(".", "");
+            cnpj = cnpj.replaceAll("-", "");
         } else {
             cnpj = txtCNPJ.getText().replaceAll(".", "");
             cnpj = cnpj.replaceAll("/", "");
             cnpj = cnpj.replaceAll("-", "");
-            System.out.println(cnpj);
         }
-        
-        
+        //Formatando cep
+        String cep;
+        cep = txtCEP.getText().replaceAll(".", "");
+        cep = cep.replaceAll("-", "");
+        //Zerando valores int nulos
+        if (txtNro.getText().equalsIgnoreCase("")) {
+            txtNro.setText("0");
+        }
         if (sldPessoa.getValue()==fisica & txtNome.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Preencha o nome!");
             txtNome.requestFocus();
@@ -453,7 +452,7 @@ public class NovoCliente extends javax.swing.JFrame {
                     txtRazao.requestFocus();
                 } else {
                     /*Salvamento das informações
-                    cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,cmun,xmun,uf,cep,cpais,xpais,fone1,fone2,fone3,ie,isuf,email
+                    cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,xmun,uf,cep,xpais,fone1,fone2,fone3,ie,isuf,email
                     */
                     EntidadeModel em = new EntidadeModel();
                     em.setCod(Integer.parseInt(txtCodigo.getText()));
@@ -469,7 +468,14 @@ public class NovoCliente extends javax.swing.JFrame {
                     em.setxBairro(txtBairro.getText());
                     em.setxMun(txtMun.getSelectedItem().toString());
                     em.setUF(txtUF.getSelectedItem().toString());
-                    em.setCEP(Integer.parseInt(txtCEP.getText()));
+                    em.setCEP(txtCEP.getText());
+                    em.setxPais("BRASIL");
+                    em.setFone1(txtContato1.getText());
+                    em.setFone2(txtContato2.getText());
+                    em.setFone3(txtContato3.getText());
+                    em.setIE(txtIE.getText());
+                    em.setISUF(txtISUF.getText());
+                    em.setEmail(txtEmail.getText());
                     ec.cadastraEntidade(em);
                     limpaCampos();
                 }
@@ -514,7 +520,6 @@ public class NovoCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lblAjudaCodigo;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCEP;
     private javax.swing.JLabel lblCNPJ;
