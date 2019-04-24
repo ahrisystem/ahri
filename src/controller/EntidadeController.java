@@ -53,15 +53,17 @@ public class EntidadeController {
 
     public List<EntidadeModel> listaClientes(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
-        String sql = "Select cod,xnome,cnpj from entidade where inativo = false and cliente = 1";
+        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 EntidadeModel eModel = new EntidadeModel();
                 eModel.setCod(rs.getInt("cod"));
-                eModel.setxNome(rs.getString("xnome"));
+                eModel.setNome(rs.getString("nome"));
                 eModel.setCNPJ(rs.getString("cnpj"));
+                eModel.setUF(rs.getString("uf"));
+                eModel.setxMun(rs.getString("xmun"));
                 clientes.add(eModel);
             }
             stmt.close();
@@ -118,7 +120,7 @@ public class EntidadeController {
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
             eModel.setCod(rs.getInt("cod"));
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
         }
@@ -138,7 +140,6 @@ public class EntidadeController {
     }
 
     public void excluir(String cod) {
-
         String sql = "update entidade set inativo=true where cod= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
@@ -150,7 +151,6 @@ public class EntidadeController {
     }
 
     public void restaurar(String cod) {
-
         String sql = "update entidade set inativo=false where cod= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);

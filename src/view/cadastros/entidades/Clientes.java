@@ -21,13 +21,15 @@ public class Clientes extends javax.swing.JPanel {
     EntidadeController ec = new EntidadeController();
     
     public void listar(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
         modelo.setNumRows(0);
         for (EntidadeModel e : ec.listaClientes(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
-                e.getxNome(),
+                e.getNome(),
                 e.getCNPJ(),
+                e.getUF(),
+                e.getxMun(),
             });
         }
     }
@@ -36,8 +38,6 @@ public class Clientes extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         txtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -46,6 +46,8 @@ public class Clientes extends javax.swing.JPanel {
         btnExcluir = new javax.swing.JLabel();
         btnEditar1 = new javax.swing.JLabel();
         btnEditar2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblClientes = new javax.swing.JTable();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -54,42 +56,11 @@ public class Clientes extends javax.swing.JPanel {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        tabela.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Código", "Nome", "CPF/CNPJ"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                jPanel1ComponentHidden(evt);
             }
         });
-        tabela.setFocusable(false);
-        tabela.setGridColor(new java.awt.Color(153, 204, 255));
-        tabela.setRowHeight(18);
-        tabela.setSelectionBackground(new java.awt.Color(51, 105, 191));
-        tabela.getTableHeader().setReorderingAllowed(false);
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tabelaMouseReleased(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tabela);
-        if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(2).setPreferredWidth(160);
-            tabela.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tabela.getColumnModel().getColumn(4).setPreferredWidth(40);
-        }
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 105, 191));
@@ -97,7 +68,7 @@ public class Clientes extends javax.swing.JPanel {
         jLabel2.setText("CLIENTES");
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        txtPesquisa.setToolTipText("pesquise algum produto pelo nome...");
+        txtPesquisa.setToolTipText("Pesquise pelo nome.");
         txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPesquisaKeyReleased(evt);
@@ -160,7 +131,6 @@ public class Clientes extends javax.swing.JPanel {
 
         btnEditar2.setBackground(new java.awt.Color(255, 255, 255));
         btnEditar2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnEditar2.setForeground(new java.awt.Color(51, 105, 191));
         btnEditar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnEditar2.setText("Ajuda");
         btnEditar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -201,6 +171,37 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        tblClientes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Código", "Nome", "CPF CNPJ", "UF", "Cidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblClientes.setFocusable(false);
+        tblClientes.setGridColor(new java.awt.Color(204, 204, 204));
+        tblClientes.setRowHeight(20);
+        tblClientes.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tblClientesMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblClientes);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -211,8 +212,8 @@ public class Clientes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +222,7 @@ public class Clientes extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -246,33 +247,31 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        if (tabela.getSelectedRow()<0) {
+        if (tblClientes.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+        } else {
+            
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
-        if (tabela.getSelectedRow()<0) {
+        if (tblClientes.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
                 "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                ec.excluir(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString());
                 listar();
             }
         }
     }//GEN-LAST:event_btnExcluirMouseReleased
-
-    private void tabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseReleased
-        
-    }//GEN-LAST:event_tabelaMouseReleased
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
     }//GEN-LAST:event_formFocusGained
 
     private void btnEditar1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar1MouseReleased
-        new RegistrosExcluidos("Produtos excluidos").setVisible(true);
+        new RegistrosExcluidos("Clientes excluidos").setVisible(true);
     }//GEN-LAST:event_btnEditar1MouseReleased
 
     private void btnEditar2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar2MouseReleased
@@ -282,6 +281,14 @@ public class Clientes extends javax.swing.JPanel {
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         listar();
     }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void jPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentHidden
+        
+    }//GEN-LAST:event_jPanel1ComponentHidden
+
+    private void tblClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseReleased
+
+    }//GEN-LAST:event_tblClientesMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -294,7 +301,7 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

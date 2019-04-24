@@ -115,7 +115,7 @@ public class Produtos extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
-        btnNovo.setBackground(new java.awt.Color(102, 153, 255));
+        btnNovo.setBackground(new java.awt.Color(51, 105, 191));
         btnNovo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnNovo.setForeground(new java.awt.Color(255, 255, 255));
         btnNovo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -128,7 +128,7 @@ public class Produtos extends javax.swing.JPanel {
             }
         });
 
-        btnEditar.setBackground(new java.awt.Color(102, 153, 255));
+        btnEditar.setBackground(new java.awt.Color(51, 105, 191));
         btnEditar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -141,7 +141,7 @@ public class Produtos extends javax.swing.JPanel {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(102, 153, 255));
+        btnExcluir.setBackground(new java.awt.Color(51, 105, 191));
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setForeground(new java.awt.Color(255, 255, 255));
         btnExcluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -179,7 +179,7 @@ public class Produtos extends javax.swing.JPanel {
             }
         });
 
-        btnAlterarCodigo.setBackground(new java.awt.Color(102, 153, 255));
+        btnAlterarCodigo.setBackground(new java.awt.Color(51, 105, 191));
         btnAlterarCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAlterarCodigo.setForeground(new java.awt.Color(255, 255, 255));
         btnAlterarCodigo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.produtos.Produtos;
 import view.pdv.PDV;
-import view.cadastros.entidades.NovoCliente;
 
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -749,10 +748,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_opcao1MouseReleased
 
     private void opcao4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao4MouseReleased
-        if (cadastros) {
-            NovoCliente novoCliente = NovoCliente.getInstancia();
-            novoCliente.setVisible(true);
-        }
+        
     }//GEN-LAST:event_opcao4MouseReleased
 
     private void btnFinanceiroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinanceiroMousePressed
