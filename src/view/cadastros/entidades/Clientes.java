@@ -250,7 +250,10 @@ public class Clientes extends javax.swing.JPanel {
         if (tblClientes.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            
+            EditarCliente edit = EditarCliente.getInstancia();
+            edit.cod(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
+            edit.setVisible(true);
+            listar();
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 

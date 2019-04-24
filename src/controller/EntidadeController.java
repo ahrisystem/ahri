@@ -50,6 +50,39 @@ public class EntidadeController {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar.\n" + e.getMessage());
         }
     }
+    
+    public void alteraEntidade(EntidadeModel eModel, int cod) {
+        String sql = "UPDATE entidade SET id=?, cod=?, inativo=?, tipopessoa=?, cliente=?, fornecedor=?,cnpj=?, nome=?, xnome=?, xlgr=?, nro=?, xcpl=?, xbairro=?, xmun=?, uf=?, cep=?, xpais=?, fone1=?, fone2=?, fone3=?, ie=?, isuf=?, email=? WHERE cod = '"+cod+"';";
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, eModel.getCod());
+            pstmt.setBoolean(2, false);
+            pstmt.setInt(3, eModel.getTipoPessoa());
+            pstmt.setInt(4, eModel.getCliente());
+            pstmt.setInt(5, eModel.getFornecedor());
+            pstmt.setString(6, eModel.getCNPJ());
+            pstmt.setString(7, eModel.getNome());
+            pstmt.setString(8, eModel.getxNome());
+            pstmt.setString(9, eModel.getxLgr());
+            pstmt.setInt(10, eModel.getNro());
+            pstmt.setString(11, eModel.getxCpl());
+            pstmt.setString(12, eModel.getxBairro());
+            pstmt.setString(13, eModel.getxMun());
+            pstmt.setString(14, eModel.getUF());
+            pstmt.setString(15, eModel.getCEP());
+            pstmt.setString(16, eModel.getxPais());
+            pstmt.setString(17, eModel.getFone1());
+            pstmt.setString(18, eModel.getFone2());
+            pstmt.setString(19, eModel.getFone3());
+            pstmt.setString(20, eModel.getIE());
+            pstmt.setString(21, eModel.getISUF());
+            pstmt.setString(22, eModel.getEmail());
+            pstmt.execute();
+            JOptionPane.showMessageDialog(null, "Entidade " + eModel.getxNome() + " alterado com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar.\n" + e.getMessage());
+        }
+    }
 
     public List<EntidadeModel> listaClientes(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
@@ -112,17 +145,39 @@ public class EntidadeController {
         return cod;
     }
 
-    // id | cod | servico | codigoBarras | inativo | nome | grupo | unidadeMedida | estoque | preco | custo | ncm | cest
+    
     public void puxarDados(EntidadeModel eModel, int cod) {
-        String sql = "select * from entidade where cod = " + cod + ";";
+        String sql = "SELECT cod, inativo, tipopessoa, cliente, fornecedor, cnpj, nome,xnome, xlgr, nro, xcpl, xbairro, xmun, uf, cep, xpais, fone1, fone2, fone3, ie, isuf, email FROM entidade where cod = " + cod + ";";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            eModel.setCod(rs.getInt("cod"));
-
+            while (rs.next()) {
+                eModel.setCod(rs.getInt("cod"));
+                eModel.setInativo(rs.getBoolean("inativo"));
+                eModel.setTipoPessoa(rs.getInt("tipopessoa"));
+                eModel.setCliente(rs.getInt("cliente"));
+                eModel.setFornecedor(rs.getInt("fornecedor"));
+                eModel.setCNPJ(rs.getString("cnpj"));
+                eModel.setNome(rs.getString("nome"));
+                eModel.setxNome(rs.getString("xnome"));
+                eModel.setxLgr(rs.getString("xlgr"));
+                eModel.setNro(rs.getInt("nro"));
+                eModel.setxCpl(rs.getString("xcpl"));
+                eModel.setxBairro(rs.getString("xbairro"));
+                eModel.setxMun(rs.getString("xmun"));
+                eModel.setUF(rs.getString("uf"));
+                eModel.setCEP(rs.getString("cep"));
+                eModel.setxPais(rs.getString("xpais"));
+                eModel.setFone1(rs.getString("fone1"));
+                eModel.setFone2(rs.getString("fone2"));
+                eModel.setFone3(rs.getString("fone3"));
+                eModel.setIE(rs.getString("ie"));
+                eModel.setISUF(rs.getString("isuf"));
+                eModel.setEmail(rs.getString("email"));
+            }
+            stmt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
         }
 
     }
