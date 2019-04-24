@@ -64,6 +64,28 @@ public class ProdutoController {
         }
         return produtos;
     }
+    public List<ProdutoModel> listaProdutosExcluidos(String nome) {
+        List<ProdutoModel> produtos = new ArrayList<>();
+        String sql = "SELECT cod, \"codigoBarras\", nome,\"unidadeMedida\",preco, grupo FROM produto where inativo=FALSE and nome LIKE '%" + nome + "%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                ProdutoModel p = new ProdutoModel();
+                p.setCod(rs.getInt("cod"));
+                p.setCodigoBarras(rs.getString("codigoBarras"));
+                p.setNome(rs.getString("nome"));
+                p.setUnidadeMedida(rs.getString("unidadeMedida"));
+                p.setPreco(rs.getDouble("preco"));
+                p.setGrupo(rs.getString("grupo"));
+                produtos.add(p);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
+        }
+        return produtos;
+    }
     
     public int pegaCodigo(){
         String sql = "select max(cod) from produto;";
@@ -125,7 +147,7 @@ public class ProdutoController {
         }
     }
 
-    public void excluirProduto(String cod) {
+    public void excluir(int cod) {
 
         String sql = "update produto set inativo=true where cod= "+cod+";";
         try {
@@ -136,7 +158,7 @@ public class ProdutoController {
             JOptionPane.showMessageDialog(null, "Falha ao excluir.\n" + e.getMessage());
         }
     }
-    public void restaurarProduto(String cod) {
+    public void restaurar(int cod) {
 
         String sql = "update produto set inativo=false where cod= "+cod+";";
         try {

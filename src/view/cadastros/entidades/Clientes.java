@@ -8,7 +8,8 @@ import view.cadastros.funcoes.RegistrosExcluidos;
 
 public class Clientes extends javax.swing.JPanel {
     private static final Clientes INSTANCIA = new Clientes();
-            
+    EntidadeController ec = new EntidadeController();
+    
     public static Clientes getInstancia() {
         return INSTANCIA;
     }
@@ -17,8 +18,6 @@ public class Clientes extends javax.swing.JPanel {
         initComponents();
         listar();
     }
-    
-    EntidadeController ec = new EntidadeController();
     
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
@@ -45,7 +44,6 @@ public class Clientes extends javax.swing.JPanel {
         btnEditar = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JLabel();
         btnEditar1 = new javax.swing.JLabel();
-        btnEditar2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
 
@@ -62,10 +60,10 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 105, 191));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("CLIENTES");
+        jLabel2.setText("Clientes");
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         txtPesquisa.setToolTipText("Pesquise pelo nome.");
@@ -129,18 +127,6 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
 
-        btnEditar2.setBackground(new java.awt.Color(255, 255, 255));
-        btnEditar2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnEditar2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEditar2.setText("Ajuda");
-        btnEditar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEditar2.setOpaque(true);
-        btnEditar2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnEditar2MouseReleased(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -149,7 +135,6 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnEditar2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar1, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
@@ -166,8 +151,6 @@ public class Clientes extends javax.swing.JPanel {
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditar2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -251,7 +234,7 @@ public class Clientes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             EditarCliente edit = EditarCliente.getInstancia();
-            edit.cod(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
+            edit.puxarDados(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
             edit.setVisible(true);
             listar();
         }
@@ -263,7 +246,7 @@ public class Clientes extends javax.swing.JPanel {
         } else {
             if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
                 "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString());
+                ec.excluir(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
@@ -274,12 +257,8 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_formFocusGained
 
     private void btnEditar1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar1MouseReleased
-        new RegistrosExcluidos("Clientes excluidos").setVisible(true);
+        new RegistrosExcluidos("Clientes excluídos").setVisible(true);
     }//GEN-LAST:event_btnEditar1MouseReleased
-
-    private void btnEditar2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditar2MouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditar2MouseReleased
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
         listar();
@@ -297,7 +276,6 @@ public class Clientes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnEditar1;
-    private javax.swing.JLabel btnEditar2;
     private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnNovo;
     private javax.swing.JLabel jLabel2;

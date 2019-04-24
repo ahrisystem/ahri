@@ -10,23 +10,20 @@ import view.TelaInicial;
 
 public class EditarCliente extends javax.swing.JFrame {
     final int fisica = 0;
-    int codigo;
+    static String title;
     EntidadeController ec = new EntidadeController();
+    
     private static final EditarCliente INSTANCIA = new EditarCliente();
 
     public static EditarCliente getInstancia() {
         return INSTANCIA;
     }
     
-    public void cod(int cod){
-        codigo = cod;
-    }
 
     private EditarCliente() {
         initComponents();
         setLocationRelativeTo(null);
         preencheCidades();
-        puxarDados(codigo);
     }
     
     public void puxarDados(int cod){
@@ -132,6 +129,7 @@ public class EditarCliente extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar cliente");
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -414,7 +412,7 @@ public class EditarCliente extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Cadastro cliente");
+        lblTitulo.setText("Editando cliente");
         lblTitulo.setOpaque(true);
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
 
@@ -494,7 +492,7 @@ public class EditarCliente extends javax.swing.JFrame {
                     em.setxNome(txtRazao.getText());
                     em.setxLgr(txtLgr.getText());
                     em.setNro(Integer.parseInt(txtNro.getText()));
-                    em.setxCpl(txtNro.getText());
+                    em.setxCpl(txtComplemento.getText());
                     em.setxBairro(txtBairro.getText());
                     em.setxMun(txtMun.getSelectedItem().toString());
                     em.setUF(txtUF.getSelectedItem().toString());
@@ -508,6 +506,7 @@ public class EditarCliente extends javax.swing.JFrame {
                     em.setEmail(txtEmail.getText());
                     ec.alteraEntidade(em, em.getCod());
                     limpaCampos();
+                    this.dispose();
                 }
             }
         }

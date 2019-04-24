@@ -52,7 +52,7 @@ public class EntidadeController {
     }
     
     public void alteraEntidade(EntidadeModel eModel, int cod) {
-        String sql = "UPDATE entidade SET id=?, cod=?, inativo=?, tipopessoa=?, cliente=?, fornecedor=?,cnpj=?, nome=?, xnome=?, xlgr=?, nro=?, xcpl=?, xbairro=?, xmun=?, uf=?, cep=?, xpais=?, fone1=?, fone2=?, fone3=?, ie=?, isuf=?, email=? WHERE cod = '"+cod+"';";
+        String sql = "UPDATE entidade SET cod=?, inativo=?, tipopessoa=?, cliente=?, fornecedor=?,cnpj=?, nome=?, xnome=?, xlgr=?, nro=?, xcpl=?, xbairro=?, xmun=?, uf=?, cep=?, xpais=?, fone1=?, fone2=?, fone3=?, ie=?, isuf=?, email=? WHERE cod = '"+cod+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, eModel.getCod());
@@ -86,7 +86,7 @@ public class EntidadeController {
 
     public List<EntidadeModel> listaClientes(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
-        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1";
+        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1 and nome like '%"+nome+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -97,6 +97,24 @@ public class EntidadeController {
                 eModel.setCNPJ(rs.getString("cnpj"));
                 eModel.setUF(rs.getString("uf"));
                 eModel.setxMun(rs.getString("xmun"));
+                clientes.add(eModel);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
+        }
+        return clientes;
+    }
+    public List<EntidadeModel> listaClientesExcluidos(String nome) {
+        List<EntidadeModel> clientes = new ArrayList<>();
+        String sql = "Select cod,nome from entidade where inativo = true and cliente = 1 and nome like '%"+nome+"%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                EntidadeModel eModel = new EntidadeModel();
+                eModel.setCod(rs.getInt("cod"));
+                eModel.setNome(rs.getString("nome"));
                 clientes.add(eModel);
             }
             stmt.close();
@@ -194,7 +212,7 @@ public class EntidadeController {
         }
     }
 
-    public void excluir(String cod) {
+    public void excluir(int cod) {
         String sql = "update entidade set inativo=true where cod= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
@@ -205,7 +223,7 @@ public class EntidadeController {
         }
     }
 
-    public void restaurar(String cod) {
+    public void restaurar(int cod) {
         String sql = "update entidade set inativo=false where cod= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
