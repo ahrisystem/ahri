@@ -2,8 +2,8 @@ package model;
 
 public class EmpresaModel {
 
-    private int CNPJ; //formato 00000000000000 CNPJ do emitente
-    private int CPF; //CPF do remetente
+    private String CNPJ; //formato 00000000000000 CNPJ do emitente
+    private String CPF; //CPF do remetente
     private String xNome; //Razão Social ou Nome do emitente
     private String xFant; //Nome fantasia
 //<enderEmit>
@@ -11,36 +11,34 @@ public class EmpresaModel {
     private int nro; //Número
     private String xCpl; //Complemento
     private String xBairro; //Bairro
-    private int cMun; //Código do município
     private String xMun; //Nome do município
     private String UF; //Sigla da UF
-    private int CEP; //Código do CEP
-    private int cPais; //Código do País
+    private String CEP; //Código do CEP
     private String xPais; //Nome do País
 //</enderEmit>
-    private int fone; //Telefone
-    private int IE; //IE
-    private int IEST; //IE do Substituto Tributário
-    private int IM; //Inscrição Municipal
-    private int CNAE; //CNAE fiscal
+    private String fone; //Telefone
+    private String email;
+    private String IE; //IE
+    private String IEST; //IE do Substituto Tributário
+    private String IM; //Inscrição Municipal
+    private String CNAE; //CNAE fiscal
     private int CRT; //Código de Regime Tributário 1 – Simples Nacional 2 – Simples Nacional – Excesso de sublimite de receita bruta 3 – Regime Normal
 
-    public int getCNPJ() {
+    public String getCNPJ() {
         return CNPJ;
     }
 
-    public void setCNPJ(int CNPJ) {
+    public void setCNPJ(String CNPJ) {
         this.CNPJ = CNPJ;
     }
 
-    public int getCPF() {
+    public String getCPF() {
         return CPF;
     }
 
-    public void setCPF(int CPF) {
+    public void setCPF(String CPF) {
         this.CPF = CPF;
     }
-
 
     public String getxNome() {
         return xNome;
@@ -60,6 +58,14 @@ public class EmpresaModel {
 
     public String getxLgr() {
         return xLgr;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setxLgr(String xLgr) {
@@ -90,14 +96,6 @@ public class EmpresaModel {
         this.xBairro = xBairro;
     }
 
-    public int getcMun() {
-        return cMun;
-    }
-
-    public void setcMun(int cMun) {
-        this.cMun = cMun;
-    }
-
     public String getxMun() {
         return xMun;
     }
@@ -114,20 +112,12 @@ public class EmpresaModel {
         this.UF = UF;
     }
 
-    public int getCEP() {
+    public String getCEP() {
         return CEP;
     }
 
-    public void setCEP(int CEP) {
+    public void setCEP(String CEP) {
         this.CEP = CEP;
-    }
-
-    public int getcPais() {
-        return cPais;
-    }
-
-    public void setcPais(int cPais) {
-        this.cPais = cPais;
     }
 
     public String getxPais() {
@@ -138,43 +128,43 @@ public class EmpresaModel {
         this.xPais = xPais;
     }
 
-    public int getFone() {
+    public String getFone() {
         return fone;
     }
 
-    public void setFone(int fone) {
+    public void setFone(String fone) {
         this.fone = fone;
     }
 
-    public int getIE() {
+    public String getIE() {
         return IE;
     }
 
-    public void setIE(int IE) {
+    public void setIE(String IE) {
         this.IE = IE;
     }
 
-    public int getIEST() {
+    public String getIEST() {
         return IEST;
     }
 
-    public void setIEST(int IEST) {
+    public void setIEST(String IEST) {
         this.IEST = IEST;
     }
 
-    public int getIM() {
+    public String getIM() {
         return IM;
     }
 
-    public void setIM(int IM) {
+    public void setIM(String IM) {
         this.IM = IM;
     }
 
-    public int getCNAE() {
+    public String getCNAE() {
         return CNAE;
     }
 
-    public void setCNAE(int CNAE) {
+    public void setCNAE(String CNAE) {
         this.CNAE = CNAE;
     }
 
@@ -185,5 +175,6 @@ public class EmpresaModel {
     public void setCRT(int CRT) {
         this.CRT = CRT;
     }
-
+    
+    
 }

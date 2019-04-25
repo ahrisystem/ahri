@@ -78,7 +78,7 @@ public class EntidadeController {
             pstmt.setString(21, eModel.getISUF());
             pstmt.setString(22, eModel.getEmail());
             pstmt.execute();
-            JOptionPane.showMessageDialog(null, "Entidade " + eModel.getxNome() + " alterado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Entidade " + eModel.getNome() + " alterado com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar.\n" + e.getMessage());
         }

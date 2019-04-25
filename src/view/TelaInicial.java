@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.produtos.Produtos;
+import view.cadastrosUnicos.Empresa;
 import view.pdv.PDV;
 
 
@@ -940,7 +941,8 @@ public class TelaInicial extends javax.swing.JFrame {
             
         }
         if (cadastros) {
-            
+            Empresa e = Empresa.getInstancia().getInstancia();
+            e.setVisible(true);
         }
     }//GEN-LAST:event_opcao9MouseReleased
 
