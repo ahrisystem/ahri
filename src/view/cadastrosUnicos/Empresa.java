@@ -4,7 +4,7 @@ import controller.EmpresaController;
 import controller.LocalController;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import model.EmpresaModel;
+import model.cadastros.cadastrosUnicos.EmpresaModel;
     
 
 public class Empresa extends javax.swing.JFrame {

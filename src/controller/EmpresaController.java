@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import model.EmpresaModel;
+import model.cadastros.cadastrosUnicos.EmpresaModel;
 
 public class EmpresaController {
 
