@@ -27,7 +27,6 @@ public class Contabilidade extends javax.swing.JFrame {
     public void puxarDados(){
         ContabilidadeModel cm = new ContabilidadeModel();
         cc.puxarDados(cm);
-        //cnpj,cpf,crc,nomecont,contabilidade,fone,email,cep,uf,xmun,xlgr,nro,xcpl,xbairro
         txtCNPJ.setText(cm.getCnpj());
         txtCPF.setText(cm.getCpf());
         txtNomeCont.setText(cm.getNomeCont());
@@ -320,9 +319,16 @@ public class Contabilidade extends javax.swing.JFrame {
             cm.setCnpj(txtCNPJ.getText());
             cm.setCpf(txtCPF.getText());
             cm.setNomeCont(txtNomeCont.getText());
-            cm.setc(txtNomeCont.getText());
-            cm.setxLgr(txtLgr.getText());
+            cm.setContabilidade(txtContabilidade.getText());
+            cm.setXlgr(txtLgr.getText());
             cm.setNro(Integer.parseInt(txtNro.getText()));
+            cm.setXcpl(txtComplemento.getText());
+            cm.setXbairro(txtBairro.getText());
+            cm.setXmun(txtMun.getSelectedItem().toString());
+            cm.setUf(txtUF.getSelectedItem().toString());
+            cm.setCep(txtCEP.getText());
+            cm.setFone(txtContato1.getText());
+            cm.setEmail(txtEmail.getText());
             cc.salvarDados(cm);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar dados\n"+e.getMessage());
