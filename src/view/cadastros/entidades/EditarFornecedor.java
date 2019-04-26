@@ -8,19 +8,19 @@ import model.cadastros.entidades.EntidadeModel;
 import view.TelaInicial;
 
 
-public class EditarCliente extends javax.swing.JFrame {
+public class EditarFornecedor extends javax.swing.JFrame {
     final int fisica = 0;
     static String title;
     EntidadeController ec = new EntidadeController();
     
-    private static final EditarCliente INSTANCIA = new EditarCliente();
+    private static final EditarFornecedor INSTANCIA = new EditarFornecedor();
 
-    public static EditarCliente getInstancia() {
+    public static EditarFornecedor getInstancia() {
         return INSTANCIA;
     }
     
 
-    private EditarCliente() {
+    private EditarFornecedor() {
         initComponents();
         setLocationRelativeTo(null);
         preencheCidades();
@@ -30,10 +30,10 @@ public class EditarCliente extends javax.swing.JFrame {
         EntidadeModel em = new EntidadeModel();
         ec.puxarDados(em, cod);
         txtCodigo.setText(Integer.toString(em.getCod()));
-        if (em.getFornecedor() == 0) {
-            txtFornecedor.setSelected(false);
+        if (em.getCliente()== 0) {
+            txtCliente.setSelected(false);
         } else {
-            txtFornecedor.setSelected(true);
+            txtCliente.setSelected(true);
         }
         txtNome.setText(em.getNome());
         txtRazao.setText(em.getxNome());
@@ -56,7 +56,7 @@ public class EditarCliente extends javax.swing.JFrame {
     }
     public void limpaCampos(){
         txtCodigo.setText("");
-        txtFornecedor.setSelected(false);
+        txtCliente.setSelected(false);
         txtNome.setText("");
         txtRazao.setText("");
         txtCPF.setText("");
@@ -103,7 +103,7 @@ public class EditarCliente extends javax.swing.JFrame {
         IE = new javax.swing.JLabel();
         ISUF = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtFornecedor = new javax.swing.JCheckBox();
+        txtCliente = new javax.swing.JCheckBox();
         sldPessoa = new javax.swing.JSlider();
         txtNome = new javax.swing.JTextField();
         txtRazao = new javax.swing.JTextField();
@@ -178,13 +178,13 @@ public class EditarCliente extends javax.swing.JFrame {
         lblCPF.setForeground(new java.awt.Color(51, 105, 191));
         lblCPF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCPF.setText("CPF");
-        painelPrincipal.add(lblCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 80, 20));
+        painelPrincipal.add(lblCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 80, 20));
 
         lblCNPJ.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCNPJ.setForeground(new java.awt.Color(51, 105, 191));
-        lblCNPJ.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCNPJ.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCNPJ.setText("CNPJ");
-        painelPrincipal.add(lblCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, 100, 20));
+        painelPrincipal.add(lblCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, 20));
 
         lblCEP.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCEP.setForeground(new java.awt.Color(51, 105, 191));
@@ -257,15 +257,14 @@ public class EditarCliente extends javax.swing.JFrame {
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 80, 20));
 
-        txtFornecedor.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtFornecedor.setText("Fornecedor");
-        txtFornecedor.setToolTipText("Marque caso ele seja também um fornecedor.");
-        txtFornecedor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        txtFornecedor.setOpaque(false);
-        painelPrincipal.add(txtFornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 120, 20));
+        txtCliente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCliente.setText("Cliente");
+        txtCliente.setToolTipText("Marque caso ele seja também um fornecedor.");
+        txtCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txtCliente.setOpaque(false);
+        painelPrincipal.add(txtCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 80, 20));
 
         sldPessoa.setMaximum(1);
-        sldPessoa.setValue(0);
         sldPessoa.setFocusable(false);
         sldPessoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -293,17 +292,17 @@ public class EditarCliente extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCPF.setEnabled(false);
         txtCPF.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 210, 20));
+        painelPrincipal.add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 210, 20));
 
         try {
             txtCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCNPJ.setEnabled(false);
         txtCNPJ.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 210, 20));
+        painelPrincipal.add(txtCNPJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 210, 20));
 
         try {
             txtCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
@@ -412,7 +411,7 @@ public class EditarCliente extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Editando cliente");
+        lblTitulo.setText("Editando fornecedor");
         lblTitulo.setOpaque(true);
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
 
@@ -443,11 +442,11 @@ public class EditarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDescartarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        int fornecedor;
-        if (txtFornecedor.isSelected()) {
-            fornecedor = 1;
+        int cliente;
+        if (txtCliente.isSelected()) {
+            cliente = 1;
         } else {
-            fornecedor = 0;
+            cliente = 0;
         }
         //Formatando cnpj
         String cnpj = "0";
@@ -485,8 +484,8 @@ public class EditarCliente extends javax.swing.JFrame {
                     EntidadeModel em = new EntidadeModel();
                     em.setCod(Integer.parseInt(txtCodigo.getText()));
                     em.setTipoPessoa(sldPessoa.getValue());
-                    em.setCliente(1);
-                    em.setFornecedor(fornecedor);
+                    em.setCliente(cliente);
+                    em.setFornecedor(1);
                     em.setCNPJ(cnpj);
                     em.setNome(txtNome.getText());
                     em.setxNome(txtRazao.getText());
@@ -529,14 +528,14 @@ public class EditarCliente extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {java.util.logging.Logger.getLogger(EditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {java.util.logging.Logger.getLogger(EditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {java.util.logging.Logger.getLogger(EditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {java.util.logging.Logger.getLogger(EditarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);}
+        } catch (ClassNotFoundException ex) {java.util.logging.Logger.getLogger(EditarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {java.util.logging.Logger.getLogger(EditarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {java.util.logging.Logger.getLogger(EditarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {java.util.logging.Logger.getLogger(EditarFornecedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);}
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditarCliente().setVisible(true);
+                new EditarFornecedor().setVisible(true);
             }
         });
     }
@@ -572,13 +571,13 @@ public class EditarCliente extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtCEP;
     private javax.swing.JFormattedTextField txtCNPJ;
     private javax.swing.JFormattedTextField txtCPF;
+    private javax.swing.JCheckBox txtCliente;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtComplemento;
     private javax.swing.JFormattedTextField txtContato1;
     private javax.swing.JFormattedTextField txtContato2;
     private javax.swing.JFormattedTextField txtContato3;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JCheckBox txtFornecedor;
     private javax.swing.JTextField txtIE;
     private javax.swing.JTextField txtISUF;
     private javax.swing.JTextField txtLgr;

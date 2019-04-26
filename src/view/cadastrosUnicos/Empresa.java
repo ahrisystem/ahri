@@ -1,10 +1,10 @@
 package view.cadastrosUnicos;
 
-import controller.EmpresaController;
-import controller.LocalController;
+import controller.cadastrosUnicos.EmpresaController;
+import controller.cadastros.funcoes.LocalController;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import model.cadastros.cadastrosUnicos.EmpresaModel;
+import model.cadastrosUnicos.EmpresaModel;
     
 
 public class Empresa extends javax.swing.JFrame {

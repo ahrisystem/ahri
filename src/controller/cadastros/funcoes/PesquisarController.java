@@ -1,5 +1,6 @@
-package controller;
+package controller.cadastros.funcoes;
 
+import controller.connection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.EntidadeModel;
+import model.cadastros.entidades.EntidadeModel;
 import model.ProdutoModel;
 
 public class PesquisarController {

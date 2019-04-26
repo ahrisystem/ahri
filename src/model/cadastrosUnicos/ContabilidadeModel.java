@@ -1,4 +1,4 @@
-package model.cadastros.cadastrosUnicos;
+package model.cadastrosUnicos;
 
 public class ContabilidadeModel {
     private String cnpj;

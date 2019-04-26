@@ -11,7 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
+import view.cadastros.entidades.Fornecedores;
 import view.cadastros.produtos.Produtos;
+import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
 import view.pdv.PDV;
 
@@ -80,10 +82,10 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao3.setText("Clientes");
             opcao4.setText("Grupos");
             opcao5.setText("Formas de P.");
-            opcao6.setText("Fiscal");
-            opcao7.setText("Contábil");
-            opcao8.setText("Usuários");
-            opcao9.setText("Empresa");
+            opcao6.setText("Usuários");
+            opcao7.setText("Placas");
+            opcao8.setText("");
+            opcao9.setText("");
             opcao10.setText("Relatórios");
         }
         if (estoque) {
@@ -112,9 +114,9 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         if (ferramentas) {
             opcao1.setText("Ajustes");
-            opcao2.setText("Ajustes");
-            opcao3.setText("Ajustes");
-            opcao4.setText("Ajustes");
+            opcao2.setText("Histórico");
+            opcao3.setText("Contábil");
+            opcao4.setText("Empresa");
             opcao5.setText("Ajustes");
             opcao6.setText("Ajustes");
             opcao7.setText("Ajustes");
@@ -123,10 +125,10 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao10.setText("Ajustes");
         }
         if (vendas) {
-            opcao1.setText("");
-            opcao2.setText("");
-            opcao3.setText("");
-            opcao4.setText("");
+            opcao1.setText("Nota fiscal");
+            opcao2.setText("Orçamento");
+            opcao3.setText("Arquivo XML");
+            opcao4.setText("Recibo");
             opcao5.setText("");
             opcao6.setText("");
             opcao7.setText("");
@@ -135,8 +137,8 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao10.setText("");
         }
         if (ajuda) {
-            opcao1.setText("");
-            opcao2.setText("");
+            opcao1.setText("Opiniões");
+            opcao2.setText("Licença");
             opcao3.setText("");
             opcao4.setText("");
             opcao5.setText("");
@@ -144,7 +146,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao7.setText("");
             opcao8.setText("");
             opcao9.setText("");
-            opcao10.setText("Sobre");
+            opcao10.setText("Ajuda");
         }
     }
     
@@ -749,7 +751,10 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_opcao1MouseReleased
 
     private void opcao4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao4MouseReleased
-        
+        if (ferramentas) {
+            Empresa e = Empresa.getInstancia().getInstancia();
+            e.setVisible(true);
+        }
     }//GEN-LAST:event_opcao4MouseReleased
 
     private void btnFinanceiroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinanceiroMousePressed
@@ -811,10 +816,17 @@ public class TelaInicial extends javax.swing.JFrame {
             
         }
         if (cadastros) {
-            
+            Clientes clientes = Clientes.getInstancia();
+            painelPrincipal.add("Clientes", clientes);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (vendas) {
             
+        }
+        if (ferramentas) {
+            Contabilidade c = Contabilidade.getInstancia().getInstancia();
+            c.setVisible(true);
         }
     }//GEN-LAST:event_opcao3MousePressed
 
@@ -941,8 +953,7 @@ public class TelaInicial extends javax.swing.JFrame {
             
         }
         if (cadastros) {
-            Empresa e = Empresa.getInstancia().getInstancia();
-            e.setVisible(true);
+            
         }
     }//GEN-LAST:event_opcao9MouseReleased
 
@@ -962,6 +973,12 @@ public class TelaInicial extends javax.swing.JFrame {
         if (inicial) {
             Clientes clientes = Clientes.getInstancia();
             painelPrincipal.add("Clientes", clientes);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+        if (cadastros) {
+            Fornecedores forn = Fornecedores.getInstancia();
+            painelPrincipal.add("Fornecedores", forn);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }

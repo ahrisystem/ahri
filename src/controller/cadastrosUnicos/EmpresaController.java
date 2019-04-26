@@ -1,12 +1,13 @@
-package controller;
+package controller.cadastrosUnicos;
 
+import controller.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import model.cadastros.cadastrosUnicos.EmpresaModel;
+import model.cadastrosUnicos.EmpresaModel;
 
 public class EmpresaController {
 

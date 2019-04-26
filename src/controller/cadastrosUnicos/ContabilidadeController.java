@@ -1,12 +1,13 @@
-package controller;
+package controller.cadastrosUnicos;
 
+import controller.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import model.cadastros.cadastrosUnicos.ContabilidadeModel;
+import model.cadastrosUnicos.ContabilidadeModel;
 
 public class ContabilidadeController {
 
@@ -56,7 +57,7 @@ public class ContabilidadeController {
                 eModel.setFone(rs.getString("fone"));
                 eModel.setEmail(rs.getString("email"));
                 eModel.setCep(rs.getString("cep"));
-                eModel.setUf(rs.getString("cuf"));
+                eModel.setUf(rs.getString("uf"));
                 eModel.setXmun(rs.getString("xmun"));
                 eModel.setXlgr(rs.getString("xlgr"));
                 eModel.setNro(rs.getInt("nro"));

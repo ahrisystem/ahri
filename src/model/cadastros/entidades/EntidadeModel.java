@@ -1,4 +1,4 @@
-package model;
+package model.cadastros.entidades;
 
 public class EntidadeModel {
 

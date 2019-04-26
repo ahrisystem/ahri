@@ -6,23 +6,23 @@ import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
 import view.cadastros.funcoes.RegistrosExcluidos;
 
-public class Clientes extends javax.swing.JPanel {
-    private static final Clientes INSTANCIA = new Clientes();
+public class Fornecedores extends javax.swing.JPanel {
+    private static final Fornecedores INSTANCIA = new Fornecedores();
     EntidadeController ec = new EntidadeController();
     
-    public static Clientes getInstancia() {
+    public static Fornecedores getInstancia() {
         return INSTANCIA;
     }
     
-    public Clientes() {
+    public Fornecedores() {
         initComponents();
         listar();
     }
     
     public void listar(){
-        DefaultTableModel modelo = (DefaultTableModel) tblClientes.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (EntidadeModel e : ec.listaClientes(txtPesquisa.getText())) {
+        for (EntidadeModel e : ec.listaFornecedores(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getNome(),
@@ -45,7 +45,7 @@ public class Clientes extends javax.swing.JPanel {
         btnExcluir = new javax.swing.JLabel();
         btnExcluidos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblClientes = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -64,7 +64,7 @@ public class Clientes extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 105, 191));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Clientes");
+        jLabel2.setText("Fornecedores");
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         txtPesquisa.setToolTipText("Pesquise pelo nome.");
@@ -155,8 +155,8 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        tblClientes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -174,17 +174,17 @@ public class Clientes extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblClientes.setFocusable(false);
-        tblClientes.setGridColor(new java.awt.Color(204, 204, 204));
-        tblClientes.setRowHeight(20);
-        tblClientes.setSelectionBackground(new java.awt.Color(102, 153, 255));
-        tblClientes.getTableHeader().setReorderingAllowed(false);
-        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.setFocusable(false);
+        tabela.setGridColor(new java.awt.Color(204, 204, 204));
+        tabela.setRowHeight(20);
+        tabela.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tabela.getTableHeader().setReorderingAllowed(false);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tblClientesMouseReleased(evt);
+                tabelaMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tblClientes);
+        jScrollPane1.setViewportView(tabela);
 
         btnAtualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnAtualizar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -243,29 +243,29 @@ public class Clientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoCliente novo = NovoCliente.getInstancia();
+        NovoFornecedor novo = NovoFornecedor.getInstancia();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        if (tblClientes.getSelectedRow()<0) {
+        if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             EditarCliente edit = EditarCliente.getInstancia();
-            edit.puxarDados(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
+            edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             edit.setVisible(true);
             listar();
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
-        if (tblClientes.getSelectedRow()<0) {
+        if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
                 "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
+                ec.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
@@ -276,7 +276,7 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_formFocusGained
 
     private void btnExcluidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluidosMouseReleased
-        new RegistrosExcluidos("Clientes excluídos").setVisible(true);
+        new RegistrosExcluidos("Fornecedores excluídos").setVisible(true);
     }//GEN-LAST:event_btnExcluidosMouseReleased
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
@@ -287,9 +287,9 @@ public class Clientes extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jPanel1ComponentHidden
 
-    private void tblClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseReleased
+    private void tabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseReleased
 
-    }//GEN-LAST:event_tblClientesMouseReleased
+    }//GEN-LAST:event_tabelaMouseReleased
 
     private void btnAtualizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseReleased
         listar();
@@ -306,7 +306,7 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblClientes;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

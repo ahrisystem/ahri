@@ -4,7 +4,7 @@ import controller.EntidadeController;
 import controller.ProdutoController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.EntidadeModel;
+import model.cadastros.entidades.EntidadeModel;
 import model.ProdutoModel;
 
 public class RegistrosExcluidos extends javax.swing.JFrame {
@@ -19,6 +19,9 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         if (this.getTitle().equalsIgnoreCase("Clientes excluídos")) {
             listarClientes();
         }
+        if (this.getTitle().equalsIgnoreCase("Fornecedores excluídos")) {
+            listarProdutos();
+        }
         if (this.getTitle().equalsIgnoreCase("Produtos excluídos")) {
             listarProdutos();
         }
@@ -28,6 +31,16 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         for (EntidadeModel e : ec.listaClientesExcluidos(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                e.getCod(),
+                e.getNome(),
+            });
+        }
+    }
+    public void listarFornecedores(){
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (EntidadeModel e : ec.listaFornecedoresExcluidos(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getNome(),
@@ -164,6 +177,13 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
                 listarClientes();
             }
         }
+        if (this.getTitle().equalsIgnoreCase("Fornecedores excluídos")) {
+            if (JOptionPane.showConfirmDialog(null, "Restaurar o fornecedor?",
+                "Restaurar?", 2) == 0) {
+                ec.restaurar(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                listarFornecedores();
+            }
+        }
         if (this.getTitle().equalsIgnoreCase("Produtos excluídos")) {
             if (JOptionPane.showConfirmDialog(null, "Restaurar o produto?",
                 "Restaurar?", 2) == 0) {
@@ -171,6 +191,7 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
                 listarProdutos();
             }
         }
+        
     }//GEN-LAST:event_btnAtivarMouseReleased
 
     private void btnCancelarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseReleased

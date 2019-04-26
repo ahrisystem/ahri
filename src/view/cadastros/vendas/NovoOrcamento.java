@@ -1,6 +1,6 @@
 package view.cadastros.vendas;
 
-import controller.PesquisarController;
+import controller.cadastros.funcoes.PesquisarController;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
 import model.funcoes.PesquisarModel;

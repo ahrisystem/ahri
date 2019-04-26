@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.EntidadeModel;
+import model.cadastros.entidades.EntidadeModel;
 
 public class EntidadeController {
 
@@ -142,6 +142,24 @@ public class EntidadeController {
             JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
         }
         return entidades;
+    }
+    public List<EntidadeModel> listaFornecedoresExcluidos(String nome) {
+        List<EntidadeModel> fornecedores = new ArrayList<>();
+        String sql = "Select cod,nome from entidade where inativo = true and fornecedor = 1 and nome like '%"+nome+"%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                EntidadeModel eModel = new EntidadeModel();
+                eModel.setCod(rs.getInt("cod"));
+                eModel.setNome(rs.getString("nome"));
+                fornecedores.add(eModel);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
+        }
+        return fornecedores;
     }
 
     public int pegaCodigo() {

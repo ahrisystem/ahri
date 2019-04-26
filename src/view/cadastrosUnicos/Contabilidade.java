@@ -1,12 +1,10 @@
 package view.cadastrosUnicos;
 
-import controller.ContabilidadeController;
-import controller.EmpresaController;
-import controller.LocalController;
+import controller.cadastrosUnicos.ContabilidadeController;
+import controller.cadastros.funcoes.LocalController;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import model.cadastros.cadastrosUnicos.ContabilidadeModel;
-import model.cadastros.cadastrosUnicos.EmpresaModel;
+import model.cadastrosUnicos.ContabilidadeModel;
     
 
 public class Contabilidade extends javax.swing.JFrame {
