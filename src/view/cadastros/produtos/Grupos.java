@@ -1,36 +1,25 @@
-package view.cadastros.entidades;
+package view.cadastros.produtos;
 
+import view.cadastros.entidades.*;
 import controller.EntidadeController;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import model.cadastros.entidades.EntidadeModel;
 import view.cadastros.funcoes.RegistrosExcluidos;
 
-public class Fornecedores extends javax.swing.JPanel {
-    private static final Fornecedores INSTANCIA = new Fornecedores();
+public class Grupos extends javax.swing.JPanel {
+    private static final Grupos INSTANCIA = new Grupos();
     EntidadeController ec = new EntidadeController();
     
-    public static Fornecedores getInstancia() {
+    public static Grupos getInstancia() {
         return INSTANCIA;
     }
     
-    public Fornecedores() {
+    public Grupos() {
         initComponents();
         listar();
     }
     
     public void listar(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        for (EntidadeModel e : ec.listaFornecedores(txtPesquisa.getText())) {
-            modelo.addRow(new Object[]{
-                e.getCod(),
-                e.getNome(),
-                e.getCNPJ(),
-                e.getUF(),
-                e.getxMun(),
-            });
-        }
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -45,7 +34,7 @@ public class Fornecedores extends javax.swing.JPanel {
         btnExcluir = new javax.swing.JLabel();
         btnExcluidos = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
@@ -64,7 +53,7 @@ public class Fornecedores extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 105, 191));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Fornecedores");
+        jLabel2.setText("Grupos");
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
         txtPesquisa.setToolTipText("Pesquise pelo nome.");
@@ -150,13 +139,13 @@ public class Fornecedores extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
                 .addComponent(btnExcluidos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -174,17 +163,17 @@ public class Fornecedores extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tabela.setFocusable(false);
-        tabela.setGridColor(new java.awt.Color(204, 204, 204));
-        tabela.setRowHeight(20);
-        tabela.setSelectionBackground(new java.awt.Color(102, 153, 255));
-        tabela.getTableHeader().setReorderingAllowed(false);
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblClientes.setFocusable(false);
+        tblClientes.setGridColor(new java.awt.Color(204, 204, 204));
+        tblClientes.setRowHeight(20);
+        tblClientes.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tblClientes.getTableHeader().setReorderingAllowed(false);
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tabelaMouseReleased(evt);
+                tblClientesMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tabela);
+        jScrollPane1.setViewportView(tblClientes);
 
         btnAtualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnAtualizar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -223,8 +212,8 @@ public class Fornecedores extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(9, 9, 9)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -243,29 +232,29 @@ public class Fornecedores extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoFornecedor novo = NovoFornecedor.getInstancia();
+        NovoCliente novo = NovoCliente.getInstancia();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        if (tabela.getSelectedRow()<0) {
+        if (tblClientes.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             EditarCliente edit = EditarCliente.getInstancia();
-            edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            edit.puxarDados(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
             edit.setVisible(true);
             listar();
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
-        if (tabela.getSelectedRow()<0) {
+        if (tblClientes.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o fornecedor?",
+            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
                 "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                ec.excluir(Integer.parseInt(tblClientes.getValueAt(tblClientes.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
@@ -276,24 +265,24 @@ public class Fornecedores extends javax.swing.JPanel {
     }//GEN-LAST:event_formFocusGained
 
     private void btnExcluidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluidosMouseReleased
-        new RegistrosExcluidos("Fornecedores excluídos").setVisible(true);
+        new RegistrosExcluidos("Clientes excluídos").setVisible(true);
     }//GEN-LAST:event_btnExcluidosMouseReleased
-
-    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        listar();
-    }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void jPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentHidden
         
     }//GEN-LAST:event_jPanel1ComponentHidden
 
-    private void tabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseReleased
-
-    }//GEN-LAST:event_tabelaMouseReleased
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        listar();
+    }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnAtualizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseReleased
         listar();
     }//GEN-LAST:event_btnAtualizarMouseReleased
+
+    private void tblClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseReleased
+
+    }//GEN-LAST:event_tblClientesMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -306,7 +295,7 @@ public class Fornecedores extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

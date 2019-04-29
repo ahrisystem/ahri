@@ -99,9 +99,13 @@ public class NovoFornecedor extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        cbxCel1 = new javax.swing.JCheckBox();
+        cbxCel2 = new javax.swing.JCheckBox();
+        cbxCel3 = new javax.swing.JCheckBox();
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Novo Fornecedor");
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -150,7 +154,7 @@ public class NovoFornecedor extends javax.swing.JFrame {
         lblCPF.setForeground(new java.awt.Color(51, 105, 191));
         lblCPF.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCPF.setText("CPF");
-        painelPrincipal.add(lblCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 80, 20));
+        painelPrincipal.add(lblCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 130, 80, 20));
 
         lblCNPJ.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCNPJ.setForeground(new java.awt.Color(51, 105, 191));
@@ -204,7 +208,7 @@ public class NovoFornecedor extends javax.swing.JFrame {
         lblContato.setForeground(new java.awt.Color(51, 105, 191));
         lblContato.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblContato.setText("Contato");
-        painelPrincipal.add(lblContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 100, 20));
+        painelPrincipal.add(lblContato, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 100, 20));
 
         lblEmail.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblEmail.setForeground(new java.awt.Color(51, 105, 191));
@@ -250,7 +254,6 @@ public class NovoFornecedor extends javax.swing.JFrame {
         painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 550, 20));
 
         txtRazao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtRazao.setEnabled(false);
         txtRazao.setPreferredSize(new java.awt.Dimension(200, 20));
         txtRazao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,28 +321,28 @@ public class NovoFornecedor extends javax.swing.JFrame {
         painelPrincipal.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 220, 20));
 
         try {
-            txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtContato1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 160, -1));
+        painelPrincipal.add(txtContato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 150, 20));
 
         try {
-            txtContato2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtContato2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtContato2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 160, -1));
+        painelPrincipal.add(txtContato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 150, 20));
 
         try {
-            txtContato3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            txtContato3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         txtContato3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 160, -1));
+        painelPrincipal.add(txtContato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, 150, 20));
 
         txtEmail.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtEmail.setPreferredSize(new java.awt.Dimension(200, 20));
@@ -354,14 +357,14 @@ public class NovoFornecedor extends javax.swing.JFrame {
         painelPrincipal.add(txtISUF, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 170, 20));
 
         btnDescartar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnDescartar.setText("Descartar");
+        btnDescartar.setText("Sair");
         btnDescartar.setFocusable(false);
         btnDescartar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDescartarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, -1, 30));
+        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 390, 90, 30));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -374,6 +377,48 @@ public class NovoFornecedor extends javax.swing.JFrame {
         painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, 80, 30));
         painelPrincipal.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 750, 10));
         painelPrincipal.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 750, 10));
+
+        cbxCel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxCel1.setForeground(new java.awt.Color(102, 102, 102));
+        cbxCel1.setText("Cel.");
+        cbxCel1.setToolTipText("Marque caso ele seja também um fornecedor.");
+        cbxCel1.setFocusable(false);
+        cbxCel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cbxCel1.setOpaque(false);
+        cbxCel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cbxCel1MouseReleased(evt);
+            }
+        });
+        painelPrincipal.add(cbxCel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, 20));
+
+        cbxCel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxCel2.setForeground(new java.awt.Color(102, 102, 102));
+        cbxCel2.setText("Cel.");
+        cbxCel2.setToolTipText("Marque caso ele seja também um fornecedor.");
+        cbxCel2.setFocusable(false);
+        cbxCel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cbxCel2.setOpaque(false);
+        cbxCel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cbxCel2MouseReleased(evt);
+            }
+        });
+        painelPrincipal.add(cbxCel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, -1, 20));
+
+        cbxCel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxCel3.setForeground(new java.awt.Color(102, 102, 102));
+        cbxCel3.setText("Cel.");
+        cbxCel3.setToolTipText("Marque caso ele seja também um fornecedor.");
+        cbxCel3.setFocusable(false);
+        cbxCel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cbxCel3.setOpaque(false);
+        cbxCel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cbxCel3MouseReleased(evt);
+            }
+        });
+        painelPrincipal.add(cbxCel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 290, -1, 20));
 
         jScrollPane.setViewportView(painelPrincipal);
 
@@ -420,20 +465,6 @@ public class NovoFornecedor extends javax.swing.JFrame {
         } else {
             cliente = 0;
         }
-        //Formatando cnpj
-        String cnpj = "0";
-        if (sldPessoa.getValue()==fisica) {
-            cnpj = txtCPF.getText().replaceAll(".", "");
-            cnpj = cnpj.replaceAll("-", "");
-        } else {
-            cnpj = txtCNPJ.getText().replaceAll(".", "");
-            cnpj = cnpj.replaceAll("/", "");
-            cnpj = cnpj.replaceAll("-", "");
-        }
-        //Formatando cep
-        String cep;
-        cep = txtCEP.getText().replaceAll(".", "");
-        cep = cep.replaceAll("-", "");
         //Zerando valores int nulos
         if (txtNro.getText().equalsIgnoreCase("")) {
             txtNro.setText("0");
@@ -458,7 +489,11 @@ public class NovoFornecedor extends javax.swing.JFrame {
                     em.setTipoPessoa(sldPessoa.getValue());
                     em.setCliente(cliente);
                     em.setFornecedor(1);
-                    em.setCNPJ(cnpj);
+                    if (sldPessoa.getValue()==fisica) {
+                        em.setCNPJ(txtCPF.getText());
+                    } else {
+                        em.setCNPJ(txtCNPJ.getText());
+                    }
                     em.setNome(txtNome.getText());
                     em.setxNome(txtRazao.getText());
                     em.setxLgr(txtLgr.getText());
@@ -490,6 +525,54 @@ public class NovoFornecedor extends javax.swing.JFrame {
         preencheCidades();
     }//GEN-LAST:event_txtUFActionPerformed
 
+    private void cbxCel3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCel3MouseReleased
+        if (cbxCel3.isSelected()) {
+            try {
+                txtContato3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            try {
+                txtContato3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_cbxCel3MouseReleased
+
+    private void cbxCel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCel1MouseReleased
+        if (cbxCel1.isSelected()) {
+            try {
+                txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            try {
+                txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_cbxCel1MouseReleased
+
+    private void cbxCel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxCel2MouseReleased
+        if (cbxCel2.isSelected()) {
+            try {
+                txtContato2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            try {
+                txtContato2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+            } catch (java.text.ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_cbxCel2MouseReleased
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel">
         try {
@@ -516,6 +599,9 @@ public class NovoFornecedor extends javax.swing.JFrame {
     private javax.swing.JLabel ISUF;
     private javax.swing.JButton btnDescartar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JCheckBox cbxCel1;
+    private javax.swing.JCheckBox cbxCel2;
+    private javax.swing.JCheckBox cbxCel3;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

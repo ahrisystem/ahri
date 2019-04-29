@@ -5,12 +5,12 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.cadastros.produtos.ProdutoModel;
 
-public class NovoProduto extends javax.swing.JFrame {
+public class NovoGrupo extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
-    private static final NovoProduto INSTANCIA = new NovoProduto();
+    private static final NovoGrupo INSTANCIA = new NovoGrupo();
     
     
-    public static NovoProduto getInstancia() {
+    public static NovoGrupo getInstancia() {
         return INSTANCIA;
     }
     
@@ -18,17 +18,14 @@ public class NovoProduto extends javax.swing.JFrame {
         lblTítulo.setText(titulo);
     }
 
-    private NovoProduto() {
+    private NovoGrupo() {
         initComponents();
         setLocationRelativeTo(null);
     }
     
     public void limpaCampos(){
         txtCodigo.setText("");
-        txtEAN.setText("");
         txtNome.setText("");
-        txtPreco.setText("0,00");
-        txtCusto.setText("0,00");
         txtNCM.setText("");
         txtCEST.setText("");
         txtAliquota.setText("");
@@ -41,19 +38,8 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtServico = new javax.swing.JCheckBox();
-        lblEAN = new javax.swing.JLabel();
-        txtEAN = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        lblGrupo = new javax.swing.JLabel();
-        txtGrupo = new javax.swing.JComboBox<>();
-        lblUN = new javax.swing.JLabel();
-        txtUN = new javax.swing.JComboBox<>();
-        lblPreco = new javax.swing.JLabel();
-        txtPreco = new javax.swing.JFormattedTextField();
-        lblCusto = new javax.swing.JLabel();
-        txtCusto = new javax.swing.JFormattedTextField();
         btnSair = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         painelAbas = new javax.swing.JTabbedPane();
@@ -107,7 +93,7 @@ public class NovoProduto extends javax.swing.JFrame {
         lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTítulo.setText("Novo Produto");
+        lblTítulo.setText("Novo Grupo");
         lblTítulo.setOpaque(true);
         getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 30));
 
@@ -140,26 +126,6 @@ public class NovoProduto extends javax.swing.JFrame {
         });
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 170, 20));
 
-        txtServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtServico.setText("Serviço ?");
-        txtServico.setOpaque(false);
-        txtServico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtServicoMouseReleased(evt);
-            }
-        });
-        painelPrincipal.add(txtServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 100, 20));
-
-        lblEAN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblEAN.setForeground(new java.awt.Color(51, 105, 191));
-        lblEAN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblEAN.setText("Código de Barras");
-        painelPrincipal.add(lblEAN, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 150, 20));
-
-        txtEAN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtEAN.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtEAN, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 200, -1));
-
         lblNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(51, 105, 191));
         lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -169,53 +135,6 @@ public class NovoProduto extends javax.swing.JFrame {
         txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 630, 20));
-
-        lblGrupo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblGrupo.setForeground(new java.awt.Color(51, 105, 191));
-        lblGrupo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblGrupo.setText("Grupo");
-        painelPrincipal.add(lblGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, 20));
-
-        txtGrupo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lanches", "Bebidas", "Cigarros" }));
-        painelPrincipal.add(txtGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 330, 20));
-
-        lblUN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblUN.setForeground(new java.awt.Color(51, 105, 191));
-        lblUN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblUN.setText("Unidade de medida");
-        painelPrincipal.add(lblUN, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 190, 20));
-
-        txtUN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtUN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UN", "PC", "KG" }));
-        painelPrincipal.add(txtUN, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 80, 20));
-
-        lblPreco.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblPreco.setForeground(new java.awt.Color(51, 105, 191));
-        lblPreco.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblPreco.setText("Preço");
-        painelPrincipal.add(lblPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 70, 30));
-
-        txtPreco.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        painelPrincipal.add(txtPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 30));
-
-        lblCusto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCusto.setForeground(new java.awt.Color(51, 105, 191));
-        lblCusto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCusto.setText("Custo");
-        painelPrincipal.add(lblCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 70, 30));
-
-        txtCusto.setForeground(new java.awt.Color(204, 0, 51));
-        txtCusto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtCusto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        txtCusto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCustoActionPerformed(evt);
-            }
-        });
-        painelPrincipal.add(txtCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 100, 30));
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSair.setText("Sair");
@@ -501,29 +420,20 @@ public class NovoProduto extends javax.swing.JFrame {
         if (txtNome.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Preencha o nome!");
         } else {
-            if (txtPreco.getText().equalsIgnoreCase("") || txtPreco.getText().equalsIgnoreCase("0,00")) {
-                JOptionPane.showMessageDialog(null, "Verifique o preço!");
+
+            if (txtNCM.getText().equalsIgnoreCase("")) {
+                JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
             } else {
-                if (txtNCM.getText().equalsIgnoreCase("")) {
-                    JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
-                } else {
-                    ProdutoModel pm = new ProdutoModel();
-                    pm.setCod(Integer.parseInt(txtCodigo.getText()));
-                    pm.setServico(txtServico.isEnabled());
-                    pm.setCodigoBarras(txtEAN.getText());
-                    pm.setNome(txtNome.getText());
-                    pm.setInativo(false);
-                    pm.setGrupo(txtGrupo.getSelectedItem().toString());
-                    pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
-                    pm.setEstoque(0);
-                    pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
-                    pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
-                    pm.setNcm(txtNCM.getText());
-                    pm.setCest(txtCEST.getText());
-                    pc.cadastraProduto(pm);
-                    limpaCampos();
-                }
+                ProdutoModel pm = new ProdutoModel();
+                pm.setCod(Integer.parseInt(txtCodigo.getText()));
+                pm.setNome(txtNome.getText());
+                pm.setInativo(false);
+                pm.setNcm(txtNCM.getText());
+                pm.setCest(txtCEST.getText());
+                pc.cadastraProduto(pm);
+                limpaCampos();
             }
+
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -608,16 +518,6 @@ public class NovoProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCofinsSaidaKeyReleased
 
-    private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
-        if (txtServico.isSelected()) {
-            txtEAN.setEnabled(false);
-            lblNCM.setText("NBS");
-        } else {
-            txtEAN.setEnabled(true);
-            lblNCM.setText("NCM");
-        }
-    }//GEN-LAST:event_txtServicoMouseReleased
-
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         if (txtCodigo.getText().equalsIgnoreCase("")) {
             txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
@@ -629,10 +529,6 @@ public class NovoProduto extends javax.swing.JFrame {
             txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
         }
     }//GEN-LAST:event_txtCodigoFocusLost
-
-    private void txtCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCustoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCustoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
@@ -652,18 +548,18 @@ public class NovoProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoProduto().setVisible(true);
+                new NovoGrupo().setVisible(true);
             }
         });
     }
@@ -683,15 +579,10 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigo6;
     private javax.swing.JLabel lblCodigo8;
     private javax.swing.JLabel lblCodigo9;
-    private javax.swing.JLabel lblCusto;
-    private javax.swing.JLabel lblEAN;
-    private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblNCM;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPIS;
-    private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblTítulo;
-    private javax.swing.JLabel lblUN;
     private javax.swing.JTabbedPane painelAbas;
     private javax.swing.JPanel painelIPI;
     private javax.swing.JPanel painelInformacoesFiscais;
@@ -709,17 +600,11 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo9;
     private javax.swing.JTextField txtCofinsEntrada;
     private javax.swing.JTextField txtCofinsSaida;
-    private javax.swing.JFormattedTextField txtCusto;
-    private javax.swing.JTextField txtEAN;
-    private javax.swing.JComboBox<String> txtGrupo;
     private javax.swing.JTextField txtNCM;
     private javax.swing.JTextField txtNCMdescricao;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPISEntrada;
     private javax.swing.JTextField txtPISSaida;
-    private javax.swing.JFormattedTextField txtPreco;
-    private javax.swing.JCheckBox txtServico;
     private javax.swing.JComboBox<String> txtTipoTributacao;
-    private javax.swing.JComboBox<String> txtUN;
     // End of variables declaration//GEN-END:variables
 }

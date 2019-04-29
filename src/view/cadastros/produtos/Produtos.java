@@ -3,7 +3,7 @@ package view.cadastros.produtos;
 import controller.ProdutoController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ProdutoModel;
+import model.cadastros.produtos.ProdutoModel;
 import view.cadastros.funcoes.RegistrosExcluidos;
 
 public class Produtos extends javax.swing.JPanel {
@@ -38,7 +38,7 @@ public class Produtos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        fundo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -49,6 +49,7 @@ public class Produtos extends javax.swing.JPanel {
         btnExcluir = new javax.swing.JLabel();
         btnEditar1 = new javax.swing.JLabel();
         btnAlterarCodigo = new javax.swing.JLabel();
+        btnAtualizar = new javax.swing.JLabel();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -56,14 +57,14 @@ public class Produtos extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
+        fundo.setBackground(new java.awt.Color(255, 255, 255));
+        fundo.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
-                jPanel1ComponentHidden(evt);
+                fundoComponentHidden(evt);
             }
         });
 
-        tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -84,7 +85,7 @@ public class Produtos extends javax.swing.JPanel {
         });
         tblProdutos.setFocusable(false);
         tblProdutos.setGridColor(new java.awt.Color(204, 204, 204));
-        tblProdutos.setRowHeight(18);
+        tblProdutos.setRowHeight(20);
         tblProdutos.setSelectionBackground(new java.awt.Color(102, 153, 255));
         tblProdutos.getTableHeader().setReorderingAllowed(false);
         tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -212,28 +213,46 @@ public class Produtos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        btnAtualizar.setBackground(new java.awt.Color(255, 255, 255));
+        btnAtualizar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnAtualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/outros/atualizar.png"))); // NOI18N
+        btnAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAtualizar.setOpaque(true);
+        btnAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAtualizarMouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout fundoLayout = new javax.swing.GroupLayout(fundo);
+        fundo.setLayout(fundoLayout);
+        fundoLayout.setHorizontalGroup(
+            fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fundoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 646, Short.MAX_VALUE)
+                .addGroup(fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(fundoLayout.createSequentialGroup()
+                        .addComponent(txtPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 607, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(8, 8, 8)
-                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+        fundoLayout.setVerticalGroup(
+            fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fundoLayout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
+            .addGroup(fundoLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -242,11 +261,11 @@ public class Produtos extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(fundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -301,19 +320,24 @@ public class Produtos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAlterarCodigoMouseReleased
 
-    private void jPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentHidden
+    private void fundoComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_fundoComponentHidden
         System.out.println("passou");
-    }//GEN-LAST:event_jPanel1ComponentHidden
+    }//GEN-LAST:event_fundoComponentHidden
+
+    private void btnAtualizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseReleased
+        listar();
+    }//GEN-LAST:event_btnAtualizarMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAlterarCodigo;
+    private javax.swing.JLabel btnAtualizar;
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnEditar1;
     private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnNovo;
+    private javax.swing.JPanel fundo;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProdutos;

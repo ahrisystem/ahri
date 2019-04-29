@@ -1,4 +1,4 @@
-package model;
+package model.cadastros.produtos;
 
 public class ProdutoModel {
     private int editar;

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;
-import model.ProdutoModel;
+import model.cadastros.produtos.ProdutoModel;
 
 public class PesquisarController {
 

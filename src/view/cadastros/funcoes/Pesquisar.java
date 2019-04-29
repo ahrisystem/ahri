@@ -3,7 +3,7 @@ package view.cadastros.funcoes;
 import controller.cadastros.funcoes.PesquisarController;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
-import model.ProdutoModel;
+import model.cadastros.produtos.ProdutoModel;
 import model.funcoes.PesquisarModel;
 
 public class Pesquisar extends javax.swing.JFrame {
