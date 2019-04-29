@@ -66,7 +66,7 @@ public class ProdutoController {
     }
     public List<ProdutoModel> listaProdutosExcluidos(String nome) {
         List<ProdutoModel> produtos = new ArrayList<>();
-        String sql = "SELECT cod, \"codigoBarras\", nome,\"unidadeMedida\",preco, grupo FROM produto where inativo=FALSE and nome LIKE '%" + nome + "%';";
+        String sql = "SELECT cod, \"codigoBarras\", nome,\"unidadeMedida\",preco, grupo FROM produto where inativo=TRUE and nome LIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
