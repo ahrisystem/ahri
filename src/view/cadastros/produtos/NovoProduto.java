@@ -67,19 +67,12 @@ public class NovoProduto extends javax.swing.JFrame {
         painelTributacao = new javax.swing.JPanel();
         txtAliquota = new javax.swing.JTextField();
         lblCodigo4 = new javax.swing.JLabel();
-        txtCSTEntrada = new javax.swing.JTextField();
-        txtCSTSaida = new javax.swing.JTextField();
         txtTipoTributacao = new javax.swing.JComboBox<>();
         lblCodigo14 = new javax.swing.JLabel();
-        lblCodigo15 = new javax.swing.JLabel();
-        lblCodigo8 = new javax.swing.JLabel();
+        txtTipoTributacao1 = new javax.swing.JComboBox<>();
         painelPisCofins = new javax.swing.JPanel();
         lblCodigo5 = new javax.swing.JLabel();
-        txtPISEntrada = new javax.swing.JTextField();
         lblCOFINS = new javax.swing.JLabel();
-        txtCofinsEntrada = new javax.swing.JTextField();
-        txtPISSaida = new javax.swing.JTextField();
-        txtCofinsSaida = new javax.swing.JTextField();
         lblPIS = new javax.swing.JLabel();
         lblCodigo13 = new javax.swing.JLabel();
         painelIPI = new javax.swing.JPanel();
@@ -321,53 +314,29 @@ public class NovoProduto extends javax.swing.JFrame {
                 txtAliquotaKeyReleased(evt);
             }
         });
-        painelTributacao.add(txtAliquota, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 50, -1));
+        painelTributacao.add(txtAliquota, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 50, -1));
 
         lblCodigo4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCodigo4.setForeground(new java.awt.Color(51, 105, 191));
         lblCodigo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCodigo4.setText("CST/CSOSN:");
-        painelTributacao.add(lblCodigo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 120, 20));
-
-        txtCSTEntrada.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCSTEntrada.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCSTEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCSTEntradaKeyReleased(evt);
-            }
-        });
-        painelTributacao.add(txtCSTEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 80, -1));
-
-        txtCSTSaida.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCSTSaida.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCSTSaida.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCSTSaidaKeyReleased(evt);
-            }
-        });
-        painelTributacao.add(txtCSTSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 80, -1));
+        painelTributacao.add(lblCodigo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 120, 20));
 
         txtTipoTributacao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtTipoTributacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "T - Tributado", "F - Substituição Tributária", "I - Isento", "N - Não tributado" }));
-        painelTributacao.add(txtTipoTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 20));
+        txtTipoTributacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - Nacional", "1 - Estrangeira", "2 - Estrangeira", "3 - Nacional", "4 - Nacional", "5 - Nacional", "6 - Estrangeira", "7 - Estrangeira" }));
+        painelTributacao.add(txtTipoTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, 20));
 
         lblCodigo14.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCodigo14.setForeground(new java.awt.Color(51, 105, 191));
         lblCodigo14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCodigo14.setText("Alíquota:");
-        painelTributacao.add(lblCodigo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 70, 20));
+        painelTributacao.add(lblCodigo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 70, 20));
 
-        lblCodigo15.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCodigo15.setText("Entrada");
-        painelTributacao.add(lblCodigo15, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 80, 20));
+        txtTipoTributacao1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtTipoTributacao1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "T - Tributado", "F - Substituição Tributária", "I - Isento", "N - Não tributado" }));
+        painelTributacao.add(txtTipoTributacao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 130, 20));
 
-        lblCodigo8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCodigo8.setText("Saída");
-        painelTributacao.add(lblCodigo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, 80, 20));
-
-        painelInformacoesFiscais.add(painelTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 320, 120));
+        painelInformacoesFiscais.add(painelTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 120));
 
         painelPisCofins.setBackground(new java.awt.Color(255, 255, 255));
         painelPisCofins.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PIS/COFINS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
@@ -376,49 +345,13 @@ public class NovoProduto extends javax.swing.JFrame {
         lblCodigo5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCodigo5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCodigo5.setText("Saída");
-        painelPisCofins.add(lblCodigo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 80, 20));
-
-        txtPISEntrada.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPISEntrada.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtPISEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPISEntradaKeyReleased(evt);
-            }
-        });
-        painelPisCofins.add(txtPISEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 80, -1));
+        painelPisCofins.add(lblCodigo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, 20));
 
         lblCOFINS.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCOFINS.setForeground(new java.awt.Color(51, 105, 191));
         lblCOFINS.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblCOFINS.setText("COFINS");
         painelPisCofins.add(lblCOFINS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 60, 20));
-
-        txtCofinsEntrada.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCofinsEntrada.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCofinsEntrada.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCofinsEntradaKeyReleased(evt);
-            }
-        });
-        painelPisCofins.add(txtCofinsEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 80, -1));
-
-        txtPISSaida.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPISSaida.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtPISSaida.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPISSaidaKeyReleased(evt);
-            }
-        });
-        painelPisCofins.add(txtPISSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 80, -1));
-
-        txtCofinsSaida.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCofinsSaida.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCofinsSaida.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCofinsSaidaKeyReleased(evt);
-            }
-        });
-        painelPisCofins.add(txtCofinsSaida, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 80, -1));
 
         lblPIS.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblPIS.setForeground(new java.awt.Color(51, 105, 191));
@@ -429,9 +362,9 @@ public class NovoProduto extends javax.swing.JFrame {
         lblCodigo13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCodigo13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCodigo13.setText("Entrada");
-        painelPisCofins.add(lblCodigo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 20));
+        painelPisCofins.add(lblCodigo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 70, 20));
 
-        painelInformacoesFiscais.add(painelPisCofins, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 260, 120));
+        painelInformacoesFiscais.add(painelPisCofins, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 230, 120));
 
         painelIPI.setBackground(new java.awt.Color(255, 255, 255));
         painelIPI.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "IPI", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
@@ -482,7 +415,7 @@ public class NovoProduto extends javax.swing.JFrame {
         });
         painelIPI.add(txtCodigo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 80, -1));
 
-        painelInformacoesFiscais.add(painelIPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, 180, 120));
+        painelInformacoesFiscais.add(painelIPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 180, 120));
 
         painelAbas.addTab("Informações fiscais", painelInformacoesFiscais);
 
@@ -572,14 +505,6 @@ public class NovoProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAliquotaKeyReleased
 
-    private void txtCSTEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCSTEntradaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCSTEntradaKeyReleased
-
-    private void txtCSTSaidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCSTSaidaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCSTSaidaKeyReleased
-
     private void txtCodigo9KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigo9KeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigo9KeyReleased
@@ -591,22 +516,6 @@ public class NovoProduto extends javax.swing.JFrame {
     private void txtCodigo13KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigo13KeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigo13KeyReleased
-
-    private void txtPISEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPISEntradaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPISEntradaKeyReleased
-
-    private void txtCofinsEntradaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCofinsEntradaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCofinsEntradaKeyReleased
-
-    private void txtPISSaidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPISSaidaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPISSaidaKeyReleased
-
-    private void txtCofinsSaidaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCofinsSaidaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCofinsSaidaKeyReleased
 
     private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
         if (txtServico.isSelected()) {
@@ -676,12 +585,10 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lblCodigo11;
     private javax.swing.JLabel lblCodigo13;
     private javax.swing.JLabel lblCodigo14;
-    private javax.swing.JLabel lblCodigo15;
     private javax.swing.JLabel lblCodigo2;
     private javax.swing.JLabel lblCodigo4;
     private javax.swing.JLabel lblCodigo5;
     private javax.swing.JLabel lblCodigo6;
-    private javax.swing.JLabel lblCodigo8;
     private javax.swing.JLabel lblCodigo9;
     private javax.swing.JLabel lblCusto;
     private javax.swing.JLabel lblEAN;
@@ -701,25 +608,20 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtAliquota;
     private javax.swing.JTextField txtCEST;
     private javax.swing.JTextField txtCESTdescricao;
-    private javax.swing.JTextField txtCSTEntrada;
-    private javax.swing.JTextField txtCSTSaida;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigo10;
     private javax.swing.JTextField txtCodigo13;
     private javax.swing.JTextField txtCodigo9;
-    private javax.swing.JTextField txtCofinsEntrada;
-    private javax.swing.JTextField txtCofinsSaida;
     private javax.swing.JFormattedTextField txtCusto;
     private javax.swing.JTextField txtEAN;
     private javax.swing.JComboBox<String> txtGrupo;
     private javax.swing.JTextField txtNCM;
     private javax.swing.JTextField txtNCMdescricao;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtPISEntrada;
-    private javax.swing.JTextField txtPISSaida;
     private javax.swing.JFormattedTextField txtPreco;
     private javax.swing.JCheckBox txtServico;
     private javax.swing.JComboBox<String> txtTipoTributacao;
+    private javax.swing.JComboBox<String> txtTipoTributacao1;
     private javax.swing.JComboBox<String> txtUN;
     // End of variables declaration//GEN-END:variables
 }
