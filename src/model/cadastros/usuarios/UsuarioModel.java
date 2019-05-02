@@ -1,9 +1,10 @@
-package model;
+package model.cadastros.usuarios;
 
 import java.util.Date;
 
 public class UsuarioModel {
     private String login;
+    private boolean inativo;
     private boolean administrador;
     private String nome;
     private String PerfilUsuario;
@@ -18,6 +19,14 @@ public class UsuarioModel {
         this.login = login;
     }
 
+    public boolean isInativo() {
+        return inativo;
+    }
+
+    public void setInativo(boolean inativo) {
+        this.inativo = inativo;
+    }
+    
     public boolean isAdministrador() {
         return administrador;
     }

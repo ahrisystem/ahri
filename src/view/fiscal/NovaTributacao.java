@@ -1,6 +1,6 @@
 package view.fiscal;
 
-import controller.ProdutoController;
+import controller.cadastros.produtos.ProdutoController;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.cadastros.produtos.ProdutoModel;

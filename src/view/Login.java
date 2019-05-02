@@ -1,5 +1,6 @@
 package view;
 
+import controller.cadastros.usuarios.UsuarioController;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -7,8 +8,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
+import model.cadastros.usuarios.UsuarioModel;
 
 public class Login extends javax.swing.JFrame {
+    UsuarioController uc = new UsuarioController();
+    UsuarioModel um = new UsuarioModel();
     private static final Login INSTANCIA = new Login();
     
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMdd");
@@ -29,20 +33,25 @@ public class Login extends javax.swing.JFrame {
         String login = txtLogin.getText();
         String senha = txtSenha.getText();
         
-        if (login.equals(usuarioMaster)) {
-            if (senha.equals(senhaMaster)) {
-                new TelaInicial().setVisible(true);
-                this.dispose();
-            } else {
-                txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
-                JOptionPane.showMessageDialog(null, "Senha incorreta!", "Errou.", 1);
-                txtSenha.requestFocus();
-            }
-        } else {
-            txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
-            JOptionPane.showMessageDialog(null, "Nome de usuário incorreto!", "Errou.", 1);
-            txtLogin.requestFocus();
+        uc.login(um, login);
+        
+        if (um.getLogin().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Usuário não existe","Errou",1);
         }
+//        if (login.equals(usuarioMaster)) {
+//            if (senha.equals(senhaMaster)) {
+//                new TelaInicial().setVisible(true);
+//                this.dispose();
+//            } else {
+//                txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
+//                JOptionPane.showMessageDialog(null, "Senha incorreta!", "Errou.", 1);
+//                txtSenha.requestFocus();
+//            }
+//        } else {
+//            txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
+//            JOptionPane.showMessageDialog(null, "Nome de usuário incorreto!", "Errou.", 1);
+//            txtLogin.requestFocus();
+//        }
     }
     public void icone(){
         URL url = this.getClass().getResource("/images/icon.ico");  

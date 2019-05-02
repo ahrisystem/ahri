@@ -1,7 +1,7 @@
 package view.cadastros.produtos;
 
 import view.cadastros.entidades.*;
-import controller.EntidadeController;
+import controller.cadastros.entidades.EntidadeController;
 import javax.swing.JOptionPane;
 import view.cadastros.funcoes.RegistrosExcluidos;
 

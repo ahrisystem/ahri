@@ -1,5 +1,6 @@
-package controller;
+package controller.cadastros.produtos;
 
+import controller.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

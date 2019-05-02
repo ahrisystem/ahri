@@ -1,6 +1,6 @@
 package view.cadastros.produtos;
 
-import controller.ProdutoController;
+import controller.cadastros.produtos.ProdutoController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.produtos.ProdutoModel;

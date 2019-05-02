@@ -1,20 +1,23 @@
-package view.cadastros.entidades;
+package view.cadastros.usuarios;
 
+import view.cadastros.entidades.*;
 import controller.cadastros.entidades.EntidadeController;
+import controller.cadastros.usuarios.UsuarioController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.cadastros.usuarios.UsuarioModel;
 import model.cadastros.entidades.EntidadeModel;
 import view.cadastros.funcoes.RegistrosExcluidos;
 
-public class Fornecedores extends javax.swing.JPanel {
-    private static final Fornecedores INSTANCIA = new Fornecedores();
-    EntidadeController ec = new EntidadeController();
+public class Usuarios extends javax.swing.JPanel {
+    private static final Usuarios INSTANCIA = new Usuarios();
+    UsuarioController ec = new UsuarioController();
     
-    public static Fornecedores getInstancia() {
+    public static Usuarios getInstancia() {
         return INSTANCIA;
     }
     
-    public Fornecedores() {
+    public Usuarios() {
         initComponents();
         listar();
     }
@@ -22,13 +25,11 @@ public class Fornecedores extends javax.swing.JPanel {
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (EntidadeModel e : ec.listaFornecedores(txtPesquisa.getText())) {
+        for (UsuarioModel e : ec.listar(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
-                e.getCod(),
+                e.getLogin(),
                 e.getNome(),
-                e.getCNPJ(),
-                e.getUF(),
-                e.getxMun(),
+                e.getPerfilUsuario()
             });
         }
     }
@@ -54,7 +55,7 @@ public class Fornecedores extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 jPanel1ComponentHidden(evt);
@@ -69,7 +70,7 @@ public class Fornecedores extends javax.swing.JPanel {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         btnNovo.setBackground(new java.awt.Color(51, 105, 191));
         btnNovo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -150,19 +151,21 @@ public class Fornecedores extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jScrollPane1.setBorder(null);
+
         tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Código", "Nome", "CPF CNPJ", "UF", "Cidade"
+                "Login", "Nome", "Perfil"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -187,7 +190,6 @@ public class Fornecedores extends javax.swing.JPanel {
         btnAtualizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/outros/atualizar.png"))); // NOI18N
         btnAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAtualizar.setOpaque(true);
         btnAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 btnAtualizarMouseReleased(evt);
@@ -198,7 +200,7 @@ public class Fornecedores extends javax.swing.JPanel {
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Fornecedores");
+        lblTitulo.setText("Usuários");
         lblTitulo.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -206,15 +208,15 @@ public class Fornecedores extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPesquisa)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -223,15 +225,13 @@ public class Fornecedores extends javax.swing.JPanel {
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(9, 9, 9)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -247,7 +247,7 @@ public class Fornecedores extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoFornecedor novo = NovoFornecedor.getInstancia();
+        NovoUsuario novo = NovoUsuario.getInstancia();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
@@ -267,9 +267,9 @@ public class Fornecedores extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o fornecedor?",
+            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
                 "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                ec.excluir(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
                 listar();
             }
         }
@@ -280,7 +280,7 @@ public class Fornecedores extends javax.swing.JPanel {
     }//GEN-LAST:event_formFocusGained
 
     private void btnExcluidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluidosMouseReleased
-        new RegistrosExcluidos("Fornecedores excluídos").setVisible(true);
+        new RegistrosExcluidos("Usuários excluídos").setVisible(true);
     }//GEN-LAST:event_btnExcluidosMouseReleased
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased

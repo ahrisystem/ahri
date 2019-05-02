@@ -1,15 +1,18 @@
 package view.cadastros.funcoes;
 
-import controller.EntidadeController;
-import controller.ProdutoController;
+import controller.cadastros.entidades.EntidadeController;
+import controller.cadastros.produtos.ProdutoController;
+import controller.cadastros.usuarios.UsuarioController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.cadastros.usuarios.UsuarioModel;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.produtos.ProdutoModel;
 
 public class RegistrosExcluidos extends javax.swing.JFrame {
     EntidadeController ec = new EntidadeController();
     ProdutoController pc = new ProdutoController();
+    UsuarioController uc = new UsuarioController();
     
     public RegistrosExcluidos(String titulo) {
         initComponents();
@@ -24,6 +27,9 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         }
         if (this.getTitle().equalsIgnoreCase("Produtos excluídos")) {
             listarProdutos();
+        }
+        if (this.getTitle().equalsIgnoreCase("Usuários excluídos")) {
+            listarUsuarios();
         }
     }
     
@@ -53,6 +59,16 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         for (ProdutoModel e : pc.listaProdutosExcluidos(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
+                e.getNome(),
+            });
+        }
+    }
+    public void listarUsuarios(){
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (UsuarioModel e : uc.listaUsuariosExcluidos(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                e.getLogin(),
                 e.getNome(),
             });
         }
@@ -189,6 +205,13 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
                 "Restaurar?", 2) == 0) {
                 pc.restaurar(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listarProdutos();
+            }
+        }
+        if (this.getTitle().equalsIgnoreCase("Usuários excluídos")) {
+            if (JOptionPane.showConfirmDialog(null, "Restaurar o usuário?",
+                "Restaurar?", 2) == 0) {
+                uc.restaurar(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                listarUsuarios();
             }
         }
     }//GEN-LAST:event_btnAtivarMouseReleased

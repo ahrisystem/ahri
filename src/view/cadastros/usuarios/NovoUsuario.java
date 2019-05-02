@@ -1,11 +1,13 @@
 package view.cadastros.usuarios;
 
-import controller.UsuarioController;
+import controller.cadastros.usuarios.UsuarioController;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import model.UsuarioModel;
+import model.cadastros.usuarios.UsuarioModel;
 import view.TelaInicial;
 
 
@@ -65,7 +67,7 @@ public class NovoUsuario extends javax.swing.JFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("NOVO USUÁRIO DO SISTEMA");
         lblTitulo.setOpaque(true);
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 610, 50));
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 50));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         painelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -79,13 +81,13 @@ public class NovoUsuario extends javax.swing.JFrame {
 
         txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 510, 20));
+        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 460, 20));
 
         lblSenha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblSenha.setForeground(new java.awt.Color(51, 105, 191));
-        lblSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSenha.setText("Senha");
-        painelPrincipal.add(lblSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 80, 20));
+        painelPrincipal.add(lblSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 70, 20));
 
         txtPerfil.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         painelPrincipal.add(txtPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 430, 20));
@@ -94,14 +96,14 @@ public class NovoUsuario extends javax.swing.JFrame {
         lblAjudaLogin.setForeground(new java.awt.Color(51, 105, 191));
         lblAjudaLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAjudaLogin.setText("?");
-        lblAjudaLogin.setToolTipText("Campo para logar no sistema");
+        lblAjudaLogin.setToolTipText("Login do sistema, precisa ter mais de 5 digitos");
         painelPrincipal.add(lblAjudaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 30, 20));
 
         lblLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblLogin.setForeground(new java.awt.Color(51, 105, 191));
-        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblLogin.setText("Login");
-        painelPrincipal.add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 80, 20));
+        painelPrincipal.add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 20));
 
         txtLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
@@ -110,9 +112,9 @@ public class NovoUsuario extends javax.swing.JFrame {
 
         lblPerfil.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblPerfil.setForeground(new java.awt.Color(51, 105, 191));
-        lblPerfil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPerfil.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblPerfil.setText("Perfil");
-        painelPrincipal.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 80, 20));
+        painelPrincipal.add(lblPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 70, 20));
 
         txtAdministrador.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtAdministrador.setText("Administrador");
@@ -140,7 +142,7 @@ public class NovoUsuario extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 80, 40));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 80, 40));
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSair.setText("Sair");
@@ -158,16 +160,16 @@ public class NovoUsuario extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 80, 40));
+        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 80, 40));
 
         lblNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(51, 105, 191));
-        lblNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome.setText("Nome");
-        painelPrincipal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 80, 20));
+        painelPrincipal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 70, 20));
         painelPrincipal.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 350, -1));
 
-        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 610, 210));
+        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 570, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -210,28 +212,32 @@ public class NovoUsuario extends javax.swing.JFrame {
         if (txtLogin.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Preencha o login!");
         } else {
-            if (txtNome.getText().equalsIgnoreCase("")) {
-                JOptionPane.showMessageDialog(null, "Preencha o nome!");
+            if (txtLogin.getText().length() < 5) {
+                JOptionPane.showMessageDialog(null, "O LOGIN precisa ter 5 ou mais caracteres!");
             } else {
-                UsuarioModel um = new UsuarioModel();
-                um.setLogin(txtLogin.getText());
-                um.setAdministrador(txtAdministrador.isSelected());
-                um.setNome(txtNome.getText());
-                if (txtPerfil.getSelectedItem() == null) {
-                    um.setPerfilUsuario("0");
+                if (txtNome.getText().equalsIgnoreCase("")) {
+                    JOptionPane.showMessageDialog(null, "Preencha o nome!");
                 } else {
-                    um.setPerfilUsuario(txtPerfil.getSelectedItem().toString());
+                    UsuarioModel um = new UsuarioModel();
+                    um.setLogin(txtLogin.getText());
+                    um.setAdministrador(txtAdministrador.isSelected());
+                    um.setNome(txtNome.getText());
+                    if (txtPerfil.getSelectedItem() == null) {
+                        um.setPerfilUsuario("0");
+                    } else {
+                        um.setPerfilUsuario(txtPerfil.getSelectedItem().toString());
+                    }
+                    um.setSenha(txtSenha.getText());
+                    java.sql.Date data = java.sql.Date.valueOf(LocalDate.now());
+                    um.setDataCadastro(data);
+                    pc.cadastraUsuario(um);
+                    limpaCampos();
+                    txtLogin.requestFocus();
+                    this.dispose();
                 }
-                um.setSenha(txtSenha.getText());
-                pc.cadastraUsuario(um);
-                limpaCampos();
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

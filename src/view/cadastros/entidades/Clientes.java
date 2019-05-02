@@ -1,6 +1,6 @@
 package view.cadastros.entidades;
 
-import controller.EntidadeController;
+import controller.cadastros.entidades.EntidadeController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
