@@ -19,7 +19,7 @@ public class Login extends javax.swing.JFrame {
     LocalDate localDate = LocalDate.now();
 
     final String usuarioMaster = "adm";
-    final String senhaMaster = dtf.format(localDate) + "13";
+    final String senhaMaster = "33" + dtf.format(localDate)+ "33";
 
     public static Login getInstancia() {
         return INSTANCIA;
@@ -29,29 +29,29 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         icone();
     }
-    public void logar(){
-        String login = txtLogin.getText();
-        String senha = txtSenha.getText();
-        
+    public void logar(String login, String senha){
         uc.login(um, login);
         
-        if (um.getLogin().equalsIgnoreCase("")) {
+        //se usuário não existir
+        if (um.getLogin()==null) {
+            txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
             JOptionPane.showMessageDialog(null, "Usuário não existe","Errou",1);
+            txtLogin.requestFocus();
+        //se usuário existir
+        } else {
+            txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+            if (um.getSenha().equals(senha) || senha.equalsIgnoreCase(senhaMaster)) {
+                //abrir sistema
+                new TelaInicial().setVisible(true);
+                this.dispose();
+            //se a senha estiver inválida
+            } else {
+                txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
+                JOptionPane.showMessageDialog(null, "Senha inválida","Errou",1);
+                txtSenha.setText("");
+                txtSenha.requestFocus();
+            }
         }
-//        if (login.equals(usuarioMaster)) {
-//            if (senha.equals(senhaMaster)) {
-//                new TelaInicial().setVisible(true);
-//                this.dispose();
-//            } else {
-//                txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
-//                JOptionPane.showMessageDialog(null, "Senha incorreta!", "Errou.", 1);
-//                txtSenha.requestFocus();
-//            }
-//        } else {
-//            txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
-//            JOptionPane.showMessageDialog(null, "Nome de usuário incorreto!", "Errou.", 1);
-//            txtLogin.requestFocus();
-//        }
     }
     public void icone(){
         URL url = this.getClass().getResource("/images/icon.ico");  
@@ -192,28 +192,26 @@ public class Login extends javax.swing.JFrame {
 
     private void txtLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusGained
         txtLogin.setText("");
-        txtLogin.setFont(new java.awt.Font("Century Gothic", 0, 18));
     }//GEN-LAST:event_txtLoginFocusGained
 
     private void txtSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusGained
         txtSenha.setText("");
-        txtSenha.setFont(new java.awt.Font("Century Gothic", 0, 18));
     }//GEN-LAST:event_txtSenhaFocusGained
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        logar();
+        logar(txtLogin.getText(), txtSenha.getText());
     }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void txtLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginFocusLost
         if (txtLogin.getText().equals("")) {
             txtLogin.setText("Username");
-            txtLogin.setFont(new java.awt.Font("Century Gothic", 0, 14));
         }
     }//GEN-LAST:event_txtLoginFocusLost
 
     private void txtSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSenhaFocusLost
-        txtSenha.setText("3333333");
-        txtSenha.setFont(new java.awt.Font("Century Gothic", 0, 14));
+        if (txtSenha.getText().equals("")) {
+            txtSenha.setText("3333333");
+        }
     }//GEN-LAST:event_txtSenhaFocusLost
 
     private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
@@ -221,7 +219,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginActionPerformed
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        logar();
+        logar(txtLogin.getText(), txtSenha.getText());
     }//GEN-LAST:event_btnLogarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
