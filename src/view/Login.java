@@ -42,7 +42,9 @@ public class Login extends javax.swing.JFrame {
             txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
             if (um.getSenha().equals(senha) || senha.equalsIgnoreCase(senhaMaster)) {
                 //abrir sistema
-                new TelaInicial().setVisible(true);
+                TelaInicial ti = new TelaInicial();
+                ti.setVisible(true);
+                ti.Usuario(um.getNome());
                 this.dispose();
             //se a senha estiver inválida
             } else {

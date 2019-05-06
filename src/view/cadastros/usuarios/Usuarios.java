@@ -44,6 +44,7 @@ public class Usuarios extends javax.swing.JPanel {
         btnEditar = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JLabel();
         btnExcluidos = new javax.swing.JLabel();
+        btnAlterarSenha = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
@@ -124,18 +125,35 @@ public class Usuarios extends javax.swing.JPanel {
             }
         });
 
+        btnAlterarSenha.setBackground(new java.awt.Color(102, 102, 102));
+        btnAlterarSenha.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnAlterarSenha.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlterarSenha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAlterarSenha.setText("Alterar senha");
+        btnAlterarSenha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterarSenha.setOpaque(true);
+        btnAlterarSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAlterarSenhaMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnExcluidos, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnExcluidos, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnAlterarSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,6 +164,8 @@ public class Usuarios extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlterarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluidos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -256,8 +276,8 @@ public class Usuarios extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            EditarCliente edit = EditarCliente.getInstancia();
-            edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+            EditarUsuario edit = EditarUsuario.getInstancia();
+            edit.puxarDados(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
             edit.setVisible(true);
             listar();
         }
@@ -299,8 +319,22 @@ public class Usuarios extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_btnAtualizarMouseReleased
 
+    private void btnAlterarSenhaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarSenhaMouseReleased
+        String cod = tabela.getValueAt(tabela.getSelectedRow(), 0).toString();
+        if (tabela.getSelectedRow()<0) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+        } else {
+            String senha = JOptionPane.showInputDialog(
+                    null, 
+                    "Alterando a senha do usuário "+tabela.getValueAt(tabela.getSelectedRow(), 1),
+                    "Alterar senha", 1);
+            ec.alterarSenha(senha, cod);
+        }
+    }//GEN-LAST:event_btnAlterarSenhaMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnAlterarSenha;
     private javax.swing.JLabel btnAtualizar;
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnExcluidos;

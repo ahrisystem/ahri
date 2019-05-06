@@ -78,8 +78,8 @@ public class UsuarioController {
         return usuarios;
     }
 
-    public void puxarDados(UsuarioModel pModel, int cod) {
-        String sql = "SELECT login,administrador,nome,perfilusuario,senha,datacadastro FROM usuario where cod = " + cod + ";";
+    public void puxarDados(UsuarioModel pModel, String cod) {
+        String sql = "SELECT login,administrador,nome,perfilusuario FROM usuario where login = '" + cod + "';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -88,8 +88,6 @@ public class UsuarioController {
             pModel.setAdministrador(rs.getBoolean(2));
             pModel.setNome(rs.getString(3));
             pModel.setPerfilUsuario(rs.getString(4));
-            pModel.setSenha(rs.getString(5));
-            pModel.setDataCadastro((Date) rs.getDate(6));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
         }
@@ -115,23 +113,34 @@ public class UsuarioController {
         }
     }
 
-    public void alterar(UsuarioModel pModel, int cod) {
-        String sql = "UPDATE usuario SET login=?, administrador=?, nome=?, perfilusuario=?,datacadastro=? WHERE cod = " + cod + ";";
+    public void alterar(UsuarioModel pModel, String cod) {
+        String sql = "UPDATE usuario SET administrador=?, nome=?, perfilusuario=? WHERE login = '"+ cod +"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setString(1, pModel.getLogin());
-            pstmt.setBoolean(2, pModel.isAdministrador());
-            pstmt.setString(3, pModel.getNome());
-            pstmt.setString(4, pModel.getPerfilUsuario());
+            pstmt.setBoolean(1, pModel.isAdministrador());
+            pstmt.setString(2, pModel.getNome());
+            pstmt.setString(3, pModel.getPerfilUsuario());
             pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao atualizar dados.\n" + e.getMessage());
         }
     }
+    public void alterarSenha(String senha, String cod) {
+        String sql = "UPDATE usuario SET senha=? WHERE login = '" + cod + "';";
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setString(1, senha);
+            pstmt.executeUpdate();
+            pstmt.close();
+            JOptionPane.showMessageDialog(null, "Senha alterada com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Falha ao alterar a senha.\n" + e.getMessage());
+        }
+    }
 
     public void excluir(String cod) {
-        String sql = "update usuario set inativo=true where cod= " + cod + ";";
+        String sql = "update usuario set inativo=true where login= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.execute();
@@ -142,7 +151,7 @@ public class UsuarioController {
     }
 
     public void restaurar(String cod) {
-        String sql = "update usuario set inativo=false where cod= " + cod + ";";
+        String sql = "update usuario set inativo=false where login= " + cod + ";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.execute();

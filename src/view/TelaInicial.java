@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.entidades.Fornecedores;
 import view.cadastros.produtos.Produtos;
+import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
 import view.pdv.PDV;
-
 
 public class TelaInicial extends javax.swing.JFrame {
 
@@ -28,7 +28,7 @@ public class TelaInicial extends javax.swing.JFrame {
     boolean vendas = false;
     boolean ajuda = false;
     public boolean opcoes;
-    
+
     ////////////////////////
     Color itemBranco = Color.WHITE;
     Color itemAzul = new java.awt.Color(51, 105, 191);
@@ -37,7 +37,7 @@ public class TelaInicial extends javax.swing.JFrame {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         icone();
-        
+
     }
 
     public String weekDay(Calendar cal) {
@@ -48,6 +48,10 @@ public class TelaInicial extends javax.swing.JFrame {
         URL url = this.getClass().getResource("/images/icon.ico");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(iconeTitulo);
+    }
+
+    public void Usuario(String usuario) {
+        btnUsuario.setText(usuario);
     }
 
     public void alterarIcones(String i) {
@@ -62,7 +66,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/" + i + "/icon9.png")));
         opcao10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/" + i + "/icon10.png")));
     }
-    
+
     public void alterarTitulos() {
         if (inicial) {
             opcao1.setText("Caixa");
@@ -70,9 +74,9 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao3.setText("Orçamentos");
             opcao4.setText("Status");
             opcao5.setText("Devedores");
-            opcao6.setText("Produtos");
+            opcao6.setText("Usuários");
             opcao7.setText("Estoque");
-            opcao8.setText("N. Usuário");
+            opcao8.setText("Produtos");
             opcao9.setText("Entrada");
             opcao10.setText("Ajuda");
         }
@@ -149,8 +153,8 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao10.setText("Ajuda");
         }
     }
-    
-    public void alterarCorFundoIcones(JLabel opcao){
+
+    public void alterarCorFundoIcones(JLabel opcao) {
         opcao.setBackground(new java.awt.Color(163, 193, 255));
     }
 
@@ -166,7 +170,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jmi5 = new javax.swing.JMenuItem();
         frontPanel2 = new javax.swing.JPanel();
         backPanel = new javax.swing.JPanel();
-        btnOpcoes = new javax.swing.JLabel();
+        btnUsuario = new javax.swing.JLabel();
         btnInicial = new javax.swing.JLabel();
         btnCadastros = new javax.swing.JLabel();
         btnEstoque = new javax.swing.JLabel();
@@ -212,19 +216,19 @@ public class TelaInicial extends javax.swing.JFrame {
         backPanel.setBackground(new java.awt.Color(51, 105, 191));
         backPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnOpcoes.setBackground(new java.awt.Color(51, 105, 191));
-        btnOpcoes.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnOpcoes.setForeground(new java.awt.Color(255, 255, 255));
-        btnOpcoes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnOpcoes.setText("Opções");
-        btnOpcoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnOpcoes.setOpaque(true);
-        btnOpcoes.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnUsuario.setBackground(new java.awt.Color(51, 105, 191));
+        btnUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        btnUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnUsuario.setText("Usuario");
+        btnUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuario.setOpaque(true);
+        btnUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnOpcoesMouseReleased(evt);
+                btnUsuarioMouseReleased(evt);
             }
         });
-        backPanel.add(btnOpcoes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
+        backPanel.add(btnUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 30));
 
         btnInicial.setBackground(new java.awt.Color(255, 255, 255));
         btnInicial.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -238,7 +242,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnInicialMousePressed(evt);
             }
         });
-        backPanel.add(btnInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 0, 140, 30));
+        backPanel.add(btnInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 140, 30));
 
         btnCadastros.setBackground(new java.awt.Color(51, 105, 191));
         btnCadastros.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -252,7 +256,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnCadastrosMousePressed(evt);
             }
         });
-        backPanel.add(btnCadastros, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 100, 30));
+        backPanel.add(btnCadastros, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 100, 30));
 
         btnEstoque.setBackground(new java.awt.Color(51, 105, 191));
         btnEstoque.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -266,7 +270,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnEstoqueMousePressed(evt);
             }
         });
-        backPanel.add(btnEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 100, 30));
+        backPanel.add(btnEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 100, 30));
 
         btnFerramentas.setBackground(new java.awt.Color(51, 105, 191));
         btnFerramentas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -280,7 +284,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnFerramentasMousePressed(evt);
             }
         });
-        backPanel.add(btnFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 0, 100, 30));
+        backPanel.add(btnFerramentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 100, 30));
 
         btnFinanceiro.setBackground(new java.awt.Color(51, 105, 191));
         btnFinanceiro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -294,7 +298,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnFinanceiroMousePressed(evt);
             }
         });
-        backPanel.add(btnFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 100, 30));
+        backPanel.add(btnFinanceiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 100, 30));
 
         btnVendas.setBackground(new java.awt.Color(51, 105, 191));
         btnVendas.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -308,7 +312,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnVendasMousePressed(evt);
             }
         });
-        backPanel.add(btnVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 0, 100, 30));
+        backPanel.add(btnVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 100, 30));
 
         btnAjuda.setBackground(new java.awt.Color(51, 105, 191));
         btnAjuda.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -322,7 +326,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 btnAjudaMousePressed(evt);
             }
         });
-        backPanel.add(btnAjuda, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 90, 30));
+        backPanel.add(btnAjuda, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 90, 30));
 
         btnLogout.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnLogout.setText("Logout");
@@ -448,7 +452,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao6.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         opcao6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         opcao6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio/icon6.png"))); // NOI18N
-        opcao6.setText("Produtos");
+        opcao6.setText("Usuários");
         opcao6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         opcao6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         opcao6.setOpaque(true);
@@ -489,7 +493,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao8.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         opcao8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         opcao8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio/icon8.png"))); // NOI18N
-        opcao8.setText("N. Usuário");
+        opcao8.setText("Produtos");
         opcao8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         opcao8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         opcao8.setOpaque(true);
@@ -500,6 +504,9 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 opcao8MouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                opcao8MousePressed(evt);
             }
         });
         painelMenu.add(opcao8);
@@ -563,7 +570,7 @@ public class TelaInicial extends javax.swing.JFrame {
             frontPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(backPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(frontPanel2Layout.createSequentialGroup()
-                .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(frontPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -600,7 +607,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(frontPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))
+                .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
         );
 
         pack();
@@ -725,9 +732,9 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    private void btnOpcoesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpcoesMouseReleased
-        
-    }//GEN-LAST:event_btnOpcoesMouseReleased
+    private void btnUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseReleased
+
+    }//GEN-LAST:event_btnUsuarioMouseReleased
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         int opcao = 2;
@@ -739,15 +746,15 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
-           new PDV().setVisible(true); 
+            new PDV().setVisible(true);
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();
             painelPrincipal.add("Produtos", produtos);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
-        
+
     }//GEN-LAST:event_opcao1MouseReleased
 
     private void opcao4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao4MouseReleased
@@ -813,16 +820,16 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao3MousePressed
         if (inicial) {
-            
+
         }
         if (cadastros) {
             Clientes clientes = Clientes.getInstancia();
             painelPrincipal.add("Clientes", clientes);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (vendas) {
-            
+
         }
         if (ferramentas) {
             Contabilidade c = Contabilidade.getInstancia().getInstancia();
@@ -950,22 +957,22 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao9MouseReleased
         if (inicial) {
-            
+
         }
         if (cadastros) {
-            
+
         }
     }//GEN-LAST:event_opcao9MouseReleased
 
     private void opcao6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao6MousePressed
         if (inicial) {
-            Produtos produtos = Produtos.getInstancia();
-            painelPrincipal.add("Produtos", produtos);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            Usuarios u = Usuarios.getInstancia().getInstancia();
+            painelPrincipal.add("Produtos", u);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (cadastros) {
-            
+
         }
     }//GEN-LAST:event_opcao6MousePressed
 
@@ -973,17 +980,26 @@ public class TelaInicial extends javax.swing.JFrame {
         if (inicial) {
             Clientes clientes = Clientes.getInstancia();
             painelPrincipal.add("Clientes", clientes);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (cadastros) {
             Fornecedores forn = Fornecedores.getInstancia();
             painelPrincipal.add("Fornecedores", forn);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount()-1);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
     }//GEN-LAST:event_opcao2MousePressed
-    
+
+    private void opcao8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao8MousePressed
+        if (inicial) {
+            Produtos produtos = Produtos.getInstancia();
+            painelPrincipal.add("Produtos", produtos);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+    }//GEN-LAST:event_opcao8MousePressed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
         try {
@@ -1020,7 +1036,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel btnFinanceiro;
     private javax.swing.JLabel btnInicial;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JLabel btnOpcoes;
+    private javax.swing.JLabel btnUsuario;
     private javax.swing.JLabel btnVendas;
     private javax.swing.JPanel frontPanel2;
     private javax.swing.JMenuItem jmi1;

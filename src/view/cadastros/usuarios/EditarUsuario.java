@@ -2,24 +2,21 @@ package view.cadastros.usuarios;
 
 import controller.cadastros.usuarios.UsuarioController;
 import java.awt.Color;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import model.cadastros.usuarios.UsuarioModel;
 import view.TelaInicial;
 
 
-public class NovoUsuario extends javax.swing.JFrame {
+public class EditarUsuario extends javax.swing.JFrame {
     UsuarioController pc = new UsuarioController();
-    private static final NovoUsuario INSTANCIA = new NovoUsuario();
+    private static final EditarUsuario INSTANCIA = new EditarUsuario();
 
-    public static NovoUsuario getInstancia() {
+    public static EditarUsuario getInstancia() {
         return INSTANCIA;
     }
 
-    private NovoUsuario() {
+    private EditarUsuario() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -28,19 +25,31 @@ public class NovoUsuario extends javax.swing.JFrame {
     public void limpaCampos(){
         txtLogin.setText("");
         txtNome.setText("");
-        txtSenha.setText("");
         txtAdministrador.setSelected(false);
+    }
+    
+    public void puxarDados(String cod){
+        UsuarioModel um = new UsuarioModel();
+        pc.puxarDados(um, cod);
+        txtLogin.setText(um.getLogin());
+        if (um.isAdministrador()) {
+            txtAdministrador.setSelected(true);
+            txtPerfil.setEditable(false);
+        } else {
+            txtAdministrador.setSelected(false);
+            txtPerfil.setEditable(true);
+        }
+        txtNome.setText(um.getNome());
+        txtPerfil.setSelectedItem(um.getPerfilUsuario());
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblTitulo = new javax.swing.JLabel();
         painelPrincipal = new javax.swing.JPanel();
         lblAjudaPerfil = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        lblSenha = new javax.swing.JLabel();
         txtPerfil = new javax.swing.JComboBox<>();
         lblAjudaLogin = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
@@ -50,7 +59,7 @@ public class NovoUsuario extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnSair = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -60,14 +69,6 @@ public class NovoUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
-        lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Novo usuário do sistema");
-        lblTitulo.setOpaque(true);
-        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 30));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         painelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -83,12 +84,6 @@ public class NovoUsuario extends javax.swing.JFrame {
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 460, 20));
 
-        lblSenha.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblSenha.setForeground(new java.awt.Color(51, 105, 191));
-        lblSenha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblSenha.setText("Senha");
-        painelPrincipal.add(lblSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 70, 20));
-
         txtPerfil.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         painelPrincipal.add(txtPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 430, 20));
 
@@ -96,7 +91,7 @@ public class NovoUsuario extends javax.swing.JFrame {
         lblAjudaLogin.setForeground(new java.awt.Color(51, 105, 191));
         lblAjudaLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAjudaLogin.setText("?");
-        lblAjudaLogin.setToolTipText("Login do sistema, precisa ter mais de 5 digitos");
+        lblAjudaLogin.setToolTipText("Na tela de edição, não é possível editar o login.");
         painelPrincipal.add(lblAjudaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 20, 30, 20));
 
         lblLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -105,6 +100,7 @@ public class NovoUsuario extends javax.swing.JFrame {
         lblLogin.setText("Login");
         painelPrincipal.add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 20));
 
+        txtLogin.setEditable(false);
         txtLogin.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 105, 191)));
         txtLogin.setPreferredSize(new java.awt.Dimension(200, 20));
@@ -167,9 +163,16 @@ public class NovoUsuario extends javax.swing.JFrame {
         lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome.setText("Nome");
         painelPrincipal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 70, 20));
-        painelPrincipal.add(txtSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, 350, -1));
 
         getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 570, 210));
+
+        lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
+        lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Editar usuário do sistema");
+        lblTitulo.setOpaque(true);
+        getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -209,33 +212,21 @@ public class NovoUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarMouseExited
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (txtLogin.getText().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(null, "Preencha o login!");
+        if (txtNome.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Preencha o nome!");
         } else {
-            if (txtLogin.getText().length() < 5) {
-                JOptionPane.showMessageDialog(null, "O LOGIN precisa ter 5 ou mais caracteres!");
+            UsuarioModel um = new UsuarioModel();
+            um.setAdministrador(txtAdministrador.isSelected());
+            um.setNome(txtNome.getText());
+            if (txtPerfil.getSelectedItem() == null) {
+                um.setPerfilUsuario("0");
             } else {
-                if (txtNome.getText().equalsIgnoreCase("")) {
-                    JOptionPane.showMessageDialog(null, "Preencha o nome!");
-                } else {
-                    UsuarioModel um = new UsuarioModel();
-                    um.setLogin(txtLogin.getText());
-                    um.setAdministrador(txtAdministrador.isSelected());
-                    um.setNome(txtNome.getText());
-                    if (txtPerfil.getSelectedItem() == null) {
-                        um.setPerfilUsuario("0");
-                    } else {
-                        um.setPerfilUsuario(txtPerfil.getSelectedItem().toString());
-                    }
-                    um.setSenha(txtSenha.getText());
-                    java.sql.Date data = java.sql.Date.valueOf(LocalDate.now());
-                    um.setDataCadastro(data);
-                    pc.cadastraUsuario(um);
-                    limpaCampos();
-                    txtLogin.requestFocus();
-                    this.dispose();
-                }
+                um.setPerfilUsuario(txtPerfil.getSelectedItem().toString());
             }
+            pc.alterar(um,txtLogin.getText());
+            JOptionPane.showMessageDialog(null, "Usuário "+txtLogin.getText()+" alterado com sucesso!");
+            limpaCampos();
+            this.dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
     public static void main(String args[]) {
@@ -251,18 +242,18 @@ public class NovoUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoUsuario().setVisible(true);
+                new EditarUsuario().setVisible(true);
             }
         });
     }
@@ -275,13 +266,11 @@ public class NovoUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPerfil;
-    private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JCheckBox txtAdministrador;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JComboBox<String> txtPerfil;
-    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }
