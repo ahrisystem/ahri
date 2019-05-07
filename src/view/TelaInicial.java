@@ -17,6 +17,7 @@ import view.cadastros.produtos.Produtos;
 import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
+import view.controles.Status;
 import view.pdv.PDV;
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -764,6 +765,12 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_opcao1MouseReleased
 
     private void opcao4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao4MouseReleased
+        if (inicial) {
+            Status status = Status.getInstancia();
+            painelPrincipal.add("Status", status);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
         if (ferramentas) {
             Empresa e = Empresa.getInstancia().getInstancia();
             e.setVisible(true);
