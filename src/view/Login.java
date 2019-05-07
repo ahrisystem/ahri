@@ -11,8 +11,7 @@ import javax.swing.JOptionPane;
 import model.cadastros.usuarios.UsuarioModel;
 
 public class Login extends javax.swing.JFrame {
-    UsuarioController uc = new UsuarioController();
-    UsuarioModel um = new UsuarioModel();
+    
     private static final Login INSTANCIA = new Login();
     
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMdd");
@@ -30,13 +29,30 @@ public class Login extends javax.swing.JFrame {
         icone();
     }
     public void logar(String login, String senha){
+        UsuarioController uc = new UsuarioController();
+        UsuarioModel um = new UsuarioModel();
+        
         uc.login(um, login);
         
         //se usuário não existir
-        if (um.getLogin()==null) {
-            txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
-            JOptionPane.showMessageDialog(null, "Usuário não existe","Errou",1);
-            txtLogin.requestFocus();
+        if (um.getLogin() == null) {
+            if (login.equalsIgnoreCase("adm")) {
+                if (senha.equalsIgnoreCase(senhaMaster)) {
+                    TelaInicial ti = new TelaInicial();
+                    ti.setVisible(true);
+                    ti.Usuario(um.getLogin());
+                    this.dispose();
+                } else {
+                    txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244, 102, 88)));
+                    JOptionPane.showMessageDialog(null, "Senha adm inválida", "Errou", 1);
+                    txtSenha.setText("");
+                    txtSenha.requestFocus();
+                }
+            } else {
+                txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244, 102, 88)));
+                JOptionPane.showMessageDialog(null, "Usuário não existe", "Errou", 1);
+                txtLogin.requestFocus();
+            }
         //se usuário existir
         } else {
             txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
@@ -44,12 +60,12 @@ public class Login extends javax.swing.JFrame {
                 //abrir sistema
                 TelaInicial ti = new TelaInicial();
                 ti.setVisible(true);
-                ti.Usuario(um.getNome());
+                ti.Usuario(um.getLogin());
                 this.dispose();
-            //se a senha estiver inválida
+                //se a senha estiver inválida
             } else {
-                txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244,102,88)));
-                JOptionPane.showMessageDialog(null, "Senha inválida","Errou",1);
+                txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244, 102, 88)));
+                JOptionPane.showMessageDialog(null, "Senha inválida", "Errou", 1);
                 txtSenha.setText("");
                 txtSenha.requestFocus();
             }
@@ -74,6 +90,7 @@ public class Login extends javax.swing.JFrame {
         btnAjuda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login sistema AHRI!");
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

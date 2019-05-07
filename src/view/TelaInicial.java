@@ -1,5 +1,6 @@
 package view;
 
+import controller.cadastros.usuarios.UsuarioController;
 import funcoes.ButtonTabComponent;
 import java.awt.Color;
 import java.awt.Image;
@@ -168,6 +169,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jmi3 = new javax.swing.JMenuItem();
         jmi4 = new javax.swing.JMenuItem();
         jmi5 = new javax.swing.JMenuItem();
+        menuUsuario = new javax.swing.JPopupMenu();
+        btnDeslogar = new javax.swing.JMenuItem();
+        btnAlterarSenha = new javax.swing.JMenuItem();
         frontPanel2 = new javax.swing.JPanel();
         backPanel = new javax.swing.JPanel();
         btnUsuario = new javax.swing.JLabel();
@@ -178,7 +182,6 @@ public class TelaInicial extends javax.swing.JFrame {
         btnFinanceiro = new javax.swing.JLabel();
         btnVendas = new javax.swing.JLabel();
         btnAjuda = new javax.swing.JLabel();
-        btnLogout = new javax.swing.JButton();
         painelMenu = new javax.swing.JPanel();
         opcao1 = new javax.swing.JLabel();
         opcao2 = new javax.swing.JLabel();
@@ -190,7 +193,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao8 = new javax.swing.JLabel();
         opcao9 = new javax.swing.JLabel();
         opcao10 = new javax.swing.JLabel();
-        btnExit = new javax.swing.JButton();
+        btnSair = new javax.swing.JLabel();
         painelPrincipal = new javax.swing.JTabbedPane();
 
         jmi1.setText("jMenuItem1");
@@ -207,6 +210,26 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jmi5.setText("jMenuItem1");
         menu.add(jmi5);
+
+        menuUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+
+        btnDeslogar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnDeslogar.setText("Trocar usuário");
+        btnDeslogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeslogarActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(btnDeslogar);
+
+        btnAlterarSenha.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnAlterarSenha.setText("Alterar senha");
+        btnAlterarSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarSenhaActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(btnAlterarSenha);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AHRI! Gerenciamento avançado, do tipo de negócio que precisar!");
@@ -327,15 +350,6 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         backPanel.add(btnAjuda, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 90, 30));
-
-        btnLogout.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnLogout.setText("Logout");
-        btnLogout.setFocusable(false);
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
 
         painelMenu.setBackground(new java.awt.Color(255, 255, 255));
         painelMenu.setLayout(new java.awt.GridLayout(1, 10));
@@ -555,12 +569,24 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         painelMenu.add(opcao10);
 
-        btnExit.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnExit.setText("Exit");
-        btnExit.setFocusable(false);
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
+        btnSair.setBackground(new java.awt.Color(255, 255, 255));
+        btnSair.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
+        btnSair.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit.png"))); // NOI18N
+        btnSair.setText("Sair");
+        btnSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSair.setOpaque(true);
+        btnSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSairMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSairMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btnSairMousePressed(evt);
             }
         });
 
@@ -568,13 +594,12 @@ public class TelaInicial extends javax.swing.JFrame {
         frontPanel2.setLayout(frontPanel2Layout);
         frontPanel2Layout.setHorizontalGroup(
             frontPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(backPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(backPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
             .addGroup(frontPanel2Layout.createSequentialGroup()
-                .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE)
+                .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(frontPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1))
         );
         frontPanel2Layout.setVerticalGroup(
             frontPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,12 +607,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(backPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(frontPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(frontPanel2Layout.createSequentialGroup()
-                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(painelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -605,7 +628,7 @@ public class TelaInicial extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(frontPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(frontPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
         );
@@ -723,26 +746,9 @@ public class TelaInicial extends javax.swing.JFrame {
         alterarTitulos();
     }//GEN-LAST:event_btnFerramentasMousePressed
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Deseja entrar com outro usuário?", "Logout?", opcao) == 0) {
-            this.dispose();
-            Login login = Login.getInstancia();
-            login.setVisible(true);
-        }
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
     private void btnUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseReleased
-
+        menuUsuario.show(btnUsuario,  evt.getX(), evt.getY());
     }//GEN-LAST:event_btnUsuarioMouseReleased
-
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Deseja sair do sistema?\nFormulários não salvos podem ser perdidos",
-                "Sair?", opcao) == 0) {
-            System.exit(0);
-        }
-    }//GEN-LAST:event_btnExitActionPerformed
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
@@ -1000,6 +1006,41 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_opcao8MousePressed
 
+    private void btnDeslogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeslogarActionPerformed
+        int opcao = 2;
+        if (JOptionPane.showConfirmDialog(null, "Deseja entrar com outro usuário?", "Logout?", opcao) == 0) {
+            this.dispose();
+            Login login = Login.getInstancia();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_btnDeslogarActionPerformed
+
+    private void btnAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSenhaActionPerformed
+        UsuarioController ec = new UsuarioController();
+        String login = btnUsuario.getText();
+        String senha = JOptionPane.showInputDialog(
+                null, 
+                "Alterando a senha do usuário "+login+".",
+                "Alterar senha", 1);
+        ec.alterarSenha(senha, login);
+    }//GEN-LAST:event_btnAlterarSenhaActionPerformed
+
+    private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
+        btnSair.setBackground(new java.awt.Color(255,153,153));
+    }//GEN-LAST:event_btnSairMouseEntered
+
+    private void btnSairMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseExited
+        btnSair.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnSairMouseExited
+
+    private void btnSairMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMousePressed
+        int opcao = 2;
+        if (JOptionPane.showConfirmDialog(null, "Deseja sair do sistema?\nFormulários não salvos podem ser perdidos",
+                "Sair?", opcao) == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSairMousePressed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
         try {
@@ -1029,13 +1070,14 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backPanel;
     private javax.swing.JLabel btnAjuda;
+    private javax.swing.JMenuItem btnAlterarSenha;
     private javax.swing.JLabel btnCadastros;
+    private javax.swing.JMenuItem btnDeslogar;
     private javax.swing.JLabel btnEstoque;
-    private javax.swing.JButton btnExit;
     private javax.swing.JLabel btnFerramentas;
     private javax.swing.JLabel btnFinanceiro;
     private javax.swing.JLabel btnInicial;
-    private javax.swing.JButton btnLogout;
+    private javax.swing.JLabel btnSair;
     private javax.swing.JLabel btnUsuario;
     private javax.swing.JLabel btnVendas;
     private javax.swing.JPanel frontPanel2;
@@ -1045,6 +1087,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi4;
     private javax.swing.JMenuItem jmi5;
     private javax.swing.JPopupMenu menu;
+    private javax.swing.JPopupMenu menuUsuario;
     private javax.swing.JLabel opcao1;
     private javax.swing.JLabel opcao10;
     private javax.swing.JLabel opcao2;
