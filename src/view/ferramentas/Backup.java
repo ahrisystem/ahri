@@ -128,38 +128,11 @@ public class Backup extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (txtNome.getText().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(null, "Preencha o nome!");
-        } else {
-            if (txtPreco.getText().equalsIgnoreCase("") || txtPreco.getText().equalsIgnoreCase("0,00")) {
-                JOptionPane.showMessageDialog(null, "Verifique o preço!");
-            } else {
-                if (txtNCM.getText().equalsIgnoreCase("")) {
-                    JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
-                } else {
-                    ProdutoModel pm = new ProdutoModel();
-                    pm.setCod(Integer.parseInt(txtCodigo.getText()));
-                    pm.setServico(txtServico.isEnabled());
-                    pm.setCodigoBarras(txtEAN.getText());
-                    pm.setNome(txtNome.getText());
-                    pm.setInativo(false);
-                    pm.setGrupo(txtGrupo.getSelectedItem().toString());
-                    pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
-                    pm.setEstoque(0);
-                    pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
-                    pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
-                    pm.setNcm(txtNCM.getText());
-                    pm.setCest(txtCEST.getText());
-                    pc.cadastraProduto(pm);
-                    limpaCampos();
-                }
-            }
-        }
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
-        this.dispose();
-        limpaCampos();
+        
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered
