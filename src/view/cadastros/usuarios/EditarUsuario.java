@@ -120,6 +120,11 @@ public class EditarUsuario extends javax.swing.JFrame {
                 txtAdministradorMouseReleased(evt);
             }
         });
+        txtAdministrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAdministradorActionPerformed(evt);
+            }
+        });
         painelPrincipal.add(txtAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 120, 20));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -229,6 +234,10 @@ public class EditarUsuario extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAdministradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAdministradorActionPerformed
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
