@@ -22,7 +22,8 @@ public class BackupController {
         bc.efetuarBackup("C:\\Arquivos Eduardo\\ahri.backup","C:\\PG\\pg96\\bin\\");
     }
     
-    public static void efetuarBackup(String arquivo, String diretorio) {
+    public String efetuarBackup(String arquivo, String diretorio) {
+        String log = "";
         File arq = new File(arquivo);
         if (arq.exists()) {
             if (arq.length() > 0) {
@@ -39,10 +40,12 @@ public class BackupController {
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((linha = reader.readLine()) != null) {
                 System.out.println(linha);
+                log = log + "\n" + linha;
             }
         } catch (Exception e) {
             System.out.println("Não foi possível efetuar o backup");
         }
+        return log;
     }
 
     
