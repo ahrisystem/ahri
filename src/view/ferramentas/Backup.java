@@ -313,7 +313,7 @@ public class Backup extends javax.swing.JFrame {
                 jDialog1.setSize(400, 80);
                 jDialog1.setVisible(true);
                 BackupController bc = new BackupController();
-                bc.efetuarBackup(txtLocal.getText());
+                bc.efetuarBackup(txtLocal.getText(), "C:\\PG\\pg96\\bin\\");
                 jDialog1.setVisible(false);
             }
         }

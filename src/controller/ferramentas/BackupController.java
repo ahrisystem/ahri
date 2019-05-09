@@ -2,19 +2,11 @@ package controller.ferramentas;
 
 import controller.connection;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.ferramentas.ConfiguracaoModel;
 
@@ -25,62 +17,39 @@ public class BackupController {
     public BackupController() {
         this.conexao = new connection().obterConexao();
     }
-   
-    public void efetuarBackup(String caminho) {
-        Process p;
-        try {
-            p = Runtime.getRuntime().exec("C:\\PG\\pg96\\bin\\pg_dump.exe --host localhost --port 5432 --username \"postgres\" --no-password  --format custom --blobs --verbose --file \"C:\\Arquivos Eduardo\\ahri.backup\" \"ahri\"");
-            BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-            String lineOut;
-            while ((lineOut = input.readLine()) != null) {
-                System.out.println(lineOut);
-            }
-            input.close();
-            p.waitFor();
-        } catch (IOException ex) {
-            Logger.getLogger(BackupController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(BackupController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void main(String[] args) {
+        BackupController bc = new BackupController();
+        bc.efetuarBackup("C:\\Arquivos Eduardo\\ahri.backup","C:\\PG\\pg96\\bin\\");
+    }
     
-
-//        try {
-//            Process process = Runtime.getRuntime().exec("C:\\PG\\pg96\\bin\\pg_dump.exe --host localhost --port 5432 --username \"postgres\" --no-password  --format custom --blobs --verbose --file \"C:\\Arquivos Eduardo\\ahri.backup\" \"ahri\"");
-//            JOptionPane.showMessageDialog(null, "Backup efetuado com sucesso");
-//            
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-    }
-    public void alterar(String caminho) {
-        String sql = "C:\\PG\\pg96\\bin\\pg_dump.exe --host localhost --port 5432 --username \"postgres\" --no-password  --format custom --blobs --verbose --file \""+caminho+"\" \"ahri\"";
-        try {
-            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.execute();
-            JOptionPane.showMessageDialog(null, "Backup Efetuado!");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao efetuar backup.\n" + e.getMessage());
-        }
-    }
-
-    public List<ConfiguracaoModel> listar(String nome) {
-        List<ConfiguracaoModel> clientes = new ArrayList<>();
-        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1 and nome like '%"+nome+"%';";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                ConfiguracaoModel eModel = new ConfiguracaoModel();
-                eModel.setCod(rs.getString("cod"));
-                clientes.add(eModel);
+    public static void efetuarBackup(String arquivo, String diretorio) {
+        File arq = new File(arquivo);
+        if (arq.exists()) {
+            if (arq.length() > 0) {
+                arq.delete();
             }
-            stmt.close();
-        } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
         }
-        return clientes;
+        try {
+            Process p = null;
+            String linha = "";
+            ProcessBuilder pb = new ProcessBuilder(diretorio + "pg_dump.exe", "-h", "localhost", "-U", "postgres", "-F", "c", "-b", "-v", "-f", arquivo, "ahri");
+            pb.environment().put("PGPASSWORD", "postgres");
+            pb.redirectErrorStream(true);
+            p = pb.start();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((linha = reader.readLine()) != null) {
+                System.out.println(linha);
+            }
+        } catch (Exception e) {
+            System.out.println("Não foi possível efetuar o backup");
+        }
     }
+
+    
+    
+    
+    
+    
 
     public void puxarDados(ConfiguracaoModel eModel, int cod) {
         String sql = "SELECT cod, inativo, tipopessoa, cliente, fornecedor, cnpj, nome,xnome, xlgr, nro, xcpl, xbairro, xmun, uf, cep, xpais, fone1, fone2, fone3, ie, isuf, email FROM entidade where cod = " + cod + ";";
