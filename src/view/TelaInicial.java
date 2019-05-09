@@ -460,6 +460,9 @@ public class TelaInicial extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 opcao5MouseExited(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                opcao5MouseReleased(evt);
+            }
         });
         painelMenu.add(opcao5);
 
@@ -1047,6 +1050,12 @@ public class TelaInicial extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnSairMousePressed
+
+    private void opcao5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao5MouseReleased
+        if (ferramentas) {
+            
+        }
+    }//GEN-LAST:event_opcao5MouseReleased
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
