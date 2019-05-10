@@ -4,6 +4,8 @@ import com.sun.prism.impl.PrismSettings;
 import controller.cadastros.produtos.ProdutoController;
 import controller.ferramentas.BackupController;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -28,7 +30,6 @@ public class Backup extends javax.swing.JFrame {
     
     public void PegarPasta(){
         String pasta = chooserDiretorio.getSelectedFile().getAbsolutePath();
-        System.out.println(pasta);
     }
 
     @SuppressWarnings("unchecked")
@@ -37,10 +38,10 @@ public class Backup extends javax.swing.JFrame {
 
         chooserDiretorio = new javax.swing.JFileChooser();
         jDialog1 = new javax.swing.JDialog();
-        lblTítulo1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtLog = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         lblTítulo = new javax.swing.JLabel();
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
@@ -74,31 +75,38 @@ public class Backup extends javax.swing.JFrame {
             jDialog1.setResizable(false);
             jDialog1.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-            lblTítulo1.setBackground(new java.awt.Color(102, 102, 102));
-            lblTítulo1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-            lblTítulo1.setForeground(new java.awt.Color(255, 255, 255));
-            lblTítulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lblTítulo1.setText("Backup Efetuado");
-            lblTítulo1.setOpaque(true);
-            jDialog1.getContentPane().add(lblTítulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 30));
-
             txtLog.setEditable(false);
+            txtLog.setBackground(new java.awt.Color(102, 102, 102));
             txtLog.setColumns(20);
-            txtLog.setFont(new java.awt.Font("Calibri", 0, 10)); // NOI18N
+            txtLog.setFont(new java.awt.Font("Century Gothic", 0, 10)); // NOI18N
+            txtLog.setForeground(new java.awt.Color(255, 255, 255));
             txtLog.setRows(5);
+            txtLog.setToolTipText("Log.");
+            txtLog.setBorder(null);
+            txtLog.setFocusable(false);
             jScrollPane1.setViewportView(txtLog);
 
-            jDialog1.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 400, 270));
+            jDialog1.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 430, 190));
 
+            jButton2.setBackground(new java.awt.Color(255, 255, 255));
             jButton2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-            jButton2.setText("Sair");
+            jButton2.setForeground(new java.awt.Color(51, 153, 0));
+            jButton2.setText("Fechar esta tela");
             jButton2.setBorder(null);
             jButton2.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     jButton2ActionPerformed(evt);
                 }
             });
-            jDialog1.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 400, 30));
+            jDialog1.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 430, 30));
+
+            jLabel2.setBackground(new java.awt.Color(51, 153, 0));
+            jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+            jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+            jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel2.setText("Backup efetuado com sucesso!");
+            jLabel2.setOpaque(true);
+            jDialog1.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 30));
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
             setTitle("Produto");
@@ -132,7 +140,6 @@ public class Backup extends javax.swing.JFrame {
 
             txtLocal.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
             txtLocal.setForeground(new java.awt.Color(102, 102, 102));
-            txtLocal.setText("C:\\Arquivos Clientes\\backup.backup");
             txtLocal.setPreferredSize(new java.awt.Dimension(200, 20));
             painelPrincipal.add(txtLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 370, 20));
 
@@ -328,13 +335,19 @@ public class Backup extends javax.swing.JFrame {
             if (JOptionPane.showConfirmDialog(null, "Deseja efetuar um backup agora?",
                    "Backup do sistema?", opcao) == 0) {
                 try {
-                    jDialog1.setLocationRelativeTo(this);
-                    jDialog1.setLocation(jDialog1.getX() - 100,jDialog1.getY()- 20);
+                    jDialog1.setLocation(this.getX(), this.getY());
                     jDialog1.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-                    jDialog1.setSize(400, 300);
+                    jDialog1.setSize(430, 250);
                     jDialog1.setVisible(true);
                     BackupController bc = new BackupController();
-                    txtLog.setText(bc.efetuarBackup(txtLocal.getText(), "C:\\PG\\pg96\\bin\\"));
+                    
+                    //Gerar nome arquivo
+                    Date dataHoraAtual = new Date();
+                    String data = new SimpleDateFormat("ddMMyyyy").format(dataHoraAtual);
+                    String hora = new SimpleDateFormat("HHmmss").format(dataHoraAtual);
+                    String nomeArquivo = "\\B"+hora+data;
+                    
+                    txtLog.setText(bc.efetuarBackup(txtLocal.getText()+nomeArquivo, "C:\\PG\\pg96\\bin\\"));
                     JOptionPane.showMessageDialog(null, "Backup efetuado com sucesso.");
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
@@ -348,10 +361,7 @@ public class Backup extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        //<editor-fold defaultstate="collapsed" desc="Look and feel">
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -391,11 +401,11 @@ public class Backup extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblTítulo;
-    private javax.swing.JLabel lblTítulo1;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JTextField txtLocal;
     private javax.swing.JTextArea txtLog;

@@ -8,18 +8,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import model.ferramentas.ConfiguracaoModel;
+import model.ferramentas.BackupModel;
 
 public class BackupController {
-
     private final Connection conexao;
 
     public BackupController() {
         this.conexao = new connection().obterConexao();
-    }
-    public static void main(String[] args) {
-        BackupController bc = new BackupController();
-        bc.efetuarBackup("C:\\Arquivos Eduardo\\ahri.backup","C:\\PG\\pg96\\bin\\");
     }
     
     public String efetuarBackup(String arquivo, String diretorio) {
@@ -39,32 +34,33 @@ public class BackupController {
             p = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             while ((linha = reader.readLine()) != null) {
-                System.out.println(linha);
                 log = log + "\n" + linha;
             }
         } catch (Exception e) {
-            System.out.println("Não foi possível efetuar o backup");
+            JOptionPane.showMessageDialog(null, "Falha ao efetuar backup.\n" + e.getMessage());
         }
         return log;
     }
 
-    
-    
-    
-    
-    
-
-    public void puxarDados(ConfiguracaoModel eModel, int cod) {
-        String sql = "SELECT cod, inativo, tipopessoa, cliente, fornecedor, cnpj, nome,xnome, xlgr, nro, xcpl, xbairro, xmun, uf, cep, xpais, fone1, fone2, fone3, ie, isuf, email FROM entidade where cod = " + cod + ";";
+    public void puxarDados(BackupModel eModel) {
+        String sql = "SELECT caminho, agendado, hr1, hr2, hr3, hr4, hr5, hr6, ultimo FROM public.backup;";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                eModel.setCod(rs.getString("cod"));
+                eModel.setCaminho(rs.getString(1));
+                eModel.setAgendado(rs.getBoolean(2));
+                eModel.setHr1(rs.getString(3));
+                eModel.setHr2(rs.getString(4));
+                eModel.setHr3(rs.getString(5));
+                eModel.setHr4(rs.getString(6));
+                eModel.setHr5(rs.getString(7));
+                eModel.setHr6(rs.getString(8));
+                eModel.setUltimo(rs.getDate(9));
             }
             stmt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar dados.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao buscar configurações de backup.\n" + e.getMessage());
         }
     }
 }
