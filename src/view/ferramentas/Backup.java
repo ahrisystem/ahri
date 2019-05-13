@@ -148,7 +148,7 @@ public class Backup extends javax.swing.JFrame {
             txtLog.setFocusable(false);
             jScrollPane1.setViewportView(txtLog);
 
-            jDialog1.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 430, 190));
+            jDialog1.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 510, 160));
 
             jButton2.setBackground(new java.awt.Color(255, 255, 255));
             jButton2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -160,7 +160,7 @@ public class Backup extends javax.swing.JFrame {
                     jButton2ActionPerformed(evt);
                 }
             });
-            jDialog1.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 430, 30));
+            jDialog1.getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 510, 30));
 
             jLabel2.setBackground(new java.awt.Color(51, 153, 0));
             jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -168,7 +168,7 @@ public class Backup extends javax.swing.JFrame {
             jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             jLabel2.setText("Backup efetuado com sucesso!");
             jLabel2.setOpaque(true);
-            jDialog1.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 30));
+            jDialog1.getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 30));
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
             setTitle("Backup do sistema.");
@@ -506,7 +506,7 @@ public class Backup extends javax.swing.JFrame {
                 try {
                     jDialog1.setLocation(this.getX(), this.getY());
                     jDialog1.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-                    jDialog1.setSize(430, 250);
+                    jDialog1.setSize(520, 250);
                     jDialog1.setVisible(true);
                     BackupController bc = new BackupController();
                     
@@ -514,10 +514,9 @@ public class Backup extends javax.swing.JFrame {
                     Date dataHoraAtual = new Date();
                     String data = new SimpleDateFormat("ddMMyyyy").format(dataHoraAtual);
                     String hora = new SimpleDateFormat("HHmmss").format(dataHoraAtual);
-                    String nomeArquivo = "\\B"+hora+data;
+                    String nomeArquivo = "\\B"+hora+data+".backup";
                     
                     txtLog.setText(bc.efetuarBackup(txtLocal.getText()+nomeArquivo, "C:\\PG\\pg96\\bin\\"));
-                    JOptionPane.showMessageDialog(null, "Backup efetuado com sucesso.");
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }

@@ -1,0 +1,7 @@
+Cadastros
+Clientes
+--No campo  
+
+Vendas
+--No campo TIPO da tabela VENDAS, o número 1 é o orçamento.
+--

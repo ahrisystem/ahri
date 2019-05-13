@@ -20,6 +20,7 @@ import view.cadastrosUnicos.Empresa;
 import view.controles.Status;
 import view.ferramentas.Backup;
 import view.pdv.PDV;
+import view.vendas.Orcamentos;
 
 public class TelaInicial extends javax.swing.JFrame {
 
@@ -54,7 +55,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }
 
     public void Usuario(String usuario) {
-        btnUsuario.setText(usuario);
+        if (usuario.equalsIgnoreCase("")) {
+            btnUsuario.setText("ADMIN");
+        } else {
+            btnUsuario.setText(usuario);
+        }
     }
 
     public void alterarIcones(String i) {
@@ -85,8 +90,8 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         if (cadastros) {
             opcao1.setText("Produtos");
-            opcao2.setText("Fornecedores");
-            opcao3.setText("Clientes");
+            opcao2.setText("Clientes");
+            opcao3.setText("Fornecedores");
             opcao4.setText("Grupos");
             opcao5.setText("Formas de P.");
             opcao6.setText("Usuários");
@@ -765,7 +770,9 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
-
+        if (ajuda) {
+            JOptionPane.showMessageDialog(null, "Encaminhe um email para:\nahrisistema@gmail.com\nOnde o título do email seja: OPINIÃO 0.1", "Opiniões", 1);
+        }
     }//GEN-LAST:event_opcao1MouseReleased
 
     private void opcao4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao4MouseReleased
@@ -837,16 +844,22 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao3MousePressed
         if (inicial) {
-
+            Orcamentos or = Orcamentos.getInstancia();
+            painelPrincipal.add("Orçamentos", or);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (cadastros) {
-            Clientes clientes = Clientes.getInstancia();
-            painelPrincipal.add("Clientes", clientes);
+            Fornecedores forn = Fornecedores.getInstancia();
+            painelPrincipal.add("Fornecedores", forn);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (vendas) {
-
+            Orcamentos or = Orcamentos.getInstancia();
+            painelPrincipal.add("Orçamentos", or);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (ferramentas) {
             Contabilidade c = Contabilidade.getInstancia().getInstancia();
@@ -984,7 +997,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void opcao6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao6MousePressed
         if (inicial) {
             Usuarios u = Usuarios.getInstancia().getInstancia();
-            painelPrincipal.add("Produtos", u);
+            painelPrincipal.add("Usuários", u);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
@@ -1001,8 +1014,8 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (cadastros) {
-            Fornecedores forn = Fornecedores.getInstancia();
-            painelPrincipal.add("Fornecedores", forn);
+            Clientes clientes = Clientes.getInstancia();
+            painelPrincipal.add("Clientes", clientes);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }

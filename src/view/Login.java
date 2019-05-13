@@ -40,7 +40,6 @@ public class Login extends javax.swing.JFrame {
                 if (senha.equalsIgnoreCase(senhaMaster)) {
                     TelaInicial ti = new TelaInicial();
                     ti.setVisible(true);
-                    ti.Usuario(um.getLogin());
                     this.dispose();
                 } else {
                     txtSenha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244, 102, 88)));
