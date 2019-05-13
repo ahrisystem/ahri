@@ -1,4 +1,4 @@
-package view.cadastros.vendas;
+package view.vendas;
 
 import controller.cadastros.funcoes.PesquisarController;
 import view.cadastros.entidades.NovoCliente;

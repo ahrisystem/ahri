@@ -1,6 +1,6 @@
 package model.vendas;
 
-public class OrcamentoModel {
+public class VendasModel {
     private int cod;
     private int codigoCliente;
     private String placa;

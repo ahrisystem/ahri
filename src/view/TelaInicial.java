@@ -125,11 +125,11 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao3.setText("Contábil");
             opcao4.setText("Empresa");
             opcao5.setText("Backup");
-            opcao6.setText("Ajustes");
-            opcao7.setText("Ajustes");
-            opcao8.setText("Ajustes");
-            opcao9.setText("Ajustes");
-            opcao10.setText("Ajustes");
+            opcao6.setText("");
+            opcao7.setText("");
+            opcao8.setText("");
+            opcao9.setText("");
+            opcao10.setText("");
         }
         if (vendas) {
             opcao1.setText("Nota fiscal");
