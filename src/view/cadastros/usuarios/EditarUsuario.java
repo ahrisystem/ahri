@@ -2,7 +2,6 @@ package view.cadastros.usuarios;
 
 import controller.cadastros.usuarios.UsuarioController;
 import java.awt.Color;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import model.cadastros.usuarios.UsuarioModel;
 import view.TelaInicial;

@@ -18,6 +18,7 @@ import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
 import view.controles.Status;
+import view.ferramentas.Backup;
 import view.pdv.PDV;
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -123,7 +124,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao2.setText("Histórico");
             opcao3.setText("Contábil");
             opcao4.setText("Empresa");
-            opcao5.setText("Ajustes");
+            opcao5.setText("Backup");
             opcao6.setText("Ajustes");
             opcao7.setText("Ajustes");
             opcao8.setText("Ajustes");
@@ -1053,7 +1054,9 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao5MouseReleased
         if (ferramentas) {
-            
+            Backup b = Backup.getInstancia();
+            b.puxarDados();
+            b.setVisible(true);
         }
     }//GEN-LAST:event_opcao5MouseReleased
 
