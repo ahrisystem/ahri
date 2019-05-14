@@ -4,11 +4,9 @@ import controller.cadastros.funcoes.PesquisarController;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.produtos.ProdutoModel;
-import model.funcoes.PesquisarModel;
 
 public class Pesquisar extends javax.swing.JFrame {
     PesquisarController pc = new PesquisarController();
-    PesquisarModel pm = new PesquisarModel();
     
     public Pesquisar(String titulo, String pesquisa) {
         initComponents();
@@ -150,7 +148,7 @@ public class Pesquisar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
-        pm.setResultado(Integer.parseInt(tabela.getValueAt(1, 0).toString()));
+        
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void btnSelecionarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarMouseReleased

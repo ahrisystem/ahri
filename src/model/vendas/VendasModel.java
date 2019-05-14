@@ -1,18 +1,8 @@
 package model.vendas;
 
+import java.util.Date;
+
 public class VendasModel {
-    /*
-    cod integer NOT NULL,
-    tipo integer NOT NULL,
-    status integer NOT NULL,
-    cliente integer,
-    placa integer,
-    valortotalbruto double precision NOT NULL,
-    valortotaldesconto double precision NOT NULL,
-    valortotal double precision NOT NULL,
-    usuario character varying(50),
-    obs character varying(255),
-    */
     
     private int cod;
     private int tipo; //1- orcamento 2- saida 3- 
@@ -22,6 +12,8 @@ public class VendasModel {
     private Double valorTotalBruto;
     private Double valorTotalDesconto;
     private Double valorTotal;
+    private Date criacao;
+    private String usuario; //login do usuario que fez a operacao
     private String obs;
 
     public int getCod() {
@@ -32,12 +24,28 @@ public class VendasModel {
         this.cod = cod;
     }
 
-    public int getCodigoCliente() {
-        return codigoCliente;
+    public int getTipo() {
+        return tipo;
     }
 
-    public void setCodigoCliente(int codigoCliente) {
-        this.codigoCliente = codigoCliente;
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(int cliente) {
+        this.cliente = cliente;
     }
 
     public String getPlaca() {
@@ -72,6 +80,22 @@ public class VendasModel {
         this.valorTotal = valorTotal;
     }
 
+    public Date getCriacao() {
+        return criacao;
+    }
+
+    public void setCriacao(Date criacao) {
+        this.criacao = criacao;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
     public String getObs() {
         return obs;
     }
@@ -79,6 +103,5 @@ public class VendasModel {
     public void setObs(String obs) {
         this.obs = obs;
     }
-    
     
 }

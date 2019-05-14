@@ -1,16 +1,13 @@
 package view.vendas;
 
-import controller.cadastros.funcoes.PesquisarController;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
-import model.funcoes.PesquisarModel;
 import view.TelaInicial;
 import view.cadastros.funcoes.Pesquisar;
 
 
 public class NovoOrcamento extends javax.swing.JFrame {
     private static final NovoOrcamento INSTANCIA = new NovoOrcamento();
-    PesquisarModel pm = new PesquisarModel();
 
     public static NovoOrcamento getInstancia() {
         return INSTANCIA;
@@ -568,21 +565,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-        new Pesquisar("Clientes",txtCliente.getText()).setVisible(true);
-        if (pm.getResultado() < 1) {
-            
-        } else {
-            
-        }
+        
     }//GEN-LAST:event_txtClienteActionPerformed
 
     private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
-        new Pesquisar("Produtos",txtProduto.getText()).setVisible(true);
-        if (pm.getResultado() < 1) {
-            
-        } else {
-            
-        }
+        
     }//GEN-LAST:event_txtProdutoActionPerformed
 
     private void txtPlaca2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlaca2ActionPerformed

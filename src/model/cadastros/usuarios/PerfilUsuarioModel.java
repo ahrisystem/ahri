@@ -1,4 +1,4 @@
-package model;
+package model.cadastros.usuarios;
 
 public class PerfilUsuarioModel {
     private int cod;
