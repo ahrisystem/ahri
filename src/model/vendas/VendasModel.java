@@ -1,8 +1,23 @@
 package model.vendas;
 
 public class VendasModel {
+    /*
+    cod integer NOT NULL,
+    tipo integer NOT NULL,
+    status integer NOT NULL,
+    cliente integer,
+    placa integer,
+    valortotalbruto double precision NOT NULL,
+    valortotaldesconto double precision NOT NULL,
+    valortotal double precision NOT NULL,
+    usuario character varying(50),
+    obs character varying(255),
+    */
+    
     private int cod;
-    private int codigoCliente;
+    private int tipo; //1- orcamento 2- saida 3- 
+    private int status;
+    private int cliente;
     private String placa;
     private Double valorTotalBruto;
     private Double valorTotalDesconto;
