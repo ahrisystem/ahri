@@ -138,8 +138,8 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         if (vendas) {
             opcao1.setText("Nota fiscal");
-            opcao2.setText("Orçamento");
-            opcao3.setText("Arquivo XML");
+            opcao2.setText("Arquivo XML");
+            opcao3.setText("Orçamentos");
             opcao4.setText("Recibo");
             opcao5.setText("");
             opcao6.setText("");

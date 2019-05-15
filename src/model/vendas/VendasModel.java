@@ -13,8 +13,31 @@ public class VendasModel {
     private Double valorTotalDesconto;
     private Double valorTotal;
     private Date criacao;
+    private Date alteracao;
     private String usuario; //login do usuario que fez a operacao
     private String obs;
+    
+    //para listar em orcamentos
+    private String nomecliente;
+    private String cnpjcliente;
+
+    public String getNomecliente() {
+        return nomecliente;
+    }
+
+    public void setNomecliente(String nomecliente) {
+        this.nomecliente = nomecliente;
+    }
+
+    public String getCnpjcliente() {
+        return cnpjcliente;
+    }
+
+    public void setCnpjcliente(String cnpjcliente) {
+        this.cnpjcliente = cnpjcliente;
+    }
+    
+    
 
     public int getCod() {
         return cod;
@@ -86,6 +109,14 @@ public class VendasModel {
 
     public void setCriacao(Date criacao) {
         this.criacao = criacao;
+    }
+
+    public Date getAlteracao() {
+        return alteracao;
+    }
+
+    public void setAlteracao(Date alteracao) {
+        this.alteracao = alteracao;
     }
 
     public String getUsuario() {

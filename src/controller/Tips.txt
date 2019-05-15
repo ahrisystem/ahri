@@ -1,7 +1,10 @@
 Cadastros
-Clientes
---No campo  
+Entidades
+--No campo 
 
 Vendas
 --No campo TIPO da tabela VENDAS, o número 1 é o orçamento.
---
+--No campo STATUS da tabela VENDAS:
+    1 - Emitido
+    2 - Finalizado
+    3 - Cancelado

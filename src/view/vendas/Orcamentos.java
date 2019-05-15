@@ -1,15 +1,15 @@
 package view.vendas;
 
 import view.cadastros.usuarios.*;
-import controller.cadastros.usuarios.UsuarioController;
+import controller.vendas.VendasController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.cadastros.usuarios.UsuarioModel;
+import model.vendas.VendasModel;
 import view.cadastros.funcoes.RegistrosExcluidos;
 
 public class Orcamentos extends javax.swing.JPanel {
     private static final Orcamentos INSTANCIA = new Orcamentos();
-    UsuarioController ec = new UsuarioController();
+    VendasController ec = new VendasController();
     
     public static Orcamentos getInstancia() {
         return INSTANCIA;
@@ -23,12 +23,27 @@ public class Orcamentos extends javax.swing.JPanel {
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (UsuarioModel e : ec.listar(txtPesquisa.getText())) {
-            modelo.addRow(new Object[]{
-                e.getLogin(),
-                e.getNome(),
-                e.getPerfilUsuario()
-            });
+        if (txtFiltro.getSelectedItem().toString().equalsIgnoreCase("Cliente")) {
+            for (VendasModel e : ec.listaOrcamentos("nome",txtPesquisa.getText())) {
+                modelo.addRow(new Object[]{
+                    e.getCod(),
+                    e.getStatus(),
+                    e.getNomecliente(),
+                    e.getCnpjcliente(),
+                    e.getValorTotal()
+                });
+            }
+        }
+        if (txtFiltro.getSelectedItem().toString().equalsIgnoreCase("CNPJ")) {
+            for (VendasModel e : ec.listaOrcamentos("cnpj",txtPesquisa.getText())) {
+                modelo.addRow(new Object[]{
+                    e.getCod(),
+                    e.getStatus(),
+                    e.getNomecliente(),
+                    e.getCnpjcliente(),
+                    e.getValorTotal()
+                });
+            }
         }
     }
     @SuppressWarnings("unchecked")
@@ -46,7 +61,7 @@ public class Orcamentos extends javax.swing.JPanel {
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtFiltro = new javax.swing.JComboBox<>();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -101,7 +116,7 @@ public class Orcamentos extends javax.swing.JPanel {
         btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnExcluir.setForeground(new java.awt.Color(255, 102, 102));
         btnExcluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnExcluir.setText("Excluir");
+        btnExcluir.setText("Cancelar");
         btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExcluir.setOpaque(true);
         btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,7 +175,7 @@ public class Orcamentos extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nº", "Finalizado", "Cliente", "CPF CNPJ", "Valor"
+                "Nº", "Status", "Cliente", "CPF CNPJ", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -202,9 +217,9 @@ public class Orcamentos extends javax.swing.JPanel {
         lblTitulo.setText("ORÇAMENTOS");
         lblTitulo.setOpaque(true);
 
-        jComboBox1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "CNPJ" }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtFiltro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cliente", "CNPJ" }));
+        txtFiltro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,7 +233,7 @@ public class Orcamentos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtPesquisa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)))
@@ -234,7 +249,7 @@ public class Orcamentos extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1))
+                            .addComponent(txtFiltro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -253,14 +268,14 @@ public class Orcamentos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoUsuario novo = NovoUsuario.getInstancia();
+        NovoOrcamento novo = NovoOrcamento.getInstancia();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
         if (tabela.getSelectedRow()<0) {
-            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+            JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
             EditarUsuario edit = EditarUsuario.getInstancia();
             edit.puxarDados(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
@@ -271,11 +286,11 @@ public class Orcamentos extends javax.swing.JPanel {
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
         if (tabela.getSelectedRow()<0) {
-            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+            JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o cliente?",
-                "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            if (JOptionPane.showConfirmDialog(null, "Cancelar o orçamento?",
+                "Cancelar?", 2) == 0) {
+                ec.cancelarOrcamento(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
@@ -312,12 +327,12 @@ public class Orcamentos extends javax.swing.JPanel {
     private javax.swing.JLabel btnExcluidos;
     private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnNovo;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tabela;
+    private javax.swing.JComboBox<String> txtFiltro;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

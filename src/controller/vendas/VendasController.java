@@ -18,12 +18,37 @@ public class VendasController {
     public VendasController() {
         this.conexao = new connection().obterConexao();
     }
-
+/////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////        
+    /*
+    cod;
+    tipo; //1- orcamento 2- saida 3- 
+    status;
+    cliente;
+    placa;
+    valorTotalBruto;
+    valorTotalDesconto;
+    valorTotal;
+    criacao;
+    alteracao;
+    usuario; //login do usuario que fez a operacao
+    obs;
+    */
     public void cadastraOrcamento(VendasModel model) {
-        String sql = "";
+        String sql = "INSERT INTO vendas(cod,tipo,status,cliente,placa,valortotalbruto,valortotaldesconto,valortotal,criacao,usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, model.getCod());
+            pstmt.setInt(2, 1);
+            pstmt.setInt(3, model.getStatus());
+            pstmt.setInt(4, model.getCliente());
+            pstmt.setString(5, model.getPlaca());
+            pstmt.setDouble(6, model.getValorTotalBruto());
+            pstmt.setDouble(7, model.getValorTotalDesconto());
+            pstmt.setDouble(8, model.getValorTotal());
+            //data do banco criacao
+            //data do banco alteracao
+            pstmt.setString(11, model.getUsuario());
+            pstmt.setString(12, model.getObs());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Orçamento Nº "+model.getCod()+" salvo!");
         } catch (Exception e) {
@@ -31,12 +56,21 @@ public class VendasController {
         }
     }
     
-    public void alteraEntidade(VendasModel Model, int cod) {
-        String sql = "UPDATE entidade SET cod=?, inativo=?, tipopessoa=?, cliente=?, fornecedor=?,cnpj=?, nome=?, xnome=?, xlgr=?, nro=?, xcpl=?, xbairro=?, xmun=?, uf=?, cep=?, xpais=?, fone1=?, fone2=?, fone3=?, ie=?, isuf=?, email=? WHERE cod = '"+cod+"';";
+    public void alteraOrçamento(VendasModel model, int cod) {
+        String sql = "UPDATE vendas SET id=?,cod=?,tipo=?,status=?,cliente=?,placa=?,valortotalbruto=?,valortotaldesconto=?,valortotal=?,alteracao=?,usuario=?,obs=? WHERE cod='"+cod+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setInt(1, Model.getCod());
-           
+            pstmt.setInt(1, model.getCod());
+            pstmt.setInt(2, 1);
+            pstmt.setInt(3, model.getStatus());
+            pstmt.setInt(4, model.getCliente());
+            pstmt.setString(5, model.getPlaca());
+            pstmt.setDouble(6, model.getValorTotalBruto());
+            pstmt.setDouble(7, model.getValorTotalDesconto());
+            pstmt.setDouble(8, model.getValorTotal());
+            //data do alteracao
+            pstmt.setString(10, model.getUsuario());
+            pstmt.setString(11, model.getObs());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
         } catch (Exception e) {
@@ -44,15 +78,21 @@ public class VendasController {
         }
     }
 
-    public List<VendasModel> listaClientes(String nome) {
+    public List<VendasModel> listaOrcamentos(String filtro,String valor) {
         List<VendasModel> clientes = new ArrayList<>();
-        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1 and nome like '%"+nome+"%';";
+        String sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
+                + "FROM vendas v, entidade e WHERE v.cliente = e.cod and "
+                + "status <> 3 and tipo = 1 and e."+filtro+" like '%"+valor+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 VendasModel Model = new VendasModel();
-                Model.setCod(rs.getInt("cod"));
+                Model.setCod(rs.getInt(1));
+                Model.setStatus(rs.getInt(2));
+                Model.setNomecliente(rs.getString(3));
+                Model.setCnpjcliente(rs.getString(4));
+                Model.setValorTotal(rs.getDouble(5));
                 clientes.add(Model);
             }
             stmt.close();
@@ -61,6 +101,33 @@ public class VendasController {
         }
         return clientes;
     }
+    
+    public void cancelarOrcamento(int cod) {
+        String sql = "update vendas set status=3 where cod= " + cod + ";";
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Falha ao cancelar.\n" + e.getMessage());
+        }
+    }
+
+    public void restaurarOrcamento(int cod) {
+        String sql = "update vendas set status=1 where cod= " + cod + ";";
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Falha ao restaurar.\n" + e.getMessage());
+        }
+    }
+/////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////    
+    
+    
+    
+    
     public List<VendasModel> listaClientesExcluidos(String nome) {
         List<VendasModel> clientes = new ArrayList<>();
         String sql = "Select cod,nome from entidade where inativo = true and cliente = 1 and nome like '%"+nome+"%';";
@@ -161,25 +228,5 @@ public class VendasController {
         }
     }
 
-    public void excluir(int cod) {
-        String sql = "update entidade set inativo=true where cod= " + cod + ";";
-        try {
-            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.execute();
-            pstmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao excluir.\n" + e.getMessage());
-        }
-    }
-
-    public void restaurar(int cod) {
-        String sql = "update entidade set inativo=false where cod= " + cod + ";";
-        try {
-            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.execute();
-            pstmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao restaurar.\n" + e.getMessage());
-        }
-    }
+    
 }
