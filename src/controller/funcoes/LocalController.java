@@ -1,4 +1,4 @@
-package controller.cadastros.funcoes;
+package controller.funcoes;
 
 import controller.connection;
 import java.sql.Connection;

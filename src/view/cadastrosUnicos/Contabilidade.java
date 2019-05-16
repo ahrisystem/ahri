@@ -1,7 +1,7 @@
 package view.cadastrosUnicos;
 
 import controller.cadastrosUnicos.ContabilidadeController;
-import controller.cadastros.funcoes.LocalController;
+import controller.funcoes.LocalController;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.cadastrosUnicos.ContabilidadeModel;

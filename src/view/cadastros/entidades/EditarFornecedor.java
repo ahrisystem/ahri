@@ -1,7 +1,7 @@
 package view.cadastros.entidades;
 
 import controller.cadastros.entidades.EntidadeController;
-import controller.cadastros.funcoes.LocalController;
+import controller.funcoes.LocalController;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;

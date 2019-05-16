@@ -1,6 +1,6 @@
 package view.vendas;
 
-import controller.cadastros.funcoes.PesquisarController;
+import controller.funcoes.PesquisarController;
 import controller.vendas.VendasController;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
@@ -350,6 +350,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnAdicionarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAdicionarProduto.setText("Adicionar");
         btnAdicionarProduto.setFocusable(false);
+        btnAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarProdutoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
         jCheckBox1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -718,14 +723,31 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
-        if (tabela.getSelectedRow()<0) {
-            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
-        } else {
-            txtCliente.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-            txtCliente2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-            pesquisar.setVisible(false);
-            txtPlaca.requestFocus();
+        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
+            if (tabela.getSelectedRow()<0) {
+                JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+            } else {
+                txtCliente.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtCliente2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                pesquisar.setVisible(false);
+                txtPlaca.requestFocus();
+            }
         }
+        if (pesquisaAtual.equalsIgnoreCase("produtos")) {
+            if (tabela.getSelectedRow()<0) {
+                JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+            } else {
+                txtProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtDescricaoProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                txtValorUnitarioProduto.setText(
+                        tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
+                txtValorDescontoProduto.setText("0,00");
+                txtQuantidadeProduto.setText("0");
+                pesquisar.setVisible(false);
+                txtValorUnitarioProduto.requestFocus();
+            }
+        }
+        
     }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
 
     private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
@@ -733,6 +755,30 @@ public class NovoOrcamento extends javax.swing.JFrame {
             pesquisar.setVisible(false);
         }
     }//GEN-LAST:event_tabelaKeyReleased
+
+    private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
+        if (txtDescricaoProduto.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Nenhum produto");
+        } else {
+            if (txtQuantidadeProduto.getText().equalsIgnoreCase("") || Integer.parseInt(txtQuantidadeProduto.getText())<1) {
+                JOptionPane.showMessageDialog(null, "Quantidade inválida");
+            } else {
+                if (txtValorUnitarioProduto.getText() == "0,00") {
+                    JOptionPane.showMessageDialog(null, "Valor inválido");
+                } else {
+                    DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+                    modelo.addRow(new Object[]{
+                        txtProduto.getText(),
+                        txtDescricaoProduto.getText(),
+                        txtValorUnitarioProduto.getText(),
+                        txtValorDescontoProduto.getText(),
+                        txtQuantidadeProduto.getText(),
+                    });
+                }
+            }
+        }
+
+    }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

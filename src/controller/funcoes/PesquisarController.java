@@ -1,4 +1,4 @@
-package controller.cadastros.funcoes;
+package controller.funcoes;
 
 import controller.connection;
 import java.sql.Connection;
@@ -40,15 +40,15 @@ public class PesquisarController {
     }
     public List<ProdutoModel> listaProdutos(String nome) {
         List<ProdutoModel> produtos = new ArrayList<>();
-        String sql = "SELECT cod,nome,preco, FROM produto where inativo=FALSE and nome LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,nome,preco FROM produto where inativo=FALSE and nome LIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 ProdutoModel p = new ProdutoModel();
                 p.setCod(rs.getInt("cod"));
-                p.setCodigoBarras(rs.getString("nome"));
-                p.setNome(rs.getString("preco"));
+                p.setNome(rs.getString("nome"));
+                p.setPreco(rs.getDouble("preco"));
                 produtos.add(p);
             }
             stmt.close();

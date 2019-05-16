@@ -1,6 +1,6 @@
 package view.funcoes;
 
-import controller.cadastros.funcoes.PesquisarController;
+import controller.funcoes.PesquisarController;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.produtos.ProdutoModel;
