@@ -4,7 +4,7 @@ import controller.cadastros.entidades.EntidadeController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
-import view.cadastros.funcoes.RegistrosExcluidos;
+import view.funcoes.RegistrosExcluidos;
 
 public class Fornecedores extends javax.swing.JPanel {
     private static final Fornecedores INSTANCIA = new Fornecedores();

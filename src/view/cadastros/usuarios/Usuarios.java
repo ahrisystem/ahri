@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.usuarios.UsuarioModel;
 import model.cadastros.entidades.EntidadeModel;
-import view.cadastros.funcoes.RegistrosExcluidos;
+import view.funcoes.RegistrosExcluidos;
 
 public class Usuarios extends javax.swing.JPanel {
     private static final Usuarios INSTANCIA = new Usuarios();

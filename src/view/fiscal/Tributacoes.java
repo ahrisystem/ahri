@@ -5,7 +5,7 @@ import controller.cadastros.produtos.ProdutoController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.produtos.ProdutoModel;
-import view.cadastros.funcoes.RegistrosExcluidos;
+import view.funcoes.RegistrosExcluidos;
 
 public class Tributacoes extends javax.swing.JPanel {
     private static final Tributacoes INSTANCIA = new Tributacoes();

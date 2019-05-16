@@ -3,7 +3,7 @@ package view.cadastros.produtos;
 import view.cadastros.entidades.*;
 import controller.cadastros.entidades.EntidadeController;
 import javax.swing.JOptionPane;
-import view.cadastros.funcoes.RegistrosExcluidos;
+import view.funcoes.RegistrosExcluidos;
 
 public class Grupos extends javax.swing.JPanel {
     private static final Grupos INSTANCIA = new Grupos();

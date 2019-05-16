@@ -18,7 +18,7 @@ public class VendasController {
     public VendasController() {
         this.conexao = new connection().obterConexao();
     }
-/////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////        
+/////////////////////////ORCAMENTOS/////////////////////////////////////////////       
     /*
     cod;
     tipo; //1- orcamento 2- saida 3- 
@@ -34,7 +34,9 @@ public class VendasController {
     obs;
     */
     public void cadastraOrcamento(VendasModel model) {
-        String sql = "INSERT INTO vendas(cod,tipo,status,cliente,placa,valortotalbruto,valortotaldesconto,valortotal,criacao,usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),?,?);";
+        String sql = "INSERT INTO vendas(cod,tipo,status,cliente,placa,"
+                + "valortotalbruto,valortotaldesconto,valortotal,criacao,"
+                + "usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, model.getCod());
@@ -57,7 +59,9 @@ public class VendasController {
     }
     
     public void alteraOrçamento(VendasModel model, int cod) {
-        String sql = "UPDATE vendas SET id=?,cod=?,tipo=?,status=?,cliente=?,placa=?,valortotalbruto=?,valortotaldesconto=?,valortotal=?,alteracao=?,usuario=?,obs=? WHERE cod='"+cod+"';";
+        String sql = "UPDATE vendas SET id=?,cod=?,tipo=?,status=?,cliente=?,"
+                + "placa=?,valortotalbruto=?,valortotaldesconto=?,valortotal=?,"
+                + "alteracao=?,usuario=?,obs=? WHERE cod='"+cod+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, model.getCod());
@@ -82,7 +86,7 @@ public class VendasController {
         List<VendasModel> clientes = new ArrayList<>();
         String sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
                 + "FROM vendas v, entidade e WHERE v.cliente = e.cod and "
-                + "status <> 3 and tipo = 1 and e."+filtro+" like '%"+valor+"%';";
+                + "tipo = 1 and e."+filtro+" like '%"+valor+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -123,6 +127,39 @@ public class VendasController {
             JOptionPane.showMessageDialog(null, "Falha ao restaurar.\n" + e.getMessage());
         }
     }
+    public int pegaCodigo() {
+        String sql = "select max(cod) from vendas;";
+        int cod = 1;
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
+            if (rs.getString("max") == null) {
+                cod = 1;
+            } else {
+                cod = cod + Integer.parseInt(rs.getString("max"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
+        }
+        return cod;
+    }
+
+    public void puxarDados(VendasModel Model, int cod) {
+        String sql = "SELECT cod, inativo, tipopessoa, cliente, fornecedor, cnpj, nome,xnome, xlgr, nro, xcpl, xbairro, xmun, uf, cep, xpais, fone1, fone2, fone3, ie, isuf, email FROM entidade where cod = " + cod + ";";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Model.setCod(rs.getInt("cod"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
+        }
+
+    }
 /////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////    
     
     
@@ -146,75 +183,7 @@ public class VendasController {
         return clientes;
     }
 
-    public List<VendasModel> listaFornecedores(String nome) {
-        List<VendasModel> entidades = new ArrayList<>();
-        String sql = "Select cod,xnome,xMun from entidade where inativo = false and fornecedor = 1";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                VendasModel Model = new VendasModel();
-                Model.setCod(rs.getInt("cod"));
-                entidades.add(Model);
-            }
-            stmt.close();
-        } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
-        }
-        return entidades;
-    }
-    public List<VendasModel> listaFornecedoresExcluidos(String nome) {
-        List<VendasModel> fornecedores = new ArrayList<>();
-        String sql = "Select cod,nome from entidade where inativo = true and fornecedor = 1 and nome like '%"+nome+"%';";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                VendasModel Model = new VendasModel();
-                Model.setCod(rs.getInt("cod"));
-                fornecedores.add(Model);
-            }
-            stmt.close();
-        } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
-        }
-        return fornecedores;
-    }
-
-    public int pegaCodigo() {
-        String sql = "select max(cod) from entidade;";
-        int cod = 1;
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            if (rs.getString("max") == null) {
-                cod = 1;
-            } else {
-                cod = cod + Integer.parseInt(rs.getString("max"));
-            }
-            stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
-        }
-        return cod;
-    }
-
     
-    public void puxarDados(VendasModel Model, int cod) {
-        String sql = "SELECT cod, inativo, tipopessoa, cliente, fornecedor, cnpj, nome,xnome, xlgr, nro, xcpl, xbairro, xmun, uf, cep, xpais, fone1, fone2, fone3, ie, isuf, email FROM entidade where cod = " + cod + ";";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                Model.setCod(rs.getInt("cod"));
-            }
-            stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
-        }
-
-    }
 
     public void alterar(VendasModel Model, int cod) {
         String sql = " WHERE cod = " + cod + ";";

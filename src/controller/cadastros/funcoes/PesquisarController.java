@@ -21,14 +21,14 @@ public class PesquisarController {
 
     public List<EntidadeModel> listaClientes(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
-        String sql = "SELECT cod,xnome,cnpj FROM entidade where cliente=1 and xnome LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,nome,cnpj FROM entidade where cliente=1 and nome LIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 EntidadeModel e = new EntidadeModel();
                 e.setCod(rs.getInt("cod"));
-                e.setxNome(rs.getString("xnome"));
+                e.setxNome(rs.getString("nome"));
                 e.setCNPJ(rs.getString("cnpj"));
                 clientes.add(e);
             }

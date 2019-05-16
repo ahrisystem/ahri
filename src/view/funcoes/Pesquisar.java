@@ -1,4 +1,4 @@
-package view.cadastros.funcoes;
+package view.funcoes;
 
 import controller.cadastros.funcoes.PesquisarController;
 import javax.swing.table.DefaultTableModel;
@@ -76,6 +76,7 @@ public class Pesquisar extends javax.swing.JFrame {
         planoDeFundo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPesquisa.setNextFocusableComponent(tabela);
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesquisaActionPerformed(evt);
@@ -152,6 +153,7 @@ public class Pesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void btnSelecionarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarMouseReleased
+        this.dispose();
         
     }//GEN-LAST:event_btnSelecionarMouseReleased
 

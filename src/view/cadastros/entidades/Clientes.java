@@ -4,7 +4,7 @@ import controller.cadastros.entidades.EntidadeController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
-import view.cadastros.funcoes.RegistrosExcluidos;
+import view.funcoes.RegistrosExcluidos;
 
 public class Clientes extends javax.swing.JPanel {
     private static final Clientes INSTANCIA = new Clientes();

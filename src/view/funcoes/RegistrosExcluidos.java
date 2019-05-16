@@ -1,4 +1,4 @@
-package view.cadastros.funcoes;
+package view.funcoes;
 
 import controller.cadastros.entidades.EntidadeController;
 import controller.cadastros.produtos.ProdutoController;
