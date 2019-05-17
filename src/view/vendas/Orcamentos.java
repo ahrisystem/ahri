@@ -43,7 +43,7 @@ public class Orcamentos extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         btnNovo = new javax.swing.JLabel();
         btnEditar = new javax.swing.JLabel();
-        btnExcluir = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
@@ -99,16 +99,16 @@ public class Orcamentos extends javax.swing.JPanel {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(102, 102, 102));
-        btnExcluir.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(255, 102, 102));
-        btnExcluir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnExcluir.setText("Cancelar");
-        btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnExcluir.setOpaque(true);
-        btnExcluir.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCancelar.setBackground(new java.awt.Color(102, 102, 102));
+        btnCancelar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 102, 102));
+        btnCancelar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancelar.setOpaque(true);
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnExcluirMouseReleased(evt);
+                btnCancelarMouseReleased(evt);
             }
         });
 
@@ -119,7 +119,7 @@ public class Orcamentos extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -132,7 +132,7 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(140, Short.MAX_VALUE))
         );
 
@@ -255,17 +255,17 @@ public class Orcamentos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
-    private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
+    private void btnCancelarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseReleased
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Cancelar o orçamento?",
                 "Cancelar?", 2) == 0) {
-                ec.cancelarOrcamento(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                ec.alteraStatusOrcamento(3, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
-    }//GEN-LAST:event_btnExcluirMouseReleased
+    }//GEN-LAST:event_btnCancelarMouseReleased
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
@@ -290,8 +290,8 @@ public class Orcamentos extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtualizar;
+    private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnEditar;
-    private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnNovo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;

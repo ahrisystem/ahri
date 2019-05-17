@@ -22,8 +22,8 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private EditarCliente() {
         initComponents();
-        setLocationRelativeTo(null);
         preencheCidades();
+        setLocationRelativeTo(null);
     }
     
     public void puxarDados(int cod){

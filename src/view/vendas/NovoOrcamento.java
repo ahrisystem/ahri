@@ -18,7 +18,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
     
     String pesquisaAtual;
     private static final NovoOrcamento INSTANCIA = new NovoOrcamento();
-
+    
+    
     public static NovoOrcamento getInstancia() {
         return INSTANCIA;
     }
@@ -55,7 +56,37 @@ public class NovoOrcamento extends javax.swing.JFrame {
             });
         }
     }
-    ////////////////////////////////////////////////////////////////////////////
+    /////////////////////Lista de produtos do orcamento/////////////////////////
+    public void listaDeProdutosOrcamento(){
+        
+    }
+    
+    
+    
+    ///////////////////Buscar cliente/produto///////////////////////////////////
+    public void buscarCliente(){
+        if (txtCliente.getText().matches("[0-9]+")) {
+            EntidadeModel em = new EntidadeModel();
+            vc.buscarClienteOrcamento(em, txtCliente.getText());
+            txtCliente.setText(Integer.toString(em.getCod()));
+            txtCliente2.setText(em.getNome());
+            txtPlaca.requestFocus();
+            txtCliente2.setEnabled(false);
+        } else {
+            if (txtCliente.getText().isEmpty()) {
+                txtCliente2.setText("");
+            }
+            pesquisar.setVisible(true);
+            pesquisaAtual = "clientes";
+            lblTituloPesquisa.setText("Clientes");
+            listarClientes();
+            txtPesquisa.setText(txtCliente.getText());
+            pesquisar.setLocation(this.getX(), this.getY());
+            pesquisar.setSize(this.getSize());
+        }
+    }
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -314,37 +345,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnRemoverProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnRemoverProduto.setText("Remover");
         btnRemoverProduto.setFocusable(false);
-        btnRemoverProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnRemoverProdutoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnRemoverProdutoMouseExited(evt);
-            }
-        });
-        btnRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoverProdutoActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnRemoverProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 110, 40));
 
         btnEditarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnEditarProduto.setText("Editar");
         btnEditarProduto.setFocusable(false);
-        btnEditarProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnEditarProdutoMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnEditarProdutoMouseExited(evt);
-            }
-        });
-        btnEditarProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarProdutoActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnEditarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 110, 40));
 
         btnAdicionarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -396,9 +401,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblTitulo8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo8.setText("Valor Un:");
 
-        txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
 
-        txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
         lblTitulo10.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -428,7 +433,16 @@ public class NovoOrcamento extends javax.swing.JFrame {
         });
 
         txtCliente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCliente.setToolTipText("Código do cliente, caso não esteja cadastrado deixe em branco.");
         txtCliente.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtClienteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtClienteFocusLost(evt);
+            }
+        });
         txtCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClienteActionPerformed(evt);
@@ -584,7 +598,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
                             .addComponent(txtValorBruto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                             .addComponent(txtTotalDescontos, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTitulo12)))
+                            .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -654,38 +668,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuantidadeProdutoActionPerformed
 
-    private void btnRemoverProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverProdutoMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverProdutoMouseEntered
-
-    private void btnRemoverProdutoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRemoverProdutoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverProdutoMouseExited
-
-    private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverProdutoActionPerformed
-
-    private void btnEditarProdutoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarProdutoMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarProdutoMouseEntered
-
-    private void btnEditarProdutoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarProdutoMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarProdutoMouseExited
-
-    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditarProdutoActionPerformed
-
     private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-        pesquisar.setVisible(true);
-        pesquisaAtual = "clientes";
-        lblTituloPesquisa.setText("Clientes");
-        listarClientes();
-        txtPesquisa.setText(txtCliente.getText());
-        pesquisar.setLocation(this.getX(), this.getY());
-        pesquisar.setSize(this.getSize());
+        buscarCliente();
     }//GEN-LAST:event_txtClienteActionPerformed
 
     private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
@@ -767,18 +751,38 @@ public class NovoOrcamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Valor inválido");
                 } else {
                     DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-                    modelo.addRow(new Object[]{
-                        txtProduto.getText(),
-                        txtDescricaoProduto.getText(),
-                        txtValorUnitarioProduto.getText(),
-                        txtValorDescontoProduto.getText(),
-                        txtQuantidadeProduto.getText(),
-                    });
+                    modelo.setNumRows(0);
+                        modelo.addRow(new Object[]{
+                            txtProduto.getText(),
+                            txtDescricaoProduto.getText(),
+                            txtValorUnitarioProduto.getText(),
+                            txtValorDescontoProduto.getText(),
+                            txtQuantidadeProduto.getText(),
+                        });
+                    
+                        
+                    
                 }
             }
         }
-
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
+
+    private void txtClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFocusGained
+        txtCliente2.setEnabled(true);
+    }//GEN-LAST:event_txtClienteFocusGained
+
+    private void txtClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFocusLost
+        if (txtCliente.getText().matches("[0-9]+")) {
+            EntidadeModel em = new EntidadeModel();
+            vc.buscarClienteOrcamento(em, txtCliente.getText());
+            txtCliente.setText(Integer.toString(em.getCod()));
+            txtCliente2.setText(em.getNome());
+            txtPlaca.requestFocus();
+            txtCliente2.setEnabled(false);
+        } else {
+            
+        }
+    }//GEN-LAST:event_txtClienteFocusLost
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
