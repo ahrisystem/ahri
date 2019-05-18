@@ -4,18 +4,22 @@ import controller.funcoes.PesquisarController;
 import controller.vendas.VendasController;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.produtos.ProdutoModel;
+import model.vendas.VendasModel;
 import view.TelaInicial;
 
 
 public class NovoOrcamento extends javax.swing.JFrame {
     VendasController vc = new VendasController();
     PesquisarController pc = new PesquisarController();
-    
+    String usuario;
     String pesquisaAtual;
     private static final NovoOrcamento INSTANCIA = new NovoOrcamento();
     
@@ -28,9 +32,15 @@ public class NovoOrcamento extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        icone();
     }
     public void pegaCodigo(){
         lblCod.setText("Nº "+vc.pegaCodigo());
+    }
+    public void icone() {
+        URL url = this.getClass().getResource("/images/icon.ico");
+        Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(iconeTitulo);
     }
     
     //JDialog
@@ -56,11 +66,18 @@ public class NovoOrcamento extends javax.swing.JFrame {
             });
         }
     }
-    /////////////////////Lista de produtos do orcamento/////////////////////////
-    public void listaDeProdutosOrcamento(){
-        
+    //////////////////////Atualizando totalizadores/////////////////////////////
+    public void atualizarTotalizadores(){
+        double totalbruto = 0.00;
+        double desconto = 0.00;
+        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+            totalbruto = totalbruto + Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", "."));
+            desconto = desconto + Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", "."));
+        }
+        txtValorBruto.setText(Double.toString(totalbruto).replace(".", ","));
+        txtTotalDescontos.setText(Double.toString(desconto).replace(".", ","));
+        txtTotal.setText(Double.toString(Double.parseDouble(txtValorBruto.getText().replace(",", ".")) - Double.parseDouble(txtTotalDescontos.getText().replace(",", "."))).replace(".", ","));
     }
-    
     
     
     ///////////////////Buscar cliente/produto///////////////////////////////////
@@ -308,13 +325,10 @@ public class NovoOrcamento extends javax.swing.JFrame {
         tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Código", "Produto", "Valor un.", "Qtd.", "Desconto", "Total"
+                "Código", "Produto", "Valor un.", "Desconto", "Qtd.", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -345,12 +359,22 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnRemoverProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnRemoverProduto.setText("Remover");
         btnRemoverProduto.setFocusable(false);
-        jPanel1.add(btnRemoverProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 110, 40));
+        btnRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverProdutoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRemoverProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 110, 40));
 
         btnEditarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnEditarProduto.setText("Editar");
         btnEditarProduto.setFocusable(false);
-        jPanel1.add(btnEditarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 110, 40));
+        btnEditarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarProdutoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnEditarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 110, 40));
 
         btnAdicionarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAdicionarProduto.setText("Adicionar");
@@ -391,6 +415,12 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblTitulo9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTitulo9.setText("Quantidade:");
 
+        txtQuantidadeProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtQuantidadeProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtQuantidadeProdutoFocusGained(evt);
+            }
+        });
         txtQuantidadeProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuantidadeProdutoActionPerformed(evt);
@@ -402,8 +432,20 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblTitulo8.setText("Valor Un:");
 
         txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorUnitarioProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtValorUnitarioProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtValorUnitarioProdutoFocusGained(evt);
+            }
+        });
 
-        txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
+        txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorDescontoProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtValorDescontoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtValorDescontoProdutoFocusGained(evt);
+            }
+        });
 
         lblTitulo10.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -475,6 +517,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtTotalDescontos.setText("0,00");
         txtTotalDescontos.setToolTipText("Total descontos");
         txtTotalDescontos.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtTotalDescontos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTotalDescontosFocusLost(evt);
+            }
+        });
         txtTotalDescontos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTotalDescontosActionPerformed(evt);
@@ -661,7 +708,20 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarMouseExited
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        JOptionPane.showMessageDialog(null, "Salvo com sucesso");
+        if (Double.parseDouble(txtTotal.getText().replace(",", ".")) < 0.01) {
+            JOptionPane.showMessageDialog(null, "Nenhum produto adicionado.");
+        } else {
+            VendasModel vm = new VendasModel();
+            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+            vm.setCliente(Integer.parseInt(txtCliente.getText()));
+            vm.setPlaca(txtPlaca.getText());
+            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
+            vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
+            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+            vm.setUsuario(usuario);
+            vm.setObs(txtObs.getText());
+            vc.cadastraOrcamento(vm);
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtQuantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoActionPerformed
@@ -687,7 +747,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtValorBrutoActionPerformed
 
     private void txtTotalDescontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalDescontosActionPerformed
-        txtTotal.setValue(Integer.parseInt(txtValorBruto.getText()) - Integer.parseInt(txtTotalDescontos.getText()));
+        
     }//GEN-LAST:event_txtTotalDescontosActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -747,21 +807,29 @@ public class NovoOrcamento extends javax.swing.JFrame {
             if (txtQuantidadeProduto.getText().equalsIgnoreCase("") || Integer.parseInt(txtQuantidadeProduto.getText())<1) {
                 JOptionPane.showMessageDialog(null, "Quantidade inválida");
             } else {
-                if (txtValorUnitarioProduto.getText() == "0,00") {
+                if (txtValorUnitarioProduto.getText().equalsIgnoreCase("0,00")) {
                     JOptionPane.showMessageDialog(null, "Valor inválido");
                 } else {
+                    double totalProduto;
+                    totalProduto = (Double.parseDouble(txtValorUnitarioProduto.getText().replace(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", ".")));
+                    String totalProduto2 = Double.toString(totalProduto);
+                    totalProduto2.replace(".",",");
                     DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-                    modelo.setNumRows(0);
-                        modelo.addRow(new Object[]{
-                            txtProduto.getText(),
-                            txtDescricaoProduto.getText(),
-                            txtValorUnitarioProduto.getText(),
-                            txtValorDescontoProduto.getText(),
-                            txtQuantidadeProduto.getText(),
-                        });
-                    
-                        
-                    
+                    modelo.addRow(new Object[]{
+                        txtProduto.getText(),
+                        txtDescricaoProduto.getText(),
+                        txtValorUnitarioProduto.getText(),
+                        txtValorDescontoProduto.getText(),
+                        txtQuantidadeProduto.getText(),
+                        totalProduto2
+                    });
+                    txtProduto.setText("");
+                    txtDescricaoProduto.setText("");
+                    txtValorUnitarioProduto.setText("");
+                    txtValorDescontoProduto.setText("");
+                    txtQuantidadeProduto.setText("");
+                    txtProduto.requestFocus();
+                    atualizarTotalizadores();
                 }
             }
         }
@@ -783,11 +851,54 @@ public class NovoOrcamento extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_txtClienteFocusLost
+
+    private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel)tblProdutos.getModel();
+        if (tblProdutos.getSelectedRow() >= 0){
+            modelo.removeRow(tblProdutos.getSelectedRow());
+            tblProdutos.setModel(modelo);
+            atualizarTotalizadores();
+            txtProduto.requestFocus();
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
+        }
+    }//GEN-LAST:event_btnRemoverProdutoActionPerformed
+
+    private void txtValorUnitarioProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitarioProdutoFocusGained
+        txtValorUnitarioProduto.selectAll();
+    }//GEN-LAST:event_txtValorUnitarioProdutoFocusGained
+
+    private void txtValorDescontoProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorDescontoProdutoFocusGained
+        txtValorDescontoProduto.selectAll();
+    }//GEN-LAST:event_txtValorDescontoProdutoFocusGained
+
+    private void txtQuantidadeProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoFocusGained
+        txtQuantidadeProduto.selectAll();
+    }//GEN-LAST:event_txtQuantidadeProdutoFocusGained
+
+    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel)tblProdutos.getModel();
+        if (tblProdutos.getSelectedRow() >= 0){
+            txtProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+            txtDescricaoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
+            txtValorUnitarioProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
+            txtValorDescontoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
+            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
+            //Removendo a linha
+            modelo.removeRow(tblProdutos.getSelectedRow());
+            tblProdutos.setModel(modelo);
+            atualizarTotalizadores();
+            txtProduto.requestFocus();
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
+        }
+    }//GEN-LAST:event_btnEditarProdutoActionPerformed
+
+    private void txtTotalDescontosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontosFocusLost
+        
+    }//GEN-LAST:event_txtTotalDescontosFocusLost
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {

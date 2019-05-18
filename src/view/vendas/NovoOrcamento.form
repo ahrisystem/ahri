@@ -455,12 +455,12 @@
                   <Font name="Century Gothic" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="4">
+                  <Table columnCount="6" rowCount="0">
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                     <Column editable="false" title="Produto" type="java.lang.Object"/>
                     <Column editable="false" title="Valor un." type="java.lang.Object"/>
-                    <Column editable="false" title="Qtd." type="java.lang.Object"/>
                     <Column editable="false" title="Desconto" type="java.lang.Object"/>
+                    <Column editable="false" title="Qtd." type="java.lang.Object"/>
                     <Column editable="false" title="Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -530,9 +530,12 @@
                 <Property name="text" type="java.lang.String" value="Remover"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverProdutoActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="40" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="100" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -544,9 +547,12 @@
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarProdutoActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="80" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="50" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -642,7 +648,13 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtQuantidadeProduto">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Consolas" size="18" style="0"/>
+            </Property>
+          </Properties>
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtQuantidadeProdutoFocusGained"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQuantidadeProdutoActionPerformed"/>
           </Events>
         </Component>
@@ -660,14 +672,26 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#,##0.00" subtype="-1" type="0"/>
             </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Consolas" size="18" style="0"/>
+            </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtValorUnitarioProdutoFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtValorDescontoProduto">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="#,###.00" subtype="-1" type="0"/>
+              <Format format="#,##0.00" subtype="-1" type="0"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Consolas" size="18" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtValorDescontoProdutoFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo10">
           <Properties>
@@ -783,6 +807,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTotalDescontosFocusLost"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalDescontosActionPerformed"/>
           </Events>
         </Component>

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;
+import model.vendas.VendasItensModel;
 import model.vendas.VendasModel;
 
 public class VendasController {
@@ -22,13 +23,13 @@ public class VendasController {
 /////////////////////////ORCAMENTOS/////////////////////////////////////////////       
     public void cadastraOrcamento(VendasModel model) {
         String sql = "INSERT INTO vendas(cod,tipo,status,cliente,placa,"
-                + "valortotalbruto,valortotaldesconto,valortotal,criacao,"
-                + "usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),?,?);";
+                + "valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,"
+                + "usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),(select now()),?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, model.getCod());
             pstmt.setInt(2, 1);
-            pstmt.setInt(3, model.getStatus());
+            pstmt.setInt(3, 1);
             pstmt.setInt(4, model.getCliente());
             pstmt.setString(5, model.getPlaca());
             pstmt.setDouble(6, model.getValorTotalBruto());
@@ -42,6 +43,22 @@ public class VendasController {
             JOptionPane.showMessageDialog(null, "Orçamento Nº "+model.getCod()+" salvo!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar.\n" + e.getMessage());
+        }
+    }
+    public void cadastraProdutosOrcamento(VendasItensModel model) {
+        String sql = "INSERT INTO public.vendasitens("
+                + "venda, cod, quantidade, valordesconto, valorunitario)  "
+                + "VALUES (?, ?, ?, ?, ?);";
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            pstmt.setInt(1, model.getVenda());
+            pstmt.setInt(2, model.getCod());
+            pstmt.setDouble(3, model.getQuantidade());
+            pstmt.setDouble(4, model.getValordesconto());
+            pstmt.setDouble(5, model.getValorunitario());
+            pstmt.execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar produtos do orçamento.\n" + e.getMessage());
         }
     }
     

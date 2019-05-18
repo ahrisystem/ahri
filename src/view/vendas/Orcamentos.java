@@ -4,8 +4,8 @@ import view.cadastros.usuarios.*;
 import controller.vendas.VendasController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.cadastros.usuarios.UsuarioModel;
 import model.vendas.VendasModel;
-import view.funcoes.RegistrosExcluidos;
 
 public class Orcamentos extends javax.swing.JPanel {
     private static final Orcamentos INSTANCIA = new Orcamentos();
@@ -34,6 +34,9 @@ public class Orcamentos extends javax.swing.JPanel {
             });
         }
     }
+    public void usuario(String usuario){
+        lblUsuario.setText(usuario);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,6 +47,7 @@ public class Orcamentos extends javax.swing.JPanel {
         btnNovo = new javax.swing.JLabel();
         btnEditar = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
@@ -112,16 +116,22 @@ public class Orcamentos extends javax.swing.JPanel {
             }
         });
 
+        lblUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsuario.setText("Usuario");
+        lblUsuario.setToolTipText("Usuário logado");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -133,7 +143,9 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUsuario)
+                .addContainerGap())
         );
 
         jScrollPane1.setBorder(null);
@@ -222,7 +234,7 @@ public class Orcamentos extends javax.swing.JPanel {
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtFiltro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -240,6 +252,7 @@ public class Orcamentos extends javax.swing.JPanel {
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
         NovoOrcamento novo = NovoOrcamento.getInstancia();
+        novo.usuario = lblUsuario.getText();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
@@ -297,6 +310,7 @@ public class Orcamentos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tabela;
     private javax.swing.JComboBox<String> txtFiltro;
     private javax.swing.JTextField txtPesquisa;

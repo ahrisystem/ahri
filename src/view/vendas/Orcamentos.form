@@ -73,7 +73,7 @@
                               <Component id="txtFiltro" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="268" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="283" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jPanel3" max="32767" attributes="0"/>
                   </Group>
@@ -103,12 +103,13 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lblUsuario" max="32767" attributes="0"/>
                           <Component id="btnCancelar" alignment="0" pref="107" max="32767" attributes="0"/>
                           <Component id="btnEditar" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btnNovo" max="32767" attributes="0"/>
+                          <Component id="btnNovo" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -123,7 +124,9 @@
                       <Component id="btnEditar" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnCancelar" min="-2" pref="38" max="-2" attributes="0"/>
-                      <EmptySpace pref="140" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -194,6 +197,16 @@
               <Events>
                 <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelarMouseReleased"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblUsuario">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Century Gothic" size="12" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Usuario"/>
+                <Property name="toolTipText" type="java.lang.String" value="Usu&#xe1;rio logado"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

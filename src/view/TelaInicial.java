@@ -845,6 +845,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void opcao3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao3MousePressed
         if (inicial) {
             Orcamentos or = Orcamentos.getInstancia();
+            or.usuario(btnUsuario.getText());
             painelPrincipal.add("Orçamentos", or);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
