@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.entidades.Fornecedores;
+import view.cadastros.placa.Placas;
 import view.cadastros.produtos.Produtos;
 import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
@@ -509,6 +510,9 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 opcao7MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                opcao7MouseReleased(evt);
             }
         });
         painelMenu.add(opcao7);
@@ -1073,6 +1077,15 @@ public class TelaInicial extends javax.swing.JFrame {
             b.setVisible(true);
         }
     }//GEN-LAST:event_opcao5MouseReleased
+
+    private void opcao7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao7MouseReleased
+        if (cadastros) {
+            Placas placas = Placas.getInstancia();
+            painelPrincipal.add("Placas", placas);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+    }//GEN-LAST:event_opcao7MouseReleased
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">

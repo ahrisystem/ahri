@@ -23,8 +23,8 @@ public class VendasController {
 /////////////////////////ORCAMENTOS/////////////////////////////////////////////       
     public void cadastraOrcamento(VendasModel model) {
         String sql = "INSERT INTO vendas(cod,tipo,status,cliente,placa,"
-                + "valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,"
-                + "usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),(select now()),?,?);";
+                + "valortotalbruto,valortotaldesconto,valortotal,criacao,"
+                + "alteracao,usuario,obs) VALUES (?,?,?,?,?,?,?,?,(select now()),(select now()),?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, model.getCod());
@@ -37,8 +37,8 @@ public class VendasController {
             pstmt.setDouble(8, model.getValorTotal());
             //data do banco criacao
             //data do banco alteracao
-            pstmt.setString(11, model.getUsuario());
-            pstmt.setString(12, model.getObs());
+            pstmt.setString(9, model.getUsuario());
+            pstmt.setString(10, model.getObs());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Orçamento Nº "+model.getCod()+" salvo!");
         } catch (Exception e) {

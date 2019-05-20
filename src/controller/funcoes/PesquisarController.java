@@ -58,5 +58,19 @@ public class PesquisarController {
         return produtos;
     }
     
-    
+    public void buscarCliente(EntidadeModel model, String cod) {
+        String sql = "select cod, nome, cnpj from entidade where cod = '" + cod + "';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                model.setCod(rs.getInt("cod"));
+                model.setNome(rs.getString("nome"));
+                model.setCNPJ(rs.getString("cnpj"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar cliente.\n" + e.getMessage());
+        }
+    }
 }

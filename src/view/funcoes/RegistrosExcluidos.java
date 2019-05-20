@@ -1,16 +1,19 @@
 package view.funcoes;
 
 import controller.cadastros.entidades.EntidadeController;
+import controller.cadastros.placa.PlacaController;
 import controller.cadastros.produtos.ProdutoController;
 import controller.cadastros.usuarios.UsuarioController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.usuarios.UsuarioModel;
 import model.cadastros.entidades.EntidadeModel;
+import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
 
 public class RegistrosExcluidos extends javax.swing.JFrame {
     EntidadeController ec = new EntidadeController();
+    PlacaController pl = new PlacaController();
     ProdutoController pc = new ProdutoController();
     UsuarioController uc = new UsuarioController();
     
@@ -24,6 +27,9 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         }
         if (this.getTitle().equalsIgnoreCase("Fornecedores excluídos")) {
             listarFornecedores();
+        }
+        if (this.getTitle().equalsIgnoreCase("Placas excluídas")) {
+            listarPlacas();
         }
         if (this.getTitle().equalsIgnoreCase("Produtos excluídos")) {
             listarProdutos();
@@ -47,6 +53,16 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         for (EntidadeModel e : ec.listaFornecedoresExcluidos(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                e.getCod(),
+                e.getNome(),
+            });
+        }
+    }
+    public void listarPlacas(){
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (PlacaModel e : pl.listaPlacasExcluidas(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getNome(),
@@ -200,6 +216,13 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
                 listarFornecedores();
             }
         }
+        if (this.getTitle().equalsIgnoreCase("Placas excluídas")) {
+            if (JOptionPane.showConfirmDialog(null, "Restaurar placa?",
+                "Restaurar?", 2) == 0) {
+                pl.restaurar(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                listarPlacas();
+            }
+        }
         if (this.getTitle().equalsIgnoreCase("Produtos excluídos")) {
             if (JOptionPane.showConfirmDialog(null, "Restaurar o produto?",
                 "Restaurar?", 2) == 0) {
@@ -224,11 +247,17 @@ public class RegistrosExcluidos extends javax.swing.JFrame {
         if (this.getTitle().equalsIgnoreCase("Clientes excluídos")) {
             listarClientes();
         }
-        if (this.getTitle().equalsIgnoreCase("Clientes excluídos")) {
+        if (this.getTitle().equalsIgnoreCase("Fornecedores excluídos")) {
             listarFornecedores();
+        }
+        if (this.getTitle().equalsIgnoreCase("Placas excluídas")) {
+            listarPlacas();
         }
         if (this.getTitle().equalsIgnoreCase("Produtos excluídos")) {
             listarProdutos();
+        }
+        if (this.getTitle().equalsIgnoreCase("Usuários excluídos")) {
+            listarUsuarios();
         }
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
