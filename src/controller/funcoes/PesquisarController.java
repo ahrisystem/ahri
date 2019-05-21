@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;
+import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
 
 public class PesquisarController {
@@ -38,6 +39,25 @@ public class PesquisarController {
         }
         return clientes;
     }
+    public List<PlacaModel> listaPlacas(String cod) {
+        List<PlacaModel> placas = new ArrayList<>();
+        String sql = "SELECT cod,nome,tipo FROM placa where inativo=FALSE and cod LIKE '%" + cod + "%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                PlacaModel p = new PlacaModel();
+                p.setCod(rs.getString("cod"));
+                p.setNome(rs.getString("nome"));
+                p.setTipo(rs.getString("tipo"));
+                placas.add(p);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar placas!\n" + s.getMessage());
+        }
+        return placas;
+    }
     public List<ProdutoModel> listaProdutos(String nome) {
         List<ProdutoModel> produtos = new ArrayList<>();
         String sql = "SELECT cod,nome,preco FROM produto where inativo=FALSE and nome LIKE '%" + nome + "%';";
@@ -57,7 +77,6 @@ public class PesquisarController {
         }
         return produtos;
     }
-    
     public void buscarCliente(EntidadeModel model, String cod) {
         String sql = "select cod, nome, cnpj from entidade where cod = '" + cod + "';";
         try {
@@ -71,6 +90,21 @@ public class PesquisarController {
             stmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao buscar cliente.\n" + e.getMessage());
+        }
+    }
+    public void buscarProduto(ProdutoModel model, String filtro, String cod) {
+        String sql = "select cod, nome, preco from produto where "+filtro+" = '" + cod + "';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                model.setCod(rs.getInt("cod"));
+                model.setNome(rs.getString("nome"));
+                model.setPreco(rs.getDouble("preco"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar produto.\n" + e.getMessage());
         }
     }
 }

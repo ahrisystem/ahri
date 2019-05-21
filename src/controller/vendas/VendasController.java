@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;
+import model.cadastros.produtos.ProdutoModel;
 import model.vendas.VendasItensModel;
 import model.vendas.VendasModel;
 
@@ -132,22 +133,6 @@ public class VendasController {
             stmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
-        }
-    }
-    
-    public void buscarClienteOrcamento(EntidadeModel model, String cod) {
-        String sql = "select cod, nome, cnpj from entidade where cod = '" + cod + "';";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                model.setCod(rs.getInt("cod"));
-                model.setNome(rs.getString("nome"));
-                model.setCNPJ(rs.getString("cnpj"));
-            }
-            stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao buscar cliente.\n" + e.getMessage());
         }
     }
 /////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////    

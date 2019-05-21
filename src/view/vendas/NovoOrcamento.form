@@ -261,18 +261,18 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtProduto" max="32767" attributes="0"/>
-                                      <Component id="lblTitulo8" pref="94" max="32767" attributes="0"/>
+                                      <Component id="lblTitulo8" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="txtValorUnitarioProduto" min="-2" pref="107" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblTitulo10" pref="88" max="32767" attributes="0"/>
+                                          <Component id="lblTitulo10" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="txtValorDescontoProduto" min="-2" pref="107" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblTitulo9" pref="106" max="32767" attributes="0"/>
+                                          <Component id="lblTitulo9" max="32767" attributes="0"/>
                                           <EmptySpace min="-2" max="-2" attributes="0"/>
                                           <Component id="txtQuantidadeProduto" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
@@ -310,12 +310,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="txtCliente2" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnNovoCliente" min="-2" pref="40" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="txtCliente2" max="32767" attributes="0"/>
                               <Component id="txtPlaca2" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnNovoCliente" min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="btnNovaPlaca" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -328,13 +329,16 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtCliente" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="txtCliente2" alignment="3" pref="30" max="32767" attributes="0"/>
+                      <Component id="txtCliente2" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="lblPlaca" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="btnNovoCliente" max="32767" attributes="0"/>
+                      <Component id="btnNovoCliente" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtPlaca2" alignment="0" pref="31" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="txtPlaca2" alignment="3" pref="31" max="32767" attributes="0"/>
+                          <Component id="btnNovaPlaca" alignment="3" max="32767" attributes="0"/>
+                      </Group>
                       <Component id="lblPlaca1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="txtPlaca" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -403,8 +407,6 @@
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNovoClienteMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNovoClienteMouseExited"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoClienteActionPerformed"/>
           </Events>
         </Component>
@@ -432,6 +434,9 @@
               <Dimension value="[200, 20]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPlacaActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <Properties>
@@ -512,9 +517,6 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="txtDescricaoProduto">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDescricaoProdutoActionPerformed"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel1">
 
@@ -763,6 +765,8 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtProduto">
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtProdutoFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtProdutoFocusLost"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProdutoActionPerformed"/>
           </Events>
         </Component>
@@ -823,9 +827,6 @@
               <Font name="Consolas" size="18" style="0"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtValorBrutoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo12">
           <Properties>
@@ -847,6 +848,19 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Placa"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnNovaPlaca">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="12" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="+"/>
+            <Property name="toolTipText" type="java.lang.String" value="Novo Cliente"/>
+            <Property name="focusable" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovaPlacaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

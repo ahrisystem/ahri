@@ -11,6 +11,7 @@ import java.net.URL;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
+import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
 import model.vendas.VendasModel;
 import view.TelaInicial;
@@ -21,8 +22,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
     PesquisarController pc = new PesquisarController();
     String usuario;
     String pesquisaAtual;
-    private static final NovoOrcamento INSTANCIA = new NovoOrcamento();
     
+    private static final NovoOrcamento INSTANCIA = new NovoOrcamento();
     
     public static NovoOrcamento getInstancia() {
         return INSTANCIA;
@@ -43,7 +44,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
         this.setIconImage(iconeTitulo);
     }
     
-    //JDialog
+    ///////////////////////////JDialog//////////////////////////////////////////
     public void listarClientes(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -52,6 +53,17 @@ public class NovoOrcamento extends javax.swing.JFrame {
                 e.getCod(),
                 e.getxNome(),
                 e.getCNPJ(),
+            });
+        }
+    }
+    public void listarPlacas(){
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (PlacaModel p : pc.listaPlacas(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                p.getCod(),
+                p.getNome(),
+                p.getTipo()
             });
         }
     }
@@ -78,13 +90,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtTotalDescontos.setText(Double.toString(desconto).replace(".", ","));
         txtTotal.setText(Double.toString(Double.parseDouble(txtValorBruto.getText().replace(",", ".")) - Double.parseDouble(txtTotalDescontos.getText().replace(",", "."))).replace(".", ","));
     }
-    
-    
     ///////////////////Buscar cliente/produto///////////////////////////////////
     public void buscarCliente(){
         if (txtCliente.getText().matches("[0-9]+")) {
             EntidadeModel em = new EntidadeModel();
-            vc.buscarClienteOrcamento(em, txtCliente.getText());
+            pc.buscarCliente(em, txtCliente.getText());
             txtCliente.setText(Integer.toString(em.getCod()));
             txtCliente2.setText(em.getNome());
             txtPlaca.requestFocus();
@@ -102,7 +112,41 @@ public class NovoOrcamento extends javax.swing.JFrame {
             pesquisar.setSize(this.getSize());
         }
     }
-    
+    public void valoresDefaultProduto(Double preco, String nome, int cod){
+        txtProduto.setText(Integer.toString(cod));
+        txtDescricaoProduto.setText(nome);
+        txtValorUnitarioProduto.setText(Double.toString(preco).replace(".", ","));
+        txtValorDescontoProduto.setText("0,00");
+        txtQuantidadeProduto.setText("0");
+    }
+    public void buscarProduto(){
+        ProdutoModel pm = new ProdutoModel();
+        if (txtProduto.getText().matches("[0-9]+")) {
+            if (txtProduto.getText().length() > 5) {
+                pc.buscarProduto(pm, "\"codigoBarras\"", txtProduto.getText());
+                if (pm.getCod() == 0) {
+                    
+                } else {
+                    valoresDefaultProduto(pm.getPreco(),pm.getNome(), pm.getCod());
+                    txtValorUnitarioProduto.requestFocus();
+                    txtDescricaoProduto.setEnabled(false);
+                }
+            } else {
+                pc.buscarProduto(pm, "cod", txtProduto.getText());
+                valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
+                txtValorUnitarioProduto.requestFocus();
+                txtDescricaoProduto.setEnabled(false);
+            }
+        } else {
+            pesquisar.setVisible(true);
+            pesquisaAtual = "produtos";
+            lblTituloPesquisa.setText("Produtos");
+            listarProdutos();
+            txtPesquisa.setText(txtProduto.getText());
+            pesquisar.setLocation(this.getX(), this.getY());
+            pesquisar.setSize(this.getSize());
+        }
+    }
     
     
     @SuppressWarnings("unchecked")
@@ -152,6 +196,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtValorBruto = new javax.swing.JFormattedTextField();
         lblTitulo12 = new javax.swing.JLabel();
         lblPlaca1 = new javax.swing.JLabel();
+        btnNovaPlaca = new javax.swing.JButton();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -295,14 +340,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnNovoCliente.setText("+");
         btnNovoCliente.setToolTipText("Novo Cliente");
         btnNovoCliente.setFocusable(false);
-        btnNovoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNovoClienteMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNovoClienteMouseExited(evt);
-            }
-        });
         btnNovoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoClienteActionPerformed(evt);
@@ -317,6 +354,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtPlaca.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         txtPlaca.setForeground(new java.awt.Color(51, 105, 191));
         txtPlaca.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPlacaActionPerformed(evt);
+            }
+        });
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setOpaque(false);
@@ -347,12 +389,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         if (tblProdutos.getColumnModel().getColumnCount() > 0) {
             tblProdutos.getColumnModel().getColumn(3).setMaxWidth(50);
         }
-
-        txtDescricaoProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescricaoProdutoActionPerformed(evt);
-            }
-        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -496,6 +532,14 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblTitulo11.setText("Produtos");
         lblTitulo11.setOpaque(true);
 
+        txtProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtProdutoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtProdutoFocusLost(evt);
+            }
+        });
         txtProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProdutoActionPerformed(evt);
@@ -533,11 +577,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtValorBruto.setText("0,00");
         txtValorBruto.setToolTipText("total bruto");
         txtValorBruto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtValorBruto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtValorBrutoActionPerformed(evt);
-            }
-        });
 
         lblTitulo12.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -547,6 +586,16 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblPlaca1.setForeground(new java.awt.Color(51, 105, 191));
         lblPlaca1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPlaca1.setText("Placa");
+
+        btnNovaPlaca.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnNovaPlaca.setText("+");
+        btnNovaPlaca.setToolTipText("Novo Cliente");
+        btnNovaPlaca.setFocusable(false);
+        btnNovaPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovaPlacaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
@@ -561,17 +610,17 @@ public class NovoOrcamento extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtProduto)
-                                    .addComponent(lblTitulo8, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                                    .addComponent(lblTitulo8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                                         .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo9, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                                        .addComponent(lblTitulo9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtDescricaoProduto)))
@@ -600,11 +649,12 @@ public class NovoOrcamento extends javax.swing.JFrame {
                             .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                .addComponent(txtCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtPlaca2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPlaca2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnNovoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNovaPlaca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         painelPrincipalLayout.setVerticalGroup(
@@ -612,12 +662,14 @@ public class NovoOrcamento extends javax.swing.JFrame {
             .addGroup(painelPrincipalLayout.createSequentialGroup()
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(txtCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNovoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNovoCliente))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPlaca2, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtPlaca2, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                        .addComponent(btnNovaPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lblPlaca1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -682,23 +734,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         telainicial.opcoes = false;
     }//GEN-LAST:event_formWindowClosed
 
-    private void txtDescricaoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoProdutoActionPerformed
-
-    }//GEN-LAST:event_txtDescricaoProdutoActionPerformed
-
-    private void btnNovoClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoClienteMouseEntered
-        btnNovoCliente.setForeground(Color.RED);
-    }//GEN-LAST:event_btnNovoClienteMouseEntered
-
-    private void btnNovoClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoClienteMouseExited
-        btnNovoCliente.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnNovoClienteMouseExited
-
-    private void btnNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoClienteActionPerformed
-        NovoCliente novo = NovoCliente.getInstancia();
-        novo.setVisible(true);
-    }//GEN-LAST:event_btnNovoClienteActionPerformed
-
     private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
         btnSalvar.setForeground(Color.GREEN);
     }//GEN-LAST:event_btnSalvarMouseEntered
@@ -733,18 +768,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClienteActionPerformed
 
     private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
-        pesquisar.setVisible(true);
-        pesquisaAtual = "produtos";
-        lblTituloPesquisa.setText("Produtos");
-        listarProdutos();
-        txtPesquisa.setText(txtProduto.getText());
-        pesquisar.setLocation(this.getX(), this.getY());
-        pesquisar.setSize(this.getSize());
+        buscarProduto();
     }//GEN-LAST:event_txtProdutoActionPerformed
-
-    private void txtValorBrutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorBrutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtValorBrutoActionPerformed
 
     private void txtTotalDescontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalDescontosActionPerformed
         
@@ -783,8 +808,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
             } else {
                 txtProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
                 txtDescricaoProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-                txtValorUnitarioProduto.setText(
-                        tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
+                txtValorUnitarioProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
                 txtValorDescontoProduto.setText("0,00");
                 txtQuantidadeProduto.setText("0");
                 pesquisar.setVisible(false);
@@ -840,15 +864,10 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClienteFocusGained
 
     private void txtClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFocusLost
-        if (txtCliente.getText().matches("[0-9]+")) {
-            EntidadeModel em = new EntidadeModel();
-            vc.buscarClienteOrcamento(em, txtCliente.getText());
-            txtCliente.setText(Integer.toString(em.getCod()));
-            txtCliente2.setText(em.getNome());
-            txtPlaca.requestFocus();
-            txtCliente2.setEnabled(false);
-        } else {
+        if (txtCliente.getText().equalsIgnoreCase("")) {
             
+        } else {
+            buscarCliente();
         }
     }//GEN-LAST:event_txtClienteFocusLost
 
@@ -897,6 +916,37 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private void txtTotalDescontosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontosFocusLost
         
     }//GEN-LAST:event_txtTotalDescontosFocusLost
+
+    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
+        pesquisar.setVisible(true);
+        pesquisaAtual = "placa";
+        lblTituloPesquisa.setText("Placas");
+        listarPlacas();
+        txtPesquisa.setText(txtProduto.getText());
+        pesquisar.setLocation(this.getX(), this.getY());
+        pesquisar.setSize(this.getSize());
+    }//GEN-LAST:event_txtPlacaActionPerformed
+
+    private void btnNovaPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaPlacaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNovaPlacaActionPerformed
+
+    private void btnNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoClienteActionPerformed
+        NovoCliente novo = NovoCliente.getInstancia();
+        novo.setVisible(true);
+    }//GEN-LAST:event_btnNovoClienteActionPerformed
+
+    private void txtProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusGained
+        txtDescricaoProduto.setEnabled(true);
+    }//GEN-LAST:event_txtProdutoFocusGained
+
+    private void txtProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusLost
+        if (txtProduto.getText().equalsIgnoreCase("")) {
+            
+        } else {
+            buscarProduto();
+        }
+    }//GEN-LAST:event_txtProdutoFocusLost
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
@@ -926,6 +976,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarProduto;
     private javax.swing.JButton btnEditarProduto;
+    private javax.swing.JButton btnNovaPlaca;
     private javax.swing.JButton btnNovoCliente;
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnSalvar;
