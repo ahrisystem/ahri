@@ -16,7 +16,7 @@ public class LocalController {
     private final Connection conexao;
     
     public LocalController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Gerenciamento de locais.");
     }
 
     public void cadastraLocal(ProdutoModel pModel) {

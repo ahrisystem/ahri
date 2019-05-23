@@ -23,7 +23,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
     private EditarFornecedor() {
         initComponents();
         setLocationRelativeTo(null);
-        preencheCidades();
     }
     
     public void puxarDados(int cod){
@@ -44,6 +43,8 @@ public class EditarFornecedor extends javax.swing.JFrame {
         }
         txtCEP.setText(em.getCEP());
         txtLgr.setText(em.getxLgr());
+        txtUF.setSelectedItem(em.getUF());
+        txtMun.setSelectedItem(em.getxMun());
         txtNro.setText(Integer.toString(em.getNro()));
         txtComplemento.setText(em.getxCpl());
         txtBairro.setText(em.getxBairro());

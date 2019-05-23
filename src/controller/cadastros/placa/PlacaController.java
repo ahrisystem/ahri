@@ -16,7 +16,7 @@ public class PlacaController {
     private final Connection conexao;
 
     public PlacaController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Cadastro de placas/veículos.");
     }
 
     public void cadastra(PlacaModel eModel) {

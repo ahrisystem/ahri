@@ -16,7 +16,7 @@ public class ConfiguracaoController {
     private final Connection conexao;
 
     public ConfiguracaoController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Configurações do sistema.");
     }
     
     public void alterar(ConfiguracaoModel eModel, int cod) {

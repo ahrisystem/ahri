@@ -16,7 +16,7 @@ public class ProdutoController {
     private final Connection conexao;
     
     public ProdutoController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Cadastro de produtos");
     }
 
     public void cadastraProduto(ProdutoModel pModel) {

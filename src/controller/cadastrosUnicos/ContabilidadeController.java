@@ -14,7 +14,7 @@ public class ContabilidadeController {
     private final Connection conexao;
     
     public ContabilidadeController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Cadastro da contabilidade.");
     }
 
     public void salvarDados(ContabilidadeModel eModel) {

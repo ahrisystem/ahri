@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.cadastros.entidades.EntidadeModel;
-import model.cadastros.produtos.ProdutoModel;
 import model.vendas.VendasItensModel;
 import model.vendas.VendasModel;
 
@@ -19,7 +17,7 @@ public class VendasController {
     private final Connection conexao;
 
     public VendasController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Controle de vendas/orçamentos.");
     }
 /////////////////////////ORCAMENTOS/////////////////////////////////////////////       
     public void cadastraOrcamento(VendasModel model) {

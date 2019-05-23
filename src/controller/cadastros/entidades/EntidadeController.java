@@ -16,7 +16,7 @@ public class EntidadeController {
     private final Connection conexao;
 
     public EntidadeController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Cadastro de entidades. (Clientes, fornecedores, transportadoras)");
     }
 
     public void cadastraEntidade(EntidadeModel eModel) {

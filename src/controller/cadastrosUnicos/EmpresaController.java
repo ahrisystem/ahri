@@ -14,7 +14,7 @@ public class EmpresaController {
     private final Connection conexao;
     
     public EmpresaController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Cadastro do emitente/empresa;");
     }
 
     public void salvarDados(EmpresaModel eModel) {

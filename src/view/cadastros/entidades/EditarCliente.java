@@ -22,7 +22,6 @@ public class EditarCliente extends javax.swing.JFrame {
 
     private EditarCliente() {
         initComponents();
-        preencheCidades();
         setLocationRelativeTo(null);
     }
     
@@ -44,6 +43,8 @@ public class EditarCliente extends javax.swing.JFrame {
         }
         txtCEP.setText(em.getCEP());
         txtLgr.setText(em.getxLgr());
+        txtUF.setSelectedItem(em.getUF());
+        txtMun.setSelectedItem(em.getxMun());
         txtNro.setText(Integer.toString(em.getNro()));
         txtComplemento.setText(em.getxCpl());
         txtBairro.setText(em.getxBairro());
@@ -449,15 +450,12 @@ public class EditarCliente extends javax.swing.JFrame {
         } else {
             fornecedor = 0;
         }
-        //Formatando cnpj
-        String cnpj = "0";
+        //cnpj
+        String cnpj;
         if (sldPessoa.getValue()==fisica) {
-            cnpj = txtCPF.getText().replaceAll(".", "");
-            cnpj = cnpj.replaceAll("-", "");
+            cnpj = txtCPF.getText();
         } else {
-            cnpj = txtCNPJ.getText().replaceAll(".", "");
-            cnpj = cnpj.replaceAll("/", "");
-            cnpj = cnpj.replaceAll("-", "");
+            cnpj = txtCNPJ.getText();
         }
         //Formatando cep
         String cep;

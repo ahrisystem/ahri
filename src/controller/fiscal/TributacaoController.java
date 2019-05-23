@@ -16,7 +16,7 @@ public class TributacaoController {
     private final Connection conexao;
 
     public TributacaoController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Controle de tributações");
     }
 
     public void cadastra(TributacaoModel eModel) {

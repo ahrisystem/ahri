@@ -17,7 +17,7 @@ public class UsuarioController {
     private final Connection conexao;
 
     public UsuarioController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Cadastro de usuários.");
     }
 
     public void cadastraUsuario(UsuarioModel uModel) {

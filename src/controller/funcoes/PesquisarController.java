@@ -17,7 +17,7 @@ public class PesquisarController {
     private final Connection conexao;
     
     public PesquisarController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Função pesquisar.");
     }
 
     public List<EntidadeModel> listaClientes(String nome) {
@@ -90,6 +90,21 @@ public class PesquisarController {
             stmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao buscar cliente.\n" + e.getMessage());
+        }
+    }
+    public void buscarPlaca(PlacaModel model, String cod) {
+        String sql = "select cod, nome, codcliente from placa where cod = '" + cod + "';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                model.setCod(rs.getString("cod"));
+                model.setNome(rs.getString("nome"));
+                model.setCodcliente(rs.getInt("codcliente"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar placa.\n" + e.getMessage());
         }
     }
     public void buscarProduto(ProdutoModel model, String filtro, String cod) {

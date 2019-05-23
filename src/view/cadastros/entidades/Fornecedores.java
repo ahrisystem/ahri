@@ -257,6 +257,7 @@ public class Fornecedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
             EditarCliente edit = EditarCliente.getInstancia();
+            edit.preencheCidades();
             edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             edit.setVisible(true);
             listar();

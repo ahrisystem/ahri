@@ -16,7 +16,7 @@ public class BackupController {
     private final Connection conexao;
 
     public BackupController() {
-        this.conexao = new connection().obterConexao();
+        this.conexao = new connection().obterConexao("Controle de backup.");
     }
     
     public String efetuarBackup(String arquivo, String diretorio) {

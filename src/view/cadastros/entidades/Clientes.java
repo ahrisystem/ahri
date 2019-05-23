@@ -258,6 +258,7 @@ public class Clientes extends javax.swing.JPanel {
         } else {
             EditarCliente edit = EditarCliente.getInstancia();
             edit.setVisible(true);
+            edit.preencheCidades();
             edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             listar();
         }

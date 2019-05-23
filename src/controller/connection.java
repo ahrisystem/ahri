@@ -14,7 +14,7 @@ public class connection {
     private static final String USER = "postgres";
     private static final String PASS = "postgres";
 
-    public Connection obterConexao(){
+    public Connection obterConexao(String rotina){
 
         // Variavel contendo a conexao
         Connection conexao = null;
@@ -23,7 +23,7 @@ public class connection {
         try {
             Class.forName(DRIVER_CLASS);
             conexao = DriverManager.getConnection(URL, USER, PASS);
-            System.out.println("Conexão com o banco efetuada.");
+            System.out.println("BD: "+rotina);
         } catch (SQLException e) {
             if (JOptionPane.showConfirmDialog(null, "Problema para conectar ao banco de dados.\n"
                     + "Verifique em SERVIÇOS se está iniciado o postgresql\n"
