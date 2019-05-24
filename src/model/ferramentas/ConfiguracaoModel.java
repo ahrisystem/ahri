@@ -7,6 +7,9 @@ public class ConfiguracaoModel {
     private String secao;
     private String valor;
     private Date alteracao;
+    
+    
+    private String caminhoSalvarOrcamento = "";
 
     public String getCod() {
         return cod;
