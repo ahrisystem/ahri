@@ -456,6 +456,7 @@ public class NovoFornecedor extends javax.swing.JFrame {
 
     private void btnDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescartarActionPerformed
         this.dispose();
+        limpaCampos();
     }//GEN-LAST:event_btnDescartarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -498,7 +499,7 @@ public class NovoFornecedor extends javax.swing.JFrame {
                     em.setxNome(txtRazao.getText());
                     em.setxLgr(txtLgr.getText());
                     em.setNro(Integer.parseInt(txtNro.getText()));
-                    em.setxCpl(txtNro.getText());
+                    em.setxCpl(txtComplemento.getText());
                     em.setxBairro(txtBairro.getText());
                     em.setxMun(txtMun.getSelectedItem().toString());
                     em.setUF(txtUF.getSelectedItem().toString());

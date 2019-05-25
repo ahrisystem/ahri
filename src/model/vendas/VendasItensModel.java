@@ -3,9 +3,11 @@ package model.vendas;
 public class VendasItensModel {
     private int venda; //código da venda
     private int cod; //código do produto
+    private String nome;
+    private double valorunitario; //valor unitario do item
     private double quantidade; //quantidade do item 
     private double valordesconto; //valor de desconto do item
-    private double valorunitario; //valor unitario do item
+    private double valortotal; //valor com desconto aplicado
     
     public int getVenda() {
         return venda;
@@ -17,6 +19,14 @@ public class VendasItensModel {
 
     public int getCod() {
         return cod;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void setCod(int cod) {
@@ -45,5 +55,13 @@ public class VendasItensModel {
 
     public void setValorunitario(double valorunitario) {
         this.valorunitario = valorunitario;
+    }
+
+    public double getValortotal() {
+        return valortotal;
+    }
+
+    public void setValortotal(double valortotal) {
+        this.valortotal = valortotal;
     }
 }

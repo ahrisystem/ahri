@@ -2,12 +2,15 @@ package view.vendas;
 
 import controller.funcoes.PesquisarController;
 import controller.vendas.VendasController;
+import funcoes.GerarOrçamentoPDF;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
@@ -167,7 +170,13 @@ public class NovoOrcamento extends javax.swing.JFrame {
             pesquisar.setSize(this.getSize());
         }
     }
-
+    
+    public void limpaCampos(){
+        txtCliente.setText("");
+        txtCliente2.setText("");
+        tblProdutos.removeAll();
+        atualizarTotalizadores();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -200,7 +209,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        cbxExibirProdutos = new javax.swing.JCheckBox();
         lblQtd = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
         lblTitulo8 = new javax.swing.JLabel();
@@ -513,11 +522,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         jCheckBox3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         painelFuncoes.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
 
-        jCheckBox4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jCheckBox4.setText("Produtos");
-        jCheckBox4.setFocusable(false);
-        jCheckBox4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 110, 30));
+        cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxExibirProdutos.setText("Produtos");
+        cbxExibirProdutos.setFocusable(false);
+        cbxExibirProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 110, 30));
 
         lblQtd.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lblQtd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -565,8 +574,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtObs.setToolTipText("Observações");
         jScrollPane1.setViewportView(txtObs);
 
-        btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnSalvar.setText("Salvar");
+        btnSalvar.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        btnSalvar.setText("OK!");
         btnSalvar.setFocusable(false);
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -780,33 +789,43 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarMouseExited
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (Double.parseDouble(txtTotal.getText().replace(",", ".")) < 0.01) {
-            JOptionPane.showMessageDialog(null, "Nenhum produto adicionado.");
-        } else {
-            VendasModel vm = new VendasModel();
-            VendasItensModel vim = new VendasItensModel();
-            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
-            if (txtCliente.getText().equalsIgnoreCase("")) {
-                vm.setCliente(0);
+        int opcao = 2;
+        if (JOptionPane.showConfirmDialog(null, "Confirmar orçamento?",
+                "OK?", opcao) == 0) {
+            if (Double.parseDouble(txtTotal.getText().replace(",", ".")) < 0.01) {
+                JOptionPane.showMessageDialog(null, "Nenhum produto adicionado.");
             } else {
-                vm.setCliente(Integer.parseInt(txtCliente.getText()));
-            }
-            vm.setPlaca(txtPlaca.getText());
-            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
-            vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
-            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
-            vm.setUsuario(usuario);
-            vm.setObs(txtObs.getText());
-            vc.cadastraOrcamento(vm);
-
-            //Cadastrando itens
-            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
-                vim.setVenda(vm.getCod());
-                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
-                vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
-                vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
-                vc.cadastraProdutosOrcamento(vim);
+                VendasModel vm = new VendasModel();
+                VendasItensModel vim = new VendasItensModel();
+                vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+                if (txtCliente.getText().equalsIgnoreCase("")) {
+                    vm.setCliente(0);
+                } else {
+                    vm.setCliente(Integer.parseInt(txtCliente.getText()));
+                }
+                vm.setPlaca(txtPlaca.getText());
+                vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
+                vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
+                vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+                vm.setUsuario(usuario);
+                vm.setObs(txtObs.getText());
+                vc.cadastraOrcamento(vm);
+                //gerando o pdf
+                GerarOrçamentoPDF g = new GerarOrçamentoPDF();
+                List<VendasItensModel> produtos = new ArrayList<>();
+                //Cadastrando itens
+                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                    vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
+                    vim.setVenda(vm.getCod());
+                    vim.setNome(tblProdutos.getValueAt(i, 1).toString());
+                    vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
+                    vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
+                    vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
+                    vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
+                    vc.cadastraProdutosOrcamento(vim);
+                    produtos.add(vim);
+                }
+                g.Orcamento(vm.getCliente(), cbxExibirProdutos.isSelected(), produtos);
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -900,7 +919,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Valor inválido");
                 } else {
                     double totalProduto;
-                    totalProduto = (Double.parseDouble(txtValorUnitarioProduto.getText().replace(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", ".")));
+                    String removerPonto;
+                    removerPonto = (txtValorUnitarioProduto.getText().replace(".", ""));
+                    totalProduto = Double.parseDouble(removerPonto.replaceAll(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", "."));
                     String totalProduto2 = Double.toString(totalProduto);
                     totalProduto2.replace(".", ",");
                     DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
@@ -1070,9 +1091,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
+    private javax.swing.JCheckBox cbxExibirProdutos;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

@@ -440,6 +440,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
 
     private void btnDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescartarActionPerformed
         this.dispose();
+        limpaCampos();
     }//GEN-LAST:event_btnDescartarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed

@@ -14,6 +14,7 @@ import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import controller.cadastros.entidades.EntidadeController;
 import controller.cadastrosUnicos.EmpresaController;
@@ -22,12 +23,13 @@ import java.util.List;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.produtos.ProdutoModel;
 import model.cadastrosUnicos.EmpresaModel;
+import model.vendas.VendasItensModel;
 
 public class GerarOrçamentoPDF {
     static EmpresaController ec = new EmpresaController();
     static EntidadeController enc = new EntidadeController();
     
-    private static String caminho = "C:/temp/teste.pdf";
+    private static String caminho = "C:/AHRI/teste.pdf";
 
     public static String getCaminho() {
         return caminho;
@@ -50,18 +52,13 @@ public class GerarOrçamentoPDF {
         return em;
     }
     
-    //Gerar lista de produtos
-    private static List<ProdutoModel> getListProdutos() {
-        List<ProdutoModel> produtos = new ArrayList<>();
-        ProdutoModel p = new ProdutoModel();
-        p.setCodigoBarras("codigoBarras");
-        p.setNome("nome");
-        p.setPreco(10.99);
-        produtos.add(p);
-        return produtos;
-    }
-    
-    public static void Orcamento(int codCliente) {
+    /**
+     *
+     * @param codCliente
+     * @param exibirProdutos Indica se irá imprimir a lista de produtos no PDF.
+     * @param p Lista de produtos tipo VendasItensModel.
+     */
+    public static void Orcamento(int codCliente, boolean exibirProdutos, List<VendasItensModel> p) {
         PdfWriter writer;
         try {
             writer = new PdfWriter(new FileOutputStream(getCaminho()));
@@ -71,11 +68,12 @@ public class GerarOrçamentoPDF {
 
             //Adicionar Titulo
             Text title = new Text("Orçamento").setFont(font).setBold();
+            title.setHorizontalAlignment(HorizontalAlignment.CENTER);
             //Adicionar linha separadora
             final SolidLine lineDrawer = new SolidLine(1f);
             //Sobre a empresa
             Text dadosEmpresa = new Text(
-                    " "+getDadosEmpresa().getxFant()
+                    " "+getDadosEmpresa().getxFant()+"\n"+getDadosEmpresa().getxLgr()
             ).setFont(font);
             //Sobre o cliente
             Text dadosCliente = new Text(
@@ -83,19 +81,24 @@ public class GerarOrçamentoPDF {
             ).setFont(font);
             //Tabela de produtos
             PdfFont headerFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
-            // Criar 3 colunas com tabamnho igual
-            Table table = new Table(new float[]{4, 4, 4});
+            // Criar 6 colunas com tabamnho igual
+            Table table = new Table(new float[]{4,4,4,4,4,4});
             table.setWidth(UnitValue.createPercentValue(100));
             // Adicionando cabeçalho
             table.addHeaderCell(new Cell().add(new Paragraph("EAN").setFont(headerFont)));
             table.addHeaderCell(new Cell().add(new Paragraph("Produto").setFont(headerFont)));
             table.addHeaderCell(new Cell().add(new Paragraph("Valor").setFont(headerFont)));
-            List<ProdutoModel> produtos = getListProdutos();
+            table.addHeaderCell(new Cell().add(new Paragraph("Desconto").setFont(headerFont)));
+            table.addHeaderCell(new Cell().add(new Paragraph("Qtd").setFont(headerFont)));
+            table.addHeaderCell(new Cell().add(new Paragraph("Total").setFont(headerFont)));
             // Adicionando linhas/celulas
-            for (ProdutoModel produto : produtos) {
-                table.addCell(new Cell().add(new Paragraph(produto.getCodigoBarras()).setFont(font)));
+            for (VendasItensModel produto : p) {
+                table.addCell(new Cell().add(new Paragraph(Integer.toString(produto.getCod())).setFont(font)));
                 table.addCell(new Cell().add(new Paragraph(produto.getNome()).setFont(font)));
-                table.addCell(new Cell().add(new Paragraph(Double.toString(produto.getPreco())).setFont(font)));
+                table.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValorunitario())).setFont(font)));
+                table.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValordesconto())).setFont(font)));
+                table.addCell(new Cell().add(new Paragraph(Double.toString(produto.getQuantidade())).setFont(font)));
+                table.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValortotal())).setFont(font)));
             }
 
             //Adicionar componentes
@@ -115,6 +118,15 @@ public class GerarOrçamentoPDF {
     }
 
     public static void main(String[] args){
-        Orcamento(3);
+        VendasItensModel p = new VendasItensModel();
+        List<VendasItensModel> produtos = new ArrayList<>();
+        p.setCod(1);
+        p.setNome("Produto teste");
+        p.setValorunitario(10.0);
+        p.setValordesconto(5.0);
+        p.setQuantidade(10.0);
+        p.setValortotal(50.0);
+        produtos.add(p);
+        Orcamento(3, true, produtos);
     }
 }

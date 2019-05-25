@@ -48,6 +48,7 @@ public class Orcamentos extends javax.swing.JPanel {
         btnEditar = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
+        btnGerarPDF = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
@@ -121,17 +122,31 @@ public class Orcamentos extends javax.swing.JPanel {
         lblUsuario.setText("Usuario");
         lblUsuario.setToolTipText("Usuário logado");
 
+        btnGerarPDF.setBackground(new java.awt.Color(102, 102, 102));
+        btnGerarPDF.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnGerarPDF.setForeground(new java.awt.Color(255, 255, 255));
+        btnGerarPDF.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnGerarPDF.setText("Gerar PDF");
+        btnGerarPDF.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGerarPDF.setOpaque(true);
+        btnGerarPDF.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnGerarPDFMouseReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNovo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -143,6 +158,8 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
                 .addContainerGap())
@@ -300,11 +317,16 @@ public class Orcamentos extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_btnAtualizarMouseReleased
 
+    private void btnGerarPDFMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarPDFMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGerarPDFMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtualizar;
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnEditar;
+    private javax.swing.JLabel btnGerarPDF;
     private javax.swing.JLabel btnNovo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
