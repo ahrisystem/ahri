@@ -4,7 +4,6 @@ import controller.cadastros.placa.PlacaController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.placa.PlacaModel;
-import view.cadastros.entidades.EditarCliente;
 import view.funcoes.RegistrosExcluidos;
 
 public class Placas extends javax.swing.JPanel {
@@ -27,7 +26,7 @@ public class Placas extends javax.swing.JPanel {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getNome(),
-                e.getTipo()
+                e.getNomecliente()
             });
         }
     }
@@ -155,7 +154,7 @@ public class Placas extends javax.swing.JPanel {
                 {null, null, null}
             },
             new String [] {
-                "Código", "Nome", "Tipo"
+                "Código", "Nome", "Cliente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -198,7 +197,7 @@ public class Placas extends javax.swing.JPanel {
         lblTitulo.setOpaque(true);
 
         txtFiltro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Cod" }));
+        txtFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "Cod", "Nomecliente" }));
         txtFiltro.setToolTipText("Tipo de filtro");
         txtFiltro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
 

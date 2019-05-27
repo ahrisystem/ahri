@@ -70,7 +70,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
             modelo.addRow(new Object[]{
                 p.getCod(),
                 p.getNome(),
-                p.getTipo()
+                p.getNomecliente()
             });
         }
     }
@@ -825,7 +825,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
                     vc.cadastraProdutosOrcamento(vim);
                     produtos.add(vim);
                 }
-                g.Orcamento(vm.getCliente(), cbxExibirProdutos.isSelected(), produtos);
+                g.Orcamento(vm, cbxExibirProdutos.isSelected(), produtos);
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

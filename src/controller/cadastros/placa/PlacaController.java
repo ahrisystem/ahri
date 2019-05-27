@@ -20,16 +20,15 @@ public class PlacaController {
     }
 
     public void cadastra(PlacaModel eModel) {
-        String sql = "INSERT INTO public.placa(cod,codcliente,nome,nomecliente,tipo,cadastro,detalhes) VALUES (?,?,?,?,?,(select now()),?);";
+        String sql = "INSERT INTO public.placa(cod,codcliente,nome,nomecliente,cadastro,detalhes) VALUES (?,?,?,?,(select now()),?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setString(1, eModel.getCod());
             pstmt.setInt(2, eModel.getCodcliente());
             pstmt.setString(3, eModel.getNome());
             pstmt.setString(4, eModel.getNomecliente());
-            pstmt.setString(5, eModel.getTipo());
             //data do banco de dados
-            pstmt.setString(6,eModel.getDetalhes());
+            pstmt.setString(5,eModel.getDetalhes());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Placa salva com sucesso!");
         } catch (Exception e) {
@@ -39,7 +38,7 @@ public class PlacaController {
 
     public List<PlacaModel> listaPlacas(String filtro, String nome) {
         List<PlacaModel> entidades = new ArrayList<>();
-        String sql = "Select cod,nome,tipo from placa where inativo = false and "+filtro+" like '%"+nome+"%';";
+        String sql = "Select cod,nome,nomecliente from placa where inativo = false and "+filtro+" like '%"+nome+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -47,7 +46,7 @@ public class PlacaController {
                 PlacaModel eModel = new PlacaModel();
                 eModel.setCod(rs.getString("cod"));
                 eModel.setNome(rs.getString("nome"));
-                eModel.setTipo(rs.getString("tipo"));
+                eModel.setNomecliente(rs.getString("nomecliente"));
                 entidades.add(eModel);
             }
             stmt.close();
@@ -86,7 +85,6 @@ public class PlacaController {
                 eModel.setCodcliente(rs.getInt("codcliente"));
                 eModel.setNome(rs.getString("nome"));
                 eModel.setNomecliente(rs.getString("nomecliente"));
-                eModel.setTipo(rs.getString("tipo"));
                 eModel.setDetalhes(rs.getString("detalhes"));
             }
             stmt.close();
@@ -97,14 +95,13 @@ public class PlacaController {
     }
 
     public void alterar(PlacaModel eModel, String cod) {
-        String sql = "UPDATE placa SET codcliente=?,nome=?,nomecliente=?,tipo=?,detalhes=? WHERE cod = '" + cod + "';";
+        String sql = "UPDATE placa SET codcliente=?,nome=?,nomecliente=?,detalhes=? WHERE cod = '" + cod + "';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, eModel.getCodcliente());
             pstmt.setString(2, eModel.getNome());
             pstmt.setString(3, eModel.getNomecliente());
-            pstmt.setString(4, eModel.getTipo());
-            pstmt.setString(5, eModel.getDetalhes());
+            pstmt.setString(4, eModel.getDetalhes());
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(null, eModel.getNome() + " alterado com sucesso!");
             pstmt.close();

@@ -41,7 +41,7 @@ public class PesquisarController {
     }
     public List<PlacaModel> listaPlacas(String cod) {
         List<PlacaModel> placas = new ArrayList<>();
-        String sql = "SELECT cod,nome,tipo FROM placa where inativo=FALSE and cod LIKE '%" + cod + "%';";
+        String sql = "SELECT cod,nome,nomecliente FROM placa where inativo=FALSE and cod LIKE '%" + cod + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -49,7 +49,7 @@ public class PesquisarController {
                 PlacaModel p = new PlacaModel();
                 p.setCod(rs.getString("cod"));
                 p.setNome(rs.getString("nome"));
-                p.setTipo(rs.getString("tipo"));
+                p.setNomecliente(rs.getString("nomecliente"));
                 placas.add(p);
             }
             stmt.close();

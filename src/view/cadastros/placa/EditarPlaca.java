@@ -76,7 +76,6 @@ public class EditarPlaca extends javax.swing.JFrame {
         }
         txtNome.setText(em.getNome());
         txtCliente2.setText(em.getNomecliente());
-        txtTipo.setSelectedItem(em.getDetalhes());
         txtDetalhes.setText(em.getDetalhes());
     }
     @SuppressWarnings("unchecked")
@@ -103,9 +102,7 @@ public class EditarPlaca extends javax.swing.JFrame {
         txtCliente = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDetalhes = new javax.swing.JTextArea();
-        lblNome2 = new javax.swing.JLabel();
         lblNome3 = new javax.swing.JLabel();
-        txtTipo = new javax.swing.JComboBox<>();
         lblTitulo = new javax.swing.JLabel();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
@@ -265,7 +262,7 @@ public class EditarPlaca extends javax.swing.JFrame {
                 btnDescartarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, -1, 30));
+        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, 30));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar alterações");
@@ -275,7 +272,7 @@ public class EditarPlaca extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 160, 30));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, 160, 30));
 
         txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
@@ -285,7 +282,7 @@ public class EditarPlaca extends javax.swing.JFrame {
         lblDetalhes.setForeground(new java.awt.Color(51, 105, 191));
         lblDetalhes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblDetalhes.setText("Detalhes");
-        painelPrincipal.add(lblDetalhes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 100, 20));
+        painelPrincipal.add(lblDetalhes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 100, 20));
 
         txtCliente2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCliente2.setPreferredSize(new java.awt.Dimension(200, 20));
@@ -316,13 +313,7 @@ public class EditarPlaca extends javax.swing.JFrame {
         txtDetalhes.setBorder(null);
         jScrollPane1.setViewportView(txtDetalhes);
 
-        painelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 370, 90));
-
-        lblNome2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblNome2.setForeground(new java.awt.Color(51, 105, 191));
-        lblNome2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblNome2.setText("Tipo");
-        painelPrincipal.add(lblNome2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 100, 20));
+        painelPrincipal.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 370, 90));
 
         lblNome3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome3.setForeground(new java.awt.Color(51, 105, 191));
@@ -330,13 +321,9 @@ public class EditarPlaca extends javax.swing.JFrame {
         lblNome3.setText("Cliente");
         painelPrincipal.add(lblNome3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 100, 20));
 
-        txtTipo.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARRO", "MOTO" }));
-        painelPrincipal.add(txtTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 370, -1));
-
         jScrollPane.setViewportView(painelPrincipal);
 
-        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 520, 280));
+        getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 520, 260));
 
         lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -378,7 +365,6 @@ public class EditarPlaca extends javax.swing.JFrame {
                     }
                     em.setCodcliente(codigoCliente);
                     em.setNomecliente(txtCliente2.getText());
-                    em.setTipo(txtTipo.getSelectedItem().toString());
                     em.setDetalhes(txtDetalhes.getText());
                     pl.alterar(em, txtCodigo.getText());
                     limpaCampos();
@@ -476,7 +462,6 @@ public class EditarPlaca extends javax.swing.JFrame {
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblDetalhes;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblNome2;
     private javax.swing.JLabel lblNome3;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloPesquisa;
@@ -490,6 +475,5 @@ public class EditarPlaca extends javax.swing.JFrame {
     private javax.swing.JTextArea txtDetalhes;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisa;
-    private javax.swing.JComboBox<String> txtTipo;
     // End of variables declaration//GEN-END:variables
 }

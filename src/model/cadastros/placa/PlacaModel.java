@@ -5,7 +5,6 @@ public class PlacaModel {
     private int codcliente;
     private String nome;
     private String nomecliente;
-    private String tipo;
     private String detalhes;
 
     public String getCod() {
@@ -31,15 +30,6 @@ public class PlacaModel {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getNomecliente() {
         return nomecliente;
     }
