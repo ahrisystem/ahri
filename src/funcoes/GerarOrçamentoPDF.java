@@ -10,7 +10,6 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.UnitValue;
@@ -64,7 +63,7 @@ public class GerarOrçamentoPDF {
 
     /**
      *
-     * @param codCliente
+     * @param vm 
      * @param exibirProdutos Indica se irá imprimir a lista de produtos no PDF.
      * @param p Lista de produtos tipo VendasItensModel.
      */
@@ -84,14 +83,21 @@ public class GerarOrçamentoPDF {
             cabeçalho.setWidth(UnitValue.createPercentValue(100));
             cabeçalho.addHeaderCell(new Cell().add(new Paragraph("ORÇAMENTO").setFont(headerFont)));
             cabeçalho.addHeaderCell(new Cell().add(new Paragraph("Nº " + vm.getCod()).setFont(font)));
+            
+            // Adicionando cabeçalho 2
+            Table cabeçalho2 = new Table(new float[]{1});
+            cabeçalho2.setWidth(UnitValue.createPercentValue(100));
+            cabeçalho2.addHeaderCell(new Cell().add(new Paragraph("DAV - DOCUMENTO AUXILIAR DE VENDA - "
+                    + "NÃO É DOCUMENTO FISCAL").setFont(headerFont)));
 
             //Sobre a empresa
-            Table cabeçalhoEmpresa = new Table(new float[]{1});
+            Table cabeçalhoEmpresa = new Table(new float[]{4,4});
             cabeçalhoEmpresa.setWidth(UnitValue.createPercentValue(100));
             cabeçalhoEmpresa.addHeaderCell(new Cell().add(new Paragraph(
-                    getDadosEmpresa().getxFant() + "\n"
-                    + getDadosEmpresa().getxLgr() + " - "
-                    + getDadosEmpresa().getNro())
+                    getDadosEmpresa().getxFant() +" - "+getDadosEmpresa().getCNPJ()+ "\n")));
+            cabeçalhoEmpresa.addHeaderCell(new Cell().add(new Paragraph(
+                    getDadosEmpresa().getxLgr() + " - "
+                    + getDadosEmpresa().getNro() + " - " + getDadosEmpresa().getxBairro())
                     .setFont(font)));
 
             //Sobre o cliente
@@ -99,7 +105,7 @@ public class GerarOrçamentoPDF {
             cabeçalhoCliente.setWidth(UnitValue.createPercentValue(100));
             cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph(
                     "Cliente: " + getDadosCliente(vm.getCliente()).getNome() + "\n"
-                    + getDadosCliente(vm.getCliente()).getCNPJ() + " - " + getDadosCliente(vm.getCliente()).getFone1())
+                    + getDadosCliente(vm.getCliente()).getCNPJ() + " - " + getDadosCliente(vm.getCliente()).getFone1()+"\n")
                     .setFont(font)));
 
             //Sobre a placa
@@ -110,11 +116,9 @@ public class GerarOrçamentoPDF {
 
             //Tabela de produtos
             Table tabelaProdutos = new Table(new float[]{1, 4, 4, 4, 4, 4});
-            Table tabelaTotalizadores = new Table(new float[]{1, 4, 4, 4, 4, 4});
             tabelaProdutos.setWidth(UnitValue.createPercentValue(100));
-            tabelaTotalizadores.setWidth(UnitValue.createPercentValue(100));
 
-            // Adicionando cabeçalho
+            // Adicionando cabeçalho produtos
             tabelaProdutos.addHeaderCell(new Cell().add(new Paragraph("EAN").setFont(headerFont)));
             tabelaProdutos.addHeaderCell(new Cell().add(new Paragraph("Produto").setFont(headerFont)));
             tabelaProdutos.addHeaderCell(new Cell().add(new Paragraph("Valor").setFont(headerFont)));
@@ -134,35 +138,50 @@ public class GerarOrçamentoPDF {
                     tabelaProdutos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValortotal())).setFont(font)));
                 }
                 //Linhas restantes de produtos
-                for (int i = contador; i < 15; i++) {
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(20)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(20)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(20)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(20)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(20)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(20)));
+                int i;
+                for (i = contador; i < 15; i++) {
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                 }
-                tabelaTotalizadores.addHeaderCell(new Cell().add(new Paragraph(tabelaProdutos.getNumberOfRows() + " itens.").setFont(font)));
-                tabelaTotalizadores.addHeaderCell(new Cell());
-                tabelaTotalizadores.addHeaderCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalBruto()).setFont(font)));
-                tabelaTotalizadores.addHeaderCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalDesconto()).setFont(font)));
-                tabelaTotalizadores.addHeaderCell(new Cell());
-                tabelaTotalizadores.addHeaderCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotal()).setFont(font)));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph(contador + " itens.").setFont(headerFont)));
+                tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalBruto()).setFont(headerFont)));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalDesconto()).setFont(headerFont)));
+                tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotal()).setFont(headerFont)));
+            } else {
+                for (int i = 0; i < 15; i++) {
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                }
+                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
+                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
+                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
+                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
+                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
+                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
             }
             //Observações
             Table obs = new Table(new float[]{1});
             obs.setWidth(UnitValue.createPercentValue(100));
             obs.setHeight(200);
-            obs.addHeaderCell(new Cell().add(new Paragraph(vm.getObs()).setFont(font)));
+            obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n"+vm.getObs()).setFont(font)));
 
             //Adicionar componentes
             document.add(cabeçalho);
+            document.add(cabeçalho2);
             document.add(cabeçalhoEmpresa);
-            document.add(new LineSeparator(lineDrawer));
             document.add(cabeçalhoCliente);
             document.add(cabeçalhoPlaca);
             document.add(tabelaProdutos);
-            document.add(tabelaTotalizadores);
             document.add(obs);
             document.close();
 
@@ -176,7 +195,7 @@ public class GerarOrçamentoPDF {
         VendasModel vm = new VendasModel();
         vm.setCod(13);
         vm.setCliente(4);
-        vm.setObs("dsadsadsadsadsadsadsadsadsadsadsa");
+        vm.setObs("observações\n\n");
         vm.setPlaca("DFK-4002");
         vm.setValorTotal(100.0);
         vm.setValorTotalBruto(250.0);
