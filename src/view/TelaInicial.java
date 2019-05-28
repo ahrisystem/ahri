@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.entidades.Fornecedores;
 import view.cadastros.placa.Placas;
+import view.cadastros.produtos.Grupos;
 import view.cadastros.produtos.Produtos;
 import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
@@ -97,7 +98,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao5.setText("Formas de P.");
             opcao6.setText("Usuários");
             opcao7.setText("Placas");
-            opcao8.setText("");
+            opcao8.setText("Tributações");
             opcao9.setText("");
             opcao10.setText("Relatórios");
         }
@@ -786,6 +787,12 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
+        if (cadastros) {
+            Grupos grupos = Grupos.getInstancia();
+            painelPrincipal.add("Grupos de produto", grupos);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
         if (ferramentas) {
             Empresa e = Empresa.getInstancia().getInstancia();
             e.setVisible(true);
@@ -1007,7 +1014,10 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (cadastros) {
-
+            Usuarios u = Usuarios.getInstancia().getInstancia();
+            painelPrincipal.add("Usuários", u);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
     }//GEN-LAST:event_opcao6MousePressed
 
@@ -1023,6 +1033,9 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.add("Clientes", clientes);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+        if (ajuda) {
+            
         }
     }//GEN-LAST:event_opcao2MousePressed
 

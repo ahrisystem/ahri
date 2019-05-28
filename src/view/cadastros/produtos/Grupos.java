@@ -1,13 +1,15 @@
 package view.cadastros.produtos;
 
 import view.cadastros.entidades.*;
-import controller.cadastros.entidades.EntidadeController;
+import controller.cadastros.produtos.GrupoController;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.cadastros.produtos.GrupoModel;
 import view.funcoes.RegistrosExcluidos;
 
 public class Grupos extends javax.swing.JPanel {
     private static final Grupos INSTANCIA = new Grupos();
-    EntidadeController ec = new EntidadeController();
+    GrupoController ec = new GrupoController();
     
     public static Grupos getInstancia() {
         return INSTANCIA;
@@ -19,7 +21,18 @@ public class Grupos extends javax.swing.JPanel {
     }
     
     public void listar(){
-        
+        //cod,tipo,pai,nome,ncm
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (GrupoModel p : ec.listaGrupos(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                p.getCod(),
+                p.getTipo(),
+                p.getPai(),
+                p.getNome(),
+                p.getNcm()
+            });
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -36,8 +49,8 @@ public class Grupos extends javax.swing.JPanel {
         btnExcluir = new javax.swing.JLabel();
         btnExcluidos = new javax.swing.JLabel();
         btnAtualizar = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTree = new javax.swing.JTree();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabela1 = new javax.swing.JTable();
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,12 +187,36 @@ public class Grupos extends javax.swing.JPanel {
             }
         });
 
-        jScrollPane2.setBorder(null);
+        tabela1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tabela1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Código", "Cod. Barras", "Nome", "UN", "Valor", "Grupo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        jTree.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
-        jTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jScrollPane2.setViewportView(jTree);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabela1.setFocusable(false);
+        tabela1.setGridColor(new java.awt.Color(204, 204, 204));
+        tabela1.setRowHeight(20);
+        tabela1.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tabela1.getTableHeader().setReorderingAllowed(false);
+        tabela1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tabela1MouseReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tabela1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -191,10 +228,10 @@ public class Grupos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -204,15 +241,14 @@ public class Grupos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -229,7 +265,6 @@ public class Grupos extends javax.swing.JPanel {
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
         NovoGrupo novo = NovoGrupo.getInstancia();
-        jTree.getSelectionModel();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
@@ -262,7 +297,7 @@ public class Grupos extends javax.swing.JPanel {
     }//GEN-LAST:event_formFocusGained
 
     private void btnExcluidosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluidosMouseReleased
-        new RegistrosExcluidos("Clientes excluídos").setVisible(true);
+        new RegistrosExcluidos("Grupos excluídos").setVisible(true);
     }//GEN-LAST:event_btnExcluidosMouseReleased
 
     private void jPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentHidden
@@ -277,6 +312,10 @@ public class Grupos extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_btnAtualizarMouseReleased
 
+    private void tabela1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabela1MouseReleased
+
+    }//GEN-LAST:event_tabela1MouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAtualizar;
@@ -287,10 +326,10 @@ public class Grupos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTree jTree;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tabela;
+    private javax.swing.JTable tabela1;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }

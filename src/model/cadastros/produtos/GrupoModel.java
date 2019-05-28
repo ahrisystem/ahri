@@ -3,10 +3,12 @@ package model.cadastros.produtos;
 public class GrupoModel {
     private int cod;
     private boolean inativo;
+    private boolean servico;
     private int tipo;
     private int pai;
     private String nome;
     private String ncm;
+    private String cest;
 
     public int getCod() {
         return cod;
@@ -36,8 +38,24 @@ public class GrupoModel {
         return pai;
     }
 
+    public String getCest() {
+        return cest;
+    }
+
+    public void setCest(String cest) {
+        this.cest = cest;
+    }
+
     public void setPai(int pai) {
         this.pai = pai;
+    }
+
+    public boolean isServico() {
+        return servico;
+    }
+
+    public void setServico(boolean servico) {
+        this.servico = servico;
     }
 
     public String getNome() {

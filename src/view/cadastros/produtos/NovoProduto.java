@@ -270,6 +270,11 @@ public class NovoProduto extends javax.swing.JFrame {
 
         txtNCM.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNCM.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtNCM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNCMActionPerformed(evt);
+            }
+        });
         txtNCM.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtNCMKeyReleased(evt);
@@ -285,6 +290,11 @@ public class NovoProduto extends javax.swing.JFrame {
 
         txtCEST.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCEST.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtCEST.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCESTActionPerformed(evt);
+            }
+        });
         txtCEST.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCESTKeyReleased(evt);
@@ -544,9 +554,16 @@ public class NovoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCustoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
-        System.out.println("aberta");
+        
     }//GEN-LAST:event_formWindowOpened
+
+    private void txtCESTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCESTActionPerformed
+            
+    }//GEN-LAST:event_txtCESTActionPerformed
+
+    private void txtNCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNCMActionPerformed
+        
+    }//GEN-LAST:event_txtNCMActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
