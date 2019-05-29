@@ -12,13 +12,11 @@ public class main extends javax.swing.JFrame {
     int temporizador = 0;
     Timer timer = new Timer(10, new hora());
     
-    
     private static final main INSTANCIA = new main();
     
     public static main getInstancia() {
         return INSTANCIA;
     }
-    
     public main() {
         initComponents();
         icone();
@@ -129,12 +127,12 @@ public class main extends javax.swing.JFrame {
             if (temporizador == 10) {
                 lblRecurso.setText("Conectando ao banco de dados...");
                 new connection().obterConexao("Conexão inicial.");
+                temporizador++;
             }
-            if (temporizador == 20) {
+            if (temporizador > 20) {
                 lblRecurso.setText("");
-                
+                lblRecurso.setText("Abrindo sistema...");
             }
-            lblRecurso.setText("Abrindo sistema...");
             if (temporizador == 100) {
                 fechar();
                 timer.stop();

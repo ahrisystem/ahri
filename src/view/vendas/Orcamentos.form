@@ -54,7 +54,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnAtualizar" min="-2" pref="42" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" pref="661" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="658" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <Component id="lblTitulo" alignment="0" max="32767" attributes="0"/>
@@ -73,7 +73,7 @@
                               <Component id="txtFiltro" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="283" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="332" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jPanel3" max="32767" attributes="0"/>
                   </Group>
@@ -127,7 +127,7 @@
                       <Component id="btnCancelar" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnGerarPDF" min="-2" pref="38" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="133" max="32767" attributes="0"/>
                       <Component id="lblUsuario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>

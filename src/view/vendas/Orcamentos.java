@@ -2,9 +2,11 @@ package view.vendas;
 
 import view.cadastros.usuarios.*;
 import controller.vendas.VendasController;
+import funcoes.GerarOrçamentoPDF;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.usuarios.UsuarioModel;
+import model.vendas.VendasItensModel;
 import model.vendas.VendasModel;
 
 public class Orcamentos extends javax.swing.JPanel {
@@ -160,7 +162,7 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
                 .addContainerGap())
         );
@@ -236,7 +238,7 @@ public class Orcamentos extends javax.swing.JPanel {
                         .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -251,7 +253,7 @@ public class Orcamentos extends javax.swing.JPanel {
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtFiltro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -318,7 +320,27 @@ public class Orcamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAtualizarMouseReleased
 
     private void btnGerarPDFMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarPDFMouseReleased
-        // TODO add your handling code here:
+        GerarOrçamentoPDF g = new GerarOrçamentoPDF();
+        VendasModel vm = new VendasModel();
+        VendasItensModel vim = new VendasItensModel();
+        boolean gerarProdutos = true;
+        
+        if (tabela.getSelectedRow()<0) {
+            JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Gerar o PDF?",
+                "GERAR PDF?", 2) == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Imprimir produtos","ORÇAMENTO EM PDF?", 2) == 0) {
+                    gerarProdutos = true;
+                } else {
+                    gerarProdutos = false;
+                }
+                
+                ec.puxarDadosOrcamento(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                ec.
+                g.Orcamento(vm, gerarProdutos, vim);
+            }
+        }
     }//GEN-LAST:event_btnGerarPDFMouseReleased
 
 

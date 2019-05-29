@@ -1,7 +1,6 @@
 package controller.vendas;
 
 import controller.connection;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -128,6 +127,19 @@ public class VendasController {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Model.setCod(rs.getInt("cod"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
+        }
+    }
+    public void puxarDadosProdutosOrcamento(VendasItensModel Model, int orcamento) {
+        String sql = "select * from vendasitens where cod = " + orcamento + ";";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Model.setVenda(rs.getInt("cod"));
             }
             stmt.close();
         } catch (Exception e) {
