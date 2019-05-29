@@ -1,6 +1,7 @@
 package controller.vendas;
 
 import controller.connection;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,7 @@ public class VendasController {
 
     private final Connection conexao;
 
-    public VendasController() {
+    public VendasController(){
         this.conexao = new connection().obterConexao("Controle de vendas/orçamentos.");
     }
 /////////////////////////ORCAMENTOS/////////////////////////////////////////////       

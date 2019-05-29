@@ -1,6 +1,7 @@
 package controller.cadastros.entidades;
 
 import controller.connection;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,7 @@ public class EntidadeController {
 
     private final Connection conexao;
 
-    public EntidadeController() {
+    public EntidadeController(){
         this.conexao = new connection().obterConexao("Cadastro de entidades. (Clientes, fornecedores, transportadoras)");
     }
 
@@ -127,7 +128,7 @@ public class EntidadeController {
 
     public List<EntidadeModel> listaFornecedores(String nome) {
         List<EntidadeModel> entidades = new ArrayList<>();
-        String sql = "Select cod,xnome,xMun from entidade where inativo = false and fornecedor = 1";
+        String sql = "Select cod,xnome,cnpj,uf,xMun from entidade where inativo = false and fornecedor = 1";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -135,6 +136,8 @@ public class EntidadeController {
                 EntidadeModel eModel = new EntidadeModel();
                 eModel.setCod(rs.getInt("cod"));
                 eModel.setxNome(rs.getString("xnome"));
+                eModel.setCNPJ(rs.getString("cnpj"));
+                eModel.setUF(rs.getString("uf"));
                 eModel.setxMun(rs.getString("xmun"));
                 entidades.add(eModel);
             }

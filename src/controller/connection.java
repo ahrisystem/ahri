@@ -1,20 +1,26 @@
 package controller;
 
+import funcoes.BuscarPropriedadesConfiguradas;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.funcoes.PropertiesModel;
 
 public class connection {
-
-    private static final String URL = "jdbc:postgresql://localhost:5432/ahri";
-    private static final String DRIVER_CLASS = "org.postgresql.Driver";
-    private static final String USER = "postgres";
-    private static final String PASS = "postgres";
-
     public Connection obterConexao(String rotina){
+        PropertiesModel pm = new PropertiesModel();
+        BuscarPropriedadesConfiguradas bp = new BuscarPropriedadesConfiguradas();
+        
+        bp.dado(pm);
+        
+        String URL = "jdbc:postgresql://"+pm.getBaseip()+":"+pm.getBaseport()+"/"+pm.getBasenome();
+        String DRIVER_CLASS = pm.getBasedriver();
+        String USER = pm.getBaseuser();
+        String PASS = pm.getBasepass();
 
         // Variavel contendo a conexao
         Connection conexao = null;

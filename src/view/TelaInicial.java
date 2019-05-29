@@ -85,7 +85,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao4.setText("Status");
             opcao5.setText("Devedores");
             opcao6.setText("Usuários");
-            opcao7.setText("Estoque");
+            opcao7.setText("Placas");
             opcao8.setText("Produtos");
             opcao9.setText("Entrada");
             opcao10.setText("Ajuda");
@@ -1092,6 +1092,12 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_opcao5MouseReleased
 
     private void opcao7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao7MouseReleased
+        if (inicial) {
+            Placas placas = Placas.getInstancia();
+            painelPrincipal.add("Placas", placas);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
         if (cadastros) {
             Placas placas = Placas.getInstancia();
             painelPrincipal.add("Placas", placas);
