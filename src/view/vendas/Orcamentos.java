@@ -12,6 +12,7 @@ import model.vendas.VendasModel;
 public class Orcamentos extends javax.swing.JPanel {
     private static final Orcamentos INSTANCIA = new Orcamentos();
     VendasController ec = new VendasController();
+    GerarOrçamentoPDF go = new GerarOrçamentoPDF();
     
     public static Orcamentos getInstancia() {
         return INSTANCIA;
@@ -320,25 +321,27 @@ public class Orcamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAtualizarMouseReleased
 
     private void btnGerarPDFMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarPDFMouseReleased
-        GerarOrçamentoPDF g = new GerarOrçamentoPDF();
         VendasModel vm = new VendasModel();
-        VendasItensModel vim = new VendasItensModel();
         boolean gerarProdutos = true;
+        boolean gerarPlaca = true;
         
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Gerar o PDF?",
                 "GERAR PDF?", 2) == 0) {
-                if (JOptionPane.showConfirmDialog(null, "Imprimir produtos","ORÇAMENTO EM PDF?", 2) == 0) {
+                if (JOptionPane.showConfirmDialog(null, "Imprimir produtos?","Imprimir produtos?", 2) == 0) {
                     gerarProdutos = true;
                 } else {
                     gerarProdutos = false;
                 }
-                
+                if (JOptionPane.showConfirmDialog(null, "Imprimir placa?","Imprimir placa?", 2) == 0) {
+                    gerarPlaca = true;
+                } else {
+                    gerarPlaca = false;
+                }
                 ec.puxarDadosOrcamento(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-                ec.
-                g.Orcamento(vm, gerarProdutos, vim);
+                go.Orcamento(vm, gerarProdutos,gerarPlaca, ec.puxarDadosProdutosOrcamento(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())));
             }
         }
     }//GEN-LAST:event_btnGerarPDFMouseReleased

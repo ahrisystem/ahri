@@ -121,30 +121,51 @@ public class VendasController {
     }
     
     public void puxarDadosOrcamento(VendasModel Model, int cod) {
-        String sql = "where cod = " + cod + ";";
+        String sql = "SELECT id,cod,tipo,status,cliente,placa,valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,usuario,obs FROM public.vendas where cod = " + cod + ";";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Model.setCod(rs.getInt("cod"));
+                Model.setTipo(rs.getInt("tipo"));
+                Model.setStatus(rs.getInt("status"));
+                Model.setCliente(rs.getInt("cliente"));
+                Model.setPlaca(rs.getString("placa"));
+                Model.setValorTotalBruto(rs.getDouble("valortotalbruto"));
+                Model.setValorTotalDesconto(rs.getDouble("valortotaldesconto"));
+                Model.setValorTotal(rs.getDouble("valortotal"));
+                Model.setCriacao(rs.getDate("criacao"));
+                Model.setAlteracao(rs.getDate("alteracao"));
+                Model.setUsuario(rs.getString("usuario"));
+                Model.setObs(rs.getString("obs"));
             }
             stmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
         }
     }
-    public void puxarDadosProdutosOrcamento(VendasItensModel Model, int orcamento) {
-        String sql = "select * from vendasitens where cod = " + orcamento + ";";
+    
+    public List<VendasItensModel> puxarDadosProdutosOrcamento(int orcamento) {
+        List<VendasItensModel> vendasitens = new ArrayList<>();
+        String sql = "SELECT cod,nome,valorunitario,quantidade,valordesconto,valortotal FROM public.vendasitens where venda = "+orcamento+";";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Model.setVenda(rs.getInt("cod"));
+                VendasItensModel Model = new VendasItensModel();
+                Model.setCod(rs.getInt("cod"));
+                Model.setNome(rs.getString("nome"));
+                Model.setQuantidade(rs.getDouble("quantidade"));
+                Model.setValorunitario(rs.getDouble("valorunitario"));
+                Model.setValordesconto(rs.getDouble("valordesconto"));
+                Model.setValortotal(rs.getDouble("valortotal"));
+                vendasitens.add(Model);
             }
             stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
         }
+        return vendasitens;
     }
 /////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////    
     

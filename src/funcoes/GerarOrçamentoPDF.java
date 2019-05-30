@@ -16,6 +16,7 @@ import com.itextpdf.layout.property.UnitValue;
 import controller.cadastros.entidades.EntidadeController;
 import controller.cadastros.placa.PlacaController;
 import controller.cadastrosUnicos.EmpresaController;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import model.cadastros.entidades.EntidadeModel;
@@ -30,7 +31,7 @@ public class GerarOrçamentoPDF {
     static EntidadeController enc = new EntidadeController();
     static PlacaController pl = new PlacaController();
 
-    private static String caminho = "C:/AHRI/teste.pdf";
+    private static String caminho = "C:/AHRI/orcamentos/";
 
     public static String getCaminho() {
         return caminho;
@@ -67,10 +68,10 @@ public class GerarOrçamentoPDF {
      * @param exibirProdutos Indica se irá imprimir a lista de produtos no PDF.
      * @param p Lista de produtos tipo VendasItensModel.
      */
-    public static void Orcamento(VendasModel vm, boolean exibirProdutos, List<VendasItensModel> p) {
+    public static void Orcamento(VendasModel vm, boolean exibirProdutos, boolean exibirPlaca, List<VendasItensModel> p) {
         PdfWriter writer;
         try {
-            writer = new PdfWriter(new FileOutputStream(getCaminho()));
+            writer = new PdfWriter(new FileOutputStream(getCaminho()+"orcamento"+vm.getCod()+".pdf"));
             PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
             PdfFont headerFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
             PdfDocument pdf = new PdfDocument(writer);
@@ -111,8 +112,14 @@ public class GerarOrçamentoPDF {
             //Sobre a placa
             Table cabeçalhoPlaca = new Table(new float[]{1});
             cabeçalhoPlaca.setWidth(UnitValue.createPercentValue(100));
-            cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph(
+            
+            if (exibirPlaca) {
+                cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph(
                     "Placa: " + vm.getPlaca() + " - " + getDadosPlaca(vm.getPlaca()).getNome()).setFont(font)));
+            } else {
+                cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph(
+                    "Placa: ")).setFont(font));
+            }
 
             //Tabela de produtos
             Table tabelaProdutos = new Table(new float[]{1, 4, 4, 4, 4, 4});
@@ -173,8 +180,12 @@ public class GerarOrçamentoPDF {
             Table obs = new Table(new float[]{1});
             obs.setWidth(UnitValue.createPercentValue(100));
             obs.setHeight(200);
-            obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n"+vm.getObs()).setFont(font)));
-
+            if (vm.getObs().isEmpty()) {
+                obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n\n\n\n\n\n\n").setFont(font)));
+            } else {
+                obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n"+vm.getObs()).setFont(font)));
+            }
+            
             //Adicionar componentes
             document.add(cabeçalho);
             document.add(cabeçalho2);
@@ -184,7 +195,8 @@ public class GerarOrçamentoPDF {
             document.add(tabelaProdutos);
             document.add(obs);
             document.close();
-
+            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();  
+            desktop.open(new File(getCaminho()+"orcamento"+vm.getCod()+".pdf"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -210,6 +222,6 @@ public class GerarOrçamentoPDF {
         p.setValortotal(50.0);
         produtos.add(p);
         produtos.add(p);
-        Orcamento(vm, true, produtos);
+        Orcamento(vm, true, true, produtos);
     }
 }

@@ -174,8 +174,18 @@ public class NovoOrcamento extends javax.swing.JFrame {
     public void limpaCampos(){
         txtCliente.setText("");
         txtCliente2.setText("");
+        txtPlaca.setText("");
+        txtPlaca2.setText("");
+        txtProduto.setText("");
+        txtDescricaoProduto.setText("");
+        txtValorUnitarioProduto.setText("0,00");
+        txtValorDescontoProduto.setText("0,00");
+        txtQuantidadeProduto.setText("0,00");
         tblProdutos.removeAll();
         atualizarTotalizadores();
+        txtObs.setText("");
+        cbxExibirProdutos.setSelected(false);
+        cbxExibirPlaca.setSelected(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -206,13 +216,12 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnRemoverProduto = new javax.swing.JButton();
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        cbxExibirPlaca = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        jCheckBox3 = new javax.swing.JCheckBox();
         cbxExibirProdutos = new javax.swing.JCheckBox();
         lblQtd = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
-        lblTitulo8 = new javax.swing.JLabel();
+        lblValorUnProduto = new javax.swing.JLabel();
         txtValorUnitarioProduto = new javax.swing.JFormattedTextField();
         txtValorDescontoProduto = new javax.swing.JFormattedTextField();
         lblTitulo10 = new javax.swing.JLabel();
@@ -503,11 +512,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         });
         painelFuncoes.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        jCheckBox1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jCheckBox1.setText("Placa");
-        jCheckBox1.setFocusable(false);
-        jCheckBox1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 110, 30));
+        cbxExibirPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxExibirPlaca.setText("Placa");
+        cbxExibirPlaca.setFocusable(false);
+        cbxExibirPlaca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        painelFuncoes.add(cbxExibirPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
 
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -515,12 +524,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         jLabel1.setText("Exibir");
         jLabel1.setOpaque(true);
         painelFuncoes.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 110, 20));
-
-        jCheckBox3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jCheckBox3.setText("Descontos");
-        jCheckBox3.setFocusable(false);
-        jCheckBox3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
 
         cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbxExibirProdutos.setText("Produtos");
@@ -544,9 +547,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo8.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        lblTitulo8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo8.setText("Valor Un:");
+        lblValorUnProduto.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        lblValorUnProduto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblValorUnProduto.setText("Valor Un:");
 
         txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtValorUnitarioProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
@@ -656,7 +659,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtProduto)
-                                    .addComponent(lblTitulo8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelPrincipalLayout.createSequentialGroup()
@@ -729,7 +732,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblTitulo8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                                 .addComponent(txtValorUnitarioProduto)
                                 .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -792,41 +795,39 @@ public class NovoOrcamento extends javax.swing.JFrame {
         int opcao = 2;
         if (JOptionPane.showConfirmDialog(null, "Confirmar orçamento?",
                 "OK?", opcao) == 0) {
-            if (Double.parseDouble(txtTotal.getText().replace(",", ".")) < 0.01) {
-                JOptionPane.showMessageDialog(null, "Nenhum produto adicionado.");
+            VendasModel vm = new VendasModel();
+            VendasItensModel vim = new VendasItensModel();
+            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+            if (txtCliente.getText().equalsIgnoreCase("")) {
+                vm.setCliente(0);
             } else {
-                VendasModel vm = new VendasModel();
-                VendasItensModel vim = new VendasItensModel();
-                vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
-                if (txtCliente.getText().equalsIgnoreCase("")) {
-                    vm.setCliente(0);
-                } else {
-                    vm.setCliente(Integer.parseInt(txtCliente.getText()));
-                }
-                vm.setPlaca(txtPlaca.getText());
-                vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
-                vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
-                vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
-                vm.setUsuario(usuario);
-                vm.setObs(txtObs.getText());
-                vc.cadastraOrcamento(vm);
-                //gerando o pdf
-                GerarOrçamentoPDF g = new GerarOrçamentoPDF();
-                List<VendasItensModel> produtos = new ArrayList<>();
-                //Cadastrando itens
-                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                    vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
-                    vim.setVenda(vm.getCod());
-                    vim.setNome(tblProdutos.getValueAt(i, 1).toString());
-                    vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
-                    vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
-                    vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
-                    vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                    vc.cadastraProdutosOrcamento(vim);
-                    produtos.add(vim);
-                }
-                g.Orcamento(vm, cbxExibirProdutos.isSelected(), produtos);
+                vm.setCliente(Integer.parseInt(txtCliente.getText()));
             }
+            vm.setPlaca(txtPlaca.getText());
+            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
+            vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
+            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+            vm.setUsuario(usuario);
+            vm.setObs(txtObs.getText());
+            vc.cadastraOrcamento(vm);
+            //gerando o pdf
+            GerarOrçamentoPDF g = new GerarOrçamentoPDF();
+            List<VendasItensModel> produtos = new ArrayList<>();
+            //Cadastrando itens
+            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
+                vim.setVenda(vm.getCod());
+                vim.setNome(tblProdutos.getValueAt(i, 1).toString());
+                vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
+                vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
+                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
+                vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
+                vc.cadastraProdutosOrcamento(vim);
+                produtos.add(vim);
+            }
+            g.Orcamento(vm, cbxExibirProdutos.isSelected(), cbxExibirPlaca.isSelected(), produtos);
+            limpaCampos();
+            this.dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -1091,9 +1092,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
+    private javax.swing.JCheckBox cbxExibirPlaca;
     private javax.swing.JCheckBox cbxExibirProdutos;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1106,8 +1106,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo10;
     private javax.swing.JLabel lblTitulo11;
     private javax.swing.JLabel lblTitulo12;
-    private javax.swing.JLabel lblTitulo8;
     private javax.swing.JLabel lblTituloPesquisa;
+    private javax.swing.JLabel lblValorUnProduto;
     private javax.swing.JPanel painelFuncoes;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JDialog pesquisar;

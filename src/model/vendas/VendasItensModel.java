@@ -3,7 +3,7 @@ package model.vendas;
 public class VendasItensModel {
     private int venda; //código da venda
     private int cod; //código do produto
-    private String nome;
+    private String nome; //nome do produto
     private double valorunitario; //valor unitario do item
     private double quantidade; //quantidade do item 
     private double valordesconto; //valor de desconto do item

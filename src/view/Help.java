@@ -1,7 +1,13 @@
 package view;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Help extends javax.swing.JFrame {
     private static final Help INSTANCIA = new Help();
+    String tv = "C:/AHRI/tv.exe";
     
     public static Help getInstancia() {
         return INSTANCIA;
@@ -37,6 +43,11 @@ public class Help extends javax.swing.JFrame {
         btnTV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/teamviewer.png"))); // NOI18N
         btnTV.setText("Team Viewer");
         btnTV.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnTV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTVActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnTV, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 150, 40));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
@@ -59,6 +70,15 @@ public class Help extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTVActionPerformed
+        try {
+            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+            desktop.open(new File(tv));
+        } catch (IOException ex) {
+            Logger.getLogger(Help.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnTVActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTV;
