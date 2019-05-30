@@ -21,6 +21,7 @@ import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
 import view.controles.Status;
 import view.ferramentas.Backup;
+import view.fiscal.Tributacoes;
 import view.pdv.PDV;
 import view.vendas.Orcamentos;
 
@@ -1043,6 +1044,12 @@ public class TelaInicial extends javax.swing.JFrame {
         if (inicial) {
             Produtos produtos = Produtos.getInstancia();
             painelPrincipal.add("Produtos", produtos);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+        if (cadastros) {
+            Tributacoes t = Tributacoes.getInstancia();
+            painelPrincipal.add("Tributações", t);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }

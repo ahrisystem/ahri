@@ -1,12 +1,17 @@
 package view.cadastros.produtos;
 
+import controller.cadastros.produtos.GrupoController;
 import controller.cadastros.produtos.ProdutoController;
+import controller.fiscal.TributacaoController;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.produtos.ProdutoModel;
 
 public class NovoProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
+    TributacaoController tc = new TributacaoController();
     private static final NovoProduto INSTANCIA = new NovoProduto();
     
     
@@ -31,12 +36,46 @@ public class NovoProduto extends javax.swing.JFrame {
         txtCusto.setText("0,00");
         txtNCM.setText("");
         txtCEST.setText("");
-        txtAliquota.setText("");
+    }
+    
+    public void preencheGrupos() {
+        GrupoController lc = new GrupoController();
+        DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(lc.listaNomeGrupos().toArray());
+        txtGrupo.setModel(defaultComboBox);
+    }
+    
+    public void buscarTributacao() {
+        if (txtTributacao.getText().matches("[0-9]+")) {
+            EntidadeModel em = new EntidadeModel();
+            tc.buscarCliente(em, txtTributacao.getText());
+            txtTributacao.setText(Integer.toString(em.getCod()));
+            txtTributacao2.setText(em.getNome());
+            txtPlaca.requestFocus();
+            txtTributacao2.setEnabled(false);
+        } else {
+            if (txtTributacao.getText().isEmpty()) {
+                txtTributacao2.setText("");
+            }
+            pesquisar.setVisible(true);
+            pesquisaAtual = "clientes";
+            lblTituloPesquisa.setText("Clientes");
+            listarClientes();
+            txtPesquisa.setText(txtTributacao.getText());
+            pesquisar.setLocation(this.getX(), this.getY());
+            pesquisar.setSize(this.getSize());
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pesquisar = new javax.swing.JDialog();
+        planoDeFundo1 = new javax.swing.JPanel();
+        txtPesquisa = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        btnSelecionarPesquisa = new javax.swing.JLabel();
+        lblTituloPesquisa = new javax.swing.JLabel();
         lblTítulo = new javax.swing.JLabel();
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
@@ -65,35 +104,119 @@ public class NovoProduto extends javax.swing.JFrame {
         txtCEST = new javax.swing.JTextField();
         txtCESTdescricao = new javax.swing.JTextField();
         painelTributacao = new javax.swing.JPanel();
-        txtAliquota = new javax.swing.JTextField();
-        lblCodigo4 = new javax.swing.JLabel();
-        txtTipoTributacao = new javax.swing.JComboBox<>();
-        lblCodigo14 = new javax.swing.JLabel();
-        txtTipoTributacao1 = new javax.swing.JComboBox<>();
-        painelPisCofins = new javax.swing.JPanel();
-        lblCodigo5 = new javax.swing.JLabel();
-        lblCOFINS = new javax.swing.JLabel();
-        lblPIS = new javax.swing.JLabel();
-        lblCodigo13 = new javax.swing.JLabel();
-        painelIPI = new javax.swing.JPanel();
-        txtCodigo9 = new javax.swing.JTextField();
-        lblCodigo6 = new javax.swing.JLabel();
-        txtCodigo10 = new javax.swing.JTextField();
-        lblCodigo9 = new javax.swing.JLabel();
-        lblCodigo11 = new javax.swing.JLabel();
-        txtCodigo13 = new javax.swing.JTextField();
+        lblNCM1 = new javax.swing.JLabel();
+        txtTributacao = new javax.swing.JTextField();
+        txtTributacao2 = new javax.swing.JTextField();
+
+        planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisaActionPerformed(evt);
+            }
+        });
+        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisaKeyReleased(evt);
+            }
+        });
+
+        tabela.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Código", "Nome", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabela.setFocusable(false);
+        tabela.setGridColor(new java.awt.Color(204, 204, 204));
+        tabela.setRowHeight(18);
+        tabela.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tabelaKeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabela);
+
+        btnSelecionarPesquisa.setBackground(new java.awt.Color(102, 153, 255));
+        btnSelecionarPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnSelecionarPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        btnSelecionarPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSelecionarPesquisa.setText("Selecionar");
+        btnSelecionarPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSelecionarPesquisa.setOpaque(true);
+        btnSelecionarPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnSelecionarPesquisaMouseReleased(evt);
+            }
+        });
+
+        lblTituloPesquisa.setBackground(new java.awt.Color(153, 153, 153));
+        lblTituloPesquisa.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblTituloPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPesquisa.setText("TITULO");
+        lblTituloPesquisa.setOpaque(true);
+
+        javax.swing.GroupLayout planoDeFundo1Layout = new javax.swing.GroupLayout(planoDeFundo1);
+        planoDeFundo1.setLayout(planoDeFundo1Layout);
+        planoDeFundo1Layout.setHorizontalGroup(
+            planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(planoDeFundo1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPesquisa))
+                .addContainerGap())
+            .addComponent(lblTituloPesquisa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        planoDeFundo1Layout.setVerticalGroup(
+            planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(planoDeFundo1Layout.createSequentialGroup()
+                .addComponent(lblTituloPesquisa)
+                .addGap(10, 10, 10)
+                .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout pesquisarLayout = new javax.swing.GroupLayout(pesquisar.getContentPane());
+        pesquisar.getContentPane().setLayout(pesquisarLayout);
+        pesquisarLayout.setHorizontalGroup(
+            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pesquisarLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(planoDeFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        pesquisarLayout.setVerticalGroup(
+            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pesquisarLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(planoDeFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Produto");
         setUndecorated(true);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTítulo.setBackground(new java.awt.Color(51, 51, 51));
@@ -102,7 +225,7 @@ public class NovoProduto extends javax.swing.JFrame {
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTítulo.setText("Novo Produto");
         lblTítulo.setOpaque(true);
-        getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 30));
+        getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 30));
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         painelPrincipal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -170,7 +293,6 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal.add(lblGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 70, 20));
 
         txtGrupo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lanches", "Bebidas", "Cigarros" }));
         painelPrincipal.add(txtGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 330, 20));
 
         lblUN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -226,7 +348,7 @@ public class NovoProduto extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 80, 40));
+        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, 80, 40));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -244,7 +366,7 @@ public class NovoProduto extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 360, 80, 40));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 360, 80, 40));
 
         painelAbas.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
 
@@ -317,128 +439,47 @@ public class NovoProduto extends javax.swing.JFrame {
         painelTributacao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tributação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
         painelTributacao.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtAliquota.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtAliquota.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtAliquota.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtAliquotaKeyReleased(evt);
+        lblNCM1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblNCM1.setForeground(new java.awt.Color(51, 105, 191));
+        lblNCM1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNCM1.setText("Tributação");
+        painelTributacao.add(lblNCM1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 80, 20));
+
+        txtTributacao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtTributacao.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtTributacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTributacaoActionPerformed(evt);
             }
         });
-        painelTributacao.add(txtAliquota, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 20, 50, -1));
-
-        lblCodigo4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo4.setForeground(new java.awt.Color(51, 105, 191));
-        lblCodigo4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCodigo4.setText("CST/CSOSN:");
-        painelTributacao.add(lblCodigo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 120, 20));
-
-        txtTipoTributacao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtTipoTributacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 - Nacional", "1 - Estrangeira", "2 - Estrangeira", "3 - Nacional", "4 - Nacional", "5 - Nacional", "6 - Estrangeira", "7 - Estrangeira" }));
-        painelTributacao.add(txtTipoTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 130, 20));
-
-        lblCodigo14.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo14.setForeground(new java.awt.Color(51, 105, 191));
-        lblCodigo14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo14.setText("Alíquota:");
-        painelTributacao.add(lblCodigo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 70, 20));
-
-        txtTipoTributacao1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtTipoTributacao1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "T - Tributado", "F - Substituição Tributária", "I - Isento", "N - Não tributado" }));
-        painelTributacao.add(txtTipoTributacao1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 130, 20));
-
-        painelInformacoesFiscais.add(painelTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 280, 120));
-
-        painelPisCofins.setBackground(new java.awt.Color(255, 255, 255));
-        painelPisCofins.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PIS/COFINS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
-        painelPisCofins.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblCodigo5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCodigo5.setText("Saída");
-        painelPisCofins.add(lblCodigo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, 20));
-
-        lblCOFINS.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCOFINS.setForeground(new java.awt.Color(51, 105, 191));
-        lblCOFINS.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCOFINS.setText("COFINS");
-        painelPisCofins.add(lblCOFINS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 60, 20));
-
-        lblPIS.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblPIS.setForeground(new java.awt.Color(51, 105, 191));
-        lblPIS.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblPIS.setText("PIS");
-        painelPisCofins.add(lblPIS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 60, 20));
-
-        lblCodigo13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCodigo13.setText("Entrada");
-        painelPisCofins.add(lblCodigo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 70, 20));
-
-        painelInformacoesFiscais.add(painelPisCofins, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, 230, 120));
-
-        painelIPI.setBackground(new java.awt.Color(255, 255, 255));
-        painelIPI.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "IPI", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
-        painelIPI.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        txtCodigo9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCodigo9.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCodigo9.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTributacao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodigo9KeyReleased(evt);
+                txtTributacaoKeyReleased(evt);
             }
         });
-        painelIPI.add(txtCodigo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 80, -1));
+        painelTributacao.add(txtTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 80, 20));
 
-        lblCodigo6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo6.setForeground(new java.awt.Color(51, 105, 191));
-        lblCodigo6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo6.setText("Saída");
-        painelIPI.add(lblCodigo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 60, 20));
-
-        txtCodigo10.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCodigo10.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCodigo10.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTributacao2.setEditable(false);
+        txtTributacao2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtTributacao2.setFocusable(false);
+        txtTributacao2.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtTributacao2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodigo10KeyReleased(evt);
+                txtTributacao2KeyReleased(evt);
             }
         });
-        painelIPI.add(txtCodigo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 80, -1));
+        painelTributacao.add(txtTributacao2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, 520, 20));
 
-        lblCodigo9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo9.setForeground(new java.awt.Color(51, 105, 191));
-        lblCodigo9.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo9.setText("Entrada");
-        painelIPI.add(lblCodigo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 60, 20));
-
-        lblCodigo11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblCodigo11.setForeground(new java.awt.Color(51, 105, 191));
-        lblCodigo11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCodigo11.setText("Alíquota");
-        painelIPI.add(lblCodigo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 60, 20));
-
-        txtCodigo13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCodigo13.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCodigo13.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCodigo13KeyReleased(evt);
-            }
-        });
-        painelIPI.add(txtCodigo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 80, -1));
-
-        painelInformacoesFiscais.add(painelIPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, 180, 120));
+        painelInformacoesFiscais.add(painelTributacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 730, 120));
 
         painelAbas.addTab("Informações fiscais", painelInformacoesFiscais);
 
-        painelPrincipal.add(painelAbas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 770, 220));
+        painelPrincipal.add(painelAbas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 760, 220));
 
-        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 400));
+        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 760, 400));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
-    }//GEN-LAST:event_formWindowClosed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (txtNome.getText().equalsIgnoreCase("")) {
@@ -511,22 +552,6 @@ public class NovoProduto extends javax.swing.JFrame {
         btnSalvar.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnSalvarMouseExited
 
-    private void txtAliquotaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAliquotaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAliquotaKeyReleased
-
-    private void txtCodigo9KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigo9KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigo9KeyReleased
-
-    private void txtCodigo10KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigo10KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigo10KeyReleased
-
-    private void txtCodigo13KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigo13KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigo13KeyReleased
-
     private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
         if (txtServico.isSelected()) {
             txtEAN.setEnabled(false);
@@ -553,10 +578,6 @@ public class NovoProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCustoActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
-    }//GEN-LAST:event_formWindowOpened
-
     private void txtCESTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCESTActionPerformed
             
     }//GEN-LAST:event_txtCESTActionPerformed
@@ -564,6 +585,79 @@ public class NovoProduto extends javax.swing.JFrame {
     private void txtNCMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNCMActionPerformed
         
     }//GEN-LAST:event_txtNCMActionPerformed
+
+    private void txtTributacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTributacaoActionPerformed
+        
+    }//GEN-LAST:event_txtTributacaoActionPerformed
+
+    private void txtTributacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTributacaoKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTributacaoKeyReleased
+
+    private void txtTributacao2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTributacao2KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTributacao2KeyReleased
+
+    private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisaActionPerformed
+
+    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
+        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
+            listarClientes();
+        }
+        if (pesquisaAtual.equalsIgnoreCase("placa")) {
+            listarPlacas();
+        }
+        if (pesquisaAtual.equalsIgnoreCase("produtos")) {
+            listarProdutos();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            pesquisar.setVisible(false);
+        }
+    }//GEN-LAST:event_txtPesquisaKeyReleased
+
+    private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            pesquisar.setVisible(false);
+        }
+    }//GEN-LAST:event_tabelaKeyReleased
+
+    private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
+        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
+            if (tabela.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!");
+            } else {
+                txtCliente.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtCliente2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                pesquisar.setVisible(false);
+                txtPlaca.requestFocus();
+            }
+        }
+        if (pesquisaAtual.equalsIgnoreCase("placa")) {
+            if (tabela.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Nenhuma placa selecionada!");
+            } else {
+                txtPlaca.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtPlaca2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                pesquisar.setVisible(false);
+                txtProduto.requestFocus();
+            }
+        }
+        if (pesquisaAtual.equalsIgnoreCase("produtos")) {
+            if (tabela.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Nenhum produto selecionado!");
+            } else {
+                txtProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtDescricaoProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                txtValorUnitarioProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
+                txtValorDescontoProduto.setText("0,00");
+                txtQuantidadeProduto.setText("0");
+                pesquisar.setVisible(false);
+                txtValorUnitarioProduto.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -597,48 +691,41 @@ public class NovoProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel lblCOFINS;
+    private javax.swing.JLabel btnSelecionarPesquisa;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblCodigo11;
-    private javax.swing.JLabel lblCodigo13;
-    private javax.swing.JLabel lblCodigo14;
     private javax.swing.JLabel lblCodigo2;
-    private javax.swing.JLabel lblCodigo4;
-    private javax.swing.JLabel lblCodigo5;
-    private javax.swing.JLabel lblCodigo6;
-    private javax.swing.JLabel lblCodigo9;
     private javax.swing.JLabel lblCusto;
     private javax.swing.JLabel lblEAN;
     private javax.swing.JLabel lblGrupo;
     private javax.swing.JLabel lblNCM;
+    private javax.swing.JLabel lblNCM1;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblPIS;
     private javax.swing.JLabel lblPreco;
+    private javax.swing.JLabel lblTituloPesquisa;
     private javax.swing.JLabel lblTítulo;
     private javax.swing.JLabel lblUN;
     private javax.swing.JTabbedPane painelAbas;
-    private javax.swing.JPanel painelIPI;
     private javax.swing.JPanel painelInformacoesFiscais;
-    private javax.swing.JPanel painelPisCofins;
     private javax.swing.JPanel painelPrincipal;
     private javax.swing.JPanel painelTributacao;
-    private javax.swing.JTextField txtAliquota;
+    private javax.swing.JDialog pesquisar;
+    private javax.swing.JPanel planoDeFundo1;
+    private javax.swing.JTable tabela;
     private javax.swing.JTextField txtCEST;
     private javax.swing.JTextField txtCESTdescricao;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCodigo10;
-    private javax.swing.JTextField txtCodigo13;
-    private javax.swing.JTextField txtCodigo9;
     private javax.swing.JFormattedTextField txtCusto;
     private javax.swing.JTextField txtEAN;
     private javax.swing.JComboBox<String> txtGrupo;
     private javax.swing.JTextField txtNCM;
     private javax.swing.JTextField txtNCMdescricao;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtPesquisa;
     private javax.swing.JFormattedTextField txtPreco;
     private javax.swing.JCheckBox txtServico;
-    private javax.swing.JComboBox<String> txtTipoTributacao;
-    private javax.swing.JComboBox<String> txtTipoTributacao1;
+    private javax.swing.JTextField txtTributacao;
+    private javax.swing.JTextField txtTributacao2;
     private javax.swing.JComboBox<String> txtUN;
     // End of variables declaration//GEN-END:variables
 }

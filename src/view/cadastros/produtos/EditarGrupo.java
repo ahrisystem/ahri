@@ -6,12 +6,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.cadastros.produtos.GrupoModel;
 
-public class NovoGrupo extends javax.swing.JFrame {
+public class EditarGrupo extends javax.swing.JFrame {
     GrupoController pc = new GrupoController();
-    private static final NovoGrupo INSTANCIA = new NovoGrupo();
+    private static final EditarGrupo INSTANCIA = new EditarGrupo();
     
     
-    public static NovoGrupo getInstancia() {
+    public static EditarGrupo getInstancia() {
         return INSTANCIA;
     }
     
@@ -19,9 +19,13 @@ public class NovoGrupo extends javax.swing.JFrame {
         lblTítulo.setText(titulo);
     }
 
-    private NovoGrupo() {
+    private EditarGrupo() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+    
+    public void alteraTitulo(String titulo){
+        
     }
     
     public void limpaCampos(){
@@ -31,7 +35,6 @@ public class NovoGrupo extends javax.swing.JFrame {
         txtCEST.setText("");
         sldTipo.setValue(0);
         cbxServico.setSelected(false);
-        txtCodigo.requestFocus();
     }
     
     public void preenchePai(){
@@ -39,6 +42,23 @@ public class NovoGrupo extends javax.swing.JFrame {
         DefaultComboBoxModel defaultComboBox = new DefaultComboBoxModel(lc.listaPaiGrupos().toArray());
         txtPai.setModel(defaultComboBox);
     }
+    
+    public void puxarDados(int cod){
+        GrupoModel em = new GrupoModel();
+        pc.puxarDados(em, cod);
+        txtCodigo.setText(Integer.toString(em.getCod()));
+        cbxServico.setSelected(em.isServico());
+        txtNome.setText(em.getNome());
+        sldTipo.setValue(em.getTipo());
+        if (sldTipo.getValue()==0) {
+            txtPai.setEnabled(false);
+        } else {
+            txtPai.setEnabled(true);
+        }
+        txtNCM.setText(em.getNcm());
+        txtCEST.setText(em.getCest());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -96,6 +116,7 @@ public class NovoGrupo extends javax.swing.JFrame {
         lblSubGrupo.setText("Subgrupo");
         painelPrincipal.add(lblSubGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 70, 20));
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCodigo.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
@@ -131,7 +152,7 @@ public class NovoGrupo extends javax.swing.JFrame {
         painelPrincipal.add(txtPai, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 580, 20));
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnSair.setText("Sair");
+        btnSair.setText("Cancelar");
         btnSair.setFocusable(false);
         btnSair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -146,7 +167,7 @@ public class NovoGrupo extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, 80, 40));
+        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, 120, 40));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -164,7 +185,7 @@ public class NovoGrupo extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 260, 80, 40));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 260, 110, 40));
 
         painelAbas.setFont(new java.awt.Font("Century Gothic", 1, 11)); // NOI18N
 
@@ -286,7 +307,6 @@ public class NovoGrupo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Preencha o nome!");
         } else {
             GrupoModel pm = new GrupoModel();
-            pm.setCod(Integer.parseInt(txtCodigo.getText()));
             if (sldTipo.getValue()==0) {
                 pm.setPai(pm.getCod());
             } else {
@@ -298,8 +318,9 @@ public class NovoGrupo extends javax.swing.JFrame {
             pm.setInativo(false);
             pm.setNcm(txtNCM.getText());
             pm.setCest(txtCEST.getText());
-            pc.cadastraGrupo(pm);
+            pc.alterarGrupo(pm,Integer.parseInt(txtCodigo.getText()));
             limpaCampos();
+            this.dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -390,18 +411,18 @@ public class NovoGrupo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarGrupo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoGrupo().setVisible(true);
+                new EditarGrupo().setVisible(true);
             }
         });
     }

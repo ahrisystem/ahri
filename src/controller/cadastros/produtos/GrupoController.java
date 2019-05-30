@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.cadastros.produtos.GrupoModel;
-import model.cadastros.produtos.ProdutoModel;
 
 public class GrupoController {
 
@@ -21,14 +20,16 @@ public class GrupoController {
     }
 
     public void cadastraGrupo(GrupoModel pModel) {
-        String sql = "INSERT INTO public.grupo(cod, tipo, pai, nome, ncm) VALUES (?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO public.grupo(cod,servico,tipo,pai,nome,ncm,cest) VALUES (?,?,?,?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, pModel.getCod());
-            pstmt.setInt(2, pModel.getTipo());
-            pstmt.setInt(3, pModel.getPai());
-            pstmt.setString(4, pModel.getNome());
-            pstmt.setString(5, pModel.getNcm());
+            pstmt.setBoolean(2, pModel.isServico());
+            pstmt.setInt(3, pModel.getTipo());
+            pstmt.setInt(4, pModel.getPai());
+            pstmt.setString(5, pModel.getNome());
+            pstmt.setString(6, pModel.getNcm());
+            pstmt.setString(7, pModel.getCest());
             pstmt.execute();
             pstmt.close();
             JOptionPane.showMessageDialog(null, "Grupo "+pModel.getNome()+" salvo com sucesso!");
@@ -54,7 +55,47 @@ public class GrupoController {
             }
             stmt.close();
         } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao listar grupos!\n" + s.getMessage());
+        }
+        return grupos;
+    }
+    //Usado para cadastro de produtos
+    public List<String> listaNomeGrupos() {
+        List<String> grupos = new ArrayList<>();
+        String sql = "SELECT cod,nome from grupo order by nome;";
+        String dado;
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                dado = rs.getString("nome");
+                dado = dado + " - ";
+                dado = dado + rs.getInt("cod");
+                grupos.add(dado);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar nomes de grupos!\n" + s.getMessage());
+        }
+        return grupos;
+    }
+    
+    public List<String> listaPaiGrupos() {
+        List<String> grupos = new ArrayList<>();
+        String sql = "SELECT cod,nome from grupo where tipo=0 order by nome;";
+        String dado;
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                dado = rs.getString("nome");
+                dado = dado + " - ";
+                dado = dado + rs.getInt("cod");
+                grupos.add(dado);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar grupos 'Pai'!\n" + s.getMessage());
         }
         return grupos;
     }
@@ -74,7 +115,7 @@ public class GrupoController {
             }
             stmt.close();
         } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao listar grupos excluídos!\n" + s.getMessage());
         }
         return grupos;
     }
@@ -86,7 +127,11 @@ public class GrupoController {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            cod = cod + Integer.parseInt(rs.getString("max"));
+            if (rs.getString("max").isEmpty()) {
+                cod = 1;
+            } else {
+                cod = cod + Integer.parseInt(rs.getString("max"));
+            }
             stmt.close();
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
@@ -111,14 +156,15 @@ public class GrupoController {
         
     }
     public void alterarGrupo(GrupoModel pModel, int cod) {
-        String sql = "UPDATE public.grupo SET cod=?,tipo=?,pai=?,nome=?,ncm=? WHERE WHERE cod = "+cod+";";
+        String sql = "UPDATE public.grupo SET servico=?,tipo=?,pai=?,nome=?,ncm=?,cest=? WHERE cod = "+cod+";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setInt(1, pModel.getCod());
+            pstmt.setBoolean(1, pModel.isServico());
             pstmt.setInt(2, pModel.getTipo());
             pstmt.setInt(3, pModel.getPai());
             pstmt.setString(4, pModel.getNome());
             pstmt.setString(5, pModel.getNcm());
+            pstmt.setString(6, pModel.getCest());
             pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
+import model.fiscal.TributacaoModel;
 
 public class PesquisarController {
 
@@ -20,6 +21,7 @@ public class PesquisarController {
         this.conexao = new connection().obterConexao("Função pesquisar.");
     }
 
+    //Listagem
     public List<EntidadeModel> listaClientes(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
         String sql = "SELECT cod,nome,cnpj FROM entidade where cliente=1 and nome LIKE '%" + nome + "%';";
@@ -77,6 +79,27 @@ public class PesquisarController {
         }
         return produtos;
     }
+    public List<TributacaoModel> listaTributacao(String nome) {
+        List<TributacaoModel> tributacoes = new ArrayList<>();
+        String sql = "SELECT cod,descricao,servico FROM public.tributacao where descricao LIKE '%" + nome + "%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                TributacaoModel t = new TributacaoModel();
+                t.setCod(rs.getString("cod"));
+                t.setDescricao(rs.getString("nome"));
+                t.setServico(rs.getBoolean("servico"));
+                tributacoes.add(t);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar tributacoes!\n" + s.getMessage());
+        }
+        return tributacoes;
+    }
+    
+    //Busca
     public void buscarCliente(EntidadeModel model, String cod) {
         String sql = "select cod, nome, cnpj from entidade where cod = '" + cod + "';";
         try {
