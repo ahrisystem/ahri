@@ -2,16 +2,20 @@ package view.cadastros.produtos;
 
 import controller.cadastros.produtos.GrupoController;
 import controller.cadastros.produtos.ProdutoController;
-import controller.fiscal.TributacaoController;
+import controller.funcoes.PesquisarController;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import model.cadastros.entidades.EntidadeModel;
+import javax.swing.table.DefaultTableModel;
 import model.cadastros.produtos.ProdutoModel;
+import model.fiscal.TributacaoModel;
 
 public class NovoProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
-    TributacaoController tc = new TributacaoController();
+    PesquisarController pec = new PesquisarController();
+    String pesquisaAtual;
+    
     private static final NovoProduto INSTANCIA = new NovoProduto();
     
     
@@ -44,22 +48,30 @@ public class NovoProduto extends javax.swing.JFrame {
         txtGrupo.setModel(defaultComboBox);
     }
     
+    public void listarTributacoes() {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (TributacaoModel e : pec.listaTributacao(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                e.getCod(),
+                e.getDescricao()});
+        }
+    }
     public void buscarTributacao() {
         if (txtTributacao.getText().matches("[0-9]+")) {
-            EntidadeModel em = new EntidadeModel();
-            tc.buscarCliente(em, txtTributacao.getText());
-            txtTributacao.setText(Integer.toString(em.getCod()));
-            txtTributacao2.setText(em.getNome());
-            txtPlaca.requestFocus();
+            TributacaoModel em = new TributacaoModel();
+            pec.buscarTributacao(em, txtTributacao.getText());
+            txtTributacao.setText(em.getCod());
+            txtTributacao2.setText(em.getDescricao());
             txtTributacao2.setEnabled(false);
         } else {
             if (txtTributacao.getText().isEmpty()) {
                 txtTributacao2.setText("");
             }
             pesquisar.setVisible(true);
-            pesquisaAtual = "clientes";
-            lblTituloPesquisa.setText("Clientes");
-            listarClientes();
+            pesquisaAtual = "tributacoes";
+            lblTituloPesquisa.setText("Tributações");
+            listarTributacoes();
             txtPesquisa.setText(txtTributacao.getText());
             pesquisar.setLocation(this.getX(), this.getY());
             pesquisar.setSize(this.getSize());
@@ -587,7 +599,7 @@ public class NovoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNCMActionPerformed
 
     private void txtTributacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTributacaoActionPerformed
-        
+        buscarTributacao();
     }//GEN-LAST:event_txtTributacaoActionPerformed
 
     private void txtTributacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTributacaoKeyReleased
@@ -603,14 +615,8 @@ public class NovoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
-            listarClientes();
-        }
-        if (pesquisaAtual.equalsIgnoreCase("placa")) {
-            listarPlacas();
-        }
-        if (pesquisaAtual.equalsIgnoreCase("produtos")) {
-            listarProdutos();
+        if (pesquisaAtual.equalsIgnoreCase("tributacoes")) {
+            listarTributacoes();
         }
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             pesquisar.setVisible(false);
@@ -624,37 +630,13 @@ public class NovoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaKeyReleased
 
     private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
-        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
+        if (pesquisaAtual.equalsIgnoreCase("tributacoes")) {
             if (tabela.getSelectedRow() < 0) {
                 JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!");
             } else {
-                txtCliente.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-                txtCliente2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                txtTributacao.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtTributacao2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
                 pesquisar.setVisible(false);
-                txtPlaca.requestFocus();
-            }
-        }
-        if (pesquisaAtual.equalsIgnoreCase("placa")) {
-            if (tabela.getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(null, "Nenhuma placa selecionada!");
-            } else {
-                txtPlaca.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-                txtPlaca2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-                pesquisar.setVisible(false);
-                txtProduto.requestFocus();
-            }
-        }
-        if (pesquisaAtual.equalsIgnoreCase("produtos")) {
-            if (tabela.getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(null, "Nenhum produto selecionado!");
-            } else {
-                txtProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-                txtDescricaoProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-                txtValorUnitarioProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
-                txtValorDescontoProduto.setText("0,00");
-                txtQuantidadeProduto.setText("0");
-                pesquisar.setVisible(false);
-                txtValorUnitarioProduto.requestFocus();
             }
         }
     }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased

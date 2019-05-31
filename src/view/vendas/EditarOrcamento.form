@@ -285,7 +285,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="lblTitulo12" min="-2" pref="100" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtValorBruto" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="txtTotalBruto" min="-2" pref="107" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtTotalDescontos" min="-2" pref="107" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -368,7 +368,7 @@
                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtValorBruto" alignment="1" pref="40" max="32767" attributes="0"/>
+                              <Component id="txtTotalBruto" alignment="1" pref="40" max="32767" attributes="0"/>
                               <Component id="txtTotalDescontos" alignment="1" max="32767" attributes="0"/>
                               <Component id="txtTotal" alignment="1" max="32767" attributes="0"/>
                               <Component id="lblTitulo12" alignment="0" max="32767" attributes="0"/>
@@ -828,7 +828,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalDescontosActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtValorBruto">
+        <Component class="javax.swing.JFormattedTextField" name="txtTotalBruto">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">

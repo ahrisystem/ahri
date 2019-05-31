@@ -1,12 +1,14 @@
 package view.fiscal;
 
 import controller.cadastros.produtos.ProdutoController;
+import controller.fiscal.TributacaoController;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.cadastros.produtos.ProdutoModel;
+import model.fiscal.TributacaoModel;
 
 public class NovaTributacao extends javax.swing.JFrame {
-    ProdutoController pc = new ProdutoController();
+    TributacaoController tc = new TributacaoController();
     private static final NovaTributacao INSTANCIA = new NovaTributacao();
     
     
@@ -363,9 +365,9 @@ public class NovaTributacao extends javax.swing.JFrame {
         if (txtNome.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Preencha o nome!");
         } else {
-            ProdutoModel pm = new ProdutoModel();
-            pm.setCod(Integer.parseInt(txtCodigo.getText()));
-            pc.cadastraProduto(pm);
+            TributacaoModel t = new TributacaoModel();
+            t.setCod(txtCodigo.getText());
+            tc.cadastra(t);
             limpaCampos();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -384,13 +386,13 @@ public class NovaTributacao extends javax.swing.JFrame {
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         if (txtCodigo.getText().equalsIgnoreCase("")) {
-            txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
+            txtCodigo.setText(Integer.toString(tc.pegaCodigo()));
         }
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void txtCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFocusLost
         if (txtCodigo.getText().equalsIgnoreCase("")) {
-            txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
+            txtCodigo.setText(Integer.toString(tc.pegaCodigo()));
         }
     }//GEN-LAST:event_txtCodigoFocusLost
 

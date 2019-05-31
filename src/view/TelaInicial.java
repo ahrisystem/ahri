@@ -23,6 +23,7 @@ import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
 import view.pdv.PDV;
+import view.servicos.OrdemdeServico;
 import view.vendas.Orcamentos;
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -144,7 +145,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao2.setText("Arquivo XML");
             opcao3.setText("Orçamentos");
             opcao4.setText("Recibo");
-            opcao5.setText("");
+            opcao5.setText("O. de serviço");
             opcao6.setText("");
             opcao7.setText("");
             opcao8.setText("");
@@ -1095,6 +1096,12 @@ public class TelaInicial extends javax.swing.JFrame {
             Backup b = Backup.getInstancia();
             b.puxarDados();
             b.setVisible(true);
+        }
+        if (vendas) {
+            OrdemdeServico os = OrdemdeServico.getInstancia();
+            painelPrincipal.add("Ordem de serviço", os);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
     }//GEN-LAST:event_opcao5MouseReleased
 

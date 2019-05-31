@@ -1,5 +1,6 @@
-package view.vendas;
+package view.servicos;
 
+import view.vendas.*;
 import view.cadastros.usuarios.*;
 import controller.vendas.VendasController;
 import funcoes.GerarOrçamentoPDF;
@@ -7,16 +8,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.vendas.VendasModel;
 
-public class Orcamentos extends javax.swing.JPanel {
-    private static final Orcamentos INSTANCIA = new Orcamentos();
+public class OrdemdeServico extends javax.swing.JPanel {
+    private static final OrdemdeServico INSTANCIA = new OrdemdeServico();
     VendasController ec = new VendasController();
     GerarOrçamentoPDF go = new GerarOrçamentoPDF();
     
-    public static Orcamentos getInstancia() {
+    public static OrdemdeServico getInstancia() {
         return INSTANCIA;
     }
     
-    public Orcamentos() {
+    public OrdemdeServico() {
         initComponents();
         listar();
     }
@@ -58,7 +59,6 @@ public class Orcamentos extends javax.swing.JPanel {
         btnSelecionarPesquisa = new javax.swing.JLabel();
         jTextArea1 = new javax.swing.JTextArea();
         txtStatus = new javax.swing.JComboBox<>();
-        lblCodOrcamento = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -67,19 +67,19 @@ public class Orcamentos extends javax.swing.JPanel {
         btnCancelar = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         btnGerarPDF = new javax.swing.JLabel();
-        btnAlterarStatus = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JComboBox<>();
+        btnAlterarStatus = new javax.swing.JLabel();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
 
         lblTituloAlterarStatus.setBackground(new java.awt.Color(153, 153, 153));
         lblTituloAlterarStatus.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblTituloAlterarStatus.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTituloAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloAlterarStatus.setText("Alterar status do orçamento Nº ");
         lblTituloAlterarStatus.setOpaque(true);
 
@@ -109,37 +109,25 @@ public class Orcamentos extends javax.swing.JPanel {
         txtStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Emitido", "Finalizado", "Cancelado" }));
 
-        lblCodOrcamento.setBackground(new java.awt.Color(153, 153, 153));
-        lblCodOrcamento.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        lblCodOrcamento.setForeground(new java.awt.Color(255, 255, 255));
-        lblCodOrcamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCodOrcamento.setText("0");
-        lblCodOrcamento.setOpaque(true);
-
         javax.swing.GroupLayout planoDeFundo1Layout = new javax.swing.GroupLayout(planoDeFundo1);
         planoDeFundo1.setLayout(planoDeFundo1Layout);
         planoDeFundo1Layout.setHorizontalGroup(
             planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(planoDeFundo1Layout.createSequentialGroup()
-                .addComponent(lblTituloAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCodOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(planoDeFundo1Layout.createSequentialGroup()
+            .addComponent(lblTituloAlterarStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, planoDeFundo1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextArea1)
-                    .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, 431, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, planoDeFundo1Layout.createSequentialGroup()
+                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         planoDeFundo1Layout.setVerticalGroup(
             planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(planoDeFundo1Layout.createSequentialGroup()
-                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblTituloAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,7 +141,7 @@ public class Orcamentos extends javax.swing.JPanel {
         alterarStatus.getContentPane().setLayout(alterarStatusLayout);
         alterarStatusLayout.setHorizontalGroup(
             alterarStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(planoDeFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(planoDeFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         alterarStatusLayout.setVerticalGroup(
             alterarStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +175,7 @@ public class Orcamentos extends javax.swing.JPanel {
         btnNovo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnNovo.setForeground(new java.awt.Color(255, 255, 255));
         btnNovo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNovo.setText("Novo");
+        btnNovo.setText("Nova");
         btnNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNovo.setOpaque(true);
         btnNovo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,19 +228,6 @@ public class Orcamentos extends javax.swing.JPanel {
             }
         });
 
-        btnAlterarStatus.setBackground(new java.awt.Color(102, 102, 102));
-        btnAlterarStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnAlterarStatus.setForeground(new java.awt.Color(255, 255, 255));
-        btnAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAlterarStatus.setText("Alterar status");
-        btnAlterarStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAlterarStatus.setOpaque(true);
-        btnAlterarStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAlterarStatusMouseReleased(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -261,11 +236,10 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-                    .addComponent(btnAlterarStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE))
+                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -279,8 +253,6 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
                 .addContainerGap())
@@ -335,12 +307,25 @@ public class Orcamentos extends javax.swing.JPanel {
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("ORÇAMENTOS");
+        lblTitulo.setText("ORDENS DE SERVIÇO");
         lblTitulo.setOpaque(true);
 
         txtFiltro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nome", "CNPJ" }));
         txtFiltro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+
+        btnAlterarStatus.setBackground(new java.awt.Color(102, 102, 102));
+        btnAlterarStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnAlterarStatus.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAlterarStatus.setText("Imprimir formulário em branco");
+        btnAlterarStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAlterarStatus.setOpaque(true);
+        btnAlterarStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAlterarStatusMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -357,7 +342,8 @@ public class Orcamentos extends javax.swing.JPanel {
                         .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+                    .addComponent(btnAlterarStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -372,7 +358,10 @@ public class Orcamentos extends javax.swing.JPanel {
                             .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtFiltro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -390,7 +379,6 @@ public class Orcamentos extends javax.swing.JPanel {
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
         NovoOrcamento novo = NovoOrcamento.getInstancia();
-        novo.usuario = lblUsuario.getText();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
@@ -465,23 +453,20 @@ public class Orcamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGerarPDFMouseReleased
 
     private void btnAlterarStatusMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlterarStatusMouseReleased
-        if (tabela.getSelectedRow()<0) {
-            JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
-        } else {
-            txtStatus.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),1));
-            alterarStatus.setVisible(true);
-            alterarStatus.setLocationRelativeTo(null);
-            alterarStatus.setLocation(alterarStatus.getX()-50, alterarStatus.getY()-200);
-            alterarStatus.setTitle("Alterar status do orçamento");
-            lblCodOrcamento.setText(tabela.getValueAt(tabela.getSelectedRow(),0).toString());
-            alterarStatus.setSize(500, 240);
-        }
+        txtStatus.setSelectedItem(tabela.getValueAt(tabela.getSelectedRow(),1));
+        alterarStatus.setVisible(true);
+        alterarStatus.setLocationRelativeTo(null);
+        alterarStatus.setLocation(alterarStatus.getX()-50, alterarStatus.getY()-200);
+        alterarStatus.setTitle("Alterar status do orçamento");
+        lblTituloAlterarStatus.setText("Alterar status do orçamento Nº "+tabela.getValueAt(tabela.getSelectedRow(),0));
+        alterarStatus.setSize(500, 250);
     }//GEN-LAST:event_btnAlterarStatusMouseReleased
 
     private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
-        ec.alteraStatusOrcamento(txtStatus.getSelectedIndex(), Integer.parseInt(lblCodOrcamento.getText()));
-        JOptionPane.showMessageDialog(null, "Status do orçamento alterado com sucesso!");
-        alterarStatus.setVisible(false);
+        if (txtStatus.getSelectedIndex()==0) {
+            System.out.println(txtStatus.getSelectedIndex());
+        }
+        ec.alteraStatusOrcamento(WIDTH, WIDTH);
     }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
 
 
@@ -498,7 +483,6 @@ public class Orcamentos extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel lblCodOrcamento;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloAlterarStatus;
     private javax.swing.JLabel lblUsuario;

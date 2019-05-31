@@ -1,13 +1,13 @@
 package view.fiscal;
 
-import view.cadastros.produtos.*;
-import controller.cadastros.produtos.ProdutoController;
+import controller.fiscal.TributacaoController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.cadastros.produtos.ProdutoModel;
+import model.fiscal.TributacaoModel;
 
 public class Tributacoes extends javax.swing.JPanel {
     private static final Tributacoes INSTANCIA = new Tributacoes();
+    TributacaoController tc = new TributacaoController();
             
     public static Tributacoes getInstancia() {
         return INSTANCIA;
@@ -18,19 +18,13 @@ public class Tributacoes extends javax.swing.JPanel {
         listar();
     }
     
-    ProdutoController prodc = new ProdutoController();
-    
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (ProdutoModel p : prodc.listaProdutos(txtPesquisa.getText())) {
+        for (TributacaoModel p : tc.listaTributacao(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 p.getCod(),
-                p.getCodigoBarras(),
-                p.getNome(),
-                p.getUnidadeMedida(),
-                p.getPreco(),
-                p.getGrupo(),
+                p.getDescricao()
             });
         }
     }
@@ -42,7 +36,7 @@ public class Tributacoes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         txtPesquisa = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        painelOpcoes = new javax.swing.JPanel();
         btnNovo = new javax.swing.JLabel();
         btnEditar = new javax.swing.JLabel();
         btnExcluir = new javax.swing.JLabel();
@@ -56,21 +50,14 @@ public class Tributacoes extends javax.swing.JPanel {
         });
 
         fundo.setBackground(new java.awt.Color(153, 153, 153));
-        fundo.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentHidden(java.awt.event.ComponentEvent evt) {
-                fundoComponentHidden(evt);
-            }
-        });
 
         tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Código", "Nome"
+                "Código", "Descrição da tributação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -93,9 +80,7 @@ public class Tributacoes extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(2).setPreferredWidth(160);
-            tabela.getColumnModel().getColumn(3).setPreferredWidth(40);
-            tabela.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tabela.getColumnModel().getColumn(0).setMaxWidth(100);
         }
 
         txtPesquisa.setBackground(new java.awt.Color(204, 204, 204));
@@ -107,7 +92,7 @@ public class Tributacoes extends javax.swing.JPanel {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(102, 102, 102));
+        painelOpcoes.setBackground(new java.awt.Color(102, 102, 102));
 
         btnNovo.setBackground(new java.awt.Color(0, 102, 204));
         btnNovo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -148,21 +133,21 @@ public class Tributacoes extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelOpcoesLayout = new javax.swing.GroupLayout(painelOpcoes);
+        painelOpcoes.setLayout(painelOpcoesLayout);
+        painelOpcoesLayout.setHorizontalGroup(
+            painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelOpcoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        painelOpcoesLayout.setVerticalGroup(
+            painelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelOpcoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -197,14 +182,14 @@ public class Tributacoes extends javax.swing.JPanel {
             fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fundoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(fundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(fundoLayout.createSequentialGroup()
-                        .addComponent(txtPesquisa)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1)))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         fundoLayout.setVerticalGroup(
@@ -220,7 +205,7 @@ public class Tributacoes extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
                     .addGroup(fundoLayout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(painelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -243,13 +228,7 @@ public class Tributacoes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        if (tabela.getSelectedRow()<0) {
-            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
-        } else {
-            NovoProduto novo = NovoProduto.getInstancia();
-            novo.setVisible(true);
-            novo.alterarTitulo("Editando o produto "+tabela.getValueAt(tabela.getSelectedRow(), 2));
-        }
+        
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
@@ -258,7 +237,7 @@ public class Tributacoes extends javax.swing.JPanel {
         } else {
             if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o produto?",
                 "Excluir/Inativar?", 2) == 0) {
-                prodc.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                tc.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
@@ -276,10 +255,6 @@ public class Tributacoes extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
-    private void fundoComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_fundoComponentHidden
-        System.out.println("passou");
-    }//GEN-LAST:event_fundoComponentHidden
-
     private void btnAtualizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarMouseReleased
         listar();
     }//GEN-LAST:event_btnAtualizarMouseReleased
@@ -291,9 +266,9 @@ public class Tributacoes extends javax.swing.JPanel {
     private javax.swing.JLabel btnExcluir;
     private javax.swing.JLabel btnNovo;
     private javax.swing.JPanel fundo;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JPanel painelOpcoes;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

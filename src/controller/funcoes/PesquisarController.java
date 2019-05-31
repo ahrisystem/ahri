@@ -145,4 +145,18 @@ public class PesquisarController {
             JOptionPane.showMessageDialog(null, "Erro ao buscar produto.\n" + e.getMessage());
         }
     }
+    public void buscarTributacao(TributacaoModel model, String cod) {
+        String sql = "select cod, descricao from tributacao where cod = '" + cod + "';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                model.setCod(rs.getString("cod"));
+                model.setDescricao(rs.getString("nome"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar tributação.\n" + e.getMessage());
+        }
+    }
 }

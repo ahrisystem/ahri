@@ -45,12 +45,30 @@ public class TributacaoController {
 
     public List<TributacaoModel> listaTributacao(String nome) {
         List<TributacaoModel> tributacoes = new ArrayList<>();
-        String sql = "SELECT cod,descricao,tributacao,servico,tributacao_fora,cst,cst_origem,cst_tributacao,csosn,csosn_origem,csosn_tributacao,reducao_base,cst_iss,aliquota_iss,tributacao_efetivo FROM public.tributacao where descricao LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,descricao FROM public.tributacao where descricao LIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 TributacaoModel t = new TributacaoModel();
+                t.setCod(rs.getString("cod"));
+                t.setDescricao(rs.getString("descricao"));
+                tributacoes.add(t);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar tributacoes!\n" + s.getMessage());
+        }
+        return tributacoes;
+    }
+    public void puxarDados(TributacaoModel t, String cod) {
+        String sql = "SELECT cod,descricao,tributacao,servico,tributacao_fora,cst,cst_origem,cst_tributacao,"
+                + "csosn,csosn_origem,csosn_tributacao,reducao_base,cst_iss,aliquota_iss,tributacao_efetivo "
+                + "FROM public.tributacao where cod = '" + cod + "';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
                 t.setCod(rs.getString("cod"));
                 t.setDescricao(rs.getString("nome"));
                 t.setTributacao(rs.getDouble("tributacao"));
@@ -59,13 +77,11 @@ public class TributacaoController {
                 t.setCst(rs.getString("cst"));
                 t.setCst(rs.getString("cst_origem"));
                 t.setCst(rs.getString("cst_tributacao"));
-                tributacoes.add(t);
             }
             stmt.close();
         } catch (SQLException s) {
             JOptionPane.showMessageDialog(null, "Falha ao listar tributacoes!\n" + s.getMessage());
         }
-        return tributacoes;
     }
 
 
