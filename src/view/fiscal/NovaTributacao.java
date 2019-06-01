@@ -211,7 +211,7 @@ public class NovaTributacao extends javax.swing.JFrame {
 
         txtRedBase.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtRedBase.setText("0");
-        txtRedBase.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
+        txtRedBase.setToolTipText("");
         txtRedBase.setPreferredSize(new java.awt.Dimension(200, 20));
         txtRedBase.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -227,7 +227,7 @@ public class NovaTributacao extends javax.swing.JFrame {
 
         txtAliquota.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtAliquota.setText("0");
-        txtAliquota.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
+        txtAliquota.setToolTipText("");
         txtAliquota.setPreferredSize(new java.awt.Dimension(200, 20));
         txtAliquota.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -243,7 +243,7 @@ public class NovaTributacao extends javax.swing.JFrame {
 
         txtAliquotaFora.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtAliquotaFora.setText("0");
-        txtAliquotaFora.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
+        txtAliquotaFora.setToolTipText("");
         txtAliquotaFora.setPreferredSize(new java.awt.Dimension(200, 20));
         txtAliquotaFora.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -259,7 +259,7 @@ public class NovaTributacao extends javax.swing.JFrame {
 
         txtAliquotaEfetiva.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtAliquotaEfetiva.setText("0");
-        txtAliquotaEfetiva.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
+        txtAliquotaEfetiva.setToolTipText("");
         txtAliquotaEfetiva.setPreferredSize(new java.awt.Dimension(200, 20));
         txtAliquotaEfetiva.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {

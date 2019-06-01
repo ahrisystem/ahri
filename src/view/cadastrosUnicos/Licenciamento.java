@@ -19,6 +19,7 @@ public class Licenciamento extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         carregarLicenciamento();
     }
+    
     public void carregarLicenciamento(){
         EmpresaModel em = new EmpresaModel();
         ec.puxarDados(em);
@@ -52,22 +53,22 @@ public class Licenciamento extends javax.swing.JFrame {
         cadastroEmpresa.setMaximumSize(new java.awt.Dimension(670, 320));
         cadastroEmpresa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblNomeEmpresa.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblNomeEmpresa.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblNomeEmpresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNomeEmpresa.setText("...");
         cadastroEmpresa.add(lblNomeEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 510, 30));
 
-        lblCNPJEmpresa1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblCNPJEmpresa1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCNPJEmpresa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCNPJEmpresa1.setText("...");
         cadastroEmpresa.add(lblCNPJEmpresa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 510, 30));
 
-        lblTipoLicenca.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblTipoLicenca.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblTipoLicenca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTipoLicenca.setText("...");
         cadastroEmpresa.add(lblTipoLicenca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 510, 30));
 
-        lblDuracaoLicenca.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblDuracaoLicenca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblDuracaoLicenca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDuracaoLicenca.setText("...");
         cadastroEmpresa.add(lblDuracaoLicenca, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 510, 30));

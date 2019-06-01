@@ -13,12 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.entidades.Fornecedores;
+import view.cadastros.financeiro.FormasdePagamento;
 import view.cadastros.placa.Placas;
 import view.cadastros.produtos.Grupos;
 import view.cadastros.produtos.Produtos;
 import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
+import view.cadastrosUnicos.Licenciamento;
 import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
@@ -97,7 +99,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao2.setText("Clientes");
             opcao3.setText("Fornecedores");
             opcao4.setText("Grupos");
-            opcao5.setText("Formas de P.");
+            opcao5.setText("Perfil Usuário");
             opcao6.setText("Usuários");
             opcao7.setText("Placas");
             opcao8.setText("Tributações");
@@ -119,10 +121,10 @@ public class TelaInicial extends javax.swing.JFrame {
         if (financeiro) {
             opcao1.setText("Caixa");
             opcao2.setText("Devedores");
-            opcao3.setText("Dinheiro");
+            opcao3.setText("Formas de p.");
             opcao4.setText("A pagar");
             opcao5.setText("A receber");
-            opcao6.setText("Movimentação");
+            opcao6.setText("");
             opcao7.setText("");
             opcao8.setText("");
             opcao9.setText("");
@@ -875,6 +877,12 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
+        if (financeiro) {
+            FormasdePagamento fm = FormasdePagamento.getInstancia();
+            painelPrincipal.add("Formas de pagamento", fm);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
         if (ferramentas) {
             Contabilidade c = Contabilidade.getInstancia().getInstancia();
             c.setVisible(true);
@@ -1037,7 +1045,8 @@ public class TelaInicial extends javax.swing.JFrame {
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (ajuda) {
-            
+            Licenciamento licenca = Licenciamento.getInstancia();
+            licenca.setVisible(true);
         }
     }//GEN-LAST:event_opcao2MousePressed
 

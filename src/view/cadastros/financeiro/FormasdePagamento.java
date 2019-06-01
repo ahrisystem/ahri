@@ -1,15 +1,13 @@
 package view.cadastros.financeiro;
 
-import view.cadastros.produtos.*;
-import view.cadastros.entidades.*;
-import controller.cadastros.produtos.GrupoController;
+import controller.financeiro.FormapagamentoController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.cadastros.produtos.GrupoModel;
+import model.financeiro.FormapagamentoModel;
 
 public class FormasdePagamento extends javax.swing.JPanel {
     private static final FormasdePagamento INSTANCIA = new FormasdePagamento();
-    GrupoController ec = new GrupoController();
+    FormapagamentoController fc = new FormapagamentoController();
     
     public static FormasdePagamento getInstancia() {
         return INSTANCIA;
@@ -21,16 +19,14 @@ public class FormasdePagamento extends javax.swing.JPanel {
     }
     
     public void listar(){
-        //cod,tipo,pai,nome,ncm
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (GrupoModel p : ec.listaGrupos(txtPesquisa.getText())) {
+        for (FormapagamentoModel f : fc.listaFormas(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
-                p.getCod(),
-                p.getTipo(),
-                p.getPai(),
-                p.getNome(),
-                p.getNcm()
+                f.getCod(),
+                f.getNome(),
+                f.isParcela(),
+                f.isPermitefiado(),
             });
         }
     }
@@ -139,7 +135,7 @@ public class FormasdePagamento extends javax.swing.JPanel {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(190, Short.MAX_VALUE))
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
         btnAtualizar.setBackground(new java.awt.Color(255, 255, 255));
@@ -158,12 +154,10 @@ public class FormasdePagamento extends javax.swing.JPanel {
         tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Código", "Tipo", "Descrição", "Parcela?"
+                "Código", "Nome", "Parcela?", "Fiado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -186,7 +180,8 @@ public class FormasdePagamento extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(2).setMinWidth(200);
+            tabela.getColumnModel().getColumn(0).setMaxWidth(100);
+            tabela.getColumnModel().getColumn(1).setMinWidth(200);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -199,10 +194,10 @@ public class FormasdePagamento extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                        .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -235,8 +230,7 @@ public class FormasdePagamento extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
-        NovoGrupo novo = NovoGrupo.getInstancia();
-        novo.preenchePai();
+        NovaFormapagamento novo = NovaFormapagamento.getInstancia();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
@@ -245,7 +239,7 @@ public class FormasdePagamento extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            EditarCliente edit = EditarCliente.getInstancia();
+            EditarFormapagamento edit = EditarFormapagamento.getInstancia();
             edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             edit.setVisible(true);
             listar();
@@ -256,9 +250,9 @@ public class FormasdePagamento extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o grupo?",
+            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir a forma de pagamento?",
                 "Excluir/Inativar?", 2) == 0) {
-                ec.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                fc.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
