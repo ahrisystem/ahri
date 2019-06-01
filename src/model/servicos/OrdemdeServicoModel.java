@@ -1,11 +1,9 @@
-package model.vendas;
+package model.servicos;
 
 import java.util.Date;
 
-public class VendasModel {
-    
+public class OrdemdeServicoModel {
     private int cod;
-    private int tipo; //1- orcamento 2- saida 3- 
     private int status;
     private int cliente;
     private String nomecliente;
@@ -18,33 +16,7 @@ public class VendasModel {
     private Date criacao;
     private Date alteracao;
     private String usuario; //login do usuario que fez a operacao
-    private String obs;
-
-    public String getNomecliente() {
-        return nomecliente;
-    }
-
-    public void setNomecliente(String nomecliente) {
-        this.nomecliente = nomecliente;
-    }
-
-    public String getCnpjcliente() {
-        return cnpjcliente;
-    }
-
-    public void setCnpjcliente(String cnpjcliente) {
-        this.cnpjcliente = cnpjcliente;
-    }
-
-    public String getNomeplaca() {
-        return nomeplaca;
-    }
-
-    public void setNomeplaca(String nomeplaca) {
-        this.nomeplaca = nomeplaca;
-    }
-    
-    
+    private String obs = "";
 
     public int getCod() {
         return cod;
@@ -52,14 +24,6 @@ public class VendasModel {
 
     public void setCod(int cod) {
         this.cod = cod;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
     }
 
     public int getStatus() {
@@ -78,12 +42,36 @@ public class VendasModel {
         this.cliente = cliente;
     }
 
+    public String getNomecliente() {
+        return nomecliente;
+    }
+
+    public void setNomecliente(String nomecliente) {
+        this.nomecliente = nomecliente;
+    }
+
+    public String getCnpjcliente() {
+        return cnpjcliente;
+    }
+
+    public void setCnpjcliente(String cnpjcliente) {
+        this.cnpjcliente = cnpjcliente;
+    }
+
     public String getPlaca() {
         return placa;
     }
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    public String getNomeplaca() {
+        return nomeplaca;
+    }
+
+    public void setNomeplaca(String nomeplaca) {
+        this.nomeplaca = nomeplaca;
     }
 
     public Double getValorTotalBruto() {
@@ -141,5 +129,6 @@ public class VendasModel {
     public void setObs(String obs) {
         this.obs = obs;
     }
+    
     
 }

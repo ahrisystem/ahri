@@ -190,9 +190,8 @@ public class EditarOrcamento extends javax.swing.JFrame {
     ////////////////////////////////////////////////////////////////////////////
     public void puxarDados(int cod){
         VendasModel vm = new VendasModel();
-        VendasItensModel vim = new VendasItensModel();
         vc.puxarDadosOrcamento(vm, cod);
-        lblCod.setText("Nº "+vm.getCod());
+        lblCod.setText("Nº "+cod);
         //cliente
         txtCliente.setText(Integer.toString(vm.getCliente()));
         txtCliente2.setText(vm.getNomecliente());
@@ -202,7 +201,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         //Produtos
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
         modelo.setNumRows(0);
-        for (VendasItensModel e : vc.puxarDadosProdutosOrcamento(vm.getCod())) {
+        for (VendasItensModel e : vc.puxarDadosProdutosOrcamento(cod)) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getNome(),
@@ -825,17 +824,22 @@ public class EditarOrcamento extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Confirmar orçamento?",
+        if (JOptionPane.showConfirmDialog(null, "Confirma alteração?",
                 "OK?", opcao) == 0) {
             VendasModel vm = new VendasModel();
             VendasItensModel vim = new VendasItensModel();
-            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
             if (txtCliente.getText().equalsIgnoreCase("")) {
                 vm.setCliente(0);
             } else {
                 vm.setCliente(Integer.parseInt(txtCliente.getText()));
             }
+            if (txtCliente2.getText().equalsIgnoreCase("")) {
+                vm.setNomecliente("");
+            } else {
+                vm.setNomecliente(txtCliente2.getText());
+            }
             vm.setPlaca(txtPlaca.getText());
+            vm.setPlaca(txtPlaca2.getText());
             vm.setValorTotalBruto(Double.parseDouble(txtTotalBruto.getText().replace(",", ".")));
             vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
             vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));

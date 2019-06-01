@@ -34,6 +34,7 @@ public class EditarFornecedor extends javax.swing.JFrame {
         } else {
             txtCliente.setSelected(true);
         }
+        sldPessoa.setValue(em.getTipoPessoa());
         txtNome.setText(em.getNome());
         txtRazao.setText(em.getxNome());
         if (em.getTipoPessoa() == fisica) {
@@ -117,9 +118,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
         txtNro = new javax.swing.JTextField();
         txtComplemento = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
-        txtContato1 = new javax.swing.JFormattedTextField();
-        txtContato2 = new javax.swing.JFormattedTextField();
-        txtContato3 = new javax.swing.JFormattedTextField();
         txtEmail = new javax.swing.JTextField();
         txtIE = new javax.swing.JTextField();
         txtISUF = new javax.swing.JTextField();
@@ -127,6 +125,9 @@ public class EditarFornecedor extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        txtContato1 = new javax.swing.JFormattedTextField();
+        txtContato2 = new javax.swing.JFormattedTextField();
+        txtContato3 = new javax.swing.JFormattedTextField();
         lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -346,30 +347,6 @@ public class EditarFornecedor extends javax.swing.JFrame {
         txtBairro.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 220, 20));
 
-        try {
-            txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtContato1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 160, -1));
-
-        try {
-            txtContato2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtContato2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 160, -1));
-
-        try {
-            txtContato3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtContato3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        painelPrincipal.add(txtContato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 160, -1));
-
         txtEmail.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtEmail.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, 540, 20));
@@ -403,6 +380,33 @@ public class EditarFornecedor extends javax.swing.JFrame {
         painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, 80, 30));
         painelPrincipal.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 750, 10));
         painelPrincipal.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 750, 10));
+
+        try {
+            txtContato1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtContato1.setToolTipText("Telefone");
+        txtContato1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        painelPrincipal.add(txtContato1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 140, -1));
+
+        try {
+            txtContato2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtContato2.setToolTipText("Celular 1");
+        txtContato2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        painelPrincipal.add(txtContato2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, 140, -1));
+
+        try {
+            txtContato3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtContato3.setToolTipText("Celular 2");
+        txtContato3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        painelPrincipal.add(txtContato3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, 140, -1));
 
         jScrollPane.setViewportView(painelPrincipal);
 

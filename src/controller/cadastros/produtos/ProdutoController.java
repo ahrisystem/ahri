@@ -20,7 +20,7 @@ public class ProdutoController {
     }
 
     public void cadastraProduto(ProdutoModel pModel) {
-        String sql = "INSERT INTO public.produto(cod,servico, \"codigoBarras\", inativo, nome, grupo, \"unidadeMedida\",estoque, preco, custo, ncm, cest) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO public.produto(cod,servico,\"codigoBarras\",inativo,nome,grupo,\"unidadeMedida\",estoque,preco,custo,ncm,cest,tributacao,tributacaonome) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, pModel.getCod());
@@ -35,6 +35,8 @@ public class ProdutoController {
             pstmt.setDouble(10, pModel.getCusto());
             pstmt.setString(11, pModel.getNcm());
             pstmt.setString(12, pModel.getCest());
+            pstmt.setString(13, pModel.getTributacao());
+            pstmt.setString(14, pModel.getTributacaonome());
             pstmt.execute();
             pstmt.close();
             JOptionPane.showMessageDialog(null, "Produto "+pModel.getNome()+" salvo com sucesso!");
@@ -95,7 +97,11 @@ public class ProdutoController {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.next();
-            cod = cod + Integer.parseInt(rs.getString("max"));
+            if (rs.getString("max").isEmpty()) {
+                cod = 1;
+            } else {
+                cod = cod + Integer.parseInt(rs.getString("max"));
+            }
             stmt.close();
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
@@ -120,13 +126,15 @@ public class ProdutoController {
             pModel.setCusto(rs.getDouble("custo"));
             pModel.setNcm(rs.getString("ncm"));
             pModel.setCest(rs.getString("cest"));
+            pModel.setTributacao(rs.getString("tributacao"));
+            pModel.setTributacaonome(rs.getString("tributacaonome"));
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
         }
         
     }
     public void alterarProduto(ProdutoModel pModel, int cod) {
-        String sql = "UPDATE public.produto SET cod=?, servico=?, \"codigoBarras\"=?, inativo=?, nome=?, grupo=?, \"unidadeMedida\"=?, estoque=?, preco=?, custo=?, ncm=?, cest=? WHERE cod = "+cod+";";
+        String sql = "UPDATE public.produto SET cod=?, servico=?, \"codigoBarras\"=?, inativo=?, nome=?, grupo=?, \"unidadeMedida\"=?, estoque=?, preco=?, custo=?, ncm=?, cest=?, tributacao=?,tributacaonome=? WHERE cod = "+cod+";";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, pModel.getCod());
@@ -141,10 +149,12 @@ public class ProdutoController {
             pstmt.setDouble(10, pModel.getCusto());
             pstmt.setString(11, pModel.getNcm());
             pstmt.setString(12, pModel.getCest());
+            pstmt.setString(13, pModel.getCest());
+            pstmt.setString(14, pModel.getCest());
             pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao atualizar dados.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao alterar produto.\n" + e.getMessage());
         }
     }
 

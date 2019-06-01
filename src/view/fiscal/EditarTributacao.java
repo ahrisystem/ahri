@@ -5,20 +5,16 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import model.fiscal.TributacaoModel;
 
-public class NovaTributacao extends javax.swing.JFrame {
+public class EditarTributacao extends javax.swing.JFrame {
     TributacaoController tc = new TributacaoController();
-    private static final NovaTributacao INSTANCIA = new NovaTributacao();
+    private static final EditarTributacao INSTANCIA = new EditarTributacao();
     
     
-    public static NovaTributacao getInstancia() {
+    public static EditarTributacao getInstancia() {
         return INSTANCIA;
     }
     
-    public void alterarTitulo(String titulo){
-        lblLegenda.setText(titulo);
-    }
-
-    private NovaTributacao() {
+    private EditarTributacao() {
         initComponents();
         painelISSQN.setVisible(false);
         setLocationRelativeTo(null);
@@ -26,11 +22,30 @@ public class NovaTributacao extends javax.swing.JFrame {
     
     public void limpaCampos(){
         txtCodigo.setText("");
-        txtNome.setText("");
-        txtAliquota.setText("0");
-        txtRedBase.setText("0");
-        txtAliquotaFora.setText("0");
-        txtAliquotaEfetiva.setText("0");
+        txtDescricao.setText("");
+    }
+    public void puxarDados(String cod){
+        TributacaoModel t = new TributacaoModel();
+        tc.puxarDados(t, cod);
+        txtCodigo.setText(t.getCod());
+        txtDescricao.setText(t.getDescricao());
+        if (t.getTipo().equalsIgnoreCase("mercadoria")) {
+            painelICMS.setVisible(true);
+            painelCSTeCSOSN.setVisible(true);
+            painelISSQN.setVisible(false);
+            txtCstOrigem.setSelectedItem(t.getCst_origem());
+            txtCsosn.setSelectedItem(t.getCsosn());
+            txtRedBase.setText(Double.toString(t.getReducao_base()).replace(".", ","));
+            txtAliquota.setText(Double.toString(t.getAliquota()).replace(".", ","));
+            txtAliquotaFora.setText(Double.toString(t.getAliquota_fora()).replace(".", ","));
+            txtAliquotaEfetiva.setText(Double.toString(t.getAliquota_efetivo()).replace(".", ","));
+        } else {
+            painelICMS.setVisible(false);
+            painelCSTeCSOSN.setVisible(false);
+            painelISSQN.setVisible(true);
+            txtCstIssqn.setSelectedItem((t.getCst_iss()));
+            txtAliqIssqn.setText(Double.toString(t.getAliquota_iss()).replace(".", ","));
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,7 +58,7 @@ public class NovaTributacao extends javax.swing.JFrame {
         lblCodigo = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtNome = new javax.swing.JTextField();
+        txtDescricao = new javax.swing.JTextField();
         jrdMercadoria = new javax.swing.JRadioButton();
         jrdServico = new javax.swing.JRadioButton();
         painelAbas = new javax.swing.JTabbedPane();
@@ -80,7 +95,7 @@ public class NovaTributacao extends javax.swing.JFrame {
         lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTítulo.setText("Nova Tributacao");
+        lblTítulo.setText("Editando tributação");
         lblTítulo.setOpaque(true);
         getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 30));
 
@@ -107,14 +122,15 @@ public class NovaTributacao extends javax.swing.JFrame {
         lblNome.setText("Descrição");
         painelPrincipal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 80, 20));
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCodigo.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 140, 20));
 
-        txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 380, 20));
+        txtDescricao.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtDescricao.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 380, 20));
 
         buttonGroup1.add(jrdMercadoria);
         jrdMercadoria.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -307,7 +323,7 @@ public class NovaTributacao extends javax.swing.JFrame {
         painelPrincipal.add(painelAbas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 590, 310));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnSalvar.setText("Salvar");
+        btnSalvar.setText("Salvar alterações");
         btnSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnSalvarMouseEntered(evt);
@@ -329,12 +345,11 @@ public class NovaTributacao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (txtNome.getText().equalsIgnoreCase("")) {
+        if (txtDescricao.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Preencha a descrição!");
         } else {
             TributacaoModel t = new TributacaoModel();
-            t.setCod(txtCodigo.getText());
-            t.setDescricao(txtNome.getText());
+            t.setDescricao(txtDescricao.getText());
             if (jrdMercadoria.isSelected()) {
                 t.setTipo("mercadoria");
                 t.setCst_origem(txtCstOrigem.getSelectedItem().toString());
@@ -348,7 +363,7 @@ public class NovaTributacao extends javax.swing.JFrame {
                 t.setCst_iss(txtCstIssqn.getSelectedItem().toString());
                 t.setAliquota_iss(Double.parseDouble(txtAliqIssqn.getText().replace(",", ".")));
             }
-            tc.cadastra(t);
+            tc.alterar(t,txtCodigo.getText());
             limpaCampos();
             this.dispose();
         }
@@ -419,18 +434,18 @@ public class NovaTributacao extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovaTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovaTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovaTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovaTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarTributacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovaTributacao().setVisible(true);
+                new EditarTributacao().setVisible(true);
             }
         });
     }
@@ -468,7 +483,7 @@ public class NovaTributacao extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> txtCst;
     private javax.swing.JComboBox<String> txtCstIssqn;
     private javax.swing.JComboBox<String> txtCstOrigem;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtRedBase;
     // End of variables declaration//GEN-END:variables
 }

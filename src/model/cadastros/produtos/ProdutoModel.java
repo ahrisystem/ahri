@@ -1,7 +1,6 @@
 package model.cadastros.produtos;
 
 public class ProdutoModel {
-    private int editar;
     
     private int cod;
     private boolean servico;
@@ -15,13 +14,23 @@ public class ProdutoModel {
     private double custo;
     private String ncm;
     private String cest;
+    private String tributacao;
+    private String tributacaonome;
 
-    public int getEditar() {
-        return editar;
+    public String getTributacao() {
+        return tributacao;
     }
 
-    public void setEditar(int editar) {
-        this.editar = editar;
+    public void setTributacao(String tributacao) {
+        this.tributacao = tributacao;
+    }
+
+    public String getTributacaonome() {
+        return tributacaonome;
+    }
+
+    public void setTributacaonome(String tributacaonome) {
+        this.tributacaonome = tributacaonome;
     }
 
     public int getCod() {

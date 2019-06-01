@@ -81,15 +81,14 @@ public class PesquisarController {
     }
     public List<TributacaoModel> listaTributacao(String nome) {
         List<TributacaoModel> tributacoes = new ArrayList<>();
-        String sql = "SELECT cod,descricao,servico FROM public.tributacao where descricao LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,descricao FROM public.tributacao where descricao LIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 TributacaoModel t = new TributacaoModel();
                 t.setCod(rs.getString("cod"));
-                t.setDescricao(rs.getString("nome"));
-                t.setServico(rs.getBoolean("servico"));
+                t.setDescricao(rs.getString("descricao"));
                 tributacoes.add(t);
             }
             stmt.close();

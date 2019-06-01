@@ -27,6 +27,14 @@ public class EntidadeModel {
     private String ISUF; //Inscrição na SUFRAMA	
     private String email; //email do emitente
 
+    public void limparModel(){
+        this.setCNPJ("");
+        this.setCEP("");
+        this.setFone1("");
+        this.setFone2("");
+        this.setFone3("");
+    }
+
     public int getCod() {
         return cod;
     }

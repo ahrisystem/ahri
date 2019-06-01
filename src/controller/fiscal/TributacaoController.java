@@ -20,24 +20,49 @@ public class TributacaoController {
     }
 
     public void cadastra(TributacaoModel eModel) {
-        String sql = "INSERT INTO public.entidade(cod,inativo,tipopessoa,cliente,fornecedor,cnpj,nome,xnome,xlgr,nro,xcpl,xbairro,xmun,uf,cep,xpais,fone1,fone2,fone3,ie,isuf,email) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO public.tributacao(cod, descricao, tipo, "
+                + "cst_origem, cst_tributacao, csosn, aliquota, reducao_base, aliquota_fora, aliquota_efetivo, "
+                + "cst_iss, aliquota_iss) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setString(1, eModel.getCod());
+            pstmt.setString(2, eModel.getDescricao());
+            pstmt.setString(3, eModel.getTipo());
+            pstmt.setString(4, eModel.getCst_origem());
+            pstmt.setString(5, eModel.getCst_tributacao());
+            pstmt.setString(6, eModel.getCsosn());
+            pstmt.setDouble(7, eModel.getAliquota());
+            pstmt.setDouble(8, eModel.getReducao_base());
+            pstmt.setDouble(9, eModel.getAliquota_fora());
+            pstmt.setDouble(10, eModel.getAliquota_efetivo());
+            pstmt.setString(11, eModel.getCst_iss());
+            pstmt.setDouble(12, eModel.getAliquota_iss());
             pstmt.execute();
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            JOptionPane.showMessageDialog(null, "Tributação salva com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar.\n" + e.getMessage());
         }
     }
     
-    public void altera(TributacaoModel eModel, int cod) {
-        String sql = "UPDATE entidade SET cod=?, inativo=?, tipopessoa=?, cliente=?, fornecedor=?,cnpj=?, nome=?, xnome=?, xlgr=?, nro=?, xcpl=?, xbairro=?, xmun=?, uf=?, cep=?, xpais=?, fone1=?, fone2=?, fone3=?, ie=?, isuf=?, email=? WHERE cod = '"+cod+"';";
+    public void alterar(TributacaoModel eModel, String cod) {
+        String sql = "UPDATE public.tributacao SET descricao=?,tipo=?,cst_origem=?,cst_tributacao=?,"
+                + "csosn=?,aliquota=?,reducao_base=?,aliquota_fora=?,aliquota_efetivo=?, cst_iss=?,aliquota_iss=? "
+                + "WHERE cod = '"+cod+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setString(1, eModel.getCod());
+            pstmt.setString(1, eModel.getDescricao());
+            pstmt.setString(2, eModel.getTipo());
+            pstmt.setString(3, eModel.getCst_origem());
+            pstmt.setString(4, eModel.getCst_tributacao());
+            pstmt.setString(5, eModel.getCsosn());
+            pstmt.setDouble(6, eModel.getAliquota());
+            pstmt.setDouble(7, eModel.getReducao_base());
+            pstmt.setDouble(8, eModel.getAliquota_fora());
+            pstmt.setDouble(9, eModel.getAliquota_efetivo());
+            pstmt.setString(10, eModel.getCst_iss());
+            pstmt.setDouble(11, eModel.getAliquota_iss());
             pstmt.execute();
-            JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Alterada tributação com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao alterar.\n" + e.getMessage());
         }
@@ -62,21 +87,25 @@ public class TributacaoController {
         return tributacoes;
     }
     public void puxarDados(TributacaoModel t, String cod) {
-        String sql = "SELECT cod,descricao,tributacao,servico,tributacao_fora,cst,cst_origem,cst_tributacao,"
-                + "csosn,csosn_origem,csosn_tributacao,reducao_base,cst_iss,aliquota_iss,tributacao_efetivo "
+        String sql = "SELECT cod,descricao,tipo,cst_origem,cst_tributacao,"
+                + "csosn,aliquota,reducao_base,aliquota_fora,aliquota_efetivo,cst_iss,aliquota_iss "
                 + "FROM public.tributacao where cod = '" + cod + "';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 t.setCod(rs.getString("cod"));
-                t.setDescricao(rs.getString("nome"));
-                t.setTributacao(rs.getDouble("tributacao"));
-                t.setServico(rs.getBoolean("servico"));
-                t.setTributacao_fora(rs.getDouble("tributacao_fora"));
-                t.setCst(rs.getString("cst"));
-                t.setCst(rs.getString("cst_origem"));
-                t.setCst(rs.getString("cst_tributacao"));
+                t.setDescricao(rs.getString("descricao"));
+                t.setTipo(rs.getString("tipo"));
+                t.setCst_origem(rs.getString("cst_origem"));
+                t.setCst_tributacao(rs.getString("cst_tributacao"));
+                t.setCsosn(rs.getString("csosn"));
+                t.setAliquota(rs.getDouble("aliquota"));
+                t.setReducao_base(rs.getDouble("reducao_base"));
+                t.setAliquota_fora(rs.getDouble("aliquota_fora"));
+                t.setAliquota_efetivo(rs.getDouble("aliquota_efetivo"));
+                t.setCst_iss(rs.getString("cst_iss"));
+                t.setAliquota_iss(rs.getDouble("aliquota_iss"));
             }
             stmt.close();
         } catch (SQLException s) {
@@ -85,55 +114,8 @@ public class TributacaoController {
     }
 
 
-    public int pegaCodigo() {
-        String sql = "select max(cod) from tributacao;";
-        int cod = 1;
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            if (rs.getString("max") == null) {
-                cod = 1;
-            } else {
-                cod = cod + Integer.parseInt(rs.getString("max"));
-            }
-            stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
-        }
-        return cod;
-    }
-
-    
-    public void puxarDados(TributacaoModel eModel, int cod) {
-        String sql = "SELECT cod, inativo, tipopessoa, cliente, fornecedor, cnpj, nome,xnome, xlgr, nro, xcpl, xbairro, xmun, uf, cep, xpais, fone1, fone2, fone3, ie, isuf, email FROM entidade where cod = " + cod + ";";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                eModel.setCod(rs.getString("cod"));
-            }
-            stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
-        }
-
-    }
-
-    public void alterar(TributacaoModel eModel, int cod) {
-        String sql = " WHERE cod = " + cod + ";";
-        try {
-            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setString(1, eModel.getCod());
-            pstmt.executeUpdate();
-            pstmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao atualizar dados.\n" + e.getMessage());
-        }
-    }
-
-    public void excluir(int cod) {
-        String sql = "delete from tributacao where cod= " + cod + ";";
+    public void excluir(String cod) {
+        String sql = "delete from tributacao where cod= '" + cod + "';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.execute();

@@ -399,8 +399,8 @@ public class Orcamentos extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
-            EditarUsuario edit = EditarUsuario.getInstancia();
-            edit.puxarDados(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            EditarOrcamento edit = EditarOrcamento.getInstancia();
+            edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             edit.setVisible(true);
             listar();
         }

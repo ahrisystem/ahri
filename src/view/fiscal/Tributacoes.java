@@ -228,16 +228,22 @@ public class Tributacoes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNovoMouseReleased
 
     private void btnEditarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseReleased
-        
+        if (tabela.getSelectedRow()<0) {
+            JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
+        } else {
+            EditarTributacao edit = EditarTributacao.getInstancia();
+            edit.puxarDados(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            edit.setVisible(true);
+        }
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnExcluirMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirMouseReleased
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir o produto?",
+            if (JOptionPane.showConfirmDialog(null, "Deseja mesmo excluir a tributação?",
                 "Excluir/Inativar?", 2) == 0) {
-                tc.excluir(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                tc.excluir(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
                 listar();
             }
         }

@@ -285,7 +285,9 @@ public class Produtos extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum registro selecionado.");
         } else {
-            NovoProduto novo = NovoProduto.getInstancia();
+            EditarProduto novo = EditarProduto.getInstancia();
+            novo.preencheGrupos();
+            novo.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
             novo.setVisible(true);
             novo.alterarTitulo("Editando o produto "+tabela.getValueAt(tabela.getSelectedRow(), 2));
         }

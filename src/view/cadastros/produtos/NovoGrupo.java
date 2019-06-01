@@ -27,6 +27,8 @@ public class NovoGrupo extends javax.swing.JFrame {
     public void limpaCampos(){
         txtCodigo.setText("");
         txtNome.setText("");
+        txtPai.setEnabled(false);
+        txtPai.removeAll();
         txtNCM.setText("");
         txtCEST.setText("");
         sldTipo.setValue(0);

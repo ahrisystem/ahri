@@ -8,18 +8,19 @@ import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.cadastros.produtos.GrupoModel;
 import model.cadastros.produtos.ProdutoModel;
 import model.fiscal.TributacaoModel;
 
-public class NovoProduto extends javax.swing.JFrame {
+public class EditarProduto extends javax.swing.JFrame {
     ProdutoController pc = new ProdutoController();
     PesquisarController pec = new PesquisarController();
     String pesquisaAtual;
     
-    private static final NovoProduto INSTANCIA = new NovoProduto();
+    private static final EditarProduto INSTANCIA = new EditarProduto();
     
     
-    public static NovoProduto getInstancia() {
+    public static EditarProduto getInstancia() {
         return INSTANCIA;
     }
     
@@ -27,7 +28,7 @@ public class NovoProduto extends javax.swing.JFrame {
         lblTítulo.setText(titulo);
     }
 
-    private NovoProduto() {
+    private EditarProduto() {
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -42,7 +43,8 @@ public class NovoProduto extends javax.swing.JFrame {
         txtCEST.setText("");
         txtTributacao.setText("");
         txtTributacao2.setText("");
-        txtCodigo.requestFocus();
+        txtEAN.requestFocus();
+        this.dispose();
     }
     
     public void preencheGrupos() {
@@ -79,6 +81,30 @@ public class NovoProduto extends javax.swing.JFrame {
             pesquisar.setSize(this.getSize());
         }
     }
+    public void puxarDados(int cod){
+        ProdutoModel em = new ProdutoModel();
+        pc.puxarDados(em, cod);
+        txtCodigo.setText(Integer.toString(em.getCod()));
+        if (em.isServico()) {
+            cbxServico.setSelected(true);
+            txtEAN.setEnabled(false);
+            lblNCM.setText("NBS");
+        } else {
+            cbxServico.setSelected(false);
+            txtEAN.setEnabled(true);
+            lblNCM.setText("NCM");
+        }
+        txtEAN.setText(em.getCodigoBarras());
+        txtNome.setText(em.getNome());
+        txtGrupo.setSelectedItem(em.getGrupo());
+        txtUN.setSelectedItem(em.getUnidadeMedida());
+        txtPreco.setText(Double.toString(em.getPreco()).replace(".", ","));
+        txtCusto.setText(Double.toString(em.getCusto()).replace(".", ","));
+        txtNCM.setText(em.getNcm());
+        txtCEST.setText(em.getCest());
+        txtTributacao.setText(em.getTributacao());
+        txtTributacao2.setText(em.getTributacaonome());
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -94,7 +120,7 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtServico = new javax.swing.JCheckBox();
+        cbxServico = new javax.swing.JCheckBox();
         lblEAN = new javax.swing.JLabel();
         txtEAN = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
@@ -237,7 +263,7 @@ public class NovoProduto extends javax.swing.JFrame {
         lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTítulo.setText("Novo Produto");
+        lblTítulo.setText("Editar Produto");
         lblTítulo.setOpaque(true);
         getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 30));
 
@@ -270,15 +296,15 @@ public class NovoProduto extends javax.swing.JFrame {
         });
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 170, 20));
 
-        txtServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtServico.setText("Serviço ?");
-        txtServico.setOpaque(false);
-        txtServico.addMouseListener(new java.awt.event.MouseAdapter() {
+        cbxServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxServico.setText("Serviço ?");
+        cbxServico.setOpaque(false);
+        cbxServico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtServicoMouseReleased(evt);
+                cbxServicoMouseReleased(evt);
             }
         });
-        painelPrincipal.add(txtServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 100, 20));
+        painelPrincipal.add(cbxServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 100, 20));
 
         lblEAN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblEAN.setForeground(new java.awt.Color(51, 105, 191));
@@ -506,8 +532,7 @@ public class NovoProduto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
                 } else {
                     ProdutoModel pm = new ProdutoModel();
-                    pm.setCod(Integer.parseInt(txtCodigo.getText()));
-                    pm.setServico(txtServico.isEnabled());
+                    pm.setServico(cbxServico.isEnabled());
                     pm.setCodigoBarras(txtEAN.getText());
                     pm.setNome(txtNome.getText());
                     pm.setInativo(false);
@@ -518,9 +543,7 @@ public class NovoProduto extends javax.swing.JFrame {
                     pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
                     pm.setNcm(txtNCM.getText());
                     pm.setCest(txtCEST.getText());
-                    pm.setTributacao(txtTributacao.getText());
-                    pm.setTributacaonome(txtTributacao2.getText());
-                    pc.cadastraProduto(pm);
+                    pc.alterarProduto(pm, Integer.parseInt(txtCodigo.getText()));
                     limpaCampos();
                 }
             }
@@ -568,15 +591,15 @@ public class NovoProduto extends javax.swing.JFrame {
         btnSalvar.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnSalvarMouseExited
 
-    private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
-        if (txtServico.isSelected()) {
+    private void cbxServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxServicoMouseReleased
+        if (cbxServico.isSelected()) {
             txtEAN.setEnabled(false);
             lblNCM.setText("NBS");
         } else {
             txtEAN.setEnabled(true);
             lblNCM.setText("NCM");
         }
-    }//GEN-LAST:event_txtServicoMouseReleased
+    }//GEN-LAST:event_cbxServicoMouseReleased
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         if (txtCodigo.getText().equalsIgnoreCase("")) {
@@ -658,18 +681,18 @@ public class NovoProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoProduto().setVisible(true);
+                new EditarProduto().setVisible(true);
             }
         });
     }
@@ -678,6 +701,7 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionar;
+    private javax.swing.JCheckBox cbxServico;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo2;
@@ -709,7 +733,6 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JFormattedTextField txtPreco;
-    private javax.swing.JCheckBox txtServico;
     private javax.swing.JTextField txtTributacao;
     private javax.swing.JTextField txtTributacao2;
     private javax.swing.JComboBox<String> txtUN;

@@ -1,21 +1,34 @@
 package model.fiscal;
 
 public class TributacaoModel {
+    /*
+    cod text NOT NULL,
+  descricao text NOT NULL DEFAULT ''::text,
+  tipo text NOT NULL,
+  cst_origem text,
+  cst_tributacao text,
+  csosn text,
+  aliquota double precision,
+  reducao_base double precision,
+  aliquota_fora double precision,
+  aliquota_efetivo double precision DEFAULT 0,
+  cst_iss text,
+  aliquota_iss double precision,
+    */
+    
     private String cod;
     private String descricao;
-    private double tributacao;
-    private boolean servico;
-    private double tributacao_fora;
-    private String cst;
+    private String tipo;
     private String cst_origem;
     private String cst_tributacao;
     private String csosn;
-    private String csosn_origem;
-    private String csosn_tributacao;    
+    private double aliquota;
     private double reducao_base;
+    private double aliquota_fora;
+    private double aliquota_efetivo;
     private String cst_iss;
     private double aliquota_iss;
-    
+
     public String getCod() {
         return cod;
     }
@@ -32,36 +45,12 @@ public class TributacaoModel {
         this.descricao = descricao;
     }
 
-    public double getTributacao() {
-        return tributacao;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTributacao(double tributacao) {
-        this.tributacao = tributacao;
-    }
-
-    public boolean isServico() {
-        return servico;
-    }
-
-    public void setServico(boolean servico) {
-        this.servico = servico;
-    }
-
-    public double getTributacao_fora() {
-        return tributacao_fora;
-    }
-
-    public void setTributacao_fora(double tributacao_fora) {
-        this.tributacao_fora = tributacao_fora;
-    }
-
-    public String getCst() {
-        return cst;
-    }
-
-    public void setCst(String cst) {
-        this.cst = cst;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getCst_origem() {
@@ -88,20 +77,12 @@ public class TributacaoModel {
         this.csosn = csosn;
     }
 
-    public String getCsosn_origem() {
-        return csosn_origem;
+    public double getAliquota() {
+        return aliquota;
     }
 
-    public void setCsosn_origem(String csosn_origem) {
-        this.csosn_origem = csosn_origem;
-    }
-
-    public String getCsosn_tributacao() {
-        return csosn_tributacao;
-    }
-
-    public void setCsosn_tributacao(String csosn_tributacao) {
-        this.csosn_tributacao = csosn_tributacao;
+    public void setAliquota(double aliquota) {
+        this.aliquota = aliquota;
     }
 
     public double getReducao_base() {
@@ -110,6 +91,22 @@ public class TributacaoModel {
 
     public void setReducao_base(double reducao_base) {
         this.reducao_base = reducao_base;
+    }
+
+    public double getAliquota_fora() {
+        return aliquota_fora;
+    }
+
+    public void setAliquota_fora(double aliquota_fora) {
+        this.aliquota_fora = aliquota_fora;
+    }
+
+    public double getAliquota_efetivo() {
+        return aliquota_efetivo;
+    }
+
+    public void setAliquota_efetivo(double aliquota_efetivo) {
+        this.aliquota_efetivo = aliquota_efetivo;
     }
 
     public String getCst_iss() {
@@ -127,4 +124,6 @@ public class TributacaoModel {
     public void setAliquota_iss(double aliquota_iss) {
         this.aliquota_iss = aliquota_iss;
     }
+    
+    
 }

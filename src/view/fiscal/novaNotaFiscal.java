@@ -41,7 +41,7 @@ public class novaNotaFiscal extends javax.swing.JFrame {
         lblTitulo8 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nota fiscal modelo 55");
         setAlwaysOnTop(true);
         setResizable(false);

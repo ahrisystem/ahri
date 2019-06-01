@@ -798,12 +798,21 @@ public class NovoOrcamento extends javax.swing.JFrame {
             VendasModel vm = new VendasModel();
             VendasItensModel vim = new VendasItensModel();
             vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+            
             if (txtCliente.getText().equalsIgnoreCase("")) {
                 vm.setCliente(0);
             } else {
                 vm.setCliente(Integer.parseInt(txtCliente.getText()));
             }
+            
+            if (txtCliente2.getText().equalsIgnoreCase("")) {
+                vm.setNomecliente("");
+            } else {
+                vm.setNomecliente(txtCliente2.getText());
+            }
+            
             vm.setPlaca(txtPlaca.getText());
+            vm.setNomeplaca(txtPlaca2.getText());
             vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
             vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
             vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
