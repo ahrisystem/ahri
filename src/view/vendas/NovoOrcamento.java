@@ -181,8 +181,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtValorUnitarioProduto.setText("0,00");
         txtValorDescontoProduto.setText("0,00");
         txtQuantidadeProduto.setText("0,00");
-        tblProdutos.removeAll();
-        atualizarTotalizadores();
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        modelo.setNumRows(0);
+        txtValorBruto.setText("0,00");
+        txtTotalDescontos.setText("0,00");
+        txtTotal.setText("0,00");
         txtObs.setText("");
         cbxExibirProdutos.setSelected(false);
         cbxExibirPlaca.setSelected(false);
