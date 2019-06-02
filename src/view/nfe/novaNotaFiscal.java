@@ -1,4 +1,4 @@
-package view.fiscal;
+package view.nfe;
 
 import javax.swing.JOptionPane;
 

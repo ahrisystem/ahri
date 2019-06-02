@@ -1,12 +1,16 @@
 package view;
 
 import controller.cadastros.usuarios.UsuarioController;
+import controller.vendas.CaixaController;
 import funcoes.ButtonTabComponent;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.sql.Date;
 import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,12 +28,13 @@ import view.cadastrosUnicos.Licenciamento;
 import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
-import view.pdv.PDV;
+import view.caixa.PDV;
 import view.servicos.OrdemdeServico;
 import view.vendas.Orcamentos;
 
 public class TelaInicial extends javax.swing.JFrame {
-
+    CaixaController cc = new CaixaController();
+    
     boolean inicial = true;
     boolean cadastros = false;
     boolean estoque = false;
@@ -771,7 +776,17 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
-            new PDV().setVisible(true);
+            PDV pdv = PDV.getInstancia();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+            LocalDate localDate = LocalDate.now();
+            if (cc.verificar(dtf.format(localDate))==1) {
+                pdv.inicializar("Abrir caixa", btnUsuario.getText());
+            }
+            if (cc.verificar(dtf.format(localDate))==2) {
+                pdv.inicializar("Abrir caixa", btnUsuario.getText());
+            } else {
+                pdv.inicializar("Fechar caixa", btnUsuario.getText());
+            }
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();

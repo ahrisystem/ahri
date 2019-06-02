@@ -22,7 +22,6 @@ import view.TelaInicial;
 import view.cadastros.placa.NovaPlaca;
 
 public class NovoOrcamento extends javax.swing.JFrame {
-
     VendasController vc = new VendasController();
     PesquisarController pc = new PesquisarController();
     String usuario;
