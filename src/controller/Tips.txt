@@ -8,3 +8,8 @@ Vendas
     1 - Emitido
     2 - Finalizado
     3 - Cancelado
+
+--No CaixaController, a função verificar retorna:
+    1 - Caixa novo
+    2 - Caixa fechado
+    3 - Caixa aberto

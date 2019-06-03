@@ -396,7 +396,7 @@
               <StringArray count="3">
                 <StringItem index="0" value="UN"/>
                 <StringItem index="1" value="PC"/>
-                <StringItem index="2" value="KG"/>
+                <StringItem index="2" value="HR"/>
               </StringArray>
             </Property>
           </Properties>

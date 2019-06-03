@@ -316,7 +316,7 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal.add(lblUN, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 190, 20));
 
         txtUN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtUN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UN", "PC", "KG" }));
+        txtUN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UN", "PC", "HR" }));
         painelPrincipal.add(txtUN, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 80, 20));
 
         lblPreco.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -502,27 +502,23 @@ public class NovoProduto extends javax.swing.JFrame {
             if (txtPreco.getText().equalsIgnoreCase("") || txtPreco.getText().equalsIgnoreCase("0,00")) {
                 JOptionPane.showMessageDialog(null, "Verifique o preço!");
             } else {
-                if (txtNCM.getText().equalsIgnoreCase("")) {
-                    JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
-                } else {
-                    ProdutoModel pm = new ProdutoModel();
-                    pm.setCod(Integer.parseInt(txtCodigo.getText()));
-                    pm.setServico(txtServico.isEnabled());
-                    pm.setCodigoBarras(txtEAN.getText());
-                    pm.setNome(txtNome.getText());
-                    pm.setInativo(false);
-                    pm.setGrupo(txtGrupo.getSelectedItem().toString());
-                    pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
-                    pm.setEstoque(0);
-                    pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
-                    pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
-                    pm.setNcm(txtNCM.getText());
-                    pm.setCest(txtCEST.getText());
-                    pm.setTributacao(txtTributacao.getText());
-                    pm.setTributacaonome(txtTributacao2.getText());
-                    pc.cadastraProduto(pm);
-                    limpaCampos();
-                }
+                ProdutoModel pm = new ProdutoModel();
+                pm.setCod(Integer.parseInt(txtCodigo.getText()));
+                pm.setServico(txtServico.isEnabled());
+                pm.setCodigoBarras(txtEAN.getText());
+                pm.setNome(txtNome.getText());
+                pm.setInativo(false);
+                pm.setGrupo(txtGrupo.getSelectedItem().toString());
+                pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
+                pm.setEstoque(0);
+                pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
+                pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
+                pm.setNcm(txtNCM.getText());
+                pm.setCest(txtCEST.getText());
+                pm.setTributacao(txtTributacao.getText());
+                pm.setTributacaonome(txtTributacao2.getText());
+                pc.cadastraProduto(pm);
+                limpaCampos();
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

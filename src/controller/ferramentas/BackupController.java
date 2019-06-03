@@ -1,6 +1,7 @@
 package controller.ferramentas;
 
 import controller.connection;
+import funcoes.BuscarPropriedadesConfiguradas;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -11,15 +12,27 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import model.ferramentas.BackupModel;
+import model.funcoes.PropertiesModel;
 
 public class BackupController {
     private final Connection conexao;
-
+    PropertiesModel pm = new PropertiesModel();
+    BuscarPropriedadesConfiguradas bp = new BuscarPropriedadesConfiguradas();
+    
     public BackupController() {
         this.conexao = new connection().obterConexao("Controle de backup.");
     }
     
-    public String efetuarBackup(String arquivo, String diretorio) {
+    public String efetuarBackup(String arquivo) {
+        bp.dado(pm);
+        
+        String LOCALBIN = pm.getLocalbin();
+        String URL = "jdbc:postgresql://"+pm.getBaseip()+":"+pm.getBaseport()+"/"+pm.getBasenome();
+        String DRIVER_CLASS = pm.getBasedriver();
+        String USER = pm.getBaseuser();
+        String PASS = pm.getBasepass();
+        
+        
         String log = "";
         File arq = new File(arquivo);
         if (arq.exists()) {
@@ -30,8 +43,8 @@ public class BackupController {
         try {
             Process p = null;
             String linha = "";
-            ProcessBuilder pb = new ProcessBuilder(diretorio + "pg_dump.exe", "-h", "localhost", "-U", "postgres", "-F", "c", "-b", "-v", "-f", arquivo, "ahri");
-            pb.environment().put("PGPASSWORD", "postgres");
+            ProcessBuilder pb = new ProcessBuilder(LOCALBIN + "//pg_dump.exe", "-h", pm.getBaseip(), "-U", "postgres", "-F", "c", "-b", "-v", "-f", arquivo, pm.getBasenome());
+            pb.environment().put("PGPASSWORD", PASS);
             pb.redirectErrorStream(true);
             p = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));

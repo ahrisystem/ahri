@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
-import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +24,7 @@ import view.cadastros.usuarios.Usuarios;
 import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
 import view.cadastrosUnicos.Licenciamento;
+import view.caixa.Caixas;
 import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
@@ -124,7 +124,7 @@ public class TelaInicial extends javax.swing.JFrame {
             opcao10.setText("Relatórios");
         }
         if (financeiro) {
-            opcao1.setText("Caixa");
+            opcao1.setText("Caixas");
             opcao2.setText("Devedores");
             opcao3.setText("Formas de p.");
             opcao4.setText("A pagar");
@@ -777,20 +777,21 @@ public class TelaInicial extends javax.swing.JFrame {
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
             PDV pdv = PDV.getInstancia();
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+            DateTimeFormatter dataBanco = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+            DateTimeFormatter dataNormal = DateTimeFormatter.ofPattern("dd/MM/uuuu");
             LocalDate localDate = LocalDate.now();
-            if (cc.verificar(dtf.format(localDate))==1) {
-                pdv.inicializar("Abrir caixa", btnUsuario.getText());
-            }
-            if (cc.verificar(dtf.format(localDate))==2) {
-                pdv.inicializar("Abrir caixa", btnUsuario.getText());
-            } else {
-                pdv.inicializar("Fechar caixa", btnUsuario.getText());
-            }
+            int retorno = cc.verificar(dataBanco.format(localDate));
+            pdv.inicializar(btnUsuario.getText(), retorno, dataNormal.format(localDate));
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();
             painelPrincipal.add("Produtos", produtos);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+        }
+        if (financeiro) {
+            Caixas caixas = Caixas.getInstancia();
+            painelPrincipal.add("Caixas", caixas);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
@@ -1090,13 +1091,15 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeslogarActionPerformed
 
     private void btnAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSenhaActionPerformed
-        UsuarioController ec = new UsuarioController();
-        String login = btnUsuario.getText();
-        String senha = JOptionPane.showInputDialog(
-                null, 
-                "Alterando a senha do usuário "+login+".",
-                "Alterar senha", 1);
-        ec.alterarSenha(senha, login);
+        if (JOptionPane.showConfirmDialog(null, "Deseja alterar a senha?", "Alterar senha?", 2) == 0) {
+            UsuarioController ec = new UsuarioController();
+            String login = btnUsuario.getText();
+            String senha = JOptionPane.showInputDialog(
+                    null,
+                    "Alterando a senha do usuário " + login + ".",
+                    "Alterar senha", 1);
+            ec.alterarSenha(senha, login);
+        }
     }//GEN-LAST:event_btnAlterarSenhaActionPerformed
 
     private void btnSairMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSairMouseEntered

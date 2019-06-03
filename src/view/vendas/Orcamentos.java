@@ -440,26 +440,40 @@ public class Orcamentos extends javax.swing.JPanel {
 
     private void btnGerarPDFMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarPDFMouseReleased
         VendasModel vm = new VendasModel();
-        boolean gerarProdutos = true;
+        
+        boolean gerarCliente = true;
         boolean gerarPlaca = true;
+        boolean gerarProdutos = true;
+        boolean gerarValores = true;
+        
         
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Gerar o PDF?",
                 "GERAR PDF?", 2) == 0) {
-                if (JOptionPane.showConfirmDialog(null, "Imprimir produtos?","Imprimir produtos?", 2) == 0) {
-                    gerarProdutos = true;
+                if (JOptionPane.showConfirmDialog(null, "Imprimir cliente?","Cliente?", 2) == 0) {
+                    gerarCliente = true;
                 } else {
-                    gerarProdutos = false;
+                    gerarCliente = false;
                 }
                 if (JOptionPane.showConfirmDialog(null, "Imprimir placa?","Imprimir placa?", 2) == 0) {
                     gerarPlaca = true;
                 } else {
                     gerarPlaca = false;
                 }
+                if (JOptionPane.showConfirmDialog(null, "Imprimir produtos?","Produtos?", 2) == 0) {
+                    gerarProdutos = true;
+                } else {
+                    gerarProdutos = false;
+                }
+                if (JOptionPane.showConfirmDialog(null, "Imprimir valores?","Totais?", 2) == 0) {
+                    gerarValores = true;
+                } else {
+                    gerarValores = false;
+                }
                 ec.puxarDadosOrcamento(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-                go.Orcamento(vm, gerarProdutos,gerarPlaca, ec.puxarDadosProdutosOrcamento(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())));
+                go.Orcamento(vm, gerarCliente,gerarPlaca,gerarProdutos,gerarValores, ec.puxarDadosProdutosOrcamento(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())));
             }
         }
     }//GEN-LAST:event_btnGerarPDFMouseReleased

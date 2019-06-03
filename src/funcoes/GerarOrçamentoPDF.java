@@ -68,7 +68,9 @@ public class GerarOrçamentoPDF {
      * @param exibirProdutos Indica se irá imprimir a lista de produtos no PDF.
      * @param p Lista de produtos tipo VendasItensModel.
      */
-    public static void Orcamento(VendasModel vm, boolean exibirProdutos, boolean exibirPlaca, List<VendasItensModel> p) {
+    public static void Orcamento(VendasModel vm, 
+            boolean exibirCliente, boolean exibirPlaca, boolean exibirProdutos, boolean exibirValores, 
+            List<VendasItensModel> p) {
         PdfWriter writer;
         try {
             writer = new PdfWriter(new FileOutputStream(getCaminho()+"orcamento"+vm.getCod()+".pdf"));
@@ -104,10 +106,14 @@ public class GerarOrçamentoPDF {
             //Sobre o cliente
             Table cabeçalhoCliente = new Table(new float[]{1});
             cabeçalhoCliente.setWidth(UnitValue.createPercentValue(100));
-            cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph(
+            if (exibirCliente) {
+                cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph(
                     "Cliente: " + getDadosCliente(vm.getCliente()).getNome() + "\n"
                     + getDadosCliente(vm.getCliente()).getCNPJ() + " - " + getDadosCliente(vm.getCliente()).getFone1()+"\n")
                     .setFont(font)));
+            } else {
+                cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph("\n\n").setFont(font)));
+            }
 
             //Sobre a placa
             Table cabeçalhoPlaca = new Table(new float[]{1});
@@ -169,12 +175,14 @@ public class GerarOrçamentoPDF {
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                 }
-                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
-                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
-                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
-                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
-                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
-                tabelaProdutos.addFooterCell(new Cell().setHeight(18));
+                if (exibirValores) {
+                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("").setFont(headerFont)));
+                    tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
+                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalBruto()).setFont(headerFont)));
+                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalDesconto()).setFont(headerFont)));
+                    tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
+                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotal()).setFont(headerFont)));
+                }
             }
             //Observações
             Table obs = new Table(new float[]{1});
@@ -222,6 +230,6 @@ public class GerarOrçamentoPDF {
         p.setValortotal(50.0);
         produtos.add(p);
         produtos.add(p);
-        Orcamento(vm, true, true, produtos);
+        Orcamento(vm, true, true, true, true, produtos);
     }
 }

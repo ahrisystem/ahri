@@ -2,7 +2,6 @@ package controller.vendas;
 
 import controller.connection;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,10 +20,10 @@ public class CaixaController {
     public CaixaController(){
         this.conexao = new connection().obterConexao("Caixa.");
     }
-/////////////////////////ORCAMENTOS/////////////////////////////////////////////       
+    
     public void novoCaixa(CaixaModel model) {
         String sql = "INSERT INTO public.caixa(data,usuario,fechado,fundo,sangria,suprimento,saida,entrada,descontos,bruto,total) "
-                + "VALUES (select now(),?,?,?,?,?,?,?,?,?,?);";
+                + "VALUES ((select now()),?,?,?,?,?,?,?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             //data do banco
@@ -90,30 +89,25 @@ public class CaixaController {
     
     
     public int verificar(String data) {
-        
         String sql = "SELECT * from caixa where data = '" + data + "';";
-        String usuario = "";
         boolean fechado = false;
-        int retorno = 0;
+        int retorno = 1;
         
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 fechado = rs.getBoolean("fechado");
-                usuario = rs.getString("usuario");
-                if (usuario.equalsIgnoreCase("")) {
-                    retorno = 1;
-                    //caixa novo
-                } else {
-                    if (fechado) {
-                        retorno = 2;
-                        //caixa fechado
-                    } else{
-                        retorno = 3;
-                        //caixa aberto
-                    }
+                if (fechado) {
+                    retorno = 2;
+                    System.out.println("Caixa já fechado.");
+                    //caixa fechado
+                } else{
+                    retorno = 3;
+                    System.out.println("Caixa ainda aberto.");
+                    //caixa aberto
                 }
+                //novo caixa
             }
             stmt.close();
         } catch (Exception e) {
@@ -121,6 +115,7 @@ public class CaixaController {
         }
         return retorno;
     }
+    
     public void puxarDadosCaixa(VendasModel Model, int cod) {
         String sql = "SELECT id,cod,tipo,status,cliente,placa,valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,usuario,obs FROM public.vendas where cod = " + cod + ";";
         try {

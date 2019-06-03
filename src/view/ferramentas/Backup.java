@@ -292,7 +292,7 @@ public class Backup extends javax.swing.JFrame {
                     String hora = new SimpleDateFormat("HHmmss").format(dataHoraAtual);
                     String nomeArquivo = "\\B"+hora+data+".backup";
                     
-                    txtLog.setText(bc.efetuarBackup(txtLocal.getText()+nomeArquivo, "C:\\PG\\pg96\\bin\\"));
+                    txtLog.setText(bc.efetuarBackup(txtLocal.getText()+nomeArquivo));
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e.getMessage());
                 }

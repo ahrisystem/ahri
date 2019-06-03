@@ -1,6 +1,7 @@
 package model.funcoes;
 
 public class PropertiesModel {
+    private String localbin;
     private String basedriver;
     private String baseip ;
     private String baseport;
@@ -10,6 +11,14 @@ public class PropertiesModel {
 
     public String getBaseip() {
         return baseip;
+    }
+
+    public String getLocalbin() {
+        return localbin;
+    }
+
+    public void setLocalbin(String localbin) {
+        this.localbin = localbin;
     }
 
     public void setBaseip(String baseip) {

@@ -23,6 +23,7 @@ public class BuscarPropriedadesConfiguradas {
     }
     public void dado(PropertiesModel model){
         Properties prop = getProp();
+        model.setLocalbin(prop.getProperty("local.bin"));
         model.setBasedriver(prop.getProperty("base.driver"));
         model.setBaseip(prop.getProperty("base.ip"));
         model.setBaseport(prop.getProperty("base.port"));

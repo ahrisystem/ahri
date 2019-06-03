@@ -1,7 +1,7 @@
-package view.vendas;
+package view.servicos;
 
 import controller.funcoes.PesquisarController;
-import controller.vendas.VendasController;
+import controller.vendas.OSController;
 import funcoes.GerarOrçamentoPDF;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
@@ -21,20 +21,19 @@ import model.vendas.VendasModel;
 import view.TelaInicial;
 import view.cadastros.placa.NovaPlaca;
 
-public class EditarOrcamento extends javax.swing.JFrame {
-
-    VendasController vc = new VendasController();
+public class NovaOrdemdeServico extends javax.swing.JFrame {
+    OSController oc = new OSController();
     PesquisarController pc = new PesquisarController();
     String usuario;
     String pesquisaAtual;
 
-    private static final EditarOrcamento INSTANCIA = new EditarOrcamento();
+    private static final NovaOrdemdeServico INSTANCIA = new NovaOrdemdeServico();
 
-    public static EditarOrcamento getInstancia() {
+    public static NovaOrdemdeServico getInstancia() {
         return INSTANCIA;
     }
 
-    private EditarOrcamento() {
+    private NovaOrdemdeServico() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -42,7 +41,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
     }
 
     public void pegaCodigo() {
-        lblCod.setText("Nº " + vc.pegaCodigo());
+        lblCod.setText("Nº " + oc.pegaCodigo());
     }
 
     public void icone() {
@@ -94,9 +93,9 @@ public class EditarOrcamento extends javax.swing.JFrame {
             totalbruto = totalbruto + Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", "."));
             desconto = desconto + Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", "."));
         }
-        txtTotalBruto.setText(Double.toString(totalbruto).replace(".", ","));
+        txtValorBruto.setText(Double.toString(totalbruto).replace(".", ","));
         txtTotalDescontos.setText(Double.toString(desconto).replace(".", ","));
-        txtTotal.setText(Double.toString(Double.parseDouble(txtTotalBruto.getText().replace(",", ".")) - Double.parseDouble(txtTotalDescontos.getText().replace(",", "."))).replace(".", ","));
+        txtTotal.setText(Double.toString(Double.parseDouble(txtValorBruto.getText().replace(",", ".")) - Double.parseDouble(txtTotalDescontos.getText().replace(",", "."))).replace(".", ","));
     }
 
     ///////////////////Buscar cliente/produto/placa/////////////////////////////
@@ -183,43 +182,12 @@ public class EditarOrcamento extends javax.swing.JFrame {
         txtQuantidadeProduto.setText("0,00");
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
         modelo.setNumRows(0);
-        txtTotalBruto.setText("0,00");
+        txtValorBruto.setText("0,00");
         txtTotalDescontos.setText("0,00");
         txtTotal.setText("0,00");
         txtObs.setText("");
-        cbxExibirProdutos.setSelected(false);
-        cbxExibirPlaca.setSelected(false);
-    }
-    ////////////////////////////////////////////////////////////////////////////
-    public void puxarDados(int cod){
-        VendasModel vm = new VendasModel();
-        vc.puxarDadosOrcamento(vm, cod);
-        lblCod.setText("Nº "+cod);
-        //cliente
-        txtCliente.setText(Integer.toString(vm.getCliente()));
-        txtCliente2.setText(vm.getNomecliente());
-        if (txtCliente.getText().equalsIgnoreCase("")) {
-            txtCliente2.setEnabled(false);
-        }
-        //Produtos
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-        modelo.setNumRows(0);
-        for (VendasItensModel e : vc.puxarDadosProdutosOrcamento(cod)) {
-            modelo.addRow(new Object[]{
-                e.getCod(),
-                e.getNome(),
-                e.getValorunitario(),
-                e.getValordesconto(),
-                e.getQuantidade(),
-                e.getValortotal()
-            });
-        };
-        //totais
-        txtTotalBruto.setText(Double.toString(vm.getValorTotalBruto()).replace(".", ","));
-        txtTotalDescontos.setText(Double.toString(vm.getValorTotalDesconto()).replace(".", ","));
-        txtTotal.setText(Double.toString(vm.getValorTotal()).replace(".", ","));
-        //obs
-        txtObs.setText(vm.getObs());
+        cbxExibirClientes.setSelected(false);
+        cbxExibirValores.setSelected(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -268,7 +236,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         txtProduto = new javax.swing.JTextField();
         txtTotal = new javax.swing.JFormattedTextField();
         txtTotalDescontos = new javax.swing.JFormattedTextField();
-        txtTotalBruto = new javax.swing.JFormattedTextField();
+        txtValorBruto = new javax.swing.JFormattedTextField();
         lblTitulo12 = new javax.swing.JLabel();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
@@ -389,11 +357,11 @@ public class EditarOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setBackground(new java.awt.Color(153, 153, 153));
+        lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("NOVO ORÇAMENTO");
+        lblTitulo.setText("Nova ordem de serviço");
         lblTitulo.setOpaque(true);
 
         lblCod.setBackground(new java.awt.Color(51, 51, 51));
@@ -491,7 +459,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Produto", "Valor un.", "Desconto", "Qtd.", "Total"
+                "Código", "Serviço", "Valor un.", "Desconto", "Qtd.", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -564,7 +532,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
 
         cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbxExibirProdutos.setSelected(true);
-        cbxExibirProdutos.setText("Produtos");
+        cbxExibirProdutos.setText("Serviços");
         cbxExibirProdutos.setFocusable(false);
         cbxExibirProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 110, 30));
@@ -648,7 +616,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
 
         lblTitulo11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo11.setText("Produtos");
+        lblTitulo11.setText("Serviços");
         lblTitulo11.setOpaque(true);
 
         txtProduto.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -688,11 +656,11 @@ public class EditarOrcamento extends javax.swing.JFrame {
             }
         });
 
-        txtTotalBruto.setEditable(false);
-        txtTotalBruto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotalBruto.setText("0,00");
-        txtTotalBruto.setToolTipText("total bruto");
-        txtTotalBruto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtValorBruto.setEditable(false);
+        txtValorBruto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorBruto.setText("0,00");
+        txtValorBruto.setToolTipText("total bruto");
+        txtValorBruto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
 
         lblTitulo12.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -711,17 +679,17 @@ public class EditarOrcamento extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtProduto)
-                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                                         .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtDescricaoProduto)))
@@ -731,7 +699,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lblTitulo12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotalBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -795,11 +763,11 @@ public class EditarOrcamento extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTotalBruto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(txtValorBruto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                             .addComponent(txtTotalDescontos, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -845,28 +813,32 @@ public class EditarOrcamento extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Confirma alteração?",
+        if (JOptionPane.showConfirmDialog(null, "Confirmar Ordem de Serviço?",
                 "OK?", opcao) == 0) {
             VendasModel vm = new VendasModel();
             VendasItensModel vim = new VendasItensModel();
+            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+            
             if (txtCliente.getText().equalsIgnoreCase("")) {
                 vm.setCliente(0);
             } else {
                 vm.setCliente(Integer.parseInt(txtCliente.getText()));
             }
+            
             if (txtCliente2.getText().equalsIgnoreCase("")) {
                 vm.setNomecliente("");
             } else {
                 vm.setNomecliente(txtCliente2.getText());
             }
+            
             vm.setPlaca(txtPlaca.getText());
-            vm.setPlaca(txtPlaca2.getText());
-            vm.setValorTotalBruto(Double.parseDouble(txtTotalBruto.getText().replace(",", ".")));
+            vm.setNomeplaca(txtPlaca2.getText());
+            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
             vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
             vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
             vm.setUsuario(usuario);
             vm.setObs(txtObs.getText());
-            vc.cadastraOrcamento(vm);
+            oc.cadastraOS(vm);
             //gerando o pdf
             GerarOrçamentoPDF g = new GerarOrçamentoPDF();
             List<VendasItensModel> produtos = new ArrayList<>();
@@ -879,11 +851,12 @@ public class EditarOrcamento extends javax.swing.JFrame {
                 vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
                 vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
                 vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                vc.cadastraProdutosOrcamento(vim);
+                oc.cadastraProdutosOrcamento(vim);
                 produtos.add(vim);
             }
             g.Orcamento(vm, cbxExibirClientes.isSelected(), cbxExibirPlaca.isSelected(), 
                     cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), produtos);
+            
             limpaCampos();
             this.dispose();
         }
@@ -1126,18 +1099,18 @@ public class EditarOrcamento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditarOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditarOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditarOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditarOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditarOrcamento().setVisible(true);
+                new NovaOrdemdeServico().setVisible(true);
             }
         });
     }
@@ -1184,8 +1157,8 @@ public class EditarOrcamento extends javax.swing.JFrame {
     private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQuantidadeProduto;
     private javax.swing.JFormattedTextField txtTotal;
-    private javax.swing.JFormattedTextField txtTotalBruto;
     private javax.swing.JFormattedTextField txtTotalDescontos;
+    private javax.swing.JFormattedTextField txtValorBruto;
     private javax.swing.JFormattedTextField txtValorDescontoProduto;
     private javax.swing.JFormattedTextField txtValorUnitarioProduto;
     // End of variables declaration//GEN-END:variables

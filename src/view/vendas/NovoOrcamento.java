@@ -186,8 +186,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtTotalDescontos.setText("0,00");
         txtTotal.setText("0,00");
         txtObs.setText("");
-        cbxExibirProdutos.setSelected(false);
-        cbxExibirPlaca.setSelected(false);
+        cbxExibirClientes.setSelected(false);
+        cbxExibirValores.setSelected(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -218,9 +218,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnRemoverProduto = new javax.swing.JButton();
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
-        cbxExibirPlaca = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
+        cbxExibirClientes = new javax.swing.JCheckBox();
         cbxExibirProdutos = new javax.swing.JCheckBox();
+        cbxExibirPlaca = new javax.swing.JCheckBox();
+        cbxExibirValores = new javax.swing.JCheckBox();
         lblQtd = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
         lblValorUnProduto = new javax.swing.JLabel();
@@ -514,12 +516,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         });
         painelFuncoes.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        cbxExibirPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirPlaca.setText("Placa");
-        cbxExibirPlaca.setFocusable(false);
-        cbxExibirPlaca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
-
         jLabel1.setBackground(new java.awt.Color(204, 204, 204));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -527,11 +523,33 @@ public class NovoOrcamento extends javax.swing.JFrame {
         jLabel1.setOpaque(true);
         painelFuncoes.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 110, 20));
 
+        cbxExibirClientes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxExibirClientes.setSelected(true);
+        cbxExibirClientes.setText("Clientes");
+        cbxExibirClientes.setFocusable(false);
+        cbxExibirClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        painelFuncoes.add(cbxExibirClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 110, 30));
+
         cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxExibirProdutos.setSelected(true);
         cbxExibirProdutos.setText("Produtos");
         cbxExibirProdutos.setFocusable(false);
         cbxExibirProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 110, 30));
+        painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 110, 30));
+
+        cbxExibirPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxExibirPlaca.setSelected(true);
+        cbxExibirPlaca.setText("Placa");
+        cbxExibirPlaca.setFocusable(false);
+        cbxExibirPlaca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        painelFuncoes.add(cbxExibirPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
+
+        cbxExibirValores.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxExibirValores.setSelected(true);
+        cbxExibirValores.setText("Valores");
+        cbxExibirValores.setFocusable(false);
+        cbxExibirValores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        painelFuncoes.add(cbxExibirValores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 110, 30));
 
         lblQtd.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
         lblQtd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -661,17 +679,17 @@ public class NovoOrcamento extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtProduto)
-                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                                         .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtDescricaoProduto)))
@@ -749,7 +767,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
                             .addComponent(txtTotalDescontos, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -836,7 +854,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
                 vc.cadastraProdutosOrcamento(vim);
                 produtos.add(vim);
             }
-            g.Orcamento(vm, cbxExibirProdutos.isSelected(), cbxExibirPlaca.isSelected(), produtos);
+            g.Orcamento(vm, cbxExibirClientes.isSelected(), cbxExibirPlaca.isSelected(), 
+                    cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), produtos);
+            
             limpaCampos();
             this.dispose();
         }
@@ -1103,8 +1123,10 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
+    private javax.swing.JCheckBox cbxExibirClientes;
     private javax.swing.JCheckBox cbxExibirPlaca;
     private javax.swing.JCheckBox cbxExibirProdutos;
+    private javax.swing.JCheckBox cbxExibirValores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
