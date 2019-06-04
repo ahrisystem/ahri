@@ -20,6 +20,7 @@ import model.vendas.VendasItensModel;
 import model.vendas.VendasModel;
 import view.TelaInicial;
 import view.cadastros.placa.NovaPlaca;
+import view.cadastros.produtos.NovoProduto;
 
 public class EditarOrcamento extends javax.swing.JFrame {
 
@@ -199,7 +200,14 @@ public class EditarOrcamento extends javax.swing.JFrame {
         txtCliente.setText(Integer.toString(vm.getCliente()));
         txtCliente2.setText(vm.getNomecliente());
         if (txtCliente.getText().equalsIgnoreCase("")) {
+        } else {
             txtCliente2.setEnabled(false);
+        }
+        txtPlaca.setText(vm.getPlaca());
+        txtPlaca2.setText(vm.getNomeplaca());
+        if (txtPlaca.getText().equalsIgnoreCase("")) {
+        } else {
+            txtPlaca2.setEnabled(false);
         }
         //Produtos
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
@@ -270,6 +278,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         txtTotalDescontos = new javax.swing.JFormattedTextField();
         txtTotalBruto = new javax.swing.JFormattedTextField();
         lblTitulo12 = new javax.swing.JLabel();
+        btnNovoProduto = new javax.swing.JButton();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -389,11 +398,11 @@ public class EditarOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setBackground(new java.awt.Color(153, 153, 153));
+        lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("NOVO ORÇAMENTO");
+        lblTitulo.setText("EDITANDO ORÇAMENTO");
         lblTitulo.setOpaque(true);
 
         lblCod.setBackground(new java.awt.Color(51, 51, 51));
@@ -588,6 +597,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         lblQtd.setText("Quantidade:");
 
         txtQuantidadeProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtQuantidadeProduto.setText("0,00");
         txtQuantidadeProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtQuantidadeProdutoFocusGained(evt);
@@ -604,6 +614,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         lblValorUnProduto.setText("Valor Un:");
 
         txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorUnitarioProduto.setText("0,00");
         txtValorUnitarioProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         txtValorUnitarioProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -612,6 +623,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         });
 
         txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorDescontoProduto.setText("0,00");
         txtValorDescontoProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
         txtValorDescontoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -698,6 +710,16 @@ public class EditarOrcamento extends javax.swing.JFrame {
         lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo12.setText("Totais");
 
+        btnNovoProduto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        btnNovoProduto.setText("+");
+        btnNovoProduto.setToolTipText("Novo Cliente");
+        btnNovoProduto.setFocusable(false);
+        btnNovoProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
         painelPrincipalLayout.setHorizontalGroup(
@@ -711,20 +733,23 @@ public class EditarOrcamento extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtProduto)
-                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                                         .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.PREFERRED_SIZE, 82, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                        .addComponent(lblQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 101, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtDescricaoProduto)))
+                                    .addGroup(painelPrincipalLayout.createSequentialGroup()
+                                        .addComponent(txtDescricaoProduto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
@@ -780,7 +805,8 @@ public class EditarOrcamento extends javax.swing.JFrame {
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNovoProduto))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -849,6 +875,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
                 "OK?", opcao) == 0) {
             VendasModel vm = new VendasModel();
             VendasItensModel vim = new VendasItensModel();
+            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
             if (txtCliente.getText().equalsIgnoreCase("")) {
                 vm.setCliente(0);
             } else {
@@ -866,7 +893,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
             vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
             vm.setUsuario(usuario);
             vm.setObs(txtObs.getText());
-            vc.cadastraOrcamento(vm);
+            vc.alteraOrçamento(vm, vm.getCod());
             //gerando o pdf
             GerarOrçamentoPDF g = new GerarOrçamentoPDF();
             List<VendasItensModel> produtos = new ArrayList<>();
@@ -879,7 +906,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
                 vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
                 vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
                 vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                vc.cadastraProdutosOrcamento(vim);
+                vc.alteraProdutosOrcamento(vim, vm.getCod());
                 produtos.add(vim);
             }
             g.Orcamento(vm, cbxExibirClientes.isSelected(), cbxExibirPlaca.isSelected(), 
@@ -1116,6 +1143,13 @@ public class EditarOrcamento extends javax.swing.JFrame {
     private void txtPlacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusGained
         txtPlaca2.setEnabled(true);
     }//GEN-LAST:event_txtPlacaFocusGained
+
+    private void btnNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoProdutoActionPerformed
+        NovoProduto novo = NovoProduto.getInstancia();
+        novo.alterarTitulo("NOVO PRODUTO");
+        novo.preencheGrupos();
+        novo.setVisible(true);
+    }//GEN-LAST:event_btnNovoProdutoActionPerformed
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
@@ -1147,6 +1181,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JButton btnNovaPlaca;
     private javax.swing.JButton btnNovoCliente;
+    private javax.swing.JButton btnNovoProduto;
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;

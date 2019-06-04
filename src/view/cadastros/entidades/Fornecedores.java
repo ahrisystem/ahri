@@ -25,7 +25,7 @@ public class Fornecedores extends javax.swing.JPanel {
         for (EntidadeModel e : ec.listaFornecedores(txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
-                e.getNome(),
+                e.getxNome(),
                 e.getCNPJ(),
                 e.getUF(),
                 e.getxMun(),

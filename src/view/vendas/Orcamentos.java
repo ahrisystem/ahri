@@ -107,7 +107,7 @@ public class Orcamentos extends javax.swing.JPanel {
         jTextArea1.setFocusable(false);
 
         txtStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Emitido", "Finalizado", "Cancelado" }));
+        txtStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Emitido", "Finalizado", "Cancelado" }));
 
         lblCodOrcamento.setBackground(new java.awt.Color(153, 153, 153));
         lblCodOrcamento.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -129,9 +129,8 @@ public class Orcamentos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jTextArea1)
-                    .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, 431, Short.MAX_VALUE)))
+                    .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         planoDeFundo1Layout.setVerticalGroup(
@@ -391,6 +390,7 @@ public class Orcamentos extends javax.swing.JPanel {
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
         NovoOrcamento novo = NovoOrcamento.getInstancia();
         novo.usuario = lblUsuario.getText();
+        novo.pegaCodigo();
         novo.setVisible(true);
         listar();
     }//GEN-LAST:event_btnNovoMouseReleased
@@ -399,10 +399,15 @@ public class Orcamentos extends javax.swing.JPanel {
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
         } else {
-            EditarOrcamento edit = EditarOrcamento.getInstancia();
-            edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-            edit.setVisible(true);
-            listar();
+            if (tabela.getValueAt(tabela.getSelectedRow(), 1).toString().equalsIgnoreCase("Finalizado")) {
+                JOptionPane.showMessageDialog(null, "Não é possível alterar orçamentos FINALIZADOS.");
+            } else {
+                EditarOrcamento edit = EditarOrcamento.getInstancia();
+                edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                edit.usuario = lblUsuario.getText();
+                edit.setVisible(true);
+                listar();
+            }
         }
     }//GEN-LAST:event_btnEditarMouseReleased
 
@@ -493,9 +498,13 @@ public class Orcamentos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAlterarStatusMouseReleased
 
     private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
-        ec.alteraStatusOrcamento(txtStatus.getSelectedIndex(), Integer.parseInt(lblCodOrcamento.getText()));
-        JOptionPane.showMessageDialog(null, "Status do orçamento alterado com sucesso!");
-        alterarStatus.setVisible(false);
+        if (txtStatus.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(null, "Selecione algum status!");
+        } else {
+            ec.alteraStatusOrcamento(txtStatus.getSelectedIndex(), Integer.parseInt(lblCodOrcamento.getText()));
+            JOptionPane.showMessageDialog(null, "Status do orçamento alterado com sucesso!");
+            alterarStatus.setVisible(false);
+        }
     }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
 
 

@@ -231,6 +231,11 @@ public class NovoProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Produto");
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTítulo.setBackground(new java.awt.Color(51, 51, 51));
@@ -640,6 +645,10 @@ public class NovoProduto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnSelecionarMouseReleased
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limpaCampos();
+    }//GEN-LAST:event_formWindowClosed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -67,12 +67,12 @@ public class VendasController {
     }
     
     public void alteraOrçamento(VendasModel model, int cod) {
-        String sql = "UPDATE vendas SET cod=?,cliente=?,nomecliente=?,cnpjcliente=?"
+        String sql = "UPDATE vendas SET status=?,cliente=?,nomecliente=?,cnpjcliente=?,"
                 + "placa=?,nomeplaca=?,valortotalbruto=?,valortotaldesconto=?,valortotal=?,"
-                + "alteracao=?,usuario=?,obs=? WHERE cod='"+cod+"';";
+                + "alteracao=(select now()),usuario=?,obs=? WHERE cod='"+cod+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setInt(1, model.getCod());
+            pstmt.setInt(1, 1);
             pstmt.setInt(2, model.getCliente());
             pstmt.setString(3, model.getNomecliente());
             pstmt.setString(4, model.getCnpjcliente());
@@ -81,13 +81,35 @@ public class VendasController {
             pstmt.setDouble(7, model.getValorTotalBruto());
             pstmt.setDouble(8, model.getValorTotalDesconto());
             pstmt.setDouble(9, model.getValorTotal());
-            //data do alteracao
+            //data do banco: alteracao
             pstmt.setString(10, model.getUsuario());
             pstmt.setString(11, model.getObs());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Orçamento alterado com sucesso!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao alterar orcamento.\n" + e.getMessage());
+        }
+    }
+    
+    public void alteraProdutosOrcamento(VendasItensModel model, int orcamento) {
+        String sql1 = "delete from vendasitens where venda = "+orcamento+";";
+        String sql2 = "INSERT INTO public.vendasitens("
+                + "venda, cod,nome, quantidade, valordesconto, valorunitario,valortotal)  "
+                + "VALUES (?,?,?,?,?,?,?);";
+        try {
+            PreparedStatement pstmt1 = this.conexao.prepareStatement(sql1);
+            pstmt1.execute();
+            PreparedStatement pstmt2 = this.conexao.prepareStatement(sql2);
+            pstmt2.setInt(1, model.getVenda());
+            pstmt2.setInt(2, model.getCod());
+            pstmt2.setString(3, model.getNome());
+            pstmt2.setDouble(4, model.getQuantidade());
+            pstmt2.setDouble(5, model.getValordesconto());
+            pstmt2.setDouble(6, model.getValorunitario());
+            pstmt2.setDouble(7, model.getValortotal());
+            pstmt2.execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao salvar produtos do orçamento.\n" + e.getMessage());
         }
     }
 
@@ -127,7 +149,8 @@ public class VendasController {
     }
     
     public void puxarDadosOrcamento(VendasModel Model, int cod) {
-        String sql = "SELECT id,cod,tipo,status,cliente,placa,valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,usuario,obs FROM public.vendas where cod = " + cod + ";";
+        String sql = "SELECT * FROM public.vendas where cod = " + cod + ";";
+        //id,cod,tipo,status,cliente,nomecliente,cnpjcliente,placa,nomeplaca,valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,usuario,obs
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -136,7 +159,9 @@ public class VendasController {
                 Model.setTipo(rs.getInt("tipo"));
                 Model.setStatus(rs.getInt("status"));
                 Model.setCliente(rs.getInt("cliente"));
+                Model.setNomecliente(rs.getString("nomecliente"));
                 Model.setPlaca(rs.getString("placa"));
+                Model.setNomeplaca(rs.getString("nomeplaca"));
                 Model.setValorTotalBruto(rs.getDouble("valortotalbruto"));
                 Model.setValorTotalDesconto(rs.getDouble("valortotaldesconto"));
                 Model.setValorTotal(rs.getDouble("valortotal"));

@@ -185,7 +185,7 @@ public class Contabilidade extends javax.swing.JFrame {
         cadastroEmpresa.add(lblBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 70, 20));
 
         txtNomeCont.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtNomeCont.setToolTipText("Nome fantasia");
+        txtNomeCont.setToolTipText("");
         txtNomeCont.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtNomeCont, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 580, 20));
 
@@ -198,12 +198,12 @@ public class Contabilidade extends javax.swing.JFrame {
         cadastroEmpresa.add(txtCPF, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 120, 20));
 
         txtCRC.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCRC.setToolTipText("Nome fantasia");
+        txtCRC.setToolTipText("");
         txtCRC.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtCRC, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 120, 20));
 
         txtContabilidade.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtContabilidade.setToolTipText("Nome fantasia");
+        txtContabilidade.setToolTipText("");
         txtContabilidade.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtContabilidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 580, 20));
 
@@ -242,7 +242,7 @@ public class Contabilidade extends javax.swing.JFrame {
         cadastroEmpresa.add(cbxCel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 60, 20));
 
         txtEmail.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtEmail.setToolTipText("Nome fantasia");
+        txtEmail.setToolTipText("");
         txtEmail.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 580, 20));
 
@@ -263,22 +263,22 @@ public class Contabilidade extends javax.swing.JFrame {
         cadastroEmpresa.add(txtMun, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 220, 20));
 
         txtLgr.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtLgr.setToolTipText("Nome fantasia");
+        txtLgr.setToolTipText("");
         txtLgr.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtLgr, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 460, 20));
 
         txtNro.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtNro.setToolTipText("Nome fantasia");
+        txtNro.setToolTipText("");
         txtNro.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtNro, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 220, 50, 20));
 
         txtComplemento.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtComplemento.setToolTipText("Nome fantasia");
+        txtComplemento.setToolTipText("");
         txtComplemento.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 290, 20));
 
         txtBairro.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtBairro.setToolTipText("Nome fantasia");
+        txtBairro.setToolTipText("");
         txtBairro.setPreferredSize(new java.awt.Dimension(200, 20));
         cadastroEmpresa.add(txtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 190, 20));
 

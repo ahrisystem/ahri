@@ -254,9 +254,14 @@ public class EditarProduto extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produto");
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTítulo.setBackground(new java.awt.Color(51, 51, 51));
@@ -342,7 +347,7 @@ public class EditarProduto extends javax.swing.JFrame {
         painelPrincipal.add(lblUN, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 190, 20));
 
         txtUN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtUN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UN", "PC", "KG" }));
+        txtUN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UN", "PC", "HR" }));
         painelPrincipal.add(txtUN, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 70, 80, 20));
 
         lblPreco.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -528,24 +533,20 @@ public class EditarProduto extends javax.swing.JFrame {
             if (txtPreco.getText().equalsIgnoreCase("") || txtPreco.getText().equalsIgnoreCase("0,00")) {
                 JOptionPane.showMessageDialog(null, "Verifique o preço!");
             } else {
-                if (txtNCM.getText().equalsIgnoreCase("")) {
-                    JOptionPane.showMessageDialog(null, "Informe o NCM/NBS.");
-                } else {
-                    ProdutoModel pm = new ProdutoModel();
-                    pm.setServico(cbxServico.isEnabled());
-                    pm.setCodigoBarras(txtEAN.getText());
-                    pm.setNome(txtNome.getText());
-                    pm.setInativo(false);
-                    pm.setGrupo(txtGrupo.getSelectedItem().toString());
-                    pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
-                    pm.setEstoque(0);
-                    pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
-                    pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
-                    pm.setNcm(txtNCM.getText());
-                    pm.setCest(txtCEST.getText());
-                    pc.alterarProduto(pm, Integer.parseInt(txtCodigo.getText()));
-                    limpaCampos();
-                }
+                ProdutoModel pm = new ProdutoModel();
+                pm.setServico(cbxServico.isEnabled());
+                pm.setCodigoBarras(txtEAN.getText());
+                pm.setNome(txtNome.getText());
+                pm.setInativo(false);
+                pm.setGrupo(txtGrupo.getSelectedItem().toString());
+                pm.setUnidadeMedida(txtUN.getSelectedItem().toString());
+                pm.setEstoque(0);
+                pm.setPreco(Double.parseDouble(txtPreco.getText().replaceAll(",", ".")));
+                pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
+                pm.setNcm(txtNCM.getText());
+                pm.setCest(txtCEST.getText());
+                pc.alterarProduto(pm, Integer.parseInt(txtCodigo.getText()));
+                limpaCampos();
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -667,6 +668,10 @@ public class EditarProduto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnSelecionarMouseReleased
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        limpaCampos();
+    }//GEN-LAST:event_formWindowClosing
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
