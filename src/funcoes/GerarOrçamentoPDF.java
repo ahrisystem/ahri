@@ -160,12 +160,6 @@ public class GerarOrçamentoPDF {
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                 }
-                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph(contador + " itens.").setFont(headerFont)));
-                tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
-                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalBruto()).setFont(headerFont)));
-                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalDesconto()).setFont(headerFont)));
-                tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
-                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotal()).setFont(headerFont)));
             } else {
                 for (int i = 0; i < 15; i++) {
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
@@ -175,14 +169,14 @@ public class GerarOrçamentoPDF {
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                     tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                 }
-                if (exibirValores) {
-                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("").setFont(headerFont)));
-                    tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
-                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalBruto()).setFont(headerFont)));
-                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalDesconto()).setFont(headerFont)));
-                    tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
-                    tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotal()).setFont(headerFont)));
-                }
+            }
+            if (exibirValores) {
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("").setFont(headerFont)));
+                tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalBruto()).setFont(headerFont)));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotalDesconto()).setFont(headerFont)));
+                tabelaProdutos.addFooterCell(new Cell().setFont(headerFont));
+                tabelaProdutos.addFooterCell(new Cell().add(new Paragraph("R$ " + vm.getValorTotal()).setFont(headerFont)));
             }
             //Observações
             Table obs = new Table(new float[]{1});

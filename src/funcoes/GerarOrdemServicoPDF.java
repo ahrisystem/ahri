@@ -11,6 +11,7 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import controller.cadastros.entidades.EntidadeController;
 import controller.cadastros.placa.PlacaController;
@@ -58,27 +59,25 @@ public class GerarOrdemServicoPDF {
         return em;
     }
 
-    
     public static void OS(OrdemdeServicoModel om) {
         PdfWriter writer;
         try {
-            writer = new PdfWriter(new FileOutputStream(getCaminho()+"os"+om.getCod()+".pdf"));
+            writer = new PdfWriter(new FileOutputStream(getCaminho() + "os" + om.getCod() + ".pdf"));
             PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
             PdfFont headerFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            // Adicionando cabeçalho
-            Table cabeçalho = new Table(new float[]{10, 2});
-            cabeçalho.setWidth(UnitValue.createPercentValue(100));
-            cabeçalho.addHeaderCell(new Cell().add(new Paragraph("ORDEM DE SERVIÇO\n").setFont(headerFont)));
-            cabeçalho.addHeaderCell(new Cell().add(new Paragraph("Nº " + om.getCod()+"\n").setFont(font)));
             
+            // Adicionando título
+            Paragraph p1 = new Paragraph("ORDEM SERVIÇO");
+            p1.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
             //Sobre a empresa
-            Table cabeçalhoEmpresa = new Table(new float[]{4,4});
+            Table cabeçalhoEmpresa = new Table(new float[]{4, 4});
             cabeçalhoEmpresa.setWidth(UnitValue.createPercentValue(100));
             cabeçalhoEmpresa.addHeaderCell(new Cell().add(new Paragraph(
-                    getDadosEmpresa().getxFant() +" - "+getDadosEmpresa().getCNPJ()+ "\n")));
+                    getDadosEmpresa().getxFant() + " - " + getDadosEmpresa().getCNPJ() + "\n")));
             cabeçalhoEmpresa.addHeaderCell(new Cell().add(new Paragraph(
                     getDadosEmpresa().getxLgr() + " - "
                     + getDadosEmpresa().getNro() + " - " + getDadosEmpresa().getxBairro())
@@ -92,24 +91,24 @@ public class GerarOrdemServicoPDF {
             //Sobre a placa
             Table cabeçalhoPlaca = new Table(new float[]{1});
             cabeçalhoPlaca.setWidth(UnitValue.createPercentValue(100));
-                cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph("Placa: \n").setFont(font)));
+            cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph("Placa: \n").setFont(font)));
 
             //Tabela de serviços
-            Table tabelaProdutos = new Table(new float[]{1, 4, 4});
+            Table tabelaProdutos = new Table(new float[] { 0.8f, 0.1f, 0.1f });
             tabelaProdutos.setWidth(UnitValue.createPercentValue(100));
 
             // Adicionando cabeçalho serviços
             tabelaProdutos.addHeaderCell(new Cell().add(new Paragraph("Serviço").setFont(headerFont)));
             tabelaProdutos.addHeaderCell(new Cell().add(new Paragraph("Valor").setFont(headerFont)));
             tabelaProdutos.addHeaderCell(new Cell().add(new Paragraph("Tempo(HRS)").setFont(headerFont)));
-            
-                //Linhas restantes de serviços
-                int i;
-                for (i = 0; i < 15; i++) {
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
-                    tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
-                }
+
+            //Linhas restantes de serviços
+            int i;
+            for (i = 0; i < 15; i++) {
+                tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                tabelaProdutos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+            }
             //Observações
             Table obs = new Table(new float[]{1});
             obs.setWidth(UnitValue.createPercentValue(100));
@@ -117,19 +116,19 @@ public class GerarOrdemServicoPDF {
             if (om.getObs().isEmpty()) {
                 obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n\n\n\n\n\n\n").setFont(font)));
             } else {
-                obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n"+om.getObs()).setFont(font)));
+                obs.addHeaderCell(new Cell().add(new Paragraph("Observações:\n" + om.getObs()).setFont(font)));
             }
-            
+
             //Adicionar componentes
-            document.add(cabeçalho);
+            document.add(p1);
             document.add(cabeçalhoEmpresa);
             document.add(cabeçalhoCliente);
             document.add(cabeçalhoPlaca);
             document.add(tabelaProdutos);
             document.add(obs);
             document.close();
-            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();  
-            desktop.open(new File(getCaminho()+"os"+om.getCod()+".pdf"));
+            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+            desktop.open(new File(getCaminho() + "os" + om.getCod() + ".pdf"));
         } catch (IOException e) {
             e.printStackTrace();
         }

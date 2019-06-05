@@ -91,15 +91,22 @@ public class VendasController {
         }
     }
     
+    public void deletaProdutosOrcamento(int orcamento){
+        String sql = "delete from vendasitens where venda = "+orcamento+";";
+        try {
+            PreparedStatement pstmt1 = this.conexao.prepareStatement(sql);
+            pstmt1.execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao deletar produtos do orçamento.\n" + e.getMessage());
+        }
+    }
+    
     public void alteraProdutosOrcamento(VendasItensModel model, int orcamento) {
-        String sql1 = "delete from vendasitens where venda = "+orcamento+";";
-        String sql2 = "INSERT INTO public.vendasitens("
+        String sql = "INSERT INTO public.vendasitens("
                 + "venda, cod,nome, quantidade, valordesconto, valorunitario,valortotal)  "
                 + "VALUES (?,?,?,?,?,?,?);";
         try {
-            PreparedStatement pstmt1 = this.conexao.prepareStatement(sql1);
-            pstmt1.execute();
-            PreparedStatement pstmt2 = this.conexao.prepareStatement(sql2);
+            PreparedStatement pstmt2 = this.conexao.prepareStatement(sql);
             pstmt2.setInt(1, model.getVenda());
             pstmt2.setInt(2, model.getCod());
             pstmt2.setString(3, model.getNome());
