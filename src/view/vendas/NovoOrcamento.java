@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -89,10 +90,14 @@ public class NovoOrcamento extends javax.swing.JFrame {
     //////////////////////Atualizando totalizadores/////////////////////////////
     public void atualizarTotalizadores() {
         double totalbruto = 0.00;
+        DecimalFormat df = new DecimalFormat("###,##0.00");
+        
         double desconto = 0.00;
         for (int i = 0; i < tblProdutos.getRowCount(); i++) {
             totalbruto = totalbruto + Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", "."));
             desconto = desconto + Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", "."));
+            df.format(totalbruto);
+            df.format(desconto);
         }
         txtValorBruto.setText(Double.toString(totalbruto).replace(".", ","));
         txtTotalDescontos.setText(Double.toString(desconto).replace(".", ","));

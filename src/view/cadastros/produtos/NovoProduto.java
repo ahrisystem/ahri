@@ -524,6 +524,8 @@ public class NovoProduto extends javax.swing.JFrame {
                 pm.setTributacaonome(txtTributacao2.getText());
                 pc.cadastraProduto(pm);
                 limpaCampos();
+                txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
+                txtNome.requestFocus();
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
