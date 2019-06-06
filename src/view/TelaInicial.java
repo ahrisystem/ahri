@@ -261,7 +261,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btnUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
         btnUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnUsuario.setText("Usuario");
+        btnUsuario.setText("adm");
         btnUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuario.setOpaque(true);
         btnUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -771,7 +771,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFerramentasMousePressed
 
     private void btnUsuarioMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUsuarioMouseReleased
-        menuUsuario.show(btnUsuario,  evt.getX(), evt.getY());
+        if (btnUsuario.getText().equalsIgnoreCase("adm")) {
+            
+        } else {
+            menuUsuario.show(btnUsuario,  evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_btnUsuarioMouseReleased
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased

@@ -11,7 +11,9 @@ import javax.swing.JOptionPane;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
+import model.financeiro.FormapagamentoModel;
 import model.fiscal.TributacaoModel;
+import model.vendas.VendasModel;
 
 public class PesquisarController {
 
@@ -40,6 +42,44 @@ public class PesquisarController {
             JOptionPane.showMessageDialog(null, "Falha ao listar clientes!\n" + s.getMessage());
         }
         return clientes;
+    }
+    public List<FormapagamentoModel> listaFormapagamento(String nome) {
+        List<FormapagamentoModel> fms = new ArrayList<>();
+        String sql = "SELECT cod,nome,parcela FROM formapagamento where nome LIKE '%" + nome + "%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                FormapagamentoModel e = new FormapagamentoModel();
+                e.setCod(rs.getInt("cod"));
+                e.setNome(rs.getString("nome"));
+                e.setParcela(rs.getBoolean("parcela"));
+                fms.add(e);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar formas de pagamento!\n" + s.getMessage());
+        }
+        return fms;
+    }
+    public List<VendasModel> listaOrcamentos(String nome) {
+        List<VendasModel> vms = new ArrayList<>();
+        String sql = "SELECT cod,nomecliente,valortotal FROM vendas where status = 1 and  nomecliente LIKE '%" + nome + "%';";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                VendasModel vm = new VendasModel();
+                vm.setCod(rs.getInt("cod"));
+                vm.setNomecliente(rs.getString("nomecliente"));
+                vm.setValorTotal(rs.getDouble("valortotal"));
+                vms.add(vm);
+            }
+            stmt.close();
+        } catch (SQLException s) {
+            JOptionPane.showMessageDialog(null, "Falha ao listar orçamentos!\n" + s.getMessage());
+        }
+        return vms;
     }
     public List<PlacaModel> listaPlacas(String cod) {
         List<PlacaModel> placas = new ArrayList<>();
@@ -112,6 +152,21 @@ public class PesquisarController {
             stmt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao buscar cliente.\n" + e.getMessage());
+        }
+    }
+    public void buscarFormapagamento(FormapagamentoModel model, int cod) {
+        String sql = "select cod, nome, parcela from formapagamento where cod = " + cod + ";";
+        try {
+            Statement stmt = conexao.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                model.setCod(rs.getInt("cod"));
+                model.setNome(rs.getString("nome"));
+                model.setParcela(rs.getBoolean("parcela"));
+            }
+            stmt.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar forma de pagamento.\n" + e.getMessage());
         }
     }
     public void buscarPlaca(PlacaModel model, String cod) {

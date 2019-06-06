@@ -13,3 +13,6 @@ Vendas
     1 - Caixa novo
     2 - Caixa fechado
     3 - Caixa aberto
+
+--No PDV, sigla FV = Finalizar venda
+    VC = Valores caixa
