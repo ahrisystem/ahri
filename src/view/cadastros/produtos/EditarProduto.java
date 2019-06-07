@@ -534,7 +534,11 @@ public class EditarProduto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Verifique o preço!");
             } else {
                 ProdutoModel pm = new ProdutoModel();
-                pm.setServico(cbxServico.isEnabled());
+                if (cbxServico.isSelected()) {
+                    pm.setServico(true);
+                } else {
+                    pm.setServico(false);
+                }
                 pm.setCodigoBarras(txtEAN.getText());
                 pm.setNome(txtNome.getText());
                 pm.setInativo(false);
@@ -545,8 +549,12 @@ public class EditarProduto extends javax.swing.JFrame {
                 pm.setCusto(Double.parseDouble(txtCusto.getText().replaceAll(",", ".")));
                 pm.setNcm(txtNCM.getText());
                 pm.setCest(txtCEST.getText());
+                pm.setTributacao(txtTributacao.getText());
+                pm.setTributacaonome(txtTributacao2.getText());
                 pc.alterarProduto(pm, Integer.parseInt(txtCodigo.getText()));
                 limpaCampos();
+                txtCodigo.setText(Integer.toString(pc.pegaCodigo()));
+                txtNome.requestFocus();
             }
         }
     }//GEN-LAST:event_btnSalvarActionPerformed

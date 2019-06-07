@@ -40,7 +40,7 @@ public class GrupoController {
 
     public List<GrupoModel> listaGrupos(String nome) {
         List<GrupoModel> grupos = new ArrayList<>();
-        String sql = "SELECT cod,tipo,pai,nome,ncm FROM public.grupo where inativo = false and nome LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,tipo,pai,nome,ncm FROM public.grupo where inativo = false and nome LIKE '%" + nome + "%' order by nome;";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

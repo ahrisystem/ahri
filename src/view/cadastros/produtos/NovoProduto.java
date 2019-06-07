@@ -94,7 +94,7 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        txtServico = new javax.swing.JCheckBox();
+        cbxServico = new javax.swing.JCheckBox();
         lblEAN = new javax.swing.JLabel();
         txtEAN = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
@@ -275,15 +275,15 @@ public class NovoProduto extends javax.swing.JFrame {
         });
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 170, 20));
 
-        txtServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtServico.setText("Serviço ?");
-        txtServico.setOpaque(false);
-        txtServico.addMouseListener(new java.awt.event.MouseAdapter() {
+        cbxServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxServico.setText("Serviço ?");
+        cbxServico.setOpaque(false);
+        cbxServico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtServicoMouseReleased(evt);
+                cbxServicoMouseReleased(evt);
             }
         });
-        painelPrincipal.add(txtServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 100, 20));
+        painelPrincipal.add(cbxServico, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 100, 20));
 
         lblEAN.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblEAN.setForeground(new java.awt.Color(51, 105, 191));
@@ -509,7 +509,11 @@ public class NovoProduto extends javax.swing.JFrame {
             } else {
                 ProdutoModel pm = new ProdutoModel();
                 pm.setCod(Integer.parseInt(txtCodigo.getText()));
-                pm.setServico(txtServico.isEnabled());
+                if (cbxServico.isSelected()) {
+                    pm.setServico(true);
+                } else {
+                    pm.setServico(false);
+                }
                 pm.setCodigoBarras(txtEAN.getText());
                 pm.setNome(txtNome.getText());
                 pm.setInativo(false);
@@ -571,15 +575,15 @@ public class NovoProduto extends javax.swing.JFrame {
         btnSalvar.setForeground(Color.BLACK);
     }//GEN-LAST:event_btnSalvarMouseExited
 
-    private void txtServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtServicoMouseReleased
-        if (txtServico.isSelected()) {
+    private void cbxServicoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxServicoMouseReleased
+        if (cbxServico.isSelected()) {
             txtEAN.setEnabled(false);
             lblNCM.setText("NBS");
         } else {
             txtEAN.setEnabled(true);
             lblNCM.setText("NCM");
         }
-    }//GEN-LAST:event_txtServicoMouseReleased
+    }//GEN-LAST:event_cbxServicoMouseReleased
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         if (txtCodigo.getText().equalsIgnoreCase("")) {
@@ -685,6 +689,7 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionar;
+    private javax.swing.JCheckBox cbxServico;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo2;
@@ -716,7 +721,6 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JFormattedTextField txtPreco;
-    private javax.swing.JCheckBox txtServico;
     private javax.swing.JTextField txtTributacao;
     private javax.swing.JTextField txtTributacao2;
     private javax.swing.JComboBox<String> txtUN;
