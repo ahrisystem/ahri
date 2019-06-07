@@ -201,15 +201,22 @@ public class Backup extends javax.swing.JFrame {
                 btnEfetuarBackup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                 btnEfetuarBackup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ferramentas/icon5.png"))); // NOI18N
                 btnEfetuarBackup.setText("Fazer backup");
+                btnEfetuarBackup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                 btnEfetuarBackup.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
                 btnEfetuarBackup.setOpaque(true);
                 btnEfetuarBackup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
                 btnEfetuarBackup.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        btnEfetuarBackupMouseEntered(evt);
+                    }
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        btnEfetuarBackupMouseExited(evt);
+                    }
                     public void mouseReleased(java.awt.event.MouseEvent evt) {
                         btnEfetuarBackupMouseReleased(evt);
                     }
                 });
-                painelPrincipal.add(btnEfetuarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 410, 110));
+                painelPrincipal.add(btnEfetuarBackup, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 200, 110));
 
                 lblCaminho.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
                 lblCaminho.setForeground(new java.awt.Color(51, 105, 191));
@@ -303,6 +310,14 @@ public class Backup extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnEfetuarBackupMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEfetuarBackupMouseEntered
+        btnEfetuarBackup.setBackground(new java.awt.Color(218, 227, 229));
+    }//GEN-LAST:event_btnEfetuarBackupMouseEntered
+
+    private void btnEfetuarBackupMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEfetuarBackupMouseExited
+        btnEfetuarBackup.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnEfetuarBackupMouseExited
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel">

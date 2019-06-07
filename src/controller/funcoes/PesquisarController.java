@@ -81,9 +81,11 @@ public class PesquisarController {
         }
         return vms;
     }
+    
     public List<PlacaModel> listaPlacas(String cod) {
         List<PlacaModel> placas = new ArrayList<>();
         String sql = "SELECT cod,nome,nomecliente FROM placa where inativo=FALSE and cod LIKE '%" + cod + "%';";
+        
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

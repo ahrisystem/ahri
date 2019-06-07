@@ -91,13 +91,13 @@ public class BackupController {
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setString(1, Model.getCaminho());
-            pstmt.setBoolean(2, Model.getAgendado());
-            pstmt.setString(3, Model.getHr1());
-            pstmt.setString(4, Model.getHr2());
-            pstmt.setString(5, Model.getHr3());
-            pstmt.setString(6, Model.getHr4());
-            pstmt.setString(7, Model.getHr5());
-            pstmt.setString(8, Model.getHr6());
+            pstmt.setBoolean(2, false);
+            pstmt.setString(3, "00:00");
+            pstmt.setString(4, "00:00");
+            pstmt.setString(5, "00:00");
+            pstmt.setString(6, "00:00");
+            pstmt.setString(7, "00:00");
+            pstmt.setString(8, "00:00");
             pstmt.executeUpdate();
             pstmt.close();
         } catch (Exception e) {

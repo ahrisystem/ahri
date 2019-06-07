@@ -152,7 +152,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
         } else {
             txtPlaca.setText(pm.getCod());
             txtPlaca2.setText(pm.getNome());
-            txtDescricaoProduto.setEnabled(false);
+            txtPlaca2.setEnabled(false);
         }
     }
 
