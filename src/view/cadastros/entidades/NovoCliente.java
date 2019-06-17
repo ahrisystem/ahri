@@ -608,7 +608,7 @@ public class NovoCliente extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 750, 460));
 
-        lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
+        lblTitulo.setBackground(new java.awt.Color(0, 51, 102));
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

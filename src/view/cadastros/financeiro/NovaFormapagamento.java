@@ -37,14 +37,16 @@ public class NovaFormapagamento extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        cbxPermiteFiado = new javax.swing.JCheckBox();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        lblParcelas = new javax.swing.JLabel();
         btnSair = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        txtNumerodeParcelas = new javax.swing.JSpinner();
+        jTabbedPane = new javax.swing.JTabbedPane();
+        abaFiscal = new javax.swing.JPanel();
         cbxParcela = new javax.swing.JCheckBox();
+        lblParcelas = new javax.swing.JLabel();
+        txtNumerodeParcelas = new javax.swing.JSpinner();
+        cbxPermiteFiado = new javax.swing.JCheckBox();
         cbxObrigaDoc = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,11 +76,6 @@ public class NovaFormapagamento extends javax.swing.JFrame {
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 170, 20));
 
-        cbxPermiteFiado.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxPermiteFiado.setText("Permite fiado?");
-        cbxPermiteFiado.setOpaque(false);
-        painelPrincipal.add(cbxPermiteFiado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 190, 30));
-
         lblNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(51, 105, 191));
         lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -88,12 +85,6 @@ public class NovaFormapagamento extends javax.swing.JFrame {
         txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 440, 20));
-
-        lblParcelas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblParcelas.setForeground(new java.awt.Color(51, 105, 191));
-        lblParcelas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblParcelas.setText("Parcelas");
-        painelPrincipal.add(lblParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 70, 30));
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSair.setText("Sair");
@@ -111,7 +102,7 @@ public class NovaFormapagamento extends javax.swing.JFrame {
                 btnSairActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 140, 80, 40));
+        painelPrincipal.add(btnSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 80, 40));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -129,12 +120,12 @@ public class NovaFormapagamento extends javax.swing.JFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
-        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 80, 40));
+        painelPrincipal.add(btnSalvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, 80, 40));
 
-        txtNumerodeParcelas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtNumerodeParcelas.setToolTipText("Número de parcelas");
-        txtNumerodeParcelas.setEnabled(false);
-        painelPrincipal.add(txtNumerodeParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 80, 30));
+        jTabbedPane.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+
+        abaFiscal.setOpaque(false);
+        abaFiscal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cbxParcela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbxParcela.setText("Parcela?");
@@ -144,14 +135,34 @@ public class NovaFormapagamento extends javax.swing.JFrame {
                 cbxParcelaMouseReleased(evt);
             }
         });
-        painelPrincipal.add(cbxParcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 100, 30));
+        abaFiscal.add(cbxParcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 30));
+
+        lblParcelas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblParcelas.setForeground(new java.awt.Color(51, 105, 191));
+        lblParcelas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblParcelas.setText("Parcelas");
+        abaFiscal.add(lblParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 70, 30));
+
+        txtNumerodeParcelas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtNumerodeParcelas.setToolTipText("Número de parcelas");
+        txtNumerodeParcelas.setEnabled(false);
+        abaFiscal.add(txtNumerodeParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 80, 30));
+
+        cbxPermiteFiado.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxPermiteFiado.setText("Permite fiado?");
+        cbxPermiteFiado.setOpaque(false);
+        abaFiscal.add(cbxPermiteFiado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 190, 30));
 
         cbxObrigaDoc.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbxObrigaDoc.setText("Obrigar nº documento");
         cbxObrigaDoc.setOpaque(false);
-        painelPrincipal.add(cbxObrigaDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 190, 30));
+        abaFiscal.add(cbxObrigaDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 190, 30));
 
-        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 700, 190));
+        jTabbedPane.addTab("Opções", abaFiscal);
+
+        painelPrincipal.add(jTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 700, 170));
+
+        getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 700, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -236,11 +247,13 @@ public class NovaFormapagamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel abaFiscal;
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JCheckBox cbxObrigaDoc;
     private javax.swing.JCheckBox cbxParcela;
     private javax.swing.JCheckBox cbxPermiteFiado;
+    private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblParcelas;

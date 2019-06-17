@@ -29,6 +29,7 @@ import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
 import view.caixa.PDV;
+import view.financeiro.CaixaGeral;
 import view.servicos.OrdemdeServico;
 import view.vendas.Orcamentos;
 
@@ -88,7 +89,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     public void alterarTitulos() {
         if (inicial) {
-            opcao1.setText("Caixa");
+            opcao1.setText("Caixa geral");
             opcao2.setText("Clientes");
             opcao3.setText("Orçamentos");
             opcao4.setText("Status");
@@ -376,7 +377,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         opcao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         opcao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio/icon1.png"))); // NOI18N
-        opcao1.setText("Caixa");
+        opcao1.setText("Caixa Geral");
         opcao1.setToolTipText("");
         opcao1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         opcao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -780,12 +781,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
-            PDV pdv = PDV.getInstancia();
-            DateTimeFormatter dataBanco = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-            DateTimeFormatter dataNormal = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-            LocalDate localDate = LocalDate.now();
-            int retorno = cc.verificar(dataBanco.format(localDate));
-            pdv.inicializar(btnUsuario.getText(), retorno, dataNormal.format(localDate));
+            CaixaGeral cx = CaixaGeral.getInstancia();
+            painelPrincipal.add("Caixa geral", cx);
+            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
+            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();
