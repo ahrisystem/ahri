@@ -8,8 +8,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.text.DateFormatSymbols;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,8 +26,6 @@ import view.caixa.Caixas;
 import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
-import view.caixa.PDV;
-import view.financeiro.CaixaGeral;
 import view.servicos.OrdemdeServico;
 import view.vendas.Orcamentos;
 
@@ -377,7 +373,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         opcao1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         opcao1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio/icon1.png"))); // NOI18N
-        opcao1.setText("Caixa Geral");
+        opcao1.setText("Caixa");
         opcao1.setToolTipText("");
         opcao1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         opcao1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -781,8 +777,8 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
-            CaixaGeral cx = CaixaGeral.getInstancia();
-            painelPrincipal.add("Caixa geral", cx);
+            Caixas caixas = Caixas.getInstancia();
+            painelPrincipal.add("Caixas", caixas);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }

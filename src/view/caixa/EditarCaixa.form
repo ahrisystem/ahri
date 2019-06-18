@@ -752,7 +752,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Editando caixa"/>
+        <Property name="text" type="java.lang.String" value="Visualizar caixa"/>
         <Property name="opaque" type="boolean" value="true"/>
       </Properties>
       <Constraints>

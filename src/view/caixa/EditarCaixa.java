@@ -1,14 +1,8 @@
-package view.financeiro;
+package view.caixa;
 
 import controller.cadastros.entidades.EntidadeController;
-import controller.funcoes.LocalController;
 import controller.funcoes.PesquisarController;
 import java.awt.event.KeyEvent;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import model.cadastros.entidades.EntidadeModel;
-import model.cadastros.placa.PlacaModel;
 import view.TelaInicial;
 
 
@@ -423,7 +417,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Editando caixa");
+        lblTitulo.setText("Visualizar caixa");
         lblTitulo.setOpaque(true);
         getContentPane().add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 30));
 

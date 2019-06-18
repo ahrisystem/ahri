@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class CaixaModel {
     private Date data;
+    private int status;
     private String usuario;
     private boolean fechado;
     private double fundo;
@@ -17,6 +18,14 @@ public class CaixaModel {
 
     public Date getData() {
         return data;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public boolean isFechado() {

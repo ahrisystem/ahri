@@ -67,16 +67,19 @@ public class CaixaController {
         }
     }
 
-    public List<CaixaModel> listaCaixas(String filtro,String valor) {
+    public List<CaixaModel> listaCaixas(String usuario) {
         List<CaixaModel> caixas = new ArrayList<>();
-        String sql = "select * from caixa where "+filtro+" = '"+valor+"';";
+        String sql = "select * from caixa where usuario like '%"+usuario+"%' order by data;";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 CaixaModel model = new CaixaModel();
                 model.setData(rs.getDate("data"));
+                model.setFechado(rs.getBoolean("fechado"));
                 model.setUsuario(rs.getString("usuario"));
+                model.setEntrada(rs.getDouble("entrada"));
+                model.setSaida(rs.getDouble("saida"));
                 caixas.add(model);
             }
             stmt.close();
