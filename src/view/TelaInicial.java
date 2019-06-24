@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.text.DateFormatSymbols;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +25,7 @@ import view.cadastrosUnicos.Contabilidade;
 import view.cadastrosUnicos.Empresa;
 import view.cadastrosUnicos.Licenciamento;
 import view.caixa.Caixas;
+import view.caixa.PDV;
 import view.controles.Status;
 import view.ferramentas.Backup;
 import view.fiscal.Tributacoes;
@@ -777,10 +780,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void opcao1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao1MouseReleased
         if (inicial) {
-            Caixas caixas = Caixas.getInstancia();
-            painelPrincipal.add("Caixas", caixas);
-            painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
-            painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
+            PDV caixa = PDV.getInstancia();
+            DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.now();
+            caixa.inicializar(btnUsuario.getText(), cc.verificar(dtf2.format(localDate)), dtf1.format(localDate));
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();
