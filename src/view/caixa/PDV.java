@@ -169,6 +169,18 @@ public class PDV extends javax.swing.JFrame{
             F7.setText("\nF7\nEntradas");
             F8.setText("\nF8\nFechamento");
         }
+        if (tela.equalsIgnoreCase("venda")) {
+            lblTitulo.setText("NOVA VENDA");
+            painelVenda.setVisible(false);
+            F1.setText("\nF1\nVenda");
+            F2.setText("\nF2\nOrçamentos");
+            F3.setText("\nF3\nClientes");
+            F4.setText("\nF4\nConsulta");
+            F5.setText("\nF5\nCaixa");
+            F6.setText("\nF6\nSaídas");
+            F7.setText("\nF7\nEntradas");
+            F8.setText("\nF8\nFechamento");
+        }
         if (tela.equalsIgnoreCase("caixa")) {
             lblTitulo.setText("CAIXA");
             F1.setText("\nF1\nSuprimento");
@@ -193,14 +205,15 @@ public class PDV extends javax.swing.JFrame{
         }
     }
     public void abrirVenda(){
-        Venda.setSize(510, 544);
-        Venda.setVisible(true);
+        painelTela.add(painelVenda);
+        painelVenda.setVisible(true);
+        setTela("venda");
     }
     public void cancelarVenda(){
         if (JOptionPane.showConfirmDialog(null, "Cancelar a venda em aberto?\nFormulários não salvos podem ser perdidos",
                 "Cancelar venda em aberto", 2) == 0) {
             setTela("inicio");
-            painelVenda.setVisible(false);
+            painelTela.removeAll();
         }
     }
     public void suprirSangrar(int operacao){
@@ -407,9 +420,6 @@ public class PDV extends javax.swing.JFrame{
         btnRemoverProduto = new javax.swing.JButton();
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
-        cbxExibirProdutos = new javax.swing.JCheckBox();
-        cbxExibirPlaca = new javax.swing.JCheckBox();
-        cbxExibirValores = new javax.swing.JCheckBox();
         btnLimparCampos = new javax.swing.JButton();
         txtProduto = new javax.swing.JTextField();
         txtDescricaoProduto = new javax.swing.JTextField();
@@ -422,6 +432,7 @@ public class PDV extends javax.swing.JFrame{
         lblOrcamento3 = new javax.swing.JLabel();
         btnAdicionarProduto1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        btnAdicionarProduto2 = new javax.swing.JButton();
         background = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         painelBotoes = new javax.swing.JPanel();
@@ -862,6 +873,7 @@ public class PDV extends javax.swing.JFrame{
             .addComponent(backgroundValoresCaixa2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        Venda.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         Venda.setTitle("Nova venda nº ");
 
         painelVenda.setBackground(new java.awt.Color(255, 255, 255));
@@ -1065,27 +1077,6 @@ public class PDV extends javax.swing.JFrame{
         });
         painelFuncoes.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirProdutos.setSelected(true);
-        cbxExibirProdutos.setText("Produtos");
-        cbxExibirProdutos.setFocusable(false);
-        cbxExibirProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 110, 30));
-
-        cbxExibirPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirPlaca.setSelected(true);
-        cbxExibirPlaca.setText("Placa");
-        cbxExibirPlaca.setFocusable(false);
-        cbxExibirPlaca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
-
-        cbxExibirValores.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirValores.setSelected(true);
-        cbxExibirValores.setText("Valores");
-        cbxExibirValores.setFocusable(false);
-        cbxExibirValores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirValores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 110, 30));
-
         btnLimparCampos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnLimparCampos.setText("Limpar");
         btnLimparCampos.setFocusable(false);
@@ -1164,6 +1155,7 @@ public class PDV extends javax.swing.JFrame{
         lblOrcamento3.setOpaque(true);
 
         btnAdicionarProduto1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnAdicionarProduto1.setForeground(new java.awt.Color(51, 153, 0));
         btnAdicionarProduto1.setText("Finalizar");
         btnAdicionarProduto1.setFocusable(false);
         btnAdicionarProduto1.addActionListener(new java.awt.event.ActionListener() {
@@ -1176,6 +1168,16 @@ public class PDV extends javax.swing.JFrame{
         jCheckBox1.setText("Gerar nota fiscal eletrônica");
         jCheckBox1.setEnabled(false);
         jCheckBox1.setOpaque(false);
+
+        btnAdicionarProduto2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnAdicionarProduto2.setForeground(new java.awt.Color(204, 0, 51));
+        btnAdicionarProduto2.setText("Cancelar");
+        btnAdicionarProduto2.setFocusable(false);
+        btnAdicionarProduto2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarProduto2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelVendaLayout = new javax.swing.GroupLayout(painelVenda);
         painelVenda.setLayout(painelVendaLayout);
@@ -1249,6 +1251,8 @@ public class PDV extends javax.swing.JFrame{
                         .addContainerGap()
                         .addComponent(jCheckBox1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdicionarProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAdicionarProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -1270,18 +1274,18 @@ public class PDV extends javax.swing.JFrame{
                                     .addComponent(lblPlaca)
                                     .addComponent(btnLimparPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnLimparOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPlaca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(txtOrcamento2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(11, 11, 11))
+                                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblOrcamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnLimparOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtPlaca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtOrcamento2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(painelVendaLayout.createSequentialGroup()
                         .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(11, 11, 11)
                 .addComponent(lblOrcamento3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1298,7 +1302,7 @@ public class PDV extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.PREFERRED_SIZE, 205, Short.MAX_VALUE))
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo12)
@@ -1318,7 +1322,9 @@ public class PDV extends javax.swing.JFrame{
                     .addComponent(txtOrcamento3, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAdicionarProduto1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAdicionarProduto1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                        .addComponent(btnAdicionarProduto2, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
                     .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1515,18 +1521,8 @@ public class PDV extends javax.swing.JFrame{
         });
         painelBotoes.add(F8);
 
-        painelTela.setOpaque(false);
-
-        javax.swing.GroupLayout painelTelaLayout = new javax.swing.GroupLayout(painelTela);
-        painelTela.setLayout(painelTelaLayout);
-        painelTelaLayout.setHorizontalGroup(
-            painelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 777, Short.MAX_VALUE)
-        );
-        painelTelaLayout.setVerticalGroup(
-            painelTelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 324, Short.MAX_VALUE)
-        );
+        painelTela.setBackground(new java.awt.Color(204, 204, 204));
+        painelTela.setLayout(new java.awt.GridLayout());
 
         txtInput.setBackground(new java.awt.Color(204, 204, 204));
         txtInput.setFont(new java.awt.Font("Century Gothic", 0, 20)); // NOI18N
@@ -1562,7 +1558,6 @@ public class PDV extends javax.swing.JFrame{
         txtFundoTroco.setText("0,00");
 
         txtUsuarioLogado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txtUsuarioLogado.setText("adm");
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -1578,11 +1573,11 @@ public class PDV extends javax.swing.JFrame{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                         .addComponent(lblLogadoComo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFundoTroco)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFundoTroco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtFundoTroco, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1595,7 +1590,7 @@ public class PDV extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
@@ -1607,7 +1602,7 @@ public class PDV extends javax.swing.JFrame{
                     .addComponent(lblFundoTroco)
                     .addComponent(txtDataCaixa)
                     .addComponent(txtFundoTroco)
-                    .addComponent(txtUsuarioLogado)))
+                    .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2049,6 +2044,10 @@ public class PDV extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarProduto1ActionPerformed
 
+    private void btnAdicionarProduto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProduto2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdicionarProduto2ActionPerformed
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
         try {
@@ -2092,6 +2091,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JPanel backgroundValoresCaixa2;
     private javax.swing.JButton btnAdicionarProduto;
     private javax.swing.JButton btnAdicionarProduto1;
+    private javax.swing.JButton btnAdicionarProduto2;
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JLabel btnFinalizarVenda;
     private javax.swing.JButton btnLimparCampos;
@@ -2102,9 +2102,6 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JLabel btnSelecionarPesquisa;
     private javax.swing.JLabel btnValoresCaixa;
     private javax.swing.JLabel btnValoresCaixa1;
-    private javax.swing.JCheckBox cbxExibirPlaca;
-    private javax.swing.JCheckBox cbxExibirProdutos;
-    private javax.swing.JCheckBox cbxExibirValores;
     private javax.swing.JDialog fecharcaixa;
     private javax.swing.JDialog finalizarvenda;
     private javax.swing.JCheckBox jCheckBox1;
