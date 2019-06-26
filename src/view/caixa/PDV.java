@@ -159,7 +159,6 @@ public class PDV extends javax.swing.JFrame{
     public void setTela(String tela){
         if (tela.equalsIgnoreCase("inicio")) {
             lblTitulo.setText("CAIXA LIVRE");
-            painelVenda.setVisible(false);
             F1.setText("\nF1\nVenda");
             F2.setText("\nF2\nOrçamentos");
             F3.setText("\nF3\nClientes");
@@ -171,15 +170,14 @@ public class PDV extends javax.swing.JFrame{
         }
         if (tela.equalsIgnoreCase("venda")) {
             lblTitulo.setText("NOVA VENDA");
-            painelVenda.setVisible(false);
-            F1.setText("\nF1\nVenda");
-            F2.setText("\nF2\nOrçamentos");
-            F3.setText("\nF3\nClientes");
-            F4.setText("\nF4\nConsulta");
-            F5.setText("\nF5\nCaixa");
-            F6.setText("\nF6\nSaídas");
-            F7.setText("\nF7\nEntradas");
-            F8.setText("\nF8\nFechamento");
+            F1.setText("\nF1\nDinheiro");
+            F2.setText("\nF2\n");
+            F3.setText("\nF3\n");
+            F4.setText("\nF4\n");
+            F5.setText("\nF5\nSubtotal");
+            F6.setText("\nF6\nCancelar");
+            F7.setText("\nF7\n");
+            F8.setText("\nF8\n");
         }
         if (tela.equalsIgnoreCase("caixa")) {
             lblTitulo.setText("CAIXA");
@@ -204,27 +202,22 @@ public class PDV extends javax.swing.JFrame{
             F8.setText("");
         }
     }
+    
     public void abrirVenda(){
         painelTela.add(painelVenda);
         painelVenda.setVisible(true);
         setTela("venda");
     }
+    
     public void cancelarVenda(){
         if (JOptionPane.showConfirmDialog(null, "Cancelar a venda em aberto?\nFormulários não salvos podem ser perdidos",
                 "Cancelar venda em aberto", 2) == 0) {
             setTela("inicio");
-            painelTela.removeAll();
+            painelTela.remove(painelVenda);
         }
     }
-    public void suprirSangrar(int operacao){
-        if (operacao == 0){
-            
-        } 
-        if (operacao == 1) {
-            
-        }
-    }
-    //Pesquisar
+    
+    /////////////////////Pesquisar
     public void listarClientes() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -445,6 +438,7 @@ public class PDV extends javax.swing.JFrame{
         F7 = new javax.swing.JTextArea();
         F8 = new javax.swing.JTextArea();
         painelTela = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         txtInput = new javax.swing.JTextField();
         lblLogadoComo = new javax.swing.JLabel();
         lblFundoTroco = new javax.swing.JLabel();
@@ -1366,6 +1360,7 @@ public class PDV extends javax.swing.JFrame{
         lblTitulo.setOpaque(true);
 
         painelBotoes.setBackground(new java.awt.Color(204, 204, 204));
+        painelBotoes.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         painelBotoes.setLayout(new java.awt.GridLayout(1, 8, 1, 1));
 
         F1.setEditable(false);
@@ -1373,7 +1368,7 @@ public class PDV extends javax.swing.JFrame{
         F1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F1.setRows(5);
         F1.setText("\nF1\nVenda");
-        F1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F1.setFocusable(false);
         F1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1394,7 +1389,7 @@ public class PDV extends javax.swing.JFrame{
         F2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F2.setRows(5);
         F2.setText("\nF2\nOrçamentos");
-        F2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F2.setFocusable(false);
         F2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1412,7 +1407,7 @@ public class PDV extends javax.swing.JFrame{
         F3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F3.setRows(5);
         F3.setText("\nF3\nClientes");
-        F3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F3.setFocusable(false);
         F3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1430,7 +1425,7 @@ public class PDV extends javax.swing.JFrame{
         F4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F4.setRows(5);
         F4.setText("\nF4\nConsultar");
-        F4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F4.setFocusable(false);
         F4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1448,7 +1443,7 @@ public class PDV extends javax.swing.JFrame{
         F5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F5.setRows(5);
         F5.setText("\nF5\nCaixa");
-        F5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F5.setFocusable(false);
         F5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1469,7 +1464,7 @@ public class PDV extends javax.swing.JFrame{
         F6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F6.setRows(5);
         F6.setText("\nF6\nSaídas");
-        F6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F6.setFocusable(false);
         F6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1487,7 +1482,7 @@ public class PDV extends javax.swing.JFrame{
         F7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F7.setRows(5);
         F7.setText("\nF7\nEntradas");
-        F7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F7.setFocusable(false);
         F7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1505,7 +1500,7 @@ public class PDV extends javax.swing.JFrame{
         F8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         F8.setRows(5);
         F8.setText("\nF8\nFechamento");
-        F8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 3));
+        F8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         F8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         F8.setFocusable(false);
         F8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1522,7 +1517,13 @@ public class PDV extends javax.swing.JFrame{
         painelBotoes.add(F8);
 
         painelTela.setBackground(new java.awt.Color(204, 204, 204));
-        painelTela.setLayout(new java.awt.GridLayout());
+        painelTela.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/main.png"))); // NOI18N
+        jLabel1.setOpaque(true);
+        painelTela.add(jLabel1);
 
         txtInput.setBackground(new java.awt.Color(204, 204, 204));
         txtInput.setFont(new java.awt.Font("Century Gothic", 0, 20)); // NOI18N
@@ -1564,20 +1565,20 @@ public class PDV extends javax.swing.JFrame{
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtInput, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                         .addComponent(lblLogadoComo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFundoTroco)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFundoTroco, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addComponent(txtFundoTroco, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1590,7 +1591,7 @@ public class PDV extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
@@ -2045,7 +2046,7 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_btnAdicionarProduto1ActionPerformed
 
     private void btnAdicionarProduto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProduto2ActionPerformed
-        // TODO add your handling code here:
+        cancelarVenda();
     }//GEN-LAST:event_btnAdicionarProduto2ActionPerformed
 
     public static void main(String args[]) {
@@ -2105,6 +2106,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JDialog fecharcaixa;
     private javax.swing.JDialog finalizarvenda;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCliente;

@@ -1694,20 +1694,20 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="lblTitulo" alignment="0" max="32767" attributes="0"/>
-              <Component id="painelTela" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="painelTela" max="32767" attributes="0"/>
                       <Component id="txtInput" alignment="1" max="32767" attributes="0"/>
                       <Component id="painelBotoes" pref="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lblLogadoComo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtUsuarioLogado" pref="150" max="32767" attributes="0"/>
+                          <Component id="txtUsuarioLogado" pref="76" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="lblFundoTroco" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtFundoTroco" pref="174" max="32767" attributes="0"/>
+                          <Component id="txtFundoTroco" pref="99" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="lblData" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -1715,7 +1715,7 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -1724,7 +1724,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <Component id="lblTitulo" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="painelTela" pref="293" max="32767" attributes="0"/>
+                  <Component id="painelTela" pref="263" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="painelBotoes" min="-2" pref="87" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
@@ -1765,6 +1765,11 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </Property>
           </Properties>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
@@ -1785,7 +1790,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F1&#xa;Venda"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1812,7 +1817,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F2&#xa;Or&#xe7;amentos"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1838,7 +1843,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F3&#xa;Clientes"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1864,7 +1869,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F4&#xa;Consultar"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1890,7 +1895,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F5&#xa;Caixa"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1917,7 +1922,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F6&#xa;Sa&#xed;das"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1943,7 +1948,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F7&#xa;Entradas"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1969,7 +1974,7 @@
                 <Property name="text" type="java.lang.String" value="&#xa;F8&#xa;Fechamento"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="3">
+                    <LineBorder>
                       <Color PropertyName="color" blue="ff" green="ff" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -1998,6 +2003,20 @@
             <Property name="columns" type="int" value="0"/>
             <Property name="rows" type="int" value="1"/>
           </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="jLabel1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/images/main.png"/>
+                </Property>
+                <Property name="opaque" type="boolean" value="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="txtInput">
           <Properties>
