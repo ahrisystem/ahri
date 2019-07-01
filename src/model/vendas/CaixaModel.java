@@ -3,7 +3,7 @@ package model.vendas;
 import java.sql.Date;
 
 public class CaixaModel {
-    private Date data;
+    private String data;
     private int status;
     private String usuario;
     private boolean fechado;
@@ -16,10 +16,13 @@ public class CaixaModel {
     private double bruto;
     private double total;
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
+    public void setData(String data) {
+        this.data = data;
+    }
     public int getStatus() {
         return status;
     }
@@ -36,9 +39,6 @@ public class CaixaModel {
         this.fechado = fechado;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
 
     public String getUsuario() {
         return usuario;

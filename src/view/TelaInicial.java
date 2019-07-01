@@ -14,6 +14,7 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import model.vendas.CaixaModel;
 import view.cadastros.entidades.Clientes;
 import view.cadastros.entidades.Fornecedores;
 import view.cadastros.financeiro.FormasdePagamento;
@@ -509,7 +510,7 @@ public class TelaInicial extends javax.swing.JFrame {
         opcao7.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         opcao7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         opcao7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inicio/icon7.png"))); // NOI18N
-        opcao7.setText("Estoque");
+        opcao7.setText("Placas");
         opcao7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         opcao7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         opcao7.setOpaque(true);
@@ -784,7 +785,9 @@ public class TelaInicial extends javax.swing.JFrame {
             DateTimeFormatter dtf1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate localDate = LocalDate.now();
-            caixa.inicializar(btnUsuario.getText(), cc.verificar(dtf2.format(localDate)), dtf1.format(localDate));
+            CaixaModel cm = new CaixaModel();
+            cm.setData(dtf2.format(localDate));
+            caixa.inicializar(btnUsuario.getText(), cc.verificar(cm), dtf1.format(localDate));
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();

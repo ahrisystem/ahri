@@ -75,7 +75,7 @@ public class CaixaController {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 CaixaModel model = new CaixaModel();
-                model.setData(rs.getDate("data"));
+                model.setData(rs.getString("data"));
                 model.setFechado(rs.getBoolean("fechado"));
                 model.setUsuario(rs.getString("usuario"));
                 model.setEntrada(rs.getDouble("entrada"));
@@ -91,8 +91,8 @@ public class CaixaController {
     
     
     
-    public int verificar(String data) {
-        String sql = "SELECT * from caixa where data = '" + data + "';";
+    public int verificar(CaixaModel model) {
+        String sql = "SELECT * from caixa where data = '" + model.getData() + "';";
         boolean fechado = false;
         int retorno = 1;
         
@@ -100,6 +100,7 @@ public class CaixaController {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
+                
                 fechado = rs.getBoolean("fechado");
                 if (fechado) {
                     retorno = 2;
