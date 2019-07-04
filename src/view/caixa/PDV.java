@@ -94,7 +94,7 @@ public class PDV extends javax.swing.JFrame{
         abrircaixa.setVisible(true);
         abrircaixa.setLocationRelativeTo(null);
         abrircaixa.setLocation(abrircaixa.getX()-120, abrircaixa.getY()-100);
-        abrircaixa.setSize(380, 160);
+        abrircaixa.setSize(390,240);
     }
     public void jDialogFecharCaixa(String data, String usuario){
         lblDataFC.setText(data);
@@ -143,9 +143,9 @@ public class PDV extends javax.swing.JFrame{
         if (tela.equalsIgnoreCase("venda")) {
             lblTitulo.setText("NOVA VENDA");
             F1.setText("\nF1\nDinheiro");
-            F2.setText("\nF2\n");
-            F3.setText("\nF3\n");
-            F4.setText("\nF4\n");
+            F2.setText("\nF2\nCliente");
+            F3.setText("\nF3\nOrçamento");
+            F4.setText("\nF4\nPlaca");
             F5.setText("\nF5\nSubtotal");
             F6.setText("\nF6\nCancelar");
             F7.setText("\nF7\n");
@@ -1508,12 +1508,16 @@ public class PDV extends javax.swing.JFrame{
             if (lblTitulo.getText().equalsIgnoreCase("Caixa livre")) {
                 abrirVenda();
             }
-            if (lblTitulo.getText().equalsIgnoreCase("caixa")) {
-                
+            if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
+                jDialogFV("Dinheiro");
+                finalizarvenda.setVisible(true);
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
             if (lblTitulo.getText().equalsIgnoreCase("Caixa livre")) {
+                
+            }
+            if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
                 
             }
         }
@@ -1527,8 +1531,7 @@ public class PDV extends javax.swing.JFrame{
         }
         if (evt.getKeyCode() == KeyEvent.VK_F5) {
             if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
-                jDialogFV("Dinheiro");
-                finalizarvenda.setVisible(true);
+                
             }
             if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
                 lblTitulo.setText("CAIXA");
