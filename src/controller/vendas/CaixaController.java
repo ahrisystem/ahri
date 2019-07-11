@@ -92,15 +92,15 @@ public class CaixaController {
     
     
     public int verificar(CaixaModel model) {
-        String sql = "SELECT * from caixa where data = '" + model.getData() + "';";
+        String sql1 = "select * from caixa where data = '" + model.getData() + "';";
+        String sql2 = "select * from caixa where fechado = false;";
         boolean fechado = false;
         int retorno = 1;
         
         try {
             Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql1);
             while (rs.next()) {
-                
                 fechado = rs.getBoolean("fechado");
                 if (fechado) {
                     retorno = 2;
@@ -143,48 +143,5 @@ public class CaixaController {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
         }
-    }
-    
-    public List<VendasItensModel> puxarDadosProdutosOrcamento(int orcamento) {
-        List<VendasItensModel> vendasitens = new ArrayList<>();
-        String sql = "SELECT cod,nome,valorunitario,quantidade,valordesconto,valortotal FROM public.vendasitens where venda = "+orcamento+";";
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                VendasItensModel Model = new VendasItensModel();
-                Model.setCod(rs.getInt("cod"));
-                Model.setNome(rs.getString("nome"));
-                Model.setQuantidade(rs.getDouble("quantidade"));
-                Model.setValorunitario(rs.getDouble("valorunitario"));
-                Model.setValordesconto(rs.getDouble("valordesconto"));
-                Model.setValortotal(rs.getDouble("valortotal"));
-                vendasitens.add(Model);
-            }
-            stmt.close();
-        } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar!\n" + s.getMessage());
-        }
-        return vendasitens;
-    }
-/////////////////////////ORCAMENTOS///////////////////////////////////////////////////////////    
-    
-    public int pegaCodigo() {
-        String sql = "select max(cod) from vendas;";
-        int cod = 1;
-        try {
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            rs.next();
-            if (rs.getString("max") == null) {
-                cod = 1;
-            } else {
-                cod = cod + Integer.parseInt(rs.getString("max"));
-            }
-            stmt.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar código.\n" + e.getMessage());
-        }
-        return cod;
     }
 }

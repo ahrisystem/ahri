@@ -94,7 +94,7 @@ public class GerarOrdemServicoPDF {
             cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph("Placa: \n").setFont(font)));
 
             //Tabela de serviços
-            Table tabelaProdutos = new Table(new float[] { 0.8f, 0.1f, 0.1f });
+            Table tabelaProdutos = new Table(new float[] { 40, 1, 1 });
             tabelaProdutos.setWidth(UnitValue.createPercentValue(100));
 
             // Adicionando cabeçalho serviços

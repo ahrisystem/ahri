@@ -5,8 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import model.vendas.CaixaModel;
 
 public class Caixas extends javax.swing.JPanel {
-    private static final Caixas INSTANCIA = new Caixas();
     CaixaController cc = new CaixaController();
+    private static final Caixas INSTANCIA = new Caixas();
     
     public static Caixas getInstancia() {
         return INSTANCIA;
@@ -17,36 +17,30 @@ public class Caixas extends javax.swing.JPanel {
         listar();
     }
     
-    public void totais(){
-        double totalEntrada = 0.00;
-        double totalSaida = 0.00;
-        for (int i = 0; i < tabela.getRowCount(); i++) {
-            totalEntrada = totalEntrada + Double.parseDouble(tabela.getValueAt(2, i).toString());
-            totalSaida = totalSaida + Double.parseDouble(tabela.getValueAt(3, i).toString());
-        }
-        lblTotais.setText("Total de entradas: "+totalEntrada+" Total de saídas: "+totalSaida);
-    }
-    
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (CaixaModel e : cc.listaCaixas(txtPesquisa.getText())) {
+        for (CaixaModel e : cc.listaCaixas("")) {
+            String status = "";
+            if (e.isFechado()) {
+                status = "Fechado";
+            } else {
+                status = "Aberto";
+            }
             modelo.addRow(new Object[]{
                 e.getData(),
-                e.getStatus(),
+                status,
                 e.getUsuario(),
                 e.getEntrada(),
                 e.getSaida()
             });
         }
-        totais();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtPesquisa = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JLabel();
         btnFechar = new javax.swing.JLabel();
@@ -57,9 +51,6 @@ public class Caixas extends javax.swing.JPanel {
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
-        lblTotais = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -71,14 +62,6 @@ public class Caixas extends javax.swing.JPanel {
         jPanel1.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 jPanel1ComponentHidden(evt);
-            }
-        });
-
-        txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-        txtPesquisa.setToolTipText("Pesquise pelo nome.");
-        txtPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtPesquisaKeyReleased(evt);
             }
         });
 
@@ -168,7 +151,7 @@ public class Caixas extends javax.swing.JPanel {
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(btnAjuda, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUsuario)
@@ -230,20 +213,6 @@ public class Caixas extends javax.swing.JPanel {
         lblTitulo.setText("Caixas");
         lblTitulo.setOpaque(true);
 
-        lblTotais.setBackground(new java.awt.Color(255, 255, 255));
-        lblTotais.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTotais.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTotais.setText("Totais");
-        lblTotais.setOpaque(true);
-
-        jFormattedTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        jFormattedTextField1.setFont(new java.awt.Font("Century Gothic", 0, 11)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel1.setText("Buscar pela data:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -251,18 +220,12 @@ public class Caixas extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblTotais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
@@ -272,18 +235,9 @@ public class Caixas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(2, 2, 2)))
+                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotais))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -303,10 +257,6 @@ public class Caixas extends javax.swing.JPanel {
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         
     }//GEN-LAST:event_formFocusGained
-
-    private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        listar();
-    }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void jPanel1ComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jPanel1ComponentHidden
         
@@ -343,15 +293,11 @@ public class Caixas extends javax.swing.JPanel {
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnFechar;
     private javax.swing.JLabel btnVisualizar;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTotais;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tabela;
-    private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
 }
