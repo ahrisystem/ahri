@@ -41,12 +41,12 @@ public class PDV extends javax.swing.JFrame{
         URL url = this.getClass().getResource("/images/icon.ico");
         abrircaixa.getClass().getResource("/images/icon.ico");
         pesquisar.getClass().getResource("/images/icon.ico");
-        finalizarvenda.getClass().getResource("/images/icon.ico");
+        venda.getClass().getResource("/images/icon.ico");
         fecharcaixa.getClass().getResource("/images/icon.ico");
         Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(iconeTitulo);
         abrircaixa.setIconImage(iconeTitulo);
-        finalizarvenda.setIconImage(iconeTitulo);
+        venda.setIconImage(iconeTitulo);
         pesquisar.setIconImage(iconeTitulo);
         fecharcaixa.setIconImage(iconeTitulo);
     }
@@ -83,10 +83,10 @@ public class PDV extends javax.swing.JFrame{
             txtFormapagamento.setText("1");
             txtFormapagamento2.setText(nomeFormapagamento);
         }
-        abrircaixa.setLocationRelativeTo(null);
-        abrircaixa.setLocation(abrircaixa.getX()-120, abrircaixa.getY()-100);
-        abrircaixa.setSize(400, 320);
-        abrircaixa.setVisible(true);
+        venda.setLocationRelativeTo(null);
+        venda.setLocation(abrircaixa.getX()-120, abrircaixa.getY()-100);
+        venda.setSize(400, 320);
+        venda.setVisible(true);
     }
     public void jDialogAbrirCaixa(String data, String usuario){
         lblDataAbrirCaixa.setText(data);
@@ -120,7 +120,7 @@ public class PDV extends javax.swing.JFrame{
         //reabrir caixa
         if (acao == 2) {
             jDialogAbrirCaixa(data, usuario);
-            txtFundoAtualAbrirCaixa.setText(data);
+            lblDataAbrirCaixa.setText(data);
         }
         //caixa ainda aberto
         if (acao == 3) {
@@ -175,6 +175,19 @@ public class PDV extends javax.swing.JFrame{
         }
     }
     
+    public void fecharCaixa(){
+        CaixaModel cm = new CaixaModel();
+        cm.setData(txtDataCaixa.getText());
+        cc.verificar(cm);
+        lblUsuarioFC.setText(txtUsuarioLogado.getText());
+        lblDataFC.setText(txtDataCaixa.getText());
+        txtFundoAtual.setText(Double.toString(cm.getFundo()));
+        txtTotaldeVendas.setText("");
+        txtTotalDinheiro.setText("");
+        txtTotalCartao.setText("");
+        fecharcaixa.setSize(390, 360);
+        fecharcaixa.setVisible(true);
+    }
     public void abrirVenda(){
         painelTela.add(painelVenda);
         painelVenda.setVisible(true);
@@ -359,20 +372,7 @@ public class PDV extends javax.swing.JFrame{
         lblUsuarioAbrirCaixa = new javax.swing.JLabel();
         lblFundoAtualAbrirCaixa = new javax.swing.JLabel();
         txtFundoAtualAbrirCaixa = new javax.swing.JFormattedTextField();
-        btnValoresCaixa = new javax.swing.JLabel();
-        finalizarvenda = new javax.swing.JDialog();
-        backgroundValoresCaixa1 = new javax.swing.JPanel();
-        btnFinalizarVenda = new javax.swing.JLabel();
-        lblDataValoresCaixa1 = new javax.swing.JLabel();
-        lblTotaldeVendas1 = new javax.swing.JLabel();
-        txtTotalFV = new javax.swing.JFormattedTextField();
-        lblTotaldeVendas2 = new javax.swing.JLabel();
-        txtDescontoFV = new javax.swing.JFormattedTextField();
-        txtFormapagamento = new javax.swing.JTextField();
-        txtFormapagamento2 = new javax.swing.JTextField();
-        lblTotaldeVendas3 = new javax.swing.JLabel();
-        txtCliente = new javax.swing.JTextField();
-        txtCliente2 = new javax.swing.JTextField();
+        btnAbrirCaixa = new javax.swing.JLabel();
         fecharcaixa = new javax.swing.JDialog();
         backgroundValoresCaixa2 = new javax.swing.JPanel();
         btnValoresCaixa1 = new javax.swing.JLabel();
@@ -380,18 +380,16 @@ public class PDV extends javax.swing.JFrame{
         lblDataFC = new javax.swing.JLabel();
         lblSangria1 = new javax.swing.JLabel();
         lbltdv = new javax.swing.JLabel();
-        txtTotaldeVendas1 = new javax.swing.JFormattedTextField();
-        txtFundoAtual1 = new javax.swing.JFormattedTextField();
-        txtSangria1 = new javax.swing.JFormattedTextField();
+        txtFundoAtual = new javax.swing.JFormattedTextField();
+        txtTotaldeVendas = new javax.swing.JFormattedTextField();
+        txtSangria = new javax.swing.JFormattedTextField();
         lblfafc = new javax.swing.JLabel();
         lblTotaldeVendas5 = new javax.swing.JLabel();
-        txtTotaldeVendas2 = new javax.swing.JFormattedTextField();
+        txtTotalDinheiro = new javax.swing.JFormattedTextField();
         lblTotaldeVendas6 = new javax.swing.JLabel();
-        txtTotaldeVendas3 = new javax.swing.JFormattedTextField();
-        Venda = new javax.swing.JDialog();
+        txtTotalCartao = new javax.swing.JFormattedTextField();
+        venda = new javax.swing.JDialog();
         painelVenda = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
         lblPlaca = new javax.swing.JLabel();
         txtPlaca = new javax.swing.JTextField();
         txtPlaca2 = new javax.swing.JTextField();
@@ -400,28 +398,44 @@ public class PDV extends javax.swing.JFrame{
         txtValorBruto = new javax.swing.JFormattedTextField();
         txtTotalDescontos = new javax.swing.JFormattedTextField();
         txtTotal = new javax.swing.JFormattedTextField();
-        lblOrcamento = new javax.swing.JLabel();
-        txtOrcamento = new javax.swing.JTextField();
-        txtOrcamento2 = new javax.swing.JTextField();
-        btnLimparOrcamento = new javax.swing.JButton();
         lblTitulo13 = new javax.swing.JLabel();
         lblTitulo14 = new javax.swing.JLabel();
+        lblOrcamento3 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        btnFinalizarVenda = new javax.swing.JLabel();
+        lblTotaldeVendas2 = new javax.swing.JLabel();
+        txtFormapagamento = new javax.swing.JTextField();
+        txtFormapagamento2 = new javax.swing.JTextField();
+        txtCliente = new javax.swing.JTextField();
+        txtCliente2 = new javax.swing.JTextField();
+        lblOrcamento1 = new javax.swing.JLabel();
+        btnLimparOrcamento1 = new javax.swing.JButton();
+        txtTotalDescontos2 = new javax.swing.JFormattedTextField();
+        lblOrcamento2 = new javax.swing.JLabel();
+        lblOrcamento4 = new javax.swing.JLabel();
+        Itens = new javax.swing.JDialog();
+        painelVenda1 = new javax.swing.JPanel();
+        lblTituloProdutos = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblProdutos = new javax.swing.JTable();
+        lblTitulo15 = new javax.swing.JLabel();
+        txtValorBruto1 = new javax.swing.JFormattedTextField();
+        txtTotalDescontos1 = new javax.swing.JFormattedTextField();
+        txtTotalProdutos = new javax.swing.JFormattedTextField();
+        lblTotal = new javax.swing.JLabel();
+        lblTotalDesconto = new javax.swing.JLabel();
         painelFuncoes = new javax.swing.JPanel();
         btnRemoverProduto = new javax.swing.JButton();
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
-        btnLimparCampos = new javax.swing.JButton();
+        btnLimparCamposProduto = new javax.swing.JButton();
         txtDescricaoProduto = new javax.swing.JTextField();
         lblValorUnProduto = new javax.swing.JLabel();
         txtValorUnitarioProduto = new javax.swing.JFormattedTextField();
-        lblTitulo10 = new javax.swing.JLabel();
+        lblDescProduto = new javax.swing.JLabel();
         txtValorDescontoProduto = new javax.swing.JFormattedTextField();
-        lblQtd = new javax.swing.JLabel();
+        lblQtdProduto = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
-        lblOrcamento3 = new javax.swing.JLabel();
-        btnAdicionarProduto1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        btnAdicionarProduto2 = new javax.swing.JButton();
         background = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         painelBotoes = new javax.swing.JPanel();
@@ -434,7 +448,6 @@ public class PDV extends javax.swing.JFrame{
         F7 = new javax.swing.JTextArea();
         F8 = new javax.swing.JTextArea();
         painelTela = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         txtInput = new javax.swing.JTextField();
         lblLogadoComo = new javax.swing.JLabel();
         lblFundoTroco = new javax.swing.JLabel();
@@ -443,7 +456,7 @@ public class PDV extends javax.swing.JFrame{
         txtFundoTroco = new javax.swing.JLabel();
         txtUsuarioLogado = new javax.swing.JLabel();
 
-        pesquisar.setTitle("Finalizar venda");
+        pesquisar.setResizable(false);
 
         backgroundPesquisa.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -548,6 +561,7 @@ public class PDV extends javax.swing.JFrame{
                 .addGap(0, 0, 0))
         );
 
+        abrircaixa.setResizable(false);
         abrircaixa.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         backgroundValoresCaixa.setBackground(new java.awt.Color(255, 255, 255));
@@ -589,138 +603,28 @@ public class PDV extends javax.swing.JFrame{
 
         abrircaixa.getContentPane().add(backgroundValoresCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 148));
 
-        btnValoresCaixa.setBackground(new java.awt.Color(102, 153, 255));
-        btnValoresCaixa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnValoresCaixa.setForeground(new java.awt.Color(255, 255, 255));
-        btnValoresCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnValoresCaixa.setText("Abrir caixa");
-        btnValoresCaixa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnValoresCaixa.setOpaque(true);
-        btnValoresCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAbrirCaixa.setBackground(new java.awt.Color(102, 153, 255));
+        btnAbrirCaixa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnAbrirCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnAbrirCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAbrirCaixa.setText("Abrir caixa");
+        btnAbrirCaixa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAbrirCaixa.setOpaque(true);
+        btnAbrirCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnValoresCaixaMouseReleased(evt);
+                btnAbrirCaixaMouseReleased(evt);
             }
         });
-        abrircaixa.getContentPane().add(btnValoresCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 380, 40));
+        abrircaixa.getContentPane().add(btnAbrirCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 380, 40));
 
-        backgroundValoresCaixa1.setBackground(new java.awt.Color(255, 255, 255));
-        backgroundValoresCaixa1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnFinalizarVenda.setBackground(new java.awt.Color(0, 153, 51));
-        btnFinalizarVenda.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnFinalizarVenda.setForeground(new java.awt.Color(255, 255, 255));
-        btnFinalizarVenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnFinalizarVenda.setText("Finalizar");
-        btnFinalizarVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnFinalizarVenda.setOpaque(true);
-        btnFinalizarVenda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnFinalizarVendaMouseReleased(evt);
-            }
-        });
-        backgroundValoresCaixa1.add(btnFinalizarVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 380, 40));
-
-        lblDataValoresCaixa1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblDataValoresCaixa1.setForeground(new java.awt.Color(51, 51, 51));
-        lblDataValoresCaixa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDataValoresCaixa1.setText("Finalização de venda");
-        lblDataValoresCaixa1.setToolTipText("Data");
-        backgroundValoresCaixa1.add(lblDataValoresCaixa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 30));
-
-        lblTotaldeVendas1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTotaldeVendas1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTotaldeVendas1.setText("Total");
-        backgroundValoresCaixa1.add(lblTotaldeVendas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 120, 26));
-
-        txtTotalFV.setEditable(false);
-        txtTotalFV.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotalFV.setText("0,00");
-        txtTotalFV.setToolTipText("Total descontos");
-        txtTotalFV.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa1.add(txtTotalFV, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 100, -1));
-
-        lblTotaldeVendas2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTotaldeVendas2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTotaldeVendas2.setText("Forma de pagamento");
-        backgroundValoresCaixa1.add(lblTotaldeVendas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 330, 30));
-
-        txtDescontoFV.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtDescontoFV.setText("0,00");
-        txtDescontoFV.setToolTipText("Total descontos");
-        txtDescontoFV.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa1.add(txtDescontoFV, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 100, -1));
-
-        txtFormapagamento.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtFormapagamento.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtFormapagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFormapagamentoActionPerformed(evt);
-            }
-        });
-        txtFormapagamento.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtFormapagamentoKeyReleased(evt);
-            }
-        });
-        backgroundValoresCaixa1.add(txtFormapagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 80, 20));
-
-        txtFormapagamento2.setEditable(false);
-        txtFormapagamento2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtFormapagamento2.setFocusable(false);
-        txtFormapagamento2.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtFormapagamento2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtFormapagamento2KeyReleased(evt);
-            }
-        });
-        backgroundValoresCaixa1.add(txtFormapagamento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 250, 20));
-
-        lblTotaldeVendas3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTotaldeVendas3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTotaldeVendas3.setText("Desconto");
-        backgroundValoresCaixa1.add(lblTotaldeVendas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 120, 26));
-
-        txtCliente.setEditable(false);
-        txtCliente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCliente.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClienteActionPerformed(evt);
-            }
-        });
-        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtClienteKeyReleased(evt);
-            }
-        });
-        backgroundValoresCaixa1.add(txtCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 80, 20));
-
-        txtCliente2.setEditable(false);
-        txtCliente2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtCliente2.setFocusable(false);
-        txtCliente2.setPreferredSize(new java.awt.Dimension(200, 20));
-        txtCliente2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCliente2KeyReleased(evt);
-            }
-        });
-        backgroundValoresCaixa1.add(txtCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 250, 20));
-
-        javax.swing.GroupLayout finalizarvendaLayout = new javax.swing.GroupLayout(finalizarvenda.getContentPane());
-        finalizarvenda.getContentPane().setLayout(finalizarvendaLayout);
-        finalizarvendaLayout.setHorizontalGroup(
-            finalizarvendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundValoresCaixa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        finalizarvendaLayout.setVerticalGroup(
-            finalizarvendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(finalizarvendaLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(backgroundValoresCaixa1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
+        fecharcaixa.setResizable(false);
 
         backgroundValoresCaixa2.setBackground(new java.awt.Color(255, 255, 255));
+        backgroundValoresCaixa2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                backgroundValoresCaixa2MousePressed(evt);
+            }
+        });
         backgroundValoresCaixa2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnValoresCaixa1.setBackground(new java.awt.Color(102, 153, 255));
@@ -735,7 +639,7 @@ public class PDV extends javax.swing.JFrame{
                 btnValoresCaixa1MouseReleased(evt);
             }
         });
-        backgroundValoresCaixa2.add(btnValoresCaixa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 357, 30));
+        backgroundValoresCaixa2.add(btnValoresCaixa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 380, 40));
 
         lblUsuarioFC.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblUsuarioFC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -759,30 +663,30 @@ public class PDV extends javax.swing.JFrame{
         lbltdv.setText("Total de vendas");
         backgroundValoresCaixa2.add(lbltdv, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 120, 26));
 
-        txtTotaldeVendas1.setEditable(false);
-        txtTotaldeVendas1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotaldeVendas1.setText("0,00");
-        txtTotaldeVendas1.setToolTipText("Total descontos");
-        txtTotaldeVendas1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa2.add(txtTotaldeVendas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 100, -1));
-
-        txtFundoAtual1.setEditable(false);
-        txtFundoAtual1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtFundoAtual1.setText("0,00");
-        txtFundoAtual1.setToolTipText("Total descontos");
-        txtFundoAtual1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtFundoAtual1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtFundoAtual.setEditable(false);
+        txtFundoAtual.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtFundoAtual.setText("0,00");
+        txtFundoAtual.setToolTipText("Total descontos");
+        txtFundoAtual.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtFundoAtual.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFundoAtual1FocusLost(evt);
+                txtFundoAtualFocusLost(evt);
             }
         });
-        backgroundValoresCaixa2.add(txtFundoAtual1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
+        backgroundValoresCaixa2.add(txtFundoAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
 
-        txtSangria1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtSangria1.setText("0,00");
-        txtSangria1.setToolTipText("Total descontos");
-        txtSangria1.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa2.add(txtSangria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 100, -1));
+        txtTotaldeVendas.setEditable(false);
+        txtTotaldeVendas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotaldeVendas.setText("0,00");
+        txtTotaldeVendas.setToolTipText("Total descontos");
+        txtTotaldeVendas.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        backgroundValoresCaixa2.add(txtTotaldeVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 100, -1));
+
+        txtSangria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtSangria.setText("0,00");
+        txtSangria.setToolTipText("Total descontos");
+        txtSangria.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        backgroundValoresCaixa2.add(txtSangria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 100, -1));
 
         lblfafc.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblfafc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -794,43 +698,253 @@ public class PDV extends javax.swing.JFrame{
         lblTotaldeVendas5.setText("Total em dinheiro");
         backgroundValoresCaixa2.add(lblTotaldeVendas5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 120, 26));
 
-        txtTotaldeVendas2.setEditable(false);
-        txtTotaldeVendas2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotaldeVendas2.setText("0,00");
-        txtTotaldeVendas2.setToolTipText("Total descontos");
-        txtTotaldeVendas2.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa2.add(txtTotaldeVendas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 100, -1));
+        txtTotalDinheiro.setEditable(false);
+        txtTotalDinheiro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotalDinheiro.setText("0,00");
+        txtTotalDinheiro.setToolTipText("Total descontos");
+        txtTotalDinheiro.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        backgroundValoresCaixa2.add(txtTotalDinheiro, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 100, -1));
 
         lblTotaldeVendas6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTotaldeVendas6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTotaldeVendas6.setText("Total em cartão");
         backgroundValoresCaixa2.add(lblTotaldeVendas6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 120, 26));
 
-        txtTotaldeVendas3.setEditable(false);
-        txtTotaldeVendas3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotaldeVendas3.setText("0,00");
-        txtTotaldeVendas3.setToolTipText("Total descontos");
-        txtTotaldeVendas3.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa2.add(txtTotaldeVendas3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 100, -1));
+        txtTotalCartao.setEditable(false);
+        txtTotalCartao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotalCartao.setText("0,00");
+        txtTotalCartao.setToolTipText("Total descontos");
+        txtTotalCartao.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        backgroundValoresCaixa2.add(txtTotalCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 100, -1));
 
         javax.swing.GroupLayout fecharcaixaLayout = new javax.swing.GroupLayout(fecharcaixa.getContentPane());
         fecharcaixa.getContentPane().setLayout(fecharcaixaLayout);
         fecharcaixaLayout.setHorizontalGroup(
             fecharcaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundValoresCaixa2, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+            .addComponent(backgroundValoresCaixa2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         fecharcaixaLayout.setVerticalGroup(
             fecharcaixaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(backgroundValoresCaixa2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        Venda.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        Venda.setTitle("Nova venda nº ");
+        venda.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        venda.setResizable(false);
+        venda.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         painelVenda.setBackground(new java.awt.Color(255, 255, 255));
+        painelVenda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jScrollPane2.setBorder(null);
-        jScrollPane2.setOpaque(false);
+        lblPlaca.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        lblPlaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPlaca.setText("Placa");
+        painelVenda.add(lblPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 80, 20));
+
+        txtPlaca.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        txtPlaca.setForeground(new java.awt.Color(51, 105, 191));
+        txtPlaca.setOpaque(false);
+        txtPlaca.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelVenda.add(txtPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 80, 20));
+
+        txtPlaca2.setEditable(false);
+        txtPlaca2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        txtPlaca2.setOpaque(false);
+        txtPlaca2.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelVenda.add(txtPlaca2, new org.netbeans.lib.awtextra.AbsoluteConstraints(169, 30, 300, 20));
+
+        btnLimparPlaca.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        btnLimparPlaca.setText("X");
+        btnLimparPlaca.setFocusable(false);
+        btnLimparPlaca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparPlacaActionPerformed(evt);
+            }
+        });
+        painelVenda.add(btnLimparPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, 20));
+
+        lblTitulo12.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo12.setText("Total Bruto");
+        painelVenda.add(lblTitulo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 170, 20));
+
+        txtValorBruto.setEditable(false);
+        txtValorBruto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorBruto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtValorBruto.setText("0,00");
+        txtValorBruto.setToolTipText("Total bruto");
+        txtValorBruto.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        painelVenda.add(txtValorBruto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 150, 30));
+
+        txtTotalDescontos.setEditable(false);
+        txtTotalDescontos.setForeground(new java.awt.Color(204, 0, 51));
+        txtTotalDescontos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotalDescontos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalDescontos.setText("0,00");
+        txtTotalDescontos.setToolTipText("Total descontos");
+        txtTotalDescontos.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        txtTotalDescontos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTotalDescontosFocusLost(evt);
+            }
+        });
+        painelVenda.add(txtTotalDescontos, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 170, 30));
+
+        txtTotal.setEditable(false);
+        txtTotal.setForeground(new java.awt.Color(0, 153, 51));
+        txtTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotal.setText("0,00");
+        txtTotal.setToolTipText("Total");
+        txtTotal.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        painelVenda.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 160, 30));
+
+        lblTitulo13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTitulo13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo13.setText("Total");
+        painelVenda.add(lblTitulo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, 180, 20));
+
+        lblTitulo14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTitulo14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo14.setText("Total desconto");
+        painelVenda.add(lblTitulo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 170, 20));
+
+        lblOrcamento3.setBackground(new java.awt.Color(51, 105, 191));
+        lblOrcamento3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblOrcamento3.setForeground(new java.awt.Color(255, 255, 255));
+        lblOrcamento3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblOrcamento3.setText("Finalização da venda");
+        lblOrcamento3.setOpaque(true);
+        painelVenda.add(lblOrcamento3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 20));
+
+        jCheckBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        jCheckBox1.setText("Gerar nf-e");
+        jCheckBox1.setEnabled(false);
+        jCheckBox1.setOpaque(false);
+        painelVenda.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 247, 100, 20));
+
+        btnFinalizarVenda.setBackground(new java.awt.Color(0, 153, 51));
+        btnFinalizarVenda.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnFinalizarVenda.setForeground(new java.awt.Color(255, 255, 255));
+        btnFinalizarVenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnFinalizarVenda.setText("Finalizar");
+        btnFinalizarVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFinalizarVenda.setOpaque(true);
+        btnFinalizarVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnFinalizarVendaMouseReleased(evt);
+            }
+        });
+        painelVenda.add(btnFinalizarVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 240, 180, 40));
+
+        lblTotaldeVendas2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTotaldeVendas2.setForeground(new java.awt.Color(0, 153, 51));
+        lblTotaldeVendas2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotaldeVendas2.setText("Pagamento");
+        painelVenda.add(lblTotaldeVendas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 520, 20));
+
+        txtFormapagamento.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtFormapagamento.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtFormapagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFormapagamentoActionPerformed(evt);
+            }
+        });
+        txtFormapagamento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFormapagamentoKeyReleased(evt);
+            }
+        });
+        painelVenda.add(txtFormapagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 80, 20));
+
+        txtFormapagamento2.setEditable(false);
+        txtFormapagamento2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtFormapagamento2.setFocusable(false);
+        txtFormapagamento2.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtFormapagamento2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFormapagamento2KeyReleased(evt);
+            }
+        });
+        painelVenda.add(txtFormapagamento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 340, 20));
+
+        txtCliente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCliente.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClienteActionPerformed(evt);
+            }
+        });
+        txtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClienteKeyReleased(evt);
+            }
+        });
+        painelVenda.add(txtCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 80, 20));
+
+        txtCliente2.setEditable(false);
+        txtCliente2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCliente2.setFocusable(false);
+        txtCliente2.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtCliente2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCliente2KeyReleased(evt);
+            }
+        });
+        painelVenda.add(txtCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 340, 20));
+
+        lblOrcamento1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        lblOrcamento1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblOrcamento1.setText("Cliente");
+        painelVenda.add(lblOrcamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 80, 20));
+
+        btnLimparOrcamento1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        btnLimparOrcamento1.setText("Aplicar");
+        btnLimparOrcamento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparOrcamento1ActionPerformed(evt);
+            }
+        });
+        painelVenda.add(btnLimparOrcamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
+
+        txtTotalDescontos2.setForeground(new java.awt.Color(204, 0, 51));
+        txtTotalDescontos2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotalDescontos2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalDescontos2.setText("0,00");
+        txtTotalDescontos2.setToolTipText("Total descontos");
+        txtTotalDescontos2.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        txtTotalDescontos2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTotalDescontos2FocusLost(evt);
+            }
+        });
+        painelVenda.add(txtTotalDescontos2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 80, -1));
+
+        lblOrcamento2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        lblOrcamento2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblOrcamento2.setText("Forma");
+        painelVenda.add(lblOrcamento2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 80, 21));
+
+        lblOrcamento4.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        lblOrcamento4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblOrcamento4.setText("Desconto");
+        painelVenda.add(lblOrcamento4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 80, 21));
+
+        venda.getContentPane().add(painelVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, -1));
+
+        Itens.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        Itens.setResizable(false);
+
+        painelVenda1.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblTituloProdutos.setBackground(new java.awt.Color(51, 105, 191));
+        lblTituloProdutos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTituloProdutos.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloProdutos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloProdutos.setText("Produtos/Serviços");
+        lblTituloProdutos.setOpaque(true);
+
+        jScrollPane3.setBorder(null);
+        jScrollPane3.setOpaque(false);
 
         tblProdutos.setBackground(new java.awt.Color(204, 204, 204));
         tblProdutos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -856,7 +970,7 @@ public class PDV extends javax.swing.JFrame{
         tblProdutos.setOpaque(false);
         tblProdutos.setRowHeight(20);
         tblProdutos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tblProdutos);
+        jScrollPane3.setViewportView(tblProdutos);
         if (tblProdutos.getColumnModel().getColumnCount() > 0) {
             tblProdutos.getColumnModel().getColumn(0).setMaxWidth(60);
             tblProdutos.getColumnModel().getColumn(2).setMaxWidth(60);
@@ -865,91 +979,45 @@ public class PDV extends javax.swing.JFrame{
             tblProdutos.getColumnModel().getColumn(5).setMaxWidth(60);
         }
 
-        lblPlaca.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        lblPlaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPlaca.setText("Placa");
+        lblTitulo15.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTitulo15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo15.setText("Total Bruto");
 
-        txtPlaca.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        txtPlaca.setForeground(new java.awt.Color(51, 105, 191));
-        txtPlaca.setOpaque(false);
-        txtPlaca.setPreferredSize(new java.awt.Dimension(200, 20));
+        txtValorBruto1.setEditable(false);
+        txtValorBruto1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtValorBruto1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtValorBruto1.setText("0,00");
+        txtValorBruto1.setToolTipText("Total bruto");
+        txtValorBruto1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
 
-        txtPlaca2.setEditable(false);
-        txtPlaca2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        txtPlaca2.setOpaque(false);
-        txtPlaca2.setPreferredSize(new java.awt.Dimension(200, 20));
-
-        btnLimparPlaca.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        btnLimparPlaca.setText("X");
-        btnLimparPlaca.setFocusable(false);
-        btnLimparPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparPlacaActionPerformed(evt);
-            }
-        });
-
-        lblTitulo12.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo12.setText("Total Bruto");
-
-        txtValorBruto.setEditable(false);
-        txtValorBruto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorBruto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtValorBruto.setText("0,00");
-        txtValorBruto.setToolTipText("Total bruto");
-        txtValorBruto.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-
-        txtTotalDescontos.setEditable(false);
-        txtTotalDescontos.setForeground(new java.awt.Color(204, 0, 51));
-        txtTotalDescontos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotalDescontos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTotalDescontos.setText("0,00");
-        txtTotalDescontos.setToolTipText("Total descontos");
-        txtTotalDescontos.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
-        txtTotalDescontos.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtTotalDescontos1.setEditable(false);
+        txtTotalDescontos1.setForeground(new java.awt.Color(204, 0, 51));
+        txtTotalDescontos1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotalDescontos1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalDescontos1.setText("0,00");
+        txtTotalDescontos1.setToolTipText("Total descontos");
+        txtTotalDescontos1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        txtTotalDescontos1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTotalDescontosFocusLost(evt);
+                txtTotalDescontos1FocusLost(evt);
             }
         });
 
-        txtTotal.setEditable(false);
-        txtTotal.setForeground(new java.awt.Color(51, 153, 0));
-        txtTotal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtTotal.setText("0,00");
-        txtTotal.setToolTipText("Total");
-        txtTotal.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
+        txtTotalProdutos.setEditable(false);
+        txtTotalProdutos.setForeground(new java.awt.Color(51, 153, 0));
+        txtTotalProdutos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotalProdutos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTotalProdutos.setText("0,00");
+        txtTotalProdutos.setToolTipText("Total");
+        txtTotalProdutos.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
 
-        lblOrcamento.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        lblOrcamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblOrcamento.setText("Orçam.");
+        lblTotal.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal.setText("Total");
 
-        txtOrcamento.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        txtOrcamento.setForeground(new java.awt.Color(51, 105, 191));
-        txtOrcamento.setOpaque(false);
-        txtOrcamento.setPreferredSize(new java.awt.Dimension(200, 20));
-
-        txtOrcamento2.setEditable(false);
-        txtOrcamento2.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        txtOrcamento2.setOpaque(false);
-        txtOrcamento2.setPreferredSize(new java.awt.Dimension(200, 20));
-
-        btnLimparOrcamento.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        btnLimparOrcamento.setText("X");
-        btnLimparOrcamento.setFocusable(false);
-        btnLimparOrcamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparOrcamentoActionPerformed(evt);
-            }
-        });
-
-        lblTitulo13.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        lblTitulo13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo13.setText("Total");
-
-        lblTitulo14.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        lblTitulo14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo14.setText("Total desconto");
+        lblTotalDesconto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblTotalDesconto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalDesconto.setText("Total desconto");
 
         painelFuncoes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -983,15 +1051,15 @@ public class PDV extends javax.swing.JFrame{
         });
         painelFuncoes.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        btnLimparCampos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnLimparCampos.setText("Limpar");
-        btnLimparCampos.setFocusable(false);
-        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+        btnLimparCamposProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnLimparCamposProduto.setText("Limpar");
+        btnLimparCamposProduto.setFocusable(false);
+        btnLimparCamposProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparCamposActionPerformed(evt);
+                btnLimparCamposProdutoActionPerformed(evt);
             }
         });
-        painelFuncoes.add(btnLimparCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 110, 40));
+        painelFuncoes.add(btnLimparCamposProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 110, 40));
 
         txtDescricaoProduto.setEditable(false);
         txtDescricaoProduto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -1009,9 +1077,9 @@ public class PDV extends javax.swing.JFrame{
             }
         });
 
-        lblTitulo10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo10.setText("Desc.");
+        lblDescProduto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblDescProduto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblDescProduto.setText("Desc.");
 
         txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtValorDescontoProduto.setText("0,00");
@@ -1022,9 +1090,9 @@ public class PDV extends javax.swing.JFrame{
             }
         });
 
-        lblQtd.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        lblQtd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblQtd.setText("Qtd.");
+        lblQtdProduto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblQtdProduto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblQtdProduto.setText("Qtd.");
 
         txtQuantidadeProduto.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         txtQuantidadeProduto.setText("0");
@@ -1039,161 +1107,84 @@ public class PDV extends javax.swing.JFrame{
             }
         });
 
-        lblOrcamento3.setBackground(new java.awt.Color(51, 105, 191));
-        lblOrcamento3.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        lblOrcamento3.setForeground(new java.awt.Color(255, 255, 255));
-        lblOrcamento3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblOrcamento3.setText("Produtos/Serviços");
-        lblOrcamento3.setOpaque(true);
-
-        btnAdicionarProduto1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnAdicionarProduto1.setForeground(new java.awt.Color(51, 153, 0));
-        btnAdicionarProduto1.setText("Finalizar");
-        btnAdicionarProduto1.setFocusable(false);
-        btnAdicionarProduto1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarProduto1ActionPerformed(evt);
-            }
-        });
-
-        jCheckBox1.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        jCheckBox1.setText("Gerar nota fiscal eletrônica");
-        jCheckBox1.setEnabled(false);
-        jCheckBox1.setOpaque(false);
-
-        btnAdicionarProduto2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnAdicionarProduto2.setForeground(new java.awt.Color(204, 0, 51));
-        btnAdicionarProduto2.setText("Cancelar");
-        btnAdicionarProduto2.setFocusable(false);
-        btnAdicionarProduto2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarProduto2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout painelVendaLayout = new javax.swing.GroupLayout(painelVenda);
-        painelVenda.setLayout(painelVendaLayout);
-        painelVendaLayout.setHorizontalGroup(
-            painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelVendaLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelVenda1Layout = new javax.swing.GroupLayout(painelVenda1);
+        painelVenda1.setLayout(painelVenda1Layout);
+        painelVenda1Layout.setHorizontalGroup(
+            painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelVenda1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelVendaLayout.createSequentialGroup()
-                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtValorBruto))
+                .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelVenda1Layout.createSequentialGroup()
+                        .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTitulo15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtValorBruto1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTotalDescontos))
+                        .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTotalDesconto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTotalDescontos1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTotal)
-                            .addComponent(lblTitulo13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(painelVendaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTotalProdutos)
+                            .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(painelVenda1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelFuncoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelVendaLayout.createSequentialGroup()
-                        .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(painelVenda1Layout.createSequentialGroup()
+                        .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblDescProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblQtdProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelVendaLayout.createSequentialGroup()
-                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelVendaLayout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                                .addComponent(btnAdicionarProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAdicionarProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(painelVendaLayout.createSequentialGroup()
-                                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                    .addComponent(txtOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtPlaca2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtOrcamento2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnLimparOrcamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnLimparPlaca))))
-                        .addContainerGap())
-                    .addComponent(lblOrcamento3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDescricaoProduto)))
+            .addComponent(lblTituloProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        painelVendaLayout.setVerticalGroup(
-            painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelVendaLayout.createSequentialGroup()
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelVendaLayout.createSequentialGroup()
-                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPlaca)
-                            .addComponent(btnLimparPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblOrcamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnLimparOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPlaca2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(txtOrcamento2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
-                .addComponent(lblOrcamento3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+        painelVenda1Layout.setVerticalGroup(
+            painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelVenda1Layout.createSequentialGroup()
+                .addComponent(lblTituloProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblValorUnProduto)
                     .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTitulo10)
-                    .addComponent(lblQtd))
+                    .addComponent(lblDescProduto)
+                    .addComponent(lblQtdProduto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitulo12)
-                    .addComponent(lblTitulo13)
-                    .addComponent(lblTitulo14))
+                .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitulo15)
+                    .addComponent(lblTotal)
+                    .addComponent(lblTotalDesconto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAdicionarProduto2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionarProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelVenda1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtValorBruto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalDescontos1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout VendaLayout = new javax.swing.GroupLayout(Venda.getContentPane());
-        Venda.getContentPane().setLayout(VendaLayout);
-        VendaLayout.setHorizontalGroup(
-            VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout ItensLayout = new javax.swing.GroupLayout(Itens.getContentPane());
+        Itens.getContentPane().setLayout(ItensLayout);
+        ItensLayout.setHorizontalGroup(
+            ItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelVenda1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        VendaLayout.setVerticalGroup(
-            VendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        ItensLayout.setVerticalGroup(
+            ItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(painelVenda1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -1372,6 +1363,9 @@ public class PDV extends javax.swing.JFrame{
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 F8MouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                F8MousePressed(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 F8MouseReleased(evt);
             }
@@ -1379,13 +1373,8 @@ public class PDV extends javax.swing.JFrame{
         painelBotoes.add(F8);
 
         painelTela.setBackground(new java.awt.Color(204, 204, 204));
+        painelTela.setOpaque(false);
         painelTela.setLayout(new java.awt.GridLayout(1, 0));
-
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/outros/fundocaixa2.png"))); // NOI18N
-        jLabel1.setOpaque(true);
-        painelTela.add(jLabel1);
 
         txtInput.setBackground(new java.awt.Color(204, 204, 204));
         txtInput.setFont(new java.awt.Font("Century Gothic", 0, 20)); // NOI18N
@@ -1429,17 +1418,17 @@ public class PDV extends javax.swing.JFrame{
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelTela, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(txtInput, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                         .addComponent(lblLogadoComo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFundoTroco)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFundoTroco, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                        .addComponent(txtFundoTroco, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1452,7 +1441,7 @@ public class PDV extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelTela, javax.swing.GroupLayout.PREFERRED_SIZE, 428, Short.MAX_VALUE)
+                .addComponent(painelTela, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
@@ -1521,7 +1510,7 @@ public class PDV extends javax.swing.JFrame{
             }
             if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
                 jDialogFV("Dinheiro");
-                finalizarvenda.setVisible(true);
+                venda.setVisible(true);
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
@@ -1558,7 +1547,9 @@ public class PDV extends javax.swing.JFrame{
             System.out.println("F7");
         }
         if (evt.getKeyCode() == KeyEvent.VK_F8) {
-            jDialogFecharCaixa(txtDataCaixa.getText(),txtUsuarioLogado.getText());
+            if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+                fecharCaixa();
+            }
         }
     }//GEN-LAST:event_txtInputKeyReleased
 
@@ -1639,7 +1630,7 @@ public class PDV extends javax.swing.JFrame{
         F2.setBackground(Color.WHITE);
     }//GEN-LAST:event_F2MouseExited
 
-    private void btnValoresCaixaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValoresCaixaMouseReleased
+    private void btnAbrirCaixaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirCaixaMouseReleased
         CaixaModel cm = new CaixaModel();
         cm.setUsuario(lblDataAbrirCaixa.getText());
         cm.setFechado(false);
@@ -1654,7 +1645,7 @@ public class PDV extends javax.swing.JFrame{
         cc.novoCaixa(cm);
         abrircaixa.setVisible(false);
         this.setVisible(true);
-    }//GEN-LAST:event_btnValoresCaixaMouseReleased
+    }//GEN-LAST:event_btnAbrirCaixaMouseReleased
 
     private void F1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F1MouseReleased
         abrirVenda();
@@ -1756,121 +1747,67 @@ public class PDV extends javax.swing.JFrame{
         F8.setBackground(Color.WHITE);
     }//GEN-LAST:event_F8MouseExited
 
-    private void btnLimparOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparOrcamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimparOrcamentoActionPerformed
-
     private void btnValoresCaixa1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValoresCaixa1MouseReleased
-        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Deseja mesmo fechar o caixa?") == 1) {
+            
+        }
     }//GEN-LAST:event_btnValoresCaixa1MouseReleased
 
-    private void txtFundoAtual1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFundoAtual1FocusLost
+    private void txtFundoAtualFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFundoAtualFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFundoAtual1FocusLost
+    }//GEN-LAST:event_txtFundoAtualFocusLost
+
+    private void txtTotalDescontos1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontos1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalDescontos1FocusLost
 
     private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-        if (tblProdutos.getSelectedRow() >= 0) {
-            modelo.removeRow(tblProdutos.getSelectedRow());
-            tblProdutos.setModel(modelo);
-            atualizarTotalizadores();
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnRemoverProdutoActionPerformed
 
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-        if (tblProdutos.getSelectedRow() >= 0) {
-            txtDescricaoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
-            txtValorUnitarioProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
-            txtValorDescontoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
-            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
-            //Removendo a linha
-            modelo.removeRow(tblProdutos.getSelectedRow());
-            tblProdutos.setModel(modelo);
-            atualizarTotalizadores();
-            txtInput.requestFocus();
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
-        if (txtDescricaoProduto.getText().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(null, "Nenhum produto");
-        } else {
-            if (txtQuantidadeProduto.getText().equalsIgnoreCase("") || Integer.parseInt(txtQuantidadeProduto.getText()) < 1) {
-                JOptionPane.showMessageDialog(null, "Quantidade inválida");
-            } else {
-                if (txtValorUnitarioProduto.getText().equalsIgnoreCase("0,00")) {
-                    JOptionPane.showMessageDialog(null, "Valor inválido");
-                } else {
-                    double totalProduto;
-                    String removerPonto;
-                    removerPonto = (txtValorUnitarioProduto.getText().replace(".", ""));
-                    totalProduto = Double.parseDouble(removerPonto.replaceAll(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", "."));
-
-                    totalProduto *= (Math.pow(10, 2));
-                    totalProduto = Math.ceil(totalProduto);
-                    totalProduto /= (Math.pow(10, 2));
-
-                    String totalProduto2 = Double.toString(totalProduto);
-                    totalProduto2.replace(".", ",");
-
-                    DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-                    modelo.addRow(new Object[]{
-                        txtInput.getText(),
-                        txtDescricaoProduto.getText(),
-                        txtValorUnitarioProduto.getText(),
-                        txtValorDescontoProduto.getText(),
-                        txtQuantidadeProduto.getText(),
-                        totalProduto2
-                    });
-                    txtInput.setText("");
-                    txtDescricaoProduto.setText("");
-                    txtValorUnitarioProduto.setText("");
-                    txtValorDescontoProduto.setText("");
-                    txtQuantidadeProduto.setText("");
-                    txtInput.requestFocus();
-                    atualizarTotalizadores();
-                }
-            }
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
+    private void btnLimparCamposProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparCamposProdutoActionPerformed
+
     private void txtValorUnitarioProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitarioProdutoFocusGained
-        txtValorUnitarioProduto.selectAll();
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtValorUnitarioProdutoFocusGained
 
     private void txtValorDescontoProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorDescontoProdutoFocusGained
-        txtValorDescontoProduto.selectAll();
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtValorDescontoProdutoFocusGained
 
     private void txtQuantidadeProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoFocusGained
-        txtQuantidadeProduto.selectAll();
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtQuantidadeProdutoFocusGained
 
     private void txtQuantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuantidadeProdutoActionPerformed
 
-    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-        txtInput.setText("");
-        txtDescricaoProduto.setText("");
-        txtDescricaoProduto.setEnabled(true);
-        txtValorUnitarioProduto.setText("0,00");
-        txtValorDescontoProduto.setText("0,00");
-        txtQuantidadeProduto.setText("0");
-    }//GEN-LAST:event_btnLimparCamposActionPerformed
-
-    private void btnAdicionarProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProduto1ActionPerformed
+    private void btnLimparOrcamento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparOrcamento1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAdicionarProduto1ActionPerformed
+    }//GEN-LAST:event_btnLimparOrcamento1ActionPerformed
 
-    private void btnAdicionarProduto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProduto2ActionPerformed
-        cancelarVenda();
-    }//GEN-LAST:event_btnAdicionarProduto2ActionPerformed
+    private void txtTotalDescontos2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontos2FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalDescontos2FocusLost
+
+    private void F8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F8MousePressed
+        fecharCaixa();
+    }//GEN-LAST:event_F8MousePressed
+
+    private void backgroundValoresCaixa2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundValoresCaixa2MousePressed
+        System.out.println(fecharcaixa.getSize());
+    }//GEN-LAST:event_backgroundValoresCaixa2MousePressed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
@@ -1907,53 +1844,51 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JTextArea F6;
     private javax.swing.JTextArea F7;
     private javax.swing.JTextArea F8;
-    private javax.swing.JDialog Venda;
+    private javax.swing.JDialog Itens;
     private javax.swing.JDialog abrircaixa;
     private javax.swing.JPanel background;
     private javax.swing.JPanel backgroundPesquisa;
     private javax.swing.JPanel backgroundValoresCaixa;
-    private javax.swing.JPanel backgroundValoresCaixa1;
     private javax.swing.JPanel backgroundValoresCaixa2;
+    private javax.swing.JLabel btnAbrirCaixa;
     private javax.swing.JButton btnAdicionarProduto;
-    private javax.swing.JButton btnAdicionarProduto1;
-    private javax.swing.JButton btnAdicionarProduto2;
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JLabel btnFinalizarVenda;
-    private javax.swing.JButton btnLimparCampos;
-    private javax.swing.JButton btnLimparOrcamento;
+    private javax.swing.JButton btnLimparCamposProduto;
+    private javax.swing.JButton btnLimparOrcamento1;
     private javax.swing.JButton btnLimparPlaca;
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JLabel btnSelecionarPesquisa;
-    private javax.swing.JLabel btnValoresCaixa;
     private javax.swing.JLabel btnValoresCaixa1;
     private javax.swing.JDialog fecharcaixa;
-    private javax.swing.JDialog finalizarvenda;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDataAbrirCaixa;
     private javax.swing.JLabel lblDataFC;
-    private javax.swing.JLabel lblDataValoresCaixa1;
+    private javax.swing.JLabel lblDescProduto;
     private javax.swing.JLabel lblFundoAtualAbrirCaixa;
     private javax.swing.JLabel lblFundoTroco;
     private javax.swing.JLabel lblLogadoComo;
-    private javax.swing.JLabel lblOrcamento;
+    private javax.swing.JLabel lblOrcamento1;
+    private javax.swing.JLabel lblOrcamento2;
     private javax.swing.JLabel lblOrcamento3;
+    private javax.swing.JLabel lblOrcamento4;
     private javax.swing.JLabel lblPlaca;
-    private javax.swing.JLabel lblQtd;
+    private javax.swing.JLabel lblQtdProduto;
     private javax.swing.JLabel lblSangria1;
     private javax.swing.JLabel lblSuprimento;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo10;
     private javax.swing.JLabel lblTitulo12;
     private javax.swing.JLabel lblTitulo13;
     private javax.swing.JLabel lblTitulo14;
+    private javax.swing.JLabel lblTitulo15;
     private javax.swing.JLabel lblTituloPesquisa;
-    private javax.swing.JLabel lblTotaldeVendas1;
+    private javax.swing.JLabel lblTituloProdutos;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalDesconto;
     private javax.swing.JLabel lblTotaldeVendas2;
-    private javax.swing.JLabel lblTotaldeVendas3;
     private javax.swing.JLabel lblTotaldeVendas5;
     private javax.swing.JLabel lblTotaldeVendas6;
     private javax.swing.JLabel lblUsuarioAbrirCaixa;
@@ -1965,38 +1900,40 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JPanel painelFuncoes;
     private javax.swing.JPanel painelTela;
     private javax.swing.JPanel painelVenda;
+    private javax.swing.JPanel painelVenda1;
     private javax.swing.JDialog pesquisar;
     private javax.swing.JTable tabela;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCliente2;
     private javax.swing.JLabel txtDataCaixa;
-    private javax.swing.JFormattedTextField txtDescontoFV;
     private javax.swing.JTextField txtDescricaoProduto;
     private javax.swing.JTextField txtFormapagamento;
     private javax.swing.JTextField txtFormapagamento2;
-    private javax.swing.JFormattedTextField txtFundoAtual1;
+    private javax.swing.JFormattedTextField txtFundoAtual;
     private javax.swing.JFormattedTextField txtFundoAtualAbrirCaixa;
     private javax.swing.JLabel txtFundoTroco;
     private javax.swing.JTextField txtInput;
-    private javax.swing.JTextField txtOrcamento;
-    private javax.swing.JTextField txtOrcamento2;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPlaca2;
     private javax.swing.JTextField txtQuantidadeProduto;
-    private javax.swing.JFormattedTextField txtSangria1;
+    private javax.swing.JFormattedTextField txtSangria;
     private javax.swing.JFormattedTextField txtSuprimento;
     private javax.swing.JFormattedTextField txtTotal;
+    private javax.swing.JFormattedTextField txtTotalCartao;
     private javax.swing.JFormattedTextField txtTotalDescontos;
-    private javax.swing.JFormattedTextField txtTotalFV;
-    private javax.swing.JFormattedTextField txtTotaldeVendas1;
-    private javax.swing.JFormattedTextField txtTotaldeVendas2;
-    private javax.swing.JFormattedTextField txtTotaldeVendas3;
+    private javax.swing.JFormattedTextField txtTotalDescontos1;
+    private javax.swing.JFormattedTextField txtTotalDescontos2;
+    private javax.swing.JFormattedTextField txtTotalDinheiro;
+    private javax.swing.JFormattedTextField txtTotalProdutos;
+    private javax.swing.JFormattedTextField txtTotaldeVendas;
     private javax.swing.JLabel txtUsuarioLogado;
     private javax.swing.JFormattedTextField txtValorBruto;
+    private javax.swing.JFormattedTextField txtValorBruto1;
     private javax.swing.JFormattedTextField txtValorDescontoProduto;
     private javax.swing.JFormattedTextField txtValorUnitarioProduto;
+    private javax.swing.JDialog venda;
     // End of variables declaration//GEN-END:variables
 
 }

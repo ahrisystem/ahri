@@ -20,7 +20,7 @@ public class Caixas extends javax.swing.JPanel {
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (CaixaModel e : cc.listaCaixas("")) {
+        for (CaixaModel e : cc.listaCaixas(cbxFechado.isSelected())) {
             String status = "";
             if (e.isFechado()) {
                 status = "Fechado";
@@ -51,6 +51,7 @@ public class Caixas extends javax.swing.JPanel {
         tabela = new javax.swing.JTable();
         btnAtualizar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
+        cbxFechado = new javax.swing.JCheckBox();
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -213,6 +214,17 @@ public class Caixas extends javax.swing.JPanel {
         lblTitulo.setText("Caixas");
         lblTitulo.setOpaque(true);
 
+        cbxFechado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        cbxFechado.setText("Fechados");
+        cbxFechado.setToolTipText("Marque caso ele seja também um fornecedor.");
+        cbxFechado.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cbxFechado.setOpaque(false);
+        cbxFechado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFechadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -224,7 +236,8 @@ public class Caixas extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cbxFechado)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addComponent(lblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -235,7 +248,9 @@ public class Caixas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbxFechado))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -286,6 +301,10 @@ public class Caixas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVisualizarMouseReleased
 
+    private void cbxFechadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechadoActionPerformed
+        listar();
+    }//GEN-LAST:event_cbxFechadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAjuda;
@@ -293,6 +312,7 @@ public class Caixas extends javax.swing.JPanel {
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnFechar;
     private javax.swing.JLabel btnVisualizar;
+    private javax.swing.JCheckBox cbxFechado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

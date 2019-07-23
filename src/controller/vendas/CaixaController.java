@@ -66,10 +66,30 @@ public class CaixaController {
             JOptionPane.showMessageDialog(null, "Erro ao alterar caixa.\n" + e.getMessage());
         }
     }
+    
+    public void fecharCaixa(CaixaModel model, int data) {
+        String sql = "UPDATE public.caixa SET fechado=true, fundo=?,sangria=? WHERE data = '"+data+"';";
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            //data do banco
+            pstmt.setBoolean(2, model.isFechado());
+            pstmt.setDouble(3, model.getFundo());
+            pstmt.setDouble(4, model.getSangria());
+            pstmt.execute();
+            JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar caixa.\n" + e.getMessage());
+        }
+    }
 
-    public List<CaixaModel> listaCaixas(String usuario) {
+    public List<CaixaModel> listaCaixas(Boolean fechado) {
         List<CaixaModel> caixas = new ArrayList<>();
-        String sql = "select * from caixa where usuario like '%"+usuario+"%' order by data;";
+        String sql;
+        if (fechado) {
+            sql = "select * from caixa order by data;";
+        } else {
+            sql = "select * from caixa where fechado ="+fechado+" order by data;";
+        }
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -93,7 +113,6 @@ public class CaixaController {
     
     public int verificar(CaixaModel model) {
         String sql1 = "select * from caixa where data = '" + model.getData() + "';";
-        String sql2 = "select * from caixa where fechado = false;";
         boolean fechado = false;
         int retorno = 1;
         

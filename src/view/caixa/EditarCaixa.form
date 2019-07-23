@@ -268,29 +268,12 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="btnDescartar">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Descartar"/>
-                <Property name="focusable" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDescartarActionPerformed"/>
-              </Events>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="560" y="330" width="-1" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
             <Component class="javax.swing.JButton" name="btnSalvar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Salvar"/>
+                <Property name="text" type="java.lang.String" value="Fechar"/>
                 <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -334,6 +317,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>
@@ -387,6 +371,7 @@
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco1">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>
@@ -423,6 +408,7 @@
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco2">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>
@@ -459,6 +445,7 @@
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco3">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>
@@ -495,6 +482,7 @@
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco4">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>
@@ -531,6 +519,7 @@
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco5">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>
@@ -567,6 +556,7 @@
                     </Component>
                     <Component class="javax.swing.JFormattedTextField" name="txtPreco6">
                       <Properties>
+                        <Property name="editable" type="boolean" value="false"/>
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="99" red="0" type="rgb"/>
                         </Property>

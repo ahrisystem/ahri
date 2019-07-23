@@ -41,7 +41,6 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblCodigo = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
-        btnDescartar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         jTabbedPane = new javax.swing.JTabbedPane();
         abaFiscal = new javax.swing.JPanel();
@@ -213,18 +212,8 @@ public class EditarCaixa extends javax.swing.JFrame {
         txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 540, 20));
 
-        btnDescartar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnDescartar.setText("Descartar");
-        btnDescartar.setFocusable(false);
-        btnDescartar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDescartarActionPerformed(evt);
-            }
-        });
-        painelPrincipal.add(btnDescartar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, 30));
-
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnSalvar.setText("Salvar");
+        btnSalvar.setText("Fechar");
         btnSalvar.setFocusable(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,6 +227,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         abaFiscal.setOpaque(false);
         abaFiscal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtPreco.setEditable(false);
         txtPreco.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco.setText("0,00");
@@ -256,6 +246,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblNome2.setText("Suprimentos");
         abaFiscal.add(lblNome2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 140, 30));
 
+        txtPreco1.setEditable(false);
         txtPreco1.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco1.setText("0,00");
@@ -268,6 +259,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblNome3.setText("Sangria");
         abaFiscal.add(lblNome3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 140, 30));
 
+        txtPreco2.setEditable(false);
         txtPreco2.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco2.setText("0,00");
@@ -280,6 +272,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblNome4.setText("Saídas");
         abaFiscal.add(lblNome4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 140, 30));
 
+        txtPreco3.setEditable(false);
         txtPreco3.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco3.setText("0,00");
@@ -292,6 +285,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblNome5.setText("Entradas");
         abaFiscal.add(lblNome5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 140, 30));
 
+        txtPreco4.setEditable(false);
         txtPreco4.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco4.setText("0,00");
@@ -304,6 +298,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblNome6.setText("Descontos");
         abaFiscal.add(lblNome6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 140, 30));
 
+        txtPreco5.setEditable(false);
         txtPreco5.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco5.setText("0,00");
@@ -316,6 +311,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblNome7.setText("Total vendas");
         abaFiscal.add(lblNome7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 140, 30));
 
+        txtPreco6.setEditable(false);
         txtPreco6.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtPreco6.setText("0,00");
@@ -429,12 +425,8 @@ public class EditarCaixa extends javax.swing.JFrame {
         telainicial.opcoes = false;
     }//GEN-LAST:event_formWindowClosed
 
-    private void btnDescartarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescartarActionPerformed
-        
-    }//GEN-LAST:event_btnDescartarActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
+        this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -487,7 +479,6 @@ public class EditarCaixa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel abaFiscal;
     private javax.swing.JPanel abaPlacas;
-    private javax.swing.JButton btnDescartar;
     private javax.swing.JLabel btnNovo4;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
