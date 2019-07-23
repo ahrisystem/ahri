@@ -1327,6 +1327,9 @@ public class PDV extends javax.swing.JFrame{
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 F6MouseExited(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                F6MouseReleased(evt);
+            }
         });
         painelBotoes.add(F6);
 
@@ -1674,7 +1677,7 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_F5MouseReleased
 
     private void F8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F8MouseReleased
-        if (rootPaneCheckingEnabled) {
+        if (lblTitulo.getText().equalsIgnoreCase("CAIXA LIVRE")) {
             fecharcaixa.setVisible(true);
         }
     }//GEN-LAST:event_F8MouseReleased
@@ -1808,6 +1811,10 @@ public class PDV extends javax.swing.JFrame{
     private void backgroundValoresCaixa2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundValoresCaixa2MousePressed
         System.out.println(fecharcaixa.getSize());
     }//GEN-LAST:event_backgroundValoresCaixa2MousePressed
+
+    private void F6MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F6MouseReleased
+        
+    }//GEN-LAST:event_F6MouseReleased
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
