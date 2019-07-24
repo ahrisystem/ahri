@@ -810,6 +810,7 @@ public class TelaInicial extends javax.swing.JFrame {
         if (inicial) {
             Status status = Status.getInstancia();
             painelPrincipal.add("Status", status);
+            status.puxarValores();
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
         }
