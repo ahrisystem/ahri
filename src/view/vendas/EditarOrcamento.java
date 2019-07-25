@@ -1165,7 +1165,6 @@ public class EditarOrcamento extends javax.swing.JFrame {
 
     private void btnNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoProdutoActionPerformed
         NovoProduto novo = NovoProduto.getInstancia();
-        novo.alterarTitulo("NOVO PRODUTO");
         novo.preencheGrupos();
         novo.setVisible(true);
     }//GEN-LAST:event_btnNovoProdutoActionPerformed

@@ -2,7 +2,7 @@ package model.servicos;
 
 import java.util.Date;
 
-public class OrdemdeServicoModel {
+public class OSModel {
     private int cod;
     private int status;
     private int cliente;
@@ -10,8 +10,6 @@ public class OrdemdeServicoModel {
     private String cnpjcliente;
     private String placa;
     private String nomeplaca;
-    private Double valorTotalBruto;
-    private Double valorTotalDesconto;
     private Double valorTotal;
     private Date criacao;
     private Date alteracao;
@@ -72,22 +70,6 @@ public class OrdemdeServicoModel {
 
     public void setNomeplaca(String nomeplaca) {
         this.nomeplaca = nomeplaca;
-    }
-
-    public Double getValorTotalBruto() {
-        return valorTotalBruto;
-    }
-
-    public void setValorTotalBruto(Double valorTotalBruto) {
-        this.valorTotalBruto = valorTotalBruto;
-    }
-
-    public Double getValorTotalDesconto() {
-        return valorTotalDesconto;
-    }
-
-    public void setValorTotalDesconto(Double valorTotalDesconto) {
-        this.valorTotalDesconto = valorTotalDesconto;
     }
 
     public Double getValorTotal() {

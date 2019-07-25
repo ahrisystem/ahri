@@ -215,7 +215,7 @@
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="18" style="1"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -231,7 +231,7 @@
           <Color blue="33" green="33" red="33" type="rgb"/>
         </Property>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="18" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -259,37 +259,25 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtProduto" max="32767" attributes="0"/>
-                                      <Component id="lblValorUnProduto" pref="78" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtProduto" min="-2" pref="92" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="txtValorUnitarioProduto" min="-2" pref="107" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblTitulo10" pref="79" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtValorDescontoProduto" min="-2" pref="107" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblQtd" pref="98" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtQuantidadeProduto" min="-2" pref="85" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="txtDescricaoProduto" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtDescricaoProduto" max="32767" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" alignment="0" pref="515" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="lblTitulo12" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtValorBruto" min="-2" pref="107" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtTotalDescontos" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <Component id="lblTitulo12" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtTotal" min="-2" pref="107" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="lblValorUnProduto" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtValorUnitarioProduto" min="-2" pref="107" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="lblQtd" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtQuantidadeProduto" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -352,34 +340,26 @@
                               <Component id="txtProduto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lblValorUnProduto" max="32767" attributes="0"/>
-                                  <Component id="txtValorDescontoProduto" alignment="0" pref="30" max="32767" attributes="0"/>
-                                  <Component id="txtValorUnitarioProduto" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="lblTitulo10" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                                  <Component id="lblQtd" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="txtQuantidadeProduto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtValorUnitarioProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblQtd" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="txtQuantidadeProduto" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="lblValorUnProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtValorBruto" alignment="1" pref="40" max="32767" attributes="0"/>
-                              <Component id="txtTotalDescontos" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txtTotal" alignment="1" max="32767" attributes="0"/>
-                              <Component id="lblTitulo12" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lblTitulo12" max="32767" attributes="0"/>
+                              <Component id="txtTotal" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="painelFuncoes" pref="309" max="32767" attributes="0"/>
+                      <Component id="painelFuncoes" pref="222" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnSalvar" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" pref="96" max="32767" attributes="0"/>
+                      <Component id="btnSalvar" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -390,7 +370,7 @@
         <Component class="javax.swing.JLabel" name="lblCliente">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="bf" green="69" red="33" type="rgb"/>
@@ -441,7 +421,7 @@
         <Component class="javax.swing.JLabel" name="lblPlaca">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="bf" green="69" red="33" type="rgb"/>
@@ -514,12 +494,11 @@
                   <Font name="Century Gothic" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="6" rowCount="0">
+                  <Table columnCount="5" rowCount="0">
                     <Column editable="false" title="C&#xf3;digo" type="java.lang.Object"/>
                     <Column editable="false" title="Servi&#xe7;o" type="java.lang.Object"/>
                     <Column editable="false" title="Valor un." type="java.lang.Object"/>
-                    <Column editable="false" title="Desconto" type="java.lang.Object"/>
-                    <Column editable="false" title="Qtd." type="java.lang.Object"/>
+                    <Column editable="false" title="Hrs" type="java.lang.Object"/>
                     <Column editable="false" title="Total" type="java.lang.Object"/>
                   </Table>
                 </Property>
@@ -532,11 +511,6 @@
                       <Renderer/>
                     </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                      <Title/>
-                      <Editor/>
-                      <Renderer/>
-                    </Column>
-                    <Column maxWidth="60" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -571,6 +545,11 @@
           </SubComponents>
         </Container>
         <Component class="javax.swing.JTextField" name="txtDescricaoProduto">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="14" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="painelFuncoes">
 
@@ -591,7 +570,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="100" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="80" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -608,7 +587,7 @@
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="50" width="110" height="40"/>
+                  <AbsoluteConstraints x="0" y="40" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -629,85 +608,23 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="12" style="0"/>
-                </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Exibir"/>
-                <Property name="opaque" type="boolean" value="true"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="160" width="110" height="20"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="cbxExibirClientes">
+            <Component class="javax.swing.JButton" name="btnRemoverProduto1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="14" style="0"/>
                 </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Clientes"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="180" width="110" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="cbxExibirProdutos">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="14" style="0"/>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="99" red="33" type="rgb"/>
                 </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Servi&#xe7;os"/>
+                <Property name="text" type="java.lang.String" value="Novo +"/>
                 <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverProduto1ActionPerformed"/>
+              </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="240" width="110" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="cbxExibirPlaca">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="14" style="0"/>
-                </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Placa"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="210" width="110" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="cbxExibirValores">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="14" style="0"/>
-                </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Valores"/>
-                <Property name="focusable" type="boolean" value="false"/>
-                <Property name="horizontalAlignment" type="int" value="2"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="0" y="270" width="110" height="30"/>
+                  <AbsoluteConstraints x="0" y="120" width="110" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -716,16 +633,16 @@
         <Component class="javax.swing.JLabel" name="lblQtd">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="15" style="1"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Quantidade:"/>
+            <Property name="text" type="java.lang.String" value="Horas"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtQuantidadeProduto">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Consolas" size="18" style="0"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
@@ -736,10 +653,10 @@
         <Component class="javax.swing.JLabel" name="lblValorUnProduto">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="15" style="1"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Valor Un:"/>
+            <Property name="text" type="java.lang.String" value="Valor"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txtValorUnitarioProduto">
@@ -748,34 +665,12 @@
               <Format format="#,##0.00" subtype="-1" type="0"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Consolas" size="18" style="0"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtValorUnitarioProdutoFocusGained"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtValorDescontoProduto">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="#,##0.00" subtype="-1" type="0"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Consolas" size="18" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtValorDescontoProdutoFocusGained"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTitulo10">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="15" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="4"/>
-            <Property name="text" type="java.lang.String" value="Desconto:"/>
-          </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -821,6 +716,11 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProduto">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Century Gothic" size="14" style="0"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtProdutoFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtProdutoFocusLost"/>
@@ -843,45 +743,13 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtTotalDescontos">
-          <Properties>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="#,##0.00" subtype="-1" type="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="0,00"/>
-            <Property name="toolTipText" type="java.lang.String" value="Total descontos"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Consolas" size="18" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtTotalDescontosFocusLost"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalDescontosActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtValorBruto">
-          <Properties>
-            <Property name="editable" type="boolean" value="false"/>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="#,##0.00" subtype="-1" type="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="0,00"/>
-            <Property name="toolTipText" type="java.lang.String" value="total bruto"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Consolas" size="18" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblTitulo12">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="15" style="1"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Totais"/>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="Total:"/>
           </Properties>
         </Component>
       </SubComponents>

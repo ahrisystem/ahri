@@ -29,6 +29,9 @@ public class Licenciamento extends javax.swing.JFrame {
         if (em.getCNPJ().equalsIgnoreCase("33.380.927/0001-53")) {
             lblTipoLicenca.setText("LICENÇA VITALÍCIA");
             lblDuracaoLicenca.setText("CLIENTE PILOTO");
+        } else {
+            lblTipoLicenca.setText("INVÁLIDA");
+            lblDuracaoLicenca.setText("VENCIDA");
         }
     }
     @SuppressWarnings("unchecked")
@@ -44,8 +47,7 @@ public class Licenciamento extends javax.swing.JFrame {
         lblTítulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro da empresa");
-        setUndecorated(true);
+        setTitle("Licenciamento do sistema");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 

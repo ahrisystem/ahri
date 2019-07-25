@@ -275,7 +275,6 @@ public class Produtos extends javax.swing.JPanel {
 
     private void btnNovoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNovoMouseReleased
         NovoProduto novo = NovoProduto.getInstancia();
-        novo.alterarTitulo("NOVO PRODUTO");
         novo.preencheGrupos();
         novo.setVisible(true);
         listar();

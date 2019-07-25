@@ -74,7 +74,10 @@ public class Orcamentos extends javax.swing.JPanel {
         lblTitulo = new javax.swing.JLabel();
         txtFiltro = new javax.swing.JComboBox<>();
 
+        alterarStatus.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
+        planoDeFundo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTituloAlterarStatus.setBackground(new java.awt.Color(153, 153, 153));
         lblTituloAlterarStatus.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -82,6 +85,7 @@ public class Orcamentos extends javax.swing.JPanel {
         lblTituloAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTituloAlterarStatus.setText("Alterar status do orçamento Nº ");
         lblTituloAlterarStatus.setOpaque(true);
+        planoDeFundo1.add(lblTituloAlterarStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 30));
 
         btnSelecionarPesquisa.setBackground(new java.awt.Color(102, 153, 255));
         btnSelecionarPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -95,9 +99,10 @@ public class Orcamentos extends javax.swing.JPanel {
                 btnSelecionarPesquisaMouseReleased(evt);
             }
         });
+        planoDeFundo1.add(btnSelecionarPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 420, 30));
 
         jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
+        jTextArea1.setColumns(38);
         jTextArea1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(51, 51, 51));
         jTextArea1.setLineWrap(true);
@@ -105,9 +110,11 @@ public class Orcamentos extends javax.swing.JPanel {
         jTextArea1.setText("STATUS seria a situação na qual encontra-se o orçamento, quando ele é salvo primeiramente fica como EMITIDO, após realmente efetuar a venda ele fica como FINALIZADO, caso não seja finalizado ele fica como CANCELADO. Escolha abaixo qual o novo STATUS do orçamento.\n");
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setFocusable(false);
+        planoDeFundo1.add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 420, 70));
 
         txtStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "Emitido", "Finalizado", "Cancelado" }));
+        planoDeFundo1.add(txtStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 420, 27));
 
         lblCodOrcamento.setBackground(new java.awt.Color(153, 153, 153));
         lblCodOrcamento.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -115,49 +122,9 @@ public class Orcamentos extends javax.swing.JPanel {
         lblCodOrcamento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCodOrcamento.setText("0");
         lblCodOrcamento.setOpaque(true);
+        planoDeFundo1.add(lblCodOrcamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 50, 30));
 
-        javax.swing.GroupLayout planoDeFundo1Layout = new javax.swing.GroupLayout(planoDeFundo1);
-        planoDeFundo1.setLayout(planoDeFundo1Layout);
-        planoDeFundo1Layout.setHorizontalGroup(
-            planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(planoDeFundo1Layout.createSequentialGroup()
-                .addComponent(lblTituloAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblCodOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(planoDeFundo1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jTextArea1)
-                    .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        planoDeFundo1Layout.setVerticalGroup(
-            planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(planoDeFundo1Layout.createSequentialGroup()
-                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTituloAlterarStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodOrcamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout alterarStatusLayout = new javax.swing.GroupLayout(alterarStatus.getContentPane());
-        alterarStatus.getContentPane().setLayout(alterarStatusLayout);
-        alterarStatusLayout.setHorizontalGroup(
-            alterarStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(planoDeFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        alterarStatusLayout.setVerticalGroup(
-            alterarStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(planoDeFundo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        alterarStatus.getContentPane().add(planoDeFundo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, -1));
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

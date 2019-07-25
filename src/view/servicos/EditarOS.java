@@ -1,38 +1,41 @@
-package view.vendas;
+package view.servicos;
 
 import controller.funcoes.PesquisarController;
-import controller.vendas.VendasController;
-import funcoes.GerarOrçamentoPDF;
+import controller.servicos.OSController;
+import funcoes.GerarOSPDF;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
-import model.vendas.VendasItensModel;
-import model.vendas.VendasModel;
+import model.servicos.OSItensModel;
+import model.servicos.OSModel;
+import view.TelaInicial;
 import view.cadastros.placa.NovaPlaca;
 import view.cadastros.produtos.NovoProduto;
 
-public class NovoOrcamento extends javax.swing.JFrame {
-    VendasController vc = new VendasController();
+public class EditarOS extends javax.swing.JFrame {
+    OSController oc = new OSController();
     PesquisarController pc = new PesquisarController();
-    GerarOrçamentoPDF go = new GerarOrçamentoPDF();
+    GerarOSPDF go = new GerarOSPDF();
     String usuario;
     String pesquisaAtual;
 
-    private static final NovoOrcamento INSTANCIA = new NovoOrcamento();
+    private static final EditarOS INSTANCIA = new EditarOS();
 
-    public static NovoOrcamento getInstancia() {
+    public static EditarOS getInstancia() {
         return INSTANCIA;
     }
 
-    private NovoOrcamento() {
+    private EditarOS() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -40,7 +43,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }
 
     public void pegaCodigo() {
-        lblCod.setText("Nº " + vc.pegaCodigo());
+        lblCod.setText("Nº " + oc.pegaCodigo());
     }
 
     public void icone() {
@@ -84,34 +87,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         }
     }
 
-    //////////////////////Atualizando totalizadores/////////////////////////////
-    public void atualizarTotalizadores() {
-        double totalbruto = 0.00;
-        double desconto = 0.00;
-        double total = 0.00;
-        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-            totalbruto = totalbruto + Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", "."));
-            desconto = desconto + Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", "."));
-        }
-        totalbruto *= (Math.pow(10, 2));
-        totalbruto = Math.ceil(totalbruto);
-        totalbruto /= (Math.pow(10, 2));
-        
-        desconto *= (Math.pow(10, 2));
-        desconto = Math.ceil(desconto);
-        desconto /= (Math.pow(10, 2));
-        
-        total = totalbruto - desconto;
-        
-        total *= (Math.pow(10, 2));
-        total = Math.ceil(total);
-        total /= (Math.pow(10, 2));
-        
-        txtValorBruto.setText(Double.toString(totalbruto).replace(".", ","));
-        txtTotalDescontos.setText(Double.toString(desconto).replace(".", ","));
-        txtTotal.setText(Double.toString(total).replace(".", ","));
-    }
-
     ///////////////////Buscar cliente/produto/placa/////////////////////////////
     public void buscarCliente() {
         if (txtCliente.getText().matches("[0-9]+")) {
@@ -139,7 +114,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtProduto.setText(Integer.toString(cod));
         txtDescricaoProduto.setText(nome);
         txtValorUnitarioProduto.setText(Double.toString(preco).replace(".", ","));
-        txtValorDescontoProduto.setText("0,00");
         txtQuantidadeProduto.setText("0");
     }
 
@@ -151,7 +125,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
         } else {
             txtPlaca.setText(pm.getCod());
             txtPlaca2.setText(pm.getNome());
-            txtPlaca2.setEnabled(false);
+            txtDescricaoProduto.setEnabled(false);
         }
     }
 
@@ -192,16 +166,45 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtProduto.setText("");
         txtDescricaoProduto.setText("");
         txtValorUnitarioProduto.setText("0,00");
-        txtValorDescontoProduto.setText("0,00");
         txtQuantidadeProduto.setText("0,00");
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
         modelo.setNumRows(0);
-        txtValorBruto.setText("0,00");
-        txtTotalDescontos.setText("0,00");
         txtTotal.setText("0,00");
         txtObs.setText("");
-        cbxExibirClientes.setSelected(false);
-        cbxExibirValores.setSelected(false);
+    }
+    ////////////////////////////////////////////////////////////////////////////
+    public void puxarDados(int cod){
+        OSModel vm = new OSModel();
+        oc.puxarDadosOS(vm, cod);
+        lblCod.setText("Nº "+cod);
+        //cliente
+        txtCliente.setText(Integer.toString(vm.getCliente()));
+        txtCliente2.setText(vm.getNomecliente());
+        if (txtCliente.getText().equalsIgnoreCase("")) {
+        } else {
+            txtCliente2.setEnabled(false);
+        }
+        txtPlaca.setText(vm.getPlaca());
+        txtPlaca2.setText(vm.getNomeplaca());
+        if (txtPlaca.getText().equalsIgnoreCase("")) {
+        } else {
+            txtPlaca2.setEnabled(false);
+        }
+        //Produtos
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        modelo.setNumRows(0);
+        for (OSItensModel e : oc.puxarDadosItensOS(cod)) {
+            modelo.addRow(new Object[]{
+                e.getCod(),
+                e.getNome(),
+                e.getValorunitario(),
+                e.getQuantidade(),
+                e.getValortotal()
+            });
+        };
+        txtTotal.setText(Double.toString(vm.getValorTotal()).replace(".", ","));
+        //obs
+        txtObs.setText(vm.getObs());
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -232,28 +235,18 @@ public class NovoOrcamento extends javax.swing.JFrame {
         btnRemoverProduto = new javax.swing.JButton();
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        cbxExibirClientes = new javax.swing.JCheckBox();
-        cbxExibirProdutos = new javax.swing.JCheckBox();
-        cbxExibirPlaca = new javax.swing.JCheckBox();
-        cbxExibirValores = new javax.swing.JCheckBox();
-        btnLimparCampos = new javax.swing.JButton();
+        btnRemoverProduto1 = new javax.swing.JButton();
         lblQtd = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
         lblValorUnProduto = new javax.swing.JLabel();
         txtValorUnitarioProduto = new javax.swing.JFormattedTextField();
-        txtValorDescontoProduto = new javax.swing.JFormattedTextField();
-        lblTitulo10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObs = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         lblTitulo11 = new javax.swing.JLabel();
         txtProduto = new javax.swing.JTextField();
         txtTotal = new javax.swing.JFormattedTextField();
-        txtTotalDescontos = new javax.swing.JFormattedTextField();
-        txtValorBruto = new javax.swing.JFormattedTextField();
         lblTitulo12 = new javax.swing.JLabel();
-        btnNovoProduto = new javax.swing.JButton();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -373,15 +366,15 @@ public class NovoOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
-        lblTitulo.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
+        lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("NOVO ORÇAMENTO");
+        lblTitulo.setText("Nova ordem de serviço");
         lblTitulo.setOpaque(true);
 
         lblCod.setBackground(new java.awt.Color(51, 51, 51));
-        lblCod.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblCod.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCod.setForeground(new java.awt.Color(255, 255, 255));
         lblCod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCod.setText("Nº 1");
@@ -390,7 +383,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCliente.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblCliente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCliente.setForeground(new java.awt.Color(51, 105, 191));
         lblCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCliente.setText("Cliente");
@@ -425,7 +418,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblPlaca.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblPlaca.setForeground(new java.awt.Color(51, 105, 191));
         lblPlaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPlaca.setText("Placa");
@@ -475,11 +468,11 @@ public class NovoOrcamento extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Produto", "Valor un.", "Desconto", "Qtd.", "Total"
+                "Código", "Serviço", "Valor un.", "Hrs", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -492,13 +485,8 @@ public class NovoOrcamento extends javax.swing.JFrame {
         tblProdutos.setRowHeight(20);
         tblProdutos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblProdutos);
-        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
-            tblProdutos.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblProdutos.getColumnModel().getColumn(2).setMaxWidth(60);
-            tblProdutos.getColumnModel().getColumn(3).setMaxWidth(60);
-            tblProdutos.getColumnModel().getColumn(4).setMaxWidth(50);
-            tblProdutos.getColumnModel().getColumn(5).setMaxWidth(60);
-        }
+
+        txtDescricaoProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         painelFuncoes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -532,57 +520,22 @@ public class NovoOrcamento extends javax.swing.JFrame {
         });
         painelFuncoes.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Exibir");
-        jLabel1.setOpaque(true);
-        painelFuncoes.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 110, 20));
-
-        cbxExibirClientes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirClientes.setSelected(true);
-        cbxExibirClientes.setText("Clientes");
-        cbxExibirClientes.setFocusable(false);
-        cbxExibirClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 110, 30));
-
-        cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirProdutos.setSelected(true);
-        cbxExibirProdutos.setText("Produtos");
-        cbxExibirProdutos.setFocusable(false);
-        cbxExibirProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 110, 30));
-
-        cbxExibirPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirPlaca.setSelected(true);
-        cbxExibirPlaca.setText("Placa");
-        cbxExibirPlaca.setFocusable(false);
-        cbxExibirPlaca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
-
-        cbxExibirValores.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirValores.setSelected(true);
-        cbxExibirValores.setText("Valores");
-        cbxExibirValores.setFocusable(false);
-        cbxExibirValores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirValores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 110, 30));
-
-        btnLimparCampos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnLimparCampos.setText("Limpar");
-        btnLimparCampos.setFocusable(false);
-        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+        btnRemoverProduto1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnRemoverProduto1.setForeground(new java.awt.Color(51, 153, 0));
+        btnRemoverProduto1.setText("Novo +");
+        btnRemoverProduto1.setFocusable(false);
+        btnRemoverProduto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparCamposActionPerformed(evt);
+                btnRemoverProduto1ActionPerformed(evt);
             }
         });
-        painelFuncoes.add(btnLimparCampos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 110, 40));
+        painelFuncoes.add(btnRemoverProduto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 110, 40));
 
-        lblQtd.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        lblQtd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblQtd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblQtd.setText("Quantidade:");
+        lblQtd.setText("Horas");
 
-        txtQuantidadeProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtQuantidadeProduto.setText("0");
+        txtQuantidadeProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtQuantidadeProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtQuantidadeProdutoFocusGained(evt);
@@ -594,31 +547,17 @@ public class NovoOrcamento extends javax.swing.JFrame {
             }
         });
 
-        lblValorUnProduto.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        lblValorUnProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblValorUnProduto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValorUnProduto.setText("Valor Un:");
+        lblValorUnProduto.setText("Valor");
 
         txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorUnitarioProduto.setText("0,00");
-        txtValorUnitarioProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtValorUnitarioProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtValorUnitarioProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtValorUnitarioProdutoFocusGained(evt);
             }
         });
-
-        txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorDescontoProduto.setText("0,00");
-        txtValorDescontoProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtValorDescontoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtValorDescontoProdutoFocusGained(evt);
-            }
-        });
-
-        lblTitulo10.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo10.setText("Desconto:");
 
         txtObs.setColumns(20);
         txtObs.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
@@ -645,9 +584,10 @@ public class NovoOrcamento extends javax.swing.JFrame {
 
         lblTitulo11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo11.setText("Produtos");
+        lblTitulo11.setText("Serviços");
         lblTitulo11.setOpaque(true);
 
+        txtProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtProdutoFocusGained(evt);
@@ -669,41 +609,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
         txtTotal.setToolTipText("Total");
         txtTotal.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
 
-        txtTotalDescontos.setForeground(new java.awt.Color(204, 0, 51));
-        txtTotalDescontos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotalDescontos.setText("0,00");
-        txtTotalDescontos.setToolTipText("Total descontos");
-        txtTotalDescontos.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtTotalDescontos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTotalDescontosFocusLost(evt);
-            }
-        });
-        txtTotalDescontos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalDescontosActionPerformed(evt);
-            }
-        });
-
-        txtValorBruto.setEditable(false);
-        txtValorBruto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorBruto.setText("0,00");
-        txtValorBruto.setToolTipText("total bruto");
-        txtValorBruto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-
         lblTitulo12.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo12.setText("Totais");
-
-        btnNovoProduto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        btnNovoProduto.setText("+");
-        btnNovoProduto.setToolTipText("Novo Cliente");
-        btnNovoProduto.setFocusable(false);
-        btnNovoProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoProdutoActionPerformed(evt);
-            }
-        });
+        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTitulo12.setText("Total:");
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
@@ -716,37 +624,23 @@ public class NovoOrcamento extends javax.swing.JFrame {
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
-                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProduto)
-                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
+                                .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                        .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                        .addComponent(txtDescricaoProduto)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3))))
+                                .addComponent(txtDescricaoProduto))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblTitulo12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
+                                .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblQtd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -791,31 +685,24 @@ public class NovoOrcamento extends javax.swing.JFrame {
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnNovoProduto))
+                            .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                                .addComponent(txtValorUnitarioProduto)
-                                .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblValorUnProduto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtValorBruto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(txtTotalDescontos, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+                            .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTotal)))
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -843,80 +730,9 @@ public class NovoOrcamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        limpaCampos();
+        TelaInicial telainicial = new TelaInicial();
+        telainicial.opcoes = false;
     }//GEN-LAST:event_formWindowClosed
-
-    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
-        btnSalvar.setForeground(Color.GREEN);
-    }//GEN-LAST:event_btnSalvarMouseEntered
-
-    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
-        btnSalvar.setForeground(Color.BLACK);
-    }//GEN-LAST:event_btnSalvarMouseExited
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        int opcao = 2;
-        if (JOptionPane.showConfirmDialog(null, "Confirmar orçamento?",
-                "OK?", opcao) == 0) {
-            VendasModel vm = new VendasModel();
-            VendasItensModel vim = new VendasItensModel();
-            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
-            
-            if (txtCliente.getText().equalsIgnoreCase("")) {
-                vm.setCliente(0);
-            } else {
-                vm.setCliente(Integer.parseInt(txtCliente.getText()));
-            }
-            
-            if (txtCliente2.getText().equalsIgnoreCase("")) {
-                vm.setNomecliente("");
-            } else {
-                vm.setNomecliente(txtCliente2.getText());
-            }
-            
-            vm.setPlaca(txtPlaca.getText());
-            vm.setNomeplaca(txtPlaca2.getText());
-            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
-            vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
-            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
-            vm.setUsuario(usuario);
-            vm.setObs(txtObs.getText());
-            vc.cadastraOrcamento(vm);
-            //Cadastrando itens
-            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
-                vim.setVenda(vm.getCod());
-                vim.setNome(tblProdutos.getValueAt(i, 1).toString());
-                vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
-                vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
-                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
-                vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                vc.cadastraProdutosOrcamento(vim);
-            }
-            
-            //gerar pdf
-            vc.puxarDadosOrcamento(vm, vm.getCod());
-            go.Orcamento(vm, cbxExibirClientes.isSelected(),cbxExibirPlaca.isSelected(),cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), vc.puxarDadosProdutosOrcamento(vm.getCod()));
-            limpaCampos();
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void txtQuantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtQuantidadeProdutoActionPerformed
-
-    private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
-        buscarCliente();
-    }//GEN-LAST:event_txtClienteActionPerformed
-
-    private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
-        buscarProduto();
-    }//GEN-LAST:event_txtProdutoActionPerformed
-
-    private void txtTotalDescontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalDescontosActionPerformed
-
-    }//GEN-LAST:event_txtTotalDescontosActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
         // TODO add your handling code here:
@@ -964,8 +780,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
             } else {
                 txtProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
                 txtDescricaoProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-                txtValorUnitarioProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
-                txtValorDescontoProduto.setText("0,00");
                 txtQuantidadeProduto.setText("0");
                 pesquisar.setVisible(false);
                 txtValorUnitarioProduto.requestFocus();
@@ -980,49 +794,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelaKeyReleased
 
-    private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
-        if (txtDescricaoProduto.getText().equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(null, "Nenhum produto");
-        } else {
-            if (txtQuantidadeProduto.getText().equalsIgnoreCase("") || Integer.parseInt(txtQuantidadeProduto.getText()) < 1) {
-                JOptionPane.showMessageDialog(null, "Quantidade inválida");
-            } else {
-                if (txtValorUnitarioProduto.getText().equalsIgnoreCase("0,00")) {
-                    JOptionPane.showMessageDialog(null, "Valor inválido");
-                } else {
-                    double totalProduto;
-                    String removerPonto;
-                    removerPonto = (txtValorUnitarioProduto.getText().replace(".", ""));
-                    totalProduto = Double.parseDouble(removerPonto.replaceAll(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", "."));
-                        
-                    totalProduto *= (Math.pow(10, 2));
-                    totalProduto = Math.ceil(totalProduto);
-                    totalProduto /= (Math.pow(10, 2));
-                    
-                    String totalProduto2 = Double.toString(totalProduto);
-                    totalProduto2.replace(".", ",");
-                    
-                    DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-                    modelo.addRow(new Object[]{
-                        txtProduto.getText(),
-                        txtDescricaoProduto.getText(),
-                        txtValorUnitarioProduto.getText(),
-                        txtValorDescontoProduto.getText(),
-                        txtQuantidadeProduto.getText(),
-                        totalProduto2
-                    });
-                    txtProduto.setText("");
-                    txtDescricaoProduto.setText("");
-                    txtValorUnitarioProduto.setText("");
-                    txtValorDescontoProduto.setText("");
-                    txtQuantidadeProduto.setText("");
-                    txtProduto.requestFocus();
-                    atualizarTotalizadores();
-                }
-            }
-        }
-    }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
-
     private void txtClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClienteFocusGained
         txtCliente2.setEnabled(true);
     }//GEN-LAST:event_txtClienteFocusGained
@@ -1035,87 +806,18 @@ public class NovoOrcamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtClienteFocusLost
 
-    private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-        if (tblProdutos.getSelectedRow() >= 0) {
-            modelo.removeRow(tblProdutos.getSelectedRow());
-            tblProdutos.setModel(modelo);
-            atualizarTotalizadores();
-            txtProduto.requestFocus();
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
-        }
-    }//GEN-LAST:event_btnRemoverProdutoActionPerformed
-
-    private void txtValorUnitarioProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitarioProdutoFocusGained
-        txtValorUnitarioProduto.selectAll();
-    }//GEN-LAST:event_txtValorUnitarioProdutoFocusGained
-
-    private void txtValorDescontoProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorDescontoProdutoFocusGained
-        txtValorDescontoProduto.selectAll();
-    }//GEN-LAST:event_txtValorDescontoProdutoFocusGained
-
-    private void txtQuantidadeProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoFocusGained
-        txtQuantidadeProduto.selectAll();
-    }//GEN-LAST:event_txtQuantidadeProdutoFocusGained
-
-    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
-        if (tblProdutos.getSelectedRow() >= 0) {
-            txtProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
-            txtDescricaoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
-            txtValorUnitarioProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
-            txtValorDescontoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
-            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
-            //Removendo a linha
-            modelo.removeRow(tblProdutos.getSelectedRow());
-            tblProdutos.setModel(modelo);
-            atualizarTotalizadores();
-            txtProduto.requestFocus();
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
-        }
-    }//GEN-LAST:event_btnEditarProdutoActionPerformed
-
-    private void txtTotalDescontosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontosFocusLost
-
-    }//GEN-LAST:event_txtTotalDescontosFocusLost
-
-    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
-        pesquisar.setVisible(true);
-        pesquisaAtual = "placa";
-        lblTituloPesquisa.setText("Placas");
-        listarPlacas();
-        txtPesquisa.setText(txtProduto.getText());
-        pesquisar.setLocation(this.getX(), this.getY());
-        pesquisar.setSize(this.getSize());
-    }//GEN-LAST:event_txtPlacaActionPerformed
-
-    private void btnNovaPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaPlacaActionPerformed
-        NovaPlaca novo = NovaPlaca.getInstancia();
-        novo.setVisible(true);
-    }//GEN-LAST:event_btnNovaPlacaActionPerformed
+    private void txtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteActionPerformed
+        buscarCliente();
+    }//GEN-LAST:event_txtClienteActionPerformed
 
     private void btnNovoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoClienteActionPerformed
         NovoCliente novo = NovoCliente.getInstancia();
         novo.setVisible(true);
     }//GEN-LAST:event_btnNovoClienteActionPerformed
 
-    private void txtProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusGained
-        txtDescricaoProduto.setEnabled(true);
-    }//GEN-LAST:event_txtProdutoFocusGained
-
-    private void txtProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusLost
-        if (txtProduto.getText().equalsIgnoreCase("")) {
-
-        } else {
-            buscarProduto();
-        }
-    }//GEN-LAST:event_txtProdutoFocusLost
-
-    private void txtPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyReleased
-        txtPlaca.setText(txtPlaca.getText().toUpperCase());
-    }//GEN-LAST:event_txtPlacaKeyReleased
+    private void txtPlacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusGained
+        txtPlaca2.setEnabled(true);
+    }//GEN-LAST:event_txtPlacaFocusGained
 
     private void txtPlacaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusLost
         if (txtPlaca.getText().equalsIgnoreCase("")) {
@@ -1132,24 +834,174 @@ public class NovoOrcamento extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPlacaFocusLost
 
-    private void txtPlacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusGained
-        txtPlaca2.setEnabled(true);
-    }//GEN-LAST:event_txtPlacaFocusGained
+    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
+        pesquisar.setVisible(true);
+        pesquisaAtual = "placa";
+        lblTituloPesquisa.setText("Placas");
+        listarPlacas();
+        txtPesquisa.setText(txtProduto.getText());
+        pesquisar.setLocation(this.getX(), this.getY());
+        pesquisar.setSize(this.getSize());
+    }//GEN-LAST:event_txtPlacaActionPerformed
 
-    private void btnNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoProdutoActionPerformed
+    private void txtPlacaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlacaKeyReleased
+        txtPlaca.setText(txtPlaca.getText().toUpperCase());
+    }//GEN-LAST:event_txtPlacaKeyReleased
+
+    private void btnNovaPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaPlacaActionPerformed
+        NovaPlaca novo = NovaPlaca.getInstancia();
+        novo.setVisible(true);
+    }//GEN-LAST:event_btnNovaPlacaActionPerformed
+
+    private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        if (tblProdutos.getSelectedRow() >= 0) {
+            modelo.removeRow(tblProdutos.getSelectedRow());
+            tblProdutos.setModel(modelo);
+            txtProduto.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
+        }
+    }//GEN-LAST:event_btnRemoverProdutoActionPerformed
+
+    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        if (tblProdutos.getSelectedRow() >= 0) {
+            txtProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+            txtDescricaoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
+            txtValorUnitarioProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
+            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
+            //Removendo a linha
+            modelo.removeRow(tblProdutos.getSelectedRow());
+            tblProdutos.setModel(modelo);
+            txtProduto.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum serviço selecionado.");
+        }
+    }//GEN-LAST:event_btnEditarProdutoActionPerformed
+
+    private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
+        if (txtDescricaoProduto.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Nenhum produto");
+        } else {
+            if (txtQuantidadeProduto.getText().equalsIgnoreCase("") || Integer.parseInt(txtQuantidadeProduto.getText()) < 1) {
+                JOptionPane.showMessageDialog(null, "Quantidade inválida");
+            } else {
+                if (txtValorUnitarioProduto.getText().equalsIgnoreCase("0,00")) {
+                    JOptionPane.showMessageDialog(null, "Valor inválido");
+                } else {
+                    double totalProduto;
+                    String removerPonto;
+                    removerPonto = (txtValorUnitarioProduto.getText().replace(".", ""));
+                    totalProduto = Double.parseDouble(removerPonto.replaceAll(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", "."));
+                    String totalProduto2 = Double.toString(totalProduto);
+                    totalProduto2.replace(".", ",");
+                    DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+                    modelo.addRow(new Object[]{
+                        txtProduto.getText(),
+                        txtDescricaoProduto.getText(),
+                        txtValorUnitarioProduto.getText(),
+                        txtQuantidadeProduto.getText(),
+                        totalProduto2
+                    });
+                    txtProduto.setText("");
+                    txtDescricaoProduto.setText("");
+                    txtValorUnitarioProduto.setText("");
+                    txtQuantidadeProduto.setText("");
+                    txtProduto.requestFocus();
+                }
+            }
+        }
+    }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
+
+    private void btnRemoverProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProduto1ActionPerformed
         NovoProduto novo = NovoProduto.getInstancia();
         novo.preencheGrupos();
         novo.setVisible(true);
-    }//GEN-LAST:event_btnNovoProdutoActionPerformed
+    }//GEN-LAST:event_btnRemoverProduto1ActionPerformed
 
-    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-        txtProduto.setText("");
-        txtDescricaoProduto.setText("");
+    private void txtQuantidadeProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoFocusGained
+        txtQuantidadeProduto.selectAll();
+    }//GEN-LAST:event_txtQuantidadeProdutoFocusGained
+
+    private void txtQuantidadeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantidadeProdutoActionPerformed
+
+    private void txtValorUnitarioProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitarioProdutoFocusGained
+        txtValorUnitarioProduto.selectAll();
+    }//GEN-LAST:event_txtValorUnitarioProdutoFocusGained
+
+    private void btnSalvarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseEntered
+        btnSalvar.setForeground(Color.GREEN);
+    }//GEN-LAST:event_btnSalvarMouseEntered
+
+    private void btnSalvarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarMouseExited
+        btnSalvar.setForeground(Color.BLACK);
+    }//GEN-LAST:event_btnSalvarMouseExited
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        int opcao = 2;
+        if (JOptionPane.showConfirmDialog(null, "Confirmar Ordem de Serviço?",
+            "OK?", opcao) == 0) {
+        OSModel vm = new OSModel();
+        OSItensModel vim = new OSItensModel();
+        vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+
+        if (txtCliente.getText().equalsIgnoreCase("")) {
+            vm.setCliente(0);
+        } else {
+            vm.setCliente(Integer.parseInt(txtCliente.getText()));
+        }
+
+        if (txtCliente2.getText().equalsIgnoreCase("")) {
+            vm.setNomecliente("");
+        } else {
+            vm.setNomecliente(txtCliente2.getText());
+        }
+
+        vm.setPlaca(txtPlaca.getText());
+        vm.setNomeplaca(txtPlaca2.getText());
+        vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+        vm.setUsuario(usuario);
+        vm.setObs(txtObs.getText());
+        oc.cadastraOS(vm);
+        //gerando o pdf
+        GerarOSPDF g = new GerarOSPDF();
+        List<OSItensModel> servicos = new ArrayList<>();
+        //Cadastrando itens
+        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+            vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
+            vim.setOs(vm.getCod());
+            vim.setNome(tblProdutos.getValueAt(i, 1).toString());
+            vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
+            vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
+            vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
+            oc.cadastraServicosOS(vim);
+            servicos.add(vim);
+        }
+        g.OS(vm, servicos);
+
+        limpaCampos();
+        this.dispose();
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void txtProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusGained
         txtDescricaoProduto.setEnabled(true);
-        txtValorUnitarioProduto.setText("0,00");
-        txtValorDescontoProduto.setText("0,00");
-        txtQuantidadeProduto.setText("0");
-    }//GEN-LAST:event_btnLimparCamposActionPerformed
+    }//GEN-LAST:event_txtProdutoFocusGained
+
+    private void txtProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusLost
+        if (txtProduto.getText().equalsIgnoreCase("")) {
+
+        } else {
+            buscarProduto();
+        }
+    }//GEN-LAST:event_txtProdutoFocusLost
+
+    private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
+        buscarProduto();
+    }//GEN-LAST:event_txtProdutoActionPerformed
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
@@ -1160,18 +1012,18 @@ public class NovoOrcamento extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovoOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovoOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovoOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovoOrcamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditarOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovoOrcamento().setVisible(true);
+                new EditarOS().setVisible(true);
             }
         });
     }
@@ -1179,18 +1031,12 @@ public class NovoOrcamento extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarProduto;
     private javax.swing.JButton btnEditarProduto;
-    private javax.swing.JButton btnLimparCampos;
     private javax.swing.JButton btnNovaPlaca;
     private javax.swing.JButton btnNovoCliente;
-    private javax.swing.JButton btnNovoProduto;
     private javax.swing.JButton btnRemoverProduto;
+    private javax.swing.JButton btnRemoverProduto1;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
-    private javax.swing.JCheckBox cbxExibirClientes;
-    private javax.swing.JCheckBox cbxExibirPlaca;
-    private javax.swing.JCheckBox cbxExibirProdutos;
-    private javax.swing.JCheckBox cbxExibirValores;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1199,7 +1045,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo10;
     private javax.swing.JLabel lblTitulo11;
     private javax.swing.JLabel lblTitulo12;
     private javax.swing.JLabel lblTituloPesquisa;
@@ -1220,9 +1065,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
     private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQuantidadeProduto;
     private javax.swing.JFormattedTextField txtTotal;
-    private javax.swing.JFormattedTextField txtTotalDescontos;
-    private javax.swing.JFormattedTextField txtValorBruto;
-    private javax.swing.JFormattedTextField txtValorDescontoProduto;
     private javax.swing.JFormattedTextField txtValorUnitarioProduto;
     // End of variables declaration//GEN-END:variables
 }

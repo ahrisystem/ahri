@@ -1,7 +1,8 @@
 package view.servicos;
 
 import controller.funcoes.PesquisarController;
-import controller.vendas.OSController;
+import controller.servicos.OSController;
+import funcoes.GerarOSPDF;
 import funcoes.GerarOrçamentoPDF;
 import view.cadastros.entidades.NovoCliente;
 import java.awt.Color;
@@ -16,24 +17,25 @@ import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
 import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
-import model.vendas.VendasItensModel;
-import model.vendas.VendasModel;
+import model.servicos.OSItensModel;
+import model.servicos.OSModel;
 import view.TelaInicial;
 import view.cadastros.placa.NovaPlaca;
+import view.cadastros.produtos.NovoProduto;
 
-public class NovaOrdemdeServico extends javax.swing.JFrame {
+public class NovaOS extends javax.swing.JFrame {
     OSController oc = new OSController();
     PesquisarController pc = new PesquisarController();
     String usuario;
     String pesquisaAtual;
 
-    private static final NovaOrdemdeServico INSTANCIA = new NovaOrdemdeServico();
+    private static final NovaOS INSTANCIA = new NovaOS();
 
-    public static NovaOrdemdeServico getInstancia() {
+    public static NovaOS getInstancia() {
         return INSTANCIA;
     }
 
-    private NovaOrdemdeServico() {
+    private NovaOS() {
         initComponents();
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -85,19 +87,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         }
     }
 
-    //////////////////////Atualizando totalizadores/////////////////////////////
-    public void atualizarTotalizadores() {
-        double totalbruto = 0.00;
-        double desconto = 0.00;
-        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-            totalbruto = totalbruto + Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", "."));
-            desconto = desconto + Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", "."));
-        }
-        txtValorBruto.setText(Double.toString(totalbruto).replace(".", ","));
-        txtTotalDescontos.setText(Double.toString(desconto).replace(".", ","));
-        txtTotal.setText(Double.toString(Double.parseDouble(txtValorBruto.getText().replace(",", ".")) - Double.parseDouble(txtTotalDescontos.getText().replace(",", "."))).replace(".", ","));
-    }
-
     ///////////////////Buscar cliente/produto/placa/////////////////////////////
     public void buscarCliente() {
         if (txtCliente.getText().matches("[0-9]+")) {
@@ -125,7 +114,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         txtProduto.setText(Integer.toString(cod));
         txtDescricaoProduto.setText(nome);
         txtValorUnitarioProduto.setText(Double.toString(preco).replace(".", ","));
-        txtValorDescontoProduto.setText("0,00");
         txtQuantidadeProduto.setText("0");
     }
 
@@ -178,16 +166,11 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         txtProduto.setText("");
         txtDescricaoProduto.setText("");
         txtValorUnitarioProduto.setText("0,00");
-        txtValorDescontoProduto.setText("0,00");
         txtQuantidadeProduto.setText("0,00");
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
         modelo.setNumRows(0);
-        txtValorBruto.setText("0,00");
-        txtTotalDescontos.setText("0,00");
         txtTotal.setText("0,00");
         txtObs.setText("");
-        cbxExibirClientes.setSelected(false);
-        cbxExibirValores.setSelected(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -218,25 +201,17 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         btnRemoverProduto = new javax.swing.JButton();
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        cbxExibirClientes = new javax.swing.JCheckBox();
-        cbxExibirProdutos = new javax.swing.JCheckBox();
-        cbxExibirPlaca = new javax.swing.JCheckBox();
-        cbxExibirValores = new javax.swing.JCheckBox();
+        btnRemoverProduto1 = new javax.swing.JButton();
         lblQtd = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
         lblValorUnProduto = new javax.swing.JLabel();
         txtValorUnitarioProduto = new javax.swing.JFormattedTextField();
-        txtValorDescontoProduto = new javax.swing.JFormattedTextField();
-        lblTitulo10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObs = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         lblTitulo11 = new javax.swing.JLabel();
         txtProduto = new javax.swing.JTextField();
         txtTotal = new javax.swing.JFormattedTextField();
-        txtTotalDescontos = new javax.swing.JFormattedTextField();
-        txtValorBruto = new javax.swing.JFormattedTextField();
         lblTitulo12 = new javax.swing.JLabel();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
@@ -358,14 +333,14 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         });
 
         lblTitulo.setBackground(new java.awt.Color(0, 0, 0));
-        lblTitulo.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Nova ordem de serviço");
         lblTitulo.setOpaque(true);
 
         lblCod.setBackground(new java.awt.Color(51, 51, 51));
-        lblCod.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblCod.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCod.setForeground(new java.awt.Color(255, 255, 255));
         lblCod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCod.setText("Nº 1");
@@ -374,7 +349,7 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
 
         painelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblCliente.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblCliente.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblCliente.setForeground(new java.awt.Color(51, 105, 191));
         lblCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblCliente.setText("Cliente");
@@ -409,7 +384,7 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
             }
         });
 
-        lblPlaca.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblPlaca.setForeground(new java.awt.Color(51, 105, 191));
         lblPlaca.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPlaca.setText("Placa");
@@ -459,11 +434,11 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Serviço", "Valor un.", "Desconto", "Qtd.", "Total"
+                "Código", "Serviço", "Valor un.", "Hrs", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -479,10 +454,11 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         if (tblProdutos.getColumnModel().getColumnCount() > 0) {
             tblProdutos.getColumnModel().getColumn(0).setMaxWidth(50);
             tblProdutos.getColumnModel().getColumn(2).setMaxWidth(60);
-            tblProdutos.getColumnModel().getColumn(3).setMaxWidth(60);
-            tblProdutos.getColumnModel().getColumn(4).setMaxWidth(50);
-            tblProdutos.getColumnModel().getColumn(5).setMaxWidth(60);
+            tblProdutos.getColumnModel().getColumn(3).setMaxWidth(50);
+            tblProdutos.getColumnModel().getColumn(4).setMaxWidth(60);
         }
+
+        txtDescricaoProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         painelFuncoes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -494,7 +470,7 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
                 btnRemoverProdutoActionPerformed(evt);
             }
         });
-        painelFuncoes.add(btnRemoverProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 110, 40));
+        painelFuncoes.add(btnRemoverProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 110, 40));
 
         btnEditarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnEditarProduto.setText("Editar");
@@ -504,7 +480,7 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
                 btnEditarProdutoActionPerformed(evt);
             }
         });
-        painelFuncoes.add(btnEditarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 110, 40));
+        painelFuncoes.add(btnEditarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 110, 40));
 
         btnAdicionarProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnAdicionarProduto.setText("Adicionar");
@@ -516,46 +492,22 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         });
         painelFuncoes.add(btnAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 110, 40));
 
-        jLabel1.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Exibir");
-        jLabel1.setOpaque(true);
-        painelFuncoes.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 110, 20));
+        btnRemoverProduto1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnRemoverProduto1.setForeground(new java.awt.Color(51, 153, 0));
+        btnRemoverProduto1.setText("Novo +");
+        btnRemoverProduto1.setFocusable(false);
+        btnRemoverProduto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverProduto1ActionPerformed(evt);
+            }
+        });
+        painelFuncoes.add(btnRemoverProduto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 110, 40));
 
-        cbxExibirClientes.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirClientes.setSelected(true);
-        cbxExibirClientes.setText("Clientes");
-        cbxExibirClientes.setFocusable(false);
-        cbxExibirClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 110, 30));
-
-        cbxExibirProdutos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirProdutos.setSelected(true);
-        cbxExibirProdutos.setText("Serviços");
-        cbxExibirProdutos.setFocusable(false);
-        cbxExibirProdutos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 110, 30));
-
-        cbxExibirPlaca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirPlaca.setSelected(true);
-        cbxExibirPlaca.setText("Placa");
-        cbxExibirPlaca.setFocusable(false);
-        cbxExibirPlaca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 110, 30));
-
-        cbxExibirValores.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbxExibirValores.setSelected(true);
-        cbxExibirValores.setText("Valores");
-        cbxExibirValores.setFocusable(false);
-        cbxExibirValores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        painelFuncoes.add(cbxExibirValores, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 110, 30));
-
-        lblQtd.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        lblQtd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblQtd.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblQtd.setText("Quantidade:");
+        lblQtd.setText("Horas");
 
-        txtQuantidadeProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtQuantidadeProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtQuantidadeProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtQuantidadeProdutoFocusGained(evt);
@@ -567,29 +519,17 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
             }
         });
 
-        lblValorUnProduto.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        lblValorUnProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblValorUnProduto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblValorUnProduto.setText("Valor Un:");
+        lblValorUnProduto.setText("Valor");
 
         txtValorUnitarioProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorUnitarioProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtValorUnitarioProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtValorUnitarioProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtValorUnitarioProdutoFocusGained(evt);
             }
         });
-
-        txtValorDescontoProduto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorDescontoProduto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtValorDescontoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtValorDescontoProdutoFocusGained(evt);
-            }
-        });
-
-        lblTitulo10.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        lblTitulo10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblTitulo10.setText("Desconto:");
 
         txtObs.setColumns(20);
         txtObs.setFont(new java.awt.Font("Century Gothic", 0, 13)); // NOI18N
@@ -619,6 +559,7 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         lblTitulo11.setText("Serviços");
         lblTitulo11.setOpaque(true);
 
+        txtProduto.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtProduto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtProdutoFocusGained(evt);
@@ -640,31 +581,9 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         txtTotal.setToolTipText("Total");
         txtTotal.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
 
-        txtTotalDescontos.setForeground(new java.awt.Color(204, 0, 51));
-        txtTotalDescontos.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtTotalDescontos.setText("0,00");
-        txtTotalDescontos.setToolTipText("Total descontos");
-        txtTotalDescontos.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        txtTotalDescontos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtTotalDescontosFocusLost(evt);
-            }
-        });
-        txtTotalDescontos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalDescontosActionPerformed(evt);
-            }
-        });
-
-        txtValorBruto.setEditable(false);
-        txtValorBruto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtValorBruto.setText("0,00");
-        txtValorBruto.setToolTipText("total bruto");
-        txtValorBruto.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-
         lblTitulo12.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
-        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo12.setText("Totais");
+        lblTitulo12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTitulo12.setText("Total:");
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
@@ -677,33 +596,23 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
                     .addGroup(painelPrincipalLayout.createSequentialGroup()
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
-                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtProduto)
-                                    .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                                .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(painelPrincipalLayout.createSequentialGroup()
-                                        .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblQtd, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtDescricaoProduto)))
+                                .addComponent(txtDescricaoProduto))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblTitulo12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValorBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createSequentialGroup()
+                                .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotalDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblQtd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -750,28 +659,22 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
                             .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblValorUnProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                                .addComponent(txtValorUnitarioProduto)
-                                .addComponent(lblTitulo10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                        .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblValorUnProduto))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtValorBruto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(txtTotalDescontos, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+                            .addComponent(lblTitulo12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTotal)))
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -815,47 +718,43 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         int opcao = 2;
         if (JOptionPane.showConfirmDialog(null, "Confirmar Ordem de Serviço?",
                 "OK?", opcao) == 0) {
-            VendasModel vm = new VendasModel();
-            VendasItensModel vim = new VendasItensModel();
-            vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+            OSModel om = new OSModel();
+            OSItensModel vim = new OSItensModel();
+            om.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
             
             if (txtCliente.getText().equalsIgnoreCase("")) {
-                vm.setCliente(0);
+                om.setCliente(0);
             } else {
-                vm.setCliente(Integer.parseInt(txtCliente.getText()));
+                om.setCliente(Integer.parseInt(txtCliente.getText()));
             }
             
             if (txtCliente2.getText().equalsIgnoreCase("")) {
-                vm.setNomecliente("");
+                om.setNomecliente("");
             } else {
-                vm.setNomecliente(txtCliente2.getText());
+                om.setNomecliente(txtCliente2.getText());
             }
             
-            vm.setPlaca(txtPlaca.getText());
-            vm.setNomeplaca(txtPlaca2.getText());
-            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
-            vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
-            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
-            vm.setUsuario(usuario);
-            vm.setObs(txtObs.getText());
-            oc.cadastraOS(vm);
+            om.setPlaca(txtPlaca.getText());
+            om.setNomeplaca(txtPlaca2.getText());
+            om.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+            om.setUsuario(usuario);
+            om.setObs(txtObs.getText());
+            oc.cadastraOS(om);
             //gerando o pdf
-            GerarOrçamentoPDF g = new GerarOrçamentoPDF();
-            List<VendasItensModel> produtos = new ArrayList<>();
+            GerarOSPDF g = new GerarOSPDF();
+            List<OSItensModel> servicos = new ArrayList<>();
             //Cadastrando itens
             for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                 vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
-                vim.setVenda(vm.getCod());
+                vim.setOs(om.getCod());
                 vim.setNome(tblProdutos.getValueAt(i, 1).toString());
                 vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
-                vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
-                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
-                vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                oc.cadastraProdutosOrcamento(vim);
-                produtos.add(vim);
+                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
+                vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
+                oc.cadastraServicosOS(vim);
+                servicos.add(vim);
             }
-            g.Orcamento(vm, cbxExibirClientes.isSelected(), cbxExibirPlaca.isSelected(), 
-                    cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), produtos);
+            g.OS(om, servicos);
             
             limpaCampos();
             this.dispose();
@@ -873,10 +772,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
     private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
         buscarProduto();
     }//GEN-LAST:event_txtProdutoActionPerformed
-
-    private void txtTotalDescontosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalDescontosActionPerformed
-
-    }//GEN-LAST:event_txtTotalDescontosActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
         // TODO add your handling code here:
@@ -920,12 +815,11 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         }
         if (pesquisaAtual.equalsIgnoreCase("produtos")) {
             if (tabela.getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(null, "Nenhum produto selecionado!");
+                JOptionPane.showMessageDialog(null, "Nenhum serviço selecionado!");
             } else {
                 txtProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
                 txtDescricaoProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
                 txtValorUnitarioProduto.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString().replace(".", ","));
-                txtValorDescontoProduto.setText("0,00");
                 txtQuantidadeProduto.setText("0");
                 pesquisar.setVisible(false);
                 txtValorUnitarioProduto.requestFocus();
@@ -961,17 +855,14 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
                         txtProduto.getText(),
                         txtDescricaoProduto.getText(),
                         txtValorUnitarioProduto.getText(),
-                        txtValorDescontoProduto.getText(),
                         txtQuantidadeProduto.getText(),
                         totalProduto2
                     });
                     txtProduto.setText("");
                     txtDescricaoProduto.setText("");
                     txtValorUnitarioProduto.setText("");
-                    txtValorDescontoProduto.setText("");
                     txtQuantidadeProduto.setText("");
                     txtProduto.requestFocus();
-                    atualizarTotalizadores();
                 }
             }
         }
@@ -994,7 +885,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
         if (tblProdutos.getSelectedRow() >= 0) {
             modelo.removeRow(tblProdutos.getSelectedRow());
             tblProdutos.setModel(modelo);
-            atualizarTotalizadores();
             txtProduto.requestFocus();
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
@@ -1004,10 +894,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
     private void txtValorUnitarioProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitarioProdutoFocusGained
         txtValorUnitarioProduto.selectAll();
     }//GEN-LAST:event_txtValorUnitarioProdutoFocusGained
-
-    private void txtValorDescontoProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorDescontoProdutoFocusGained
-        txtValorDescontoProduto.selectAll();
-    }//GEN-LAST:event_txtValorDescontoProdutoFocusGained
 
     private void txtQuantidadeProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantidadeProdutoFocusGained
         txtQuantidadeProduto.selectAll();
@@ -1019,21 +905,15 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
             txtProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
             txtDescricaoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
             txtValorUnitarioProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
-            txtValorDescontoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
-            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
+            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
             //Removendo a linha
             modelo.removeRow(tblProdutos.getSelectedRow());
             tblProdutos.setModel(modelo);
-            atualizarTotalizadores();
             txtProduto.requestFocus();
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
+            JOptionPane.showMessageDialog(null, "Nenhum serviço selecionado.");
         }
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
-
-    private void txtTotalDescontosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontosFocusLost
-
-    }//GEN-LAST:event_txtTotalDescontosFocusLost
 
     private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
         pesquisar.setVisible(true);
@@ -1089,6 +969,12 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
     private void txtPlacaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPlacaFocusGained
         txtPlaca2.setEnabled(true);
     }//GEN-LAST:event_txtPlacaFocusGained
+
+    private void btnRemoverProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProduto1ActionPerformed
+        NovoProduto novo = NovoProduto.getInstancia();
+        novo.preencheGrupos();
+        novo.setVisible(true);
+    }//GEN-LAST:event_btnRemoverProduto1ActionPerformed
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         try {
@@ -1099,18 +985,18 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NovaOrdemdeServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NovaOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NovaOrdemdeServico().setVisible(true);
+                new NovaOS().setVisible(true);
             }
         });
     }
@@ -1121,13 +1007,9 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
     private javax.swing.JButton btnNovaPlaca;
     private javax.swing.JButton btnNovoCliente;
     private javax.swing.JButton btnRemoverProduto;
+    private javax.swing.JButton btnRemoverProduto1;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
-    private javax.swing.JCheckBox cbxExibirClientes;
-    private javax.swing.JCheckBox cbxExibirPlaca;
-    private javax.swing.JCheckBox cbxExibirProdutos;
-    private javax.swing.JCheckBox cbxExibirValores;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1136,7 +1018,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlaca;
     private javax.swing.JLabel lblQtd;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTitulo10;
     private javax.swing.JLabel lblTitulo11;
     private javax.swing.JLabel lblTitulo12;
     private javax.swing.JLabel lblTituloPesquisa;
@@ -1157,9 +1038,6 @@ public class NovaOrdemdeServico extends javax.swing.JFrame {
     private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQuantidadeProduto;
     private javax.swing.JFormattedTextField txtTotal;
-    private javax.swing.JFormattedTextField txtTotalDescontos;
-    private javax.swing.JFormattedTextField txtValorBruto;
-    private javax.swing.JFormattedTextField txtValorDescontoProduto;
     private javax.swing.JFormattedTextField txtValorUnitarioProduto;
     // End of variables declaration//GEN-END:variables
 }

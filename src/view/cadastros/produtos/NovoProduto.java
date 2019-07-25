@@ -22,10 +22,6 @@ public class NovoProduto extends javax.swing.JFrame {
     public static NovoProduto getInstancia() {
         return INSTANCIA;
     }
-    
-    public void alterarTitulo(String titulo){
-        lblTítulo.setText(titulo);
-    }
 
     private NovoProduto() {
         initComponents();
@@ -242,7 +238,7 @@ public class NovoProduto extends javax.swing.JFrame {
         lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTítulo.setText("Novo Produto");
+        lblTítulo.setText("Novo Produto / Serviço");
         lblTítulo.setOpaque(true);
         getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 30));
 
