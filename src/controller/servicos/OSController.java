@@ -84,6 +84,17 @@ public class OSController {
             JOptionPane.showMessageDialog(null, "Erro ao alterar.\n" + e.getMessage());
         }
     }
+    
+    public void deletaProdutosOS(int os){
+        String sql = "delete from ositens where venda = "+os+";";
+        try {
+            PreparedStatement pstmt1 = this.conexao.prepareStatement(sql);
+            pstmt1.execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao deletar serviços da OS.\n" + e.getMessage());
+        }
+    }
+    
 
     public List<OSModel> listaOS(String filtro,String valor) {
         List<OSModel> ordens = new ArrayList<>();

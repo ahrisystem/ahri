@@ -23,6 +23,7 @@ import view.cadastros.placa.NovaPlaca;
 import view.cadastros.produtos.NovoProduto;
 
 public class EditarOS extends javax.swing.JFrame {
+
     OSController oc = new OSController();
     PesquisarController pc = new PesquisarController();
     GerarOSPDF go = new GerarOSPDF();
@@ -157,8 +158,8 @@ public class EditarOS extends javax.swing.JFrame {
             pesquisar.setSize(this.getSize());
         }
     }
-    
-    public void limpaCampos(){
+
+    public void limpaCampos() {
         txtCliente.setText("");
         txtCliente2.setText("");
         txtPlaca.setText("");
@@ -172,11 +173,12 @@ public class EditarOS extends javax.swing.JFrame {
         txtTotal.setText("0,00");
         txtObs.setText("");
     }
+
     ////////////////////////////////////////////////////////////////////////////
-    public void puxarDados(int cod){
+    public void puxarDados(int cod) {
         OSModel vm = new OSModel();
         oc.puxarDadosOS(vm, cod);
-        lblCod.setText("Nº "+cod);
+        lblCod.setText("Nº " + cod);
         //cliente
         txtCliente.setText(Integer.toString(vm.getCliente()));
         txtCliente2.setText(vm.getNomecliente());
@@ -206,6 +208,7 @@ public class EditarOS extends javax.swing.JFrame {
         //obs
         txtObs.setText(vm.getObs());
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -943,47 +946,45 @@ public class EditarOS extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         int opcao = 2;
         if (JOptionPane.showConfirmDialog(null, "Confirmar Ordem de Serviço?",
-            "OK?", opcao) == 0) {
-        OSModel vm = new OSModel();
-        OSItensModel vim = new OSItensModel();
-        vm.setCod(Integer.parseInt(lblCod.getText().replace("Nº ", "")));
+                "OK?", opcao) == 0) {
+            OSModel vm = new OSModel();
+            OSItensModel vim = new OSItensModel();
+            if (txtCliente.getText().equalsIgnoreCase("")) {
+                vm.setCliente(0);
+            } else {
+                vm.setCliente(Integer.parseInt(txtCliente.getText()));
+            }
 
-        if (txtCliente.getText().equalsIgnoreCase("")) {
-            vm.setCliente(0);
-        } else {
-            vm.setCliente(Integer.parseInt(txtCliente.getText()));
-        }
+            if (txtCliente2.getText().equalsIgnoreCase("")) {
+                vm.setNomecliente("");
+            } else {
+                vm.setNomecliente(txtCliente2.getText());
+            }
 
-        if (txtCliente2.getText().equalsIgnoreCase("")) {
-            vm.setNomecliente("");
-        } else {
-            vm.setNomecliente(txtCliente2.getText());
-        }
+            vm.setPlaca(txtPlaca.getText());
+            vm.setNomeplaca(txtPlaca2.getText());
+            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+            vm.setUsuario(usuario);
+            vm.setObs(txtObs.getText());
+            oc.cadastraOS(vm);
+            oc.deletaProdutosOS(vm.getCod());
+            List<OSItensModel> servicos = new ArrayList<>();
+            //Cadastrando itens
+            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
+                vim.setOs(vm.getCod());
+                vim.setNome(tblProdutos.getValueAt(i, 1).toString());
+                vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
+                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
+                vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
+                oc.cadastraServicosOS(vim);
+                servicos.add(vim);
+            }
+            GerarOSPDF g = new GerarOSPDF();
+            g.OS(vm, servicos);
 
-        vm.setPlaca(txtPlaca.getText());
-        vm.setNomeplaca(txtPlaca2.getText());
-        vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
-        vm.setUsuario(usuario);
-        vm.setObs(txtObs.getText());
-        oc.cadastraOS(vm);
-        //gerando o pdf
-        GerarOSPDF g = new GerarOSPDF();
-        List<OSItensModel> servicos = new ArrayList<>();
-        //Cadastrando itens
-        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-            vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
-            vim.setOs(vm.getCod());
-            vim.setNome(tblProdutos.getValueAt(i, 1).toString());
-            vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
-            vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
-            vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
-            oc.cadastraServicosOS(vim);
-            servicos.add(vim);
-        }
-        g.OS(vm, servicos);
-
-        limpaCampos();
-        this.dispose();
+            limpaCampos();
+            this.dispose();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
