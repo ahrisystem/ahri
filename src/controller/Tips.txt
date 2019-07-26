@@ -3,7 +3,10 @@ Entidades
 --No campo 
 
 Vendas
---No campo TIPO da tabela VENDAS, o número 1 é o orçamento.
+--No campo TIPO da tabela VENDAS: 
+    1 orçamento
+    2 registro venda no caixa
+
 --No campo STATUS da tabela VENDAS:
     1 - Emitido
     2 - Finalizado

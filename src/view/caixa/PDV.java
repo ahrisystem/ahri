@@ -287,7 +287,7 @@ public class PDV extends javax.swing.JFrame{
             listarClientes();
             txtPesquisa.setText(txtInput.getText());
             pesquisar.setLocationRelativeTo(null);
-            pesquisar.setLocation(pesquisar.getLocation().x-300,pesquisar.getLocation().y-30);
+            pesquisar.setLocation(300,200);
             pesquisar.setSize(600,300);
         }
     }
@@ -308,7 +308,7 @@ public class PDV extends javax.swing.JFrame{
             listarFormasPagamento();
             txtPesquisa.setText(txtFormapagamento.getText());
             pesquisar.setLocationRelativeTo(null);
-            pesquisar.setLocation(pesquisar.getLocation().x-300,pesquisar.getLocation().y-30);
+            pesquisar.setLocation(300,200);
             pesquisar.setSize(600,300);
         }
     }
@@ -329,13 +329,14 @@ public class PDV extends javax.swing.JFrame{
             listarPlacas();
             txtPesquisa.setText(txtInput.getText());
             pesquisar.setLocationRelativeTo(null);
-            pesquisar.setLocation(pesquisar.getLocation().x-300,pesquisar.getLocation().y-30);
+            pesquisar.setLocation(300,200);
             pesquisar.setSize(600,300);
         }
     }
     
     public void valoresDefaultProduto(Double preco, String nome, int cod) {
         txtInput.setText(Integer.toString(cod));
+        txtProduto.setText(Integer.toString(cod));
         txtDescricaoProduto.setText(nome);
         txtValorUnitarioProduto.setText(Double.toString(preco).replace(".", ","));
         txtValorDescontoProduto.setText("0,00");
@@ -350,12 +351,14 @@ public class PDV extends javax.swing.JFrame{
                 if (pm.getCod() == 0) {
 
                 } else {
+                    abrirVenda();
                     valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
                     txtValorUnitarioProduto.requestFocus();
                     txtDescricaoProduto.setEnabled(false);
                 }
             } else {
                 pc.buscarProduto(pm, "cod", txtInput.getText());
+                abrirVenda();
                 valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
                 txtValorUnitarioProduto.requestFocus();
                 txtDescricaoProduto.setEnabled(false);
@@ -366,8 +369,8 @@ public class PDV extends javax.swing.JFrame{
             lblTituloPesquisa.setText("Produtos");
             listarProdutos();
             txtPesquisa.setText(txtInput.getText());
-            pesquisar.setLocation(this.getX(), this.getY());
-            pesquisar.setSize(this.getSize());
+            pesquisar.setLocation(300,200);
+            pesquisar.setSize(600,300);
         }
     }
     
@@ -422,6 +425,7 @@ public class PDV extends javax.swing.JFrame{
         btnEditarProduto = new javax.swing.JButton();
         btnAdicionarProduto = new javax.swing.JButton();
         btnLimparCamposProduto = new javax.swing.JButton();
+        txtProduto = new javax.swing.JTextField();
         txtDescricaoProduto = new javax.swing.JTextField();
         lblValorUnProduto = new javax.swing.JLabel();
         txtValorUnitarioProduto = new javax.swing.JFormattedTextField();
@@ -883,6 +887,20 @@ public class PDV extends javax.swing.JFrame{
         });
         painelFuncoes.add(btnLimparCamposProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 110, 40));
 
+        txtProduto.setEditable(false);
+        txtProduto.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        txtProduto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtProdutoFocusGained(evt);
+            }
+        });
+        txtProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProdutoActionPerformed(evt);
+            }
+        });
+
         txtDescricaoProduto.setEditable(false);
         txtDescricaoProduto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
@@ -953,18 +971,24 @@ public class PDV extends javax.swing.JFrame{
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelFuncoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelItensLayout.createSequentialGroup()
-                        .addComponent(lblValorUnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(painelItensLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblValorUnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtProduto))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDescProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblQtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtDescricaoProduto)))
+                        .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelItensLayout.createSequentialGroup()
+                                .addComponent(txtValorUnitarioProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDescProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtValorDescontoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblQtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
             .addComponent(lblTituloProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         painelItensLayout.setVerticalGroup(
@@ -972,7 +996,9 @@ public class PDV extends javax.swing.JFrame{
             .addGroup(painelItensLayout.createSequentialGroup()
                 .addComponent(lblTituloProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtDescricaoProduto)
+                    .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtValorUnitarioProduto)
@@ -1346,6 +1372,9 @@ public class PDV extends javax.swing.JFrame{
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 F3MouseExited(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                F3MouseReleased(evt);
+            }
         });
         painelBotoes.add(F3);
 
@@ -1363,6 +1392,9 @@ public class PDV extends javax.swing.JFrame{
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 F4MouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                F4MouseReleased(evt);
             }
         });
         painelBotoes.add(F4);
@@ -1550,10 +1582,9 @@ public class PDV extends javax.swing.JFrame{
     private void txtInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputActionPerformed
         if (txtInput.getText().matches("[0-9]+")) {
             if (txtInput.getText().equalsIgnoreCase("")) {
+            
             } else {
-                if (Integer.parseInt(txtInput.getText()) > 0) {
-                    
-                }
+                buscarProduto();
             }
         }
         if (txtInput.getText().matches("[A-Za-z]+")) {
@@ -1598,9 +1629,17 @@ public class PDV extends javax.swing.JFrame{
             if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
                 
             }
+            if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+                buscarCliente();
+            }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F4) {
-            System.out.println("F4");
+            if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
+                
+            }
+            if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+                buscarProduto();
+            }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F5) {
             if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
@@ -1614,11 +1653,12 @@ public class PDV extends javax.swing.JFrame{
             if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
                 cancelarVenda();
             }
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_F7) {
             if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
                 fecharCaixa();
             }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_F7) {
+            
         }
     }//GEN-LAST:event_txtInputKeyReleased
 
@@ -1756,7 +1796,7 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_F7MouseReleased
 
     private void btnFinalizarVendaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarVendaMouseReleased
-        
+        vc.registrarVenda(model);
     }//GEN-LAST:event_btnFinalizarVendaMouseReleased
 
     private void txtFormapagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFormapagamentoActionPerformed
@@ -1830,19 +1870,85 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_txtTotalDescontos1FocusLost
 
     private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        if (tblProdutos.getSelectedRow() >= 0) {
+            modelo.removeRow(tblProdutos.getSelectedRow());
+            tblProdutos.setModel(modelo);
+            atualizarTotalizadores();
+            txtProduto.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
+        }
     }//GEN-LAST:event_btnRemoverProdutoActionPerformed
 
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        if (tblProdutos.getSelectedRow() >= 0) {
+            txtProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+            txtDescricaoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
+            txtValorUnitarioProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
+            txtValorDescontoProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
+            txtQuantidadeProduto.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
+            //Removendo a linha
+            modelo.removeRow(tblProdutos.getSelectedRow());
+            tblProdutos.setModel(modelo);
+            atualizarTotalizadores();
+            txtProduto.requestFocus();
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum produto selecionado.");
+        }
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
-        // TODO add your handling code here:
+        if (txtDescricaoProduto.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Nenhum produto");
+        } else {
+            if (txtQuantidadeProduto.getText().equalsIgnoreCase("") || Integer.parseInt(txtQuantidadeProduto.getText()) < 1) {
+                JOptionPane.showMessageDialog(null, "Quantidade inválida");
+            } else {
+                if (txtValorUnitarioProduto.getText().equalsIgnoreCase("0,00")) {
+                    JOptionPane.showMessageDialog(null, "Valor inválido");
+                } else {
+                    double totalProduto;
+                    String removerPonto;
+                    removerPonto = (txtValorUnitarioProduto.getText().replace(".", ""));
+                    totalProduto = Double.parseDouble(removerPonto.replaceAll(",", ".")) * Double.parseDouble(txtQuantidadeProduto.getText().replace(",", "."));
+                        
+                    totalProduto *= (Math.pow(10, 2));
+                    totalProduto = Math.ceil(totalProduto);
+                    totalProduto /= (Math.pow(10, 2));
+                    
+                    String totalProduto2 = Double.toString(totalProduto);
+                    totalProduto2.replace(".", ",");
+                    
+                    DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+                    modelo.addRow(new Object[]{
+                        txtProduto.getText(),
+                        txtDescricaoProduto.getText(),
+                        txtValorUnitarioProduto.getText(),
+                        txtValorDescontoProduto.getText(),
+                        txtQuantidadeProduto.getText(),
+                        totalProduto2
+                    });
+                    txtProduto.setText("");
+                    txtDescricaoProduto.setText("");
+                    txtValorUnitarioProduto.setText("");
+                    txtValorDescontoProduto.setText("");
+                    txtQuantidadeProduto.setText("");
+                    txtProduto.requestFocus();
+                    atualizarTotalizadores();
+                }
+            }
+        }
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
 
     private void btnLimparCamposProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposProdutoActionPerformed
-        // TODO add your handling code here:
+        txtProduto.setText("");
+        txtDescricaoProduto.setText("");
+        txtDescricaoProduto.setEnabled(true);
+        txtValorUnitarioProduto.setText("0,00");
+        txtValorDescontoProduto.setText("0,00");
+        txtQuantidadeProduto.setText("0");
     }//GEN-LAST:event_btnLimparCamposProdutoActionPerformed
 
     private void txtValorUnitarioProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtValorUnitarioProdutoFocusGained
@@ -1890,6 +1996,32 @@ public class PDV extends javax.swing.JFrame{
     private void btnAbrirCaixa1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAbrirCaixa1MouseReleased
         System.out.println(caixa.getSize());
     }//GEN-LAST:event_btnAbrirCaixa1MouseReleased
+
+    private void F4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F4MouseReleased
+        if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
+
+        }
+        if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+            buscarProduto();
+        }
+    }//GEN-LAST:event_F4MouseReleased
+
+    private void F3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F3MouseReleased
+        if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
+
+        }
+        if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+            buscarCliente();
+        }
+    }//GEN-LAST:event_F3MouseReleased
+
+    private void txtProdutoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProdutoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProdutoFocusGained
+
+    private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProdutoActionPerformed
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
@@ -2006,6 +2138,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtPlaca;
     private javax.swing.JTextField txtPlaca2;
+    private javax.swing.JTextField txtProduto;
     private javax.swing.JTextField txtQuantidadeProduto;
     private javax.swing.JFormattedTextField txtSangria;
     private javax.swing.JFormattedTextField txtSuprimento;
