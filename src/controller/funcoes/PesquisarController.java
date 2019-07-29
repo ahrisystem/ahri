@@ -24,9 +24,9 @@ public class PesquisarController {
     }
 
     //Listagem
-    public List<EntidadeModel> listaClientes(String nome) {
+    public List<EntidadeModel> listaEntidades(String tipo,String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
-        String sql = "SELECT cod,nome,cnpj FROM entidade where cliente=1 and nome LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,nome,cnpj FROM entidade where "+tipo+"=1 and nome LIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -39,7 +39,7 @@ public class PesquisarController {
             }
             stmt.close();
         } catch (SQLException s) {
-            JOptionPane.showMessageDialog(null, "Falha ao listar clientes!\n" + s.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao listar entidades!\n" + s.getMessage());
         }
         return clientes;
     }

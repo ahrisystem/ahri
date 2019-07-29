@@ -1,79 +1,82 @@
 package view.funcoes;
 
 import controller.funcoes.PesquisarController;
+import funcoes.pesquisa.Buscar;
 import javax.swing.table.DefaultTableModel;
 import model.cadastros.entidades.EntidadeModel;
+import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
 
 public class Pesquisar extends javax.swing.JFrame {
+    Buscar buscar = new Buscar();
     PesquisarController pc = new PesquisarController();
-    
+
     public Pesquisar(String titulo, String pesquisa) {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle(titulo);
+        pesquisar.setTitle(titulo);
         txtPesquisa.setText(pesquisa);
+        listar(titulo, pesquisa);
+    }
+
+    public void listar(String titulo, String pesquisa) {
         if (titulo.equalsIgnoreCase("Clientes")) {
-            listarClientes();
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            modelo.setNumRows(0);
+            for (EntidadeModel e : pc.listaEntidades("cliente", txtPesquisa.getText())) {
+                modelo.addRow(new Object[]{
+                    e.getCod(),
+                    e.getxNome(),
+                    e.getCNPJ(),});
+            }
         }
         if (titulo.equalsIgnoreCase("Fornecedores")) {
-            listarFornecedores();
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            modelo.setNumRows(0);
+            for (EntidadeModel e : pc.listaEntidades("fornecedor", txtPesquisa.getText())) {
+                modelo.addRow(new Object[]{
+                    e.getCod(),
+                    e.getxNome(),
+                    e.getCNPJ(),});
+            };
         }
         if (titulo.equalsIgnoreCase("Produtos")) {
-            listarProdutos();
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            modelo.setNumRows(0);
+            for (PlacaModel p : pc.listaPlacas(txtPesquisa.getText())) {
+                modelo.addRow(new Object[]{
+                    p.getCod(),
+                    p.getNome(),
+                    p.getNomecliente(),});
+            }
+        }
+
+        if (titulo.equalsIgnoreCase("Produtos")) {
+            DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+            modelo.setNumRows(0);
+            for (ProdutoModel p : pc.listaProdutos(txtPesquisa.getText())) {
+                modelo.addRow(new Object[]{
+                    p.getCod(),
+                    p.getNome(),
+                    p.getPreco(),});
+            }
         }
     }
-    
-    public void listarClientes(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        for (EntidadeModel e : pc.listaClientes(txtPesquisa.getText())) {
-            modelo.addRow(new Object[]{
-                e.getCod(),
-                e.getxNome(),
-                e.getCNPJ(),
-            });
-        }
-    }
-    public void listarFornecedores(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        for (ProdutoModel p : pc.listaProdutos(txtPesquisa.getText())) {
-            modelo.addRow(new Object[]{
-                p.getCod(),
-                p.getNome(),
-                p.getPreco(),
-            });
-        }
-    }
-    public void listarProdutos(){
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        for (ProdutoModel p : pc.listaProdutos(txtPesquisa.getText())) {
-            modelo.addRow(new Object[]{
-                p.getCod(),
-                p.getNome(),
-                p.getPreco(),
-            });
-        }
-    }
-    @SuppressWarnings("unchecked")
+
+
+@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        planoDeFundo = new javax.swing.JPanel();
+        pesquisar = new javax.swing.JDialog();
         txtPesquisa = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         btnCancelar = new javax.swing.JLabel();
         btnSelecionar = new javax.swing.JLabel();
 
-        setAlwaysOnTop(true);
-        setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        planoDeFundo.setBackground(new java.awt.Color(255, 255, 255));
-        planoDeFundo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pesquisar.setAlwaysOnTop(true);
+        pesquisar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPesquisa.setNextFocusableComponent(tabela);
@@ -87,7 +90,7 @@ public class Pesquisar extends javax.swing.JFrame {
                 txtPesquisaKeyReleased(evt);
             }
         });
-        planoDeFundo.add(txtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 30));
+        pesquisar.getContentPane().add(txtPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 580, 30));
 
         tabela.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
@@ -113,7 +116,7 @@ public class Pesquisar extends javax.swing.JFrame {
         tabela.setSelectionBackground(new java.awt.Color(102, 153, 255));
         jScrollPane1.setViewportView(tabela);
 
-        planoDeFundo.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 580, 220));
+        pesquisar.getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 580, 220));
 
         btnCancelar.setBackground(new java.awt.Color(102, 102, 102));
         btnCancelar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -127,7 +130,7 @@ public class Pesquisar extends javax.swing.JFrame {
                 btnCancelarMouseReleased(evt);
             }
         });
-        planoDeFundo.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 150, 30));
+        pesquisar.getContentPane().add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 150, 30));
 
         btnSelecionar.setBackground(new java.awt.Color(102, 153, 255));
         btnSelecionar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -141,9 +144,21 @@ public class Pesquisar extends javax.swing.JFrame {
                 btnSelecionarMouseReleased(evt);
             }
         });
-        planoDeFundo.add(btnSelecionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 150, 30));
+        pesquisar.getContentPane().add(btnSelecionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, 150, 30));
 
-        getContentPane().add(planoDeFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 320));
+        setAlwaysOnTop(true);
+        setResizable(false);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 580, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,7 +168,6 @@ public class Pesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void btnSelecionarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarMouseReleased
-        this.dispose();
         
     }//GEN-LAST:event_btnSelecionarMouseReleased
 
@@ -162,9 +176,7 @@ public class Pesquisar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarMouseReleased
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        if (this.getTitle().equalsIgnoreCase("Clientes")) {
-            listarClientes();
-        }
+        listar(pesquisar.getTitle(), txtPesquisa.getText());
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     public static void main(String args[]) {
@@ -179,7 +191,7 @@ public class Pesquisar extends javax.swing.JFrame {
     private javax.swing.JLabel btnCancelar;
     private javax.swing.JLabel btnSelecionar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel planoDeFundo;
+    public javax.swing.JDialog pesquisar;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables

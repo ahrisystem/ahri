@@ -3,6 +3,7 @@ package view.caixa;
 import controller.funcoes.PesquisarController;
 import controller.vendas.CaixaController;
 import controller.vendas.VendasController;
+import funcoes.pesquisa.Buscar;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -25,7 +26,7 @@ public class PDV extends javax.swing.JFrame{
     VendasController vc = new VendasController();
     PesquisarController pc = new PesquisarController();
     CaixaController cc = new CaixaController();
-    String pesquisaAtual;
+    Buscar buscar = new Buscar();
     String situacaoCaix;
     
     private static final PDV INSTANCIA = new PDV();
@@ -180,6 +181,7 @@ public class PDV extends javax.swing.JFrame{
         fecharcaixa.setSize(390, 360);
         fecharcaixa.setVisible(true);
     }
+    
     public void abrirVenda(){
         painelTela.add(painelItens);
         painelItens.setVisible(true);
@@ -218,10 +220,10 @@ public class PDV extends javax.swing.JFrame{
     }
     
     /////////////////////Pesquisar
-    public void listarClientes() {
+    public void listarEntidades() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (EntidadeModel e : pc.listaClientes(txtPesquisa.getText())) {
+        for (EntidadeModel e : pc.listaEntidades("cliente",txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getxNome(),
@@ -284,9 +286,8 @@ public class PDV extends javax.swing.JFrame{
                 txtCliente2.setText("");
             }
             pesquisar.setVisible(true);
-            pesquisaAtual = "clientes";
             lblTituloPesquisa.setText("Clientes");
-            listarClientes();
+            listarEntidades();
             txtPesquisa.setText(txtInput.getText());
             pesquisar.setLocationRelativeTo(null);
             pesquisar.setLocation(300,200);
@@ -305,7 +306,6 @@ public class PDV extends javax.swing.JFrame{
                 txtPlaca2.setText("");
             }
             pesquisar.setVisible(true);
-            pesquisaAtual = "formapagamento";
             lblTituloPesquisa.setText("Forma de pagamento");
             listarFormasPagamento();
             txtPesquisa.setText(txtFormapagamento.getText());
@@ -326,7 +326,6 @@ public class PDV extends javax.swing.JFrame{
                 txtPlaca2.setText("");
             }
             pesquisar.setVisible(true);
-            pesquisaAtual = "placas";
             lblTituloPesquisa.setText("Placas");
             listarPlacas();
             txtPesquisa.setText(txtInput.getText());
@@ -345,36 +344,44 @@ public class PDV extends javax.swing.JFrame{
         txtQuantidadeProduto.setText("0");
     }
     
-    public void buscarProduto() {
+    public void busca(){
         ProdutoModel pm = new ProdutoModel();
-        if (txtInput.getText().matches("[0-9]+")) {
-            if (txtInput.getText().length() >= 6) {
-                pc.buscarProduto(pm, "\"codigoBarras\"", txtInput.getText());
-                if (pm.getCod() == 0) {
-
-                } else {
-                    abrirVenda();
-                    valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
-                    txtValorUnitarioProduto.requestFocus();
-                    txtDescricaoProduto.setEnabled(false);
-                }
-            } else {
-                pc.buscarProduto(pm, "cod", txtInput.getText());
-                abrirVenda();
-                valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
-                txtValorUnitarioProduto.requestFocus();
-                txtDescricaoProduto.setEnabled(false);
-            }
-        } else {
-            pesquisar.setVisible(true);
-            pesquisaAtual = "produtos";
-            lblTituloPesquisa.setText("Produtos");
-            listarProdutos();
-            txtPesquisa.setText(txtInput.getText());
-            pesquisar.setLocation(300,200);
-            pesquisar.setSize(600,300);
-        }
+        buscar.buscarProduto(pm, txtInput.getText(), this);
     }
+    
+    public void preencherDadosBuscaProdutos(ProdutoModel pm){
+        txtProduto.setText(Integer.toString(pm.getCod()));
+    }
+//    public void buscarProduto() {
+//        ProdutoModel pm = new ProdutoModel();
+//        if (txtInput.getText().matches("[0-9]+")) {
+//            if (txtInput.getText().length() >= 6) {
+//                pc.buscarProduto(pm, "\"codigoBarras\"", txtInput.getText());
+//                if (pm.getCod() == 0) {
+//
+//                } else {
+//                    abrirVenda();
+//                    valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
+//                    txtValorUnitarioProduto.requestFocus();
+//                    txtDescricaoProduto.setEnabled(false);
+//                }
+//            } else {
+//                pc.buscarProduto(pm, "cod", txtInput.getText());
+//                abrirVenda();
+//                valoresDefaultProduto(pm.getPreco(), pm.getNome(), pm.getCod());
+//                txtValorUnitarioProduto.requestFocus();
+//                txtDescricaoProduto.setEnabled(false);
+//            }
+//        } else {
+//            pesquisar.setVisible(true);
+//            pesquisaAtual = "produtos";
+//            lblTituloPesquisa.setText("Produtos");
+//            listarProdutos();
+//            txtPesquisa.setText(txtInput.getText());
+//            pesquisar.setLocation(300,200);
+//            pesquisar.setSize(600,300);
+//        }
+//    }
     
     public void limpaCampos(){
         txtCliente.setText("");
@@ -1616,7 +1623,7 @@ public class PDV extends javax.swing.JFrame{
             if (txtInput.getText().equalsIgnoreCase("")) {
             
             } else {
-                buscarProduto();
+                busca();
             }
         }
         if (txtInput.getText().matches("[A-Za-z]+")) {
@@ -1672,7 +1679,7 @@ public class PDV extends javax.swing.JFrame{
                 
             }
             if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
-                buscarProduto();
+                busca();
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F5) {
@@ -1713,21 +1720,7 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
-            listarClientes();
-        }
-        if (pesquisaAtual.equalsIgnoreCase("formapagamento")) {
-            listarFormasPagamento();
-        }
-        if (pesquisaAtual.equalsIgnoreCase("placa")) {
-            listarPlacas();
-        }
-        if (pesquisaAtual.equalsIgnoreCase("produtos")) {
-            listarProdutos();
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            pesquisar.setVisible(false);
-        }
+        
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
     private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
@@ -1737,24 +1730,7 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_tabelaKeyReleased
 
     private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
-        if (pesquisaAtual.equalsIgnoreCase("clientes")) {
-            if (tabela.getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado!");
-            } else {
-                txtCliente.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-                txtCliente2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-                pesquisar.setVisible(false);
-            }
-        }
-        if (pesquisaAtual.equalsIgnoreCase("placa")) {
-            if (tabela.getSelectedRow() < 0) {
-                JOptionPane.showMessageDialog(null, "Nenhuma placa selecionada!");
-            } else {
-                txtPlaca.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
-                txtPlaca2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
-                pesquisar.setVisible(false);
-            }
-        }
+        
     }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
 
     private void txtTotalDescontosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontosFocusLost
@@ -2084,7 +2060,7 @@ public class PDV extends javax.swing.JFrame{
 
         }
         if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
-            buscarProduto();
+            busca();
         }
     }//GEN-LAST:event_F4MouseReleased
 

@@ -53,7 +53,7 @@ public class NovoOrcamento extends javax.swing.JFrame {
     public void listarClientes() {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
-        for (EntidadeModel e : pc.listaClientes(txtPesquisa.getText())) {
+        for (EntidadeModel e : pc.listaEntidades("cliente",txtPesquisa.getText())) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getxNome(),

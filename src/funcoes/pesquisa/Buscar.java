@@ -1,36 +1,36 @@
 package funcoes.pesquisa;
 
 import controller.funcoes.PesquisarController;
-import javax.swing.JDialog;
 import model.cadastros.produtos.ProdutoModel;
+import view.caixa.PDV;
+import view.funcoes.Pesquisar;
 
-public class BuscarProduto {
+public class Buscar {
 
     PesquisarController pc = new PesquisarController();
     
-    public String buscarProduto(ProdutoModel pm, String input, JDialog pesquisar) {
-        String retorno = "";
+    public void buscarProduto(ProdutoModel pm, String input, PDV pdv) {
+        Pesquisar p = new Pesquisar("Produtos", input);
         if (input.matches("[0-9]+")) {
             if (input.length() >= 6) {
                 pc.buscarProduto(pm, "\"codigoBarras\"", input);
                 if (pm.getCod() == 0) {
-                    retorno = "Produto não existe ou está excluído.";
                 } else {
                     //abrir a venda
                 }
             } else {
                 pc.buscarProduto(pm, "cod", input);
                 if (pm.getCod() == 0) {
-                    retorno = "Produto não existe ou está excluído.";
                 } else {
-                    //abrir a venda
+                    pdv.preencherDadosBuscaProdutos(pm);
                 }
             }
         //caso não localizar nem pelo codigo de barras nem pelo codigo
         } else {
-            pesquisar.setVisible(true);
-            pesquisar.setTitle("Produtos");
+            p.pesquisar.setVisible(true);
+            p.pesquisar.setTitle("Produtos");
+            p.pesquisar.setLocation(100, 100);
+            p.pesquisar.setSize(300, 300);
         }
-        return null;
     }
 }
