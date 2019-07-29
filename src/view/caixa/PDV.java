@@ -18,6 +18,7 @@ import model.cadastros.placa.PlacaModel;
 import model.cadastros.produtos.ProdutoModel;
 import model.financeiro.FormapagamentoModel;
 import model.vendas.CaixaModel;
+import model.vendas.VendasItensModel;
 import model.vendas.VendasModel;
 
 public class PDV extends javax.swing.JFrame{
@@ -25,7 +26,7 @@ public class PDV extends javax.swing.JFrame{
     PesquisarController pc = new PesquisarController();
     CaixaController cc = new CaixaController();
     String pesquisaAtual;
-    String situacaoCaixa;
+    String situacaoCaix;
     
     private static final PDV INSTANCIA = new PDV();
 
@@ -95,7 +96,7 @@ public class PDV extends javax.swing.JFrame{
     
 //Ações do caixa
     public void inicializar(String usuario, int acao, String data){
-        txtUsuarioLogado.setText(usuario);
+        lblUsuario.setText(usuario);
         txtDataCaixa.setText(data);
         setTela("inicio");
         lblTitulo.setText("CAIXA LIVRE");
@@ -170,7 +171,7 @@ public class PDV extends javax.swing.JFrame{
         CaixaModel cm = new CaixaModel();
         cm.setData(txtDataCaixa.getText());
         cc.verificar(cm);
-        lblUsuarioFC.setText(txtUsuarioLogado.getText());
+        lblUsuarioFC.setText(lblUsuario.getText());
         lblDataFC.setText(txtDataCaixa.getText());
         txtFundoAtual.setText(Double.toString(cm.getFundo()));
         txtTotaldeVendas.setText("");
@@ -182,6 +183,7 @@ public class PDV extends javax.swing.JFrame{
     public void abrirVenda(){
         painelTela.add(painelItens);
         painelItens.setVisible(true);
+        lblCodVenda.setText(Integer.toString(vc.pegaCodigo()));
         setTela("venda");
     }
     
@@ -196,7 +198,7 @@ public class PDV extends javax.swing.JFrame{
     
     public void finalizarVenda(String formaPagamento){
         if (tblProdutos.getRowCount()==0) {
-            JOptionPane.showMessageDialog(null, "Venda zerada!");
+            
         } else {
             if (JOptionPane.showConfirmDialog(null, "Finalizar venda?","Finalizar", 2) == 0) {
                 venda.setVisible(true);
@@ -346,7 +348,7 @@ public class PDV extends javax.swing.JFrame{
     public void buscarProduto() {
         ProdutoModel pm = new ProdutoModel();
         if (txtInput.getText().matches("[0-9]+")) {
-            if (txtInput.getText().length() > 5) {
+            if (txtInput.getText().length() >= 6) {
                 pc.buscarProduto(pm, "\"codigoBarras\"", txtInput.getText());
                 if (pm.getCod() == 0) {
 
@@ -372,6 +374,24 @@ public class PDV extends javax.swing.JFrame{
             pesquisar.setLocation(300,200);
             pesquisar.setSize(600,300);
         }
+    }
+    
+    public void limpaCampos(){
+        txtCliente.setText("");
+        txtCliente2.setText("");
+        txtPlaca.setText("");
+        txtPlaca2.setText("");
+        txtProduto.setText("");
+        txtDescricaoProduto.setText("");
+        txtValorUnitarioProduto.setText("0,00");
+        txtValorDescontoProduto.setText("0,00");
+        txtQuantidadeProduto.setText("0,00");
+        DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+        modelo.setNumRows(0);
+        txtValorBruto.setText("0,00");
+        txtTotalDescontos.setText("0,00");
+        txtTotal.setText("0,00");
+        txtDescontoVenda.setText("0,00");
     }
     
     @SuppressWarnings("unchecked")
@@ -433,6 +453,7 @@ public class PDV extends javax.swing.JFrame{
         txtValorDescontoProduto = new javax.swing.JFormattedTextField();
         lblQtdProduto = new javax.swing.JLabel();
         txtQuantidadeProduto = new javax.swing.JTextField();
+        lblCodVenda = new javax.swing.JLabel();
         venda = new javax.swing.JDialog();
         painelFinalizarVenda = new javax.swing.JPanel();
         lblPlaca = new javax.swing.JLabel();
@@ -483,7 +504,7 @@ public class PDV extends javax.swing.JFrame{
         lblData = new javax.swing.JLabel();
         txtDataCaixa = new javax.swing.JLabel();
         txtFundoTroco = new javax.swing.JLabel();
-        txtUsuarioLogado = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
 
         abrircaixa.setResizable(false);
         abrircaixa.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -947,6 +968,11 @@ public class PDV extends javax.swing.JFrame{
             }
         });
 
+        lblCodVenda.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
+        lblCodVenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCodVenda.setText("1");
+        lblCodVenda.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
         javax.swing.GroupLayout painelItensLayout = new javax.swing.GroupLayout(painelItens);
         painelItens.setLayout(painelItensLayout);
         painelItensLayout.setHorizontalGroup(
@@ -989,12 +1015,17 @@ public class PDV extends javax.swing.JFrame{
                                 .addComponent(lblQtdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtQuantidadeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-            .addComponent(lblTituloProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(painelItensLayout.createSequentialGroup()
+                .addComponent(lblTituloProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCodVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelItensLayout.setVerticalGroup(
             painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelItensLayout.createSequentialGroup()
-                .addComponent(lblTituloProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTituloProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCodVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtDescricaoProduto)
@@ -1010,7 +1041,7 @@ public class PDV extends javax.swing.JFrame{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
+                    .addComponent(painelFuncoes, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo15)
@@ -1036,6 +1067,7 @@ public class PDV extends javax.swing.JFrame{
         );
 
         venda.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        venda.setAlwaysOnTop(true);
         venda.setResizable(false);
         venda.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1513,7 +1545,7 @@ public class PDV extends javax.swing.JFrame{
         txtFundoTroco.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         txtFundoTroco.setText("0,00");
 
-        txtUsuarioLogado.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -1529,7 +1561,7 @@ public class PDV extends javax.swing.JFrame{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                         .addComponent(lblLogadoComo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblFundoTroco)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1558,7 +1590,7 @@ public class PDV extends javax.swing.JFrame{
                     .addComponent(lblFundoTroco)
                     .addComponent(txtDataCaixa)
                     .addComponent(txtFundoTroco)
-                    .addComponent(txtUsuarioLogado, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1605,8 +1637,10 @@ public class PDV extends javax.swing.JFrame{
             if (lblTitulo.getText().equalsIgnoreCase("caixa")) {
                 setTela("inicio");
             }
-            if (lblTitulo.getText().equalsIgnoreCase("subtotal")) {
-                setTela("venda");
+            if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+                if (JOptionPane.showConfirmDialog(null, "Deseja sair do caixa?","Sair?", 2) == 0) {
+                    System.exit(0);
+                }
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
@@ -1658,7 +1692,11 @@ public class PDV extends javax.swing.JFrame{
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F7) {
-            
+            if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+                if (JOptionPane.showConfirmDialog(null, "Deseja sair do caixa?","Sair?", 2) == 0) {
+                    System.exit(0);
+                }
+            }
         }
     }//GEN-LAST:event_txtInputKeyReleased
 
@@ -1757,11 +1795,11 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_btnAbrirCaixaMouseReleased
 
     private void F1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F1MouseReleased
-        if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
-            abrirVenda();
-        }
         if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
             finalizarVenda("");
+        }
+        if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
+            abrirVenda();
         }
         if (lblTitulo.getText().equalsIgnoreCase("caixa")) {
             suprirSangrar("Suprimento");
@@ -1796,7 +1834,51 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_F7MouseReleased
 
     private void btnFinalizarVendaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarVendaMouseReleased
-        vc.registrarVenda(model);
+        venda.setAlwaysOnTop(false);
+        if (JOptionPane.showConfirmDialog(null, "Finalizar venda?","OK?", 2) == 0) {
+            
+            VendasModel vm = new VendasModel();
+            VendasItensModel vim = new VendasItensModel();
+            vm.setCod(Integer.parseInt(lblCodVenda.getText()));
+            
+            if (txtCliente.getText().equalsIgnoreCase("")) {
+                vm.setCliente(0);
+            } else {
+                vm.setCliente(Integer.parseInt(txtCliente.getText()));
+            }
+            
+            if (txtCliente2.getText().equalsIgnoreCase("")) {
+                vm.setNomecliente("");
+            } else {
+                vm.setNomecliente(txtCliente2.getText());
+            }
+            
+            vm.setPlaca(txtPlaca.getText());
+            vm.setNomeplaca(txtPlaca2.getText());
+            vm.setValorTotalBruto(Double.parseDouble(txtValorBruto.getText().replace(",", ".")));
+            vm.setValorTotalDesconto(Double.parseDouble(txtTotalDescontos.getText().replace(",", ".")));
+            vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
+            vm.setUsuario(lblUsuario.getText());
+            vm.setObs("");
+            if (vc.registrarVenda(vm)) {
+                System.out.println("imprimir");
+            }
+            //Cadastrando itens
+            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
+                vim.setVenda(vm.getCod());
+                vim.setNome(tblProdutos.getValueAt(i, 1).toString());
+                vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
+                vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
+                vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
+                vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
+                vc.cadastraItens(vim);
+            }
+            limpaCampos();
+            venda.setAlwaysOnTop(true);
+            venda.setVisible(false);
+            setTela("inicio");
+        }
     }//GEN-LAST:event_btnFinalizarVendaMouseReleased
 
     private void txtFormapagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFormapagamentoActionPerformed
@@ -2081,6 +2163,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel lblCodVenda;
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDataAbrirCaixa;
     private javax.swing.JLabel lblDataFC;
@@ -2110,6 +2193,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JLabel lblTotaldeVendas2;
     private javax.swing.JLabel lblTotaldeVendas5;
     private javax.swing.JLabel lblTotaldeVendas6;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioAbrirCaixa;
     private javax.swing.JLabel lblUsuarioFC;
     private javax.swing.JLabel lblValorUnProduto;
@@ -2150,7 +2234,6 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JFormattedTextField txtTotalDinheiro;
     private javax.swing.JFormattedTextField txtTotalProdutos;
     private javax.swing.JFormattedTextField txtTotaldeVendas;
-    private javax.swing.JLabel txtUsuarioLogado;
     private javax.swing.JFormattedTextField txtValorBruto;
     private javax.swing.JFormattedTextField txtValorBruto1;
     private javax.swing.JFormattedTextField txtValorDescontoProduto;

@@ -635,13 +635,20 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="lblTituloProdutos" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblTituloProdutos" min="-2" pref="561" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lblCodVenda" max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="lblTituloProdutos" min="-2" pref="19" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lblTituloProdutos" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="lblCodVenda" min="-2" pref="21" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtDescricaoProduto" max="32767" attributes="0"/>
@@ -659,7 +666,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
-                          <Component id="painelFuncoes" pref="287" max="32767" attributes="0"/>
+                          <Component id="painelFuncoes" pref="285" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1016,6 +1023,16 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtQuantidadeProdutoActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblCodVenda">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Consolas" size="14" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="1"/>
+                <Property name="verticalAlignment" type="int" value="3"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
@@ -1023,6 +1040,7 @@
     <Container class="javax.swing.JDialog" name="venda">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
+        <Property name="alwaysOnTop" type="boolean" value="true"/>
         <Property name="resizable" type="boolean" value="false"/>
       </Properties>
 
@@ -1644,7 +1662,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lblLogadoComo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="txtUsuarioLogado" max="32767" attributes="0"/>
+                          <Component id="lblUsuario" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="lblFundoTroco" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -1677,7 +1695,7 @@
                       <Component id="lblFundoTroco" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDataCaixa" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtFundoTroco" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUsuarioLogado" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="lblUsuario" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -2005,7 +2023,7 @@
             <Property name="text" type="java.lang.String" value="0,00"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="txtUsuarioLogado">
+        <Component class="javax.swing.JLabel" name="lblUsuario">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="12" style="0"/>

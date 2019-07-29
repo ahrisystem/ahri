@@ -198,7 +198,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
     ////////////////////////////////////////////////////////////////////////////
     public void puxarDados(int cod){
         VendasModel vm = new VendasModel();
-        vc.puxarDadosOrcamento(vm, cod);
+        vc.puxarDados(vm, cod);
         lblCod.setText("Nº "+cod);
         //cliente
         txtCliente.setText(Integer.toString(vm.getCliente()));
@@ -216,7 +216,7 @@ public class EditarOrcamento extends javax.swing.JFrame {
         //Produtos
         DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
         modelo.setNumRows(0);
-        for (VendasItensModel e : vc.puxarDadosProdutosOrcamento(cod)) {
+        for (VendasItensModel e : vc.puxarDadosItens(cod)) {
             modelo.addRow(new Object[]{
                 e.getCod(),
                 e.getNome(),
@@ -908,8 +908,8 @@ public class EditarOrcamento extends javax.swing.JFrame {
             vm.setValorTotal(Double.parseDouble(txtTotal.getText().replace(",", ".")));
             vm.setUsuario(usuario);
             vm.setObs(txtObs.getText());
-            vc.alteraOrçamento(vm, vm.getCod());
-            vc.deletaProdutosOrcamento(vm.getCod());
+            vc.alterar(vm, vm.getCod());
+            vc.deletarItens(vm.getCod());
             //Cadastrando itens
             for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                 vim.setCod(Integer.parseInt(tblProdutos.getValueAt(i, 0).toString()));
@@ -919,11 +919,11 @@ public class EditarOrcamento extends javax.swing.JFrame {
                 vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
                 vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
                 vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                vc.cadastraProdutosOrcamento(vim);
+                vc.cadastraItens(vim);
             }
             //gerar pdf
-            vc.puxarDadosOrcamento(vm, vm.getCod());
-            go.Orcamento(vm, cbxExibirClientes.isSelected(),cbxExibirPlaca.isSelected(),cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), vc.puxarDadosProdutosOrcamento(vm.getCod()));
+            vc.puxarDados(vm, vm.getCod());
+            go.Orcamento(vm, cbxExibirClientes.isSelected(),cbxExibirPlaca.isSelected(),cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), vc.puxarDadosItens(vm.getCod()));
             limpaCampos();
             this.dispose();
         }

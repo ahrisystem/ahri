@@ -339,7 +339,6 @@ public class NovoOrcamento extends javax.swing.JFrame {
         lblTituloPesquisa.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         lblTituloPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloPesquisa.setText("NOVO ORÇAMENTO");
         lblTituloPesquisa.setOpaque(true);
 
         javax.swing.GroupLayout pesquisarLayout = new javax.swing.GroupLayout(pesquisar.getContentPane());
@@ -891,12 +890,12 @@ public class NovoOrcamento extends javax.swing.JFrame {
                 vim.setValordesconto(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
                 vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
                 vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 5).toString().replace(",", ".")));
-                vc.cadastraProdutosOrcamento(vim);
+                vc.cadastraItens(vim);
             }
             
             //gerar pdf
-            vc.puxarDadosOrcamento(vm, vm.getCod());
-            go.Orcamento(vm, cbxExibirClientes.isSelected(),cbxExibirPlaca.isSelected(),cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), vc.puxarDadosProdutosOrcamento(vm.getCod()));
+            vc.puxarDados(vm, vm.getCod());
+            go.Orcamento(vm, cbxExibirClientes.isSelected(),cbxExibirPlaca.isSelected(),cbxExibirProdutos.isSelected(),cbxExibirValores.isSelected(), vc.puxarDadosItens(vm.getCod()));
             limpaCampos();
             this.dispose();
         }

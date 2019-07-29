@@ -1,6 +1,5 @@
 package view.vendas;
 
-import view.cadastros.usuarios.*;
 import controller.vendas.VendasController;
 import funcoes.GerarOrçamentoPDF;
 import javax.swing.JOptionPane;
@@ -25,7 +24,7 @@ public class Orcamentos extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
         String filtro = txtFiltro.getSelectedItem().toString();
-        for (VendasModel e : ec.listaOrcamentos(filtro,txtPesquisa.getText())) {
+        for (VendasModel e : ec.listar(filtro,txtPesquisa.getText(),2)) {
             String status = "";
             if (e.getStatus()==1) {
                 status = "Emitido";
@@ -80,9 +79,9 @@ public class Orcamentos extends javax.swing.JPanel {
         planoDeFundo1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTituloAlterarStatus.setBackground(new java.awt.Color(153, 153, 153));
-        lblTituloAlterarStatus.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblTituloAlterarStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTituloAlterarStatus.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTituloAlterarStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTituloAlterarStatus.setText("Alterar status do orçamento Nº ");
         lblTituloAlterarStatus.setOpaque(true);
         planoDeFundo1.add(lblTituloAlterarStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 30));
@@ -384,7 +383,7 @@ public class Orcamentos extends javax.swing.JPanel {
         } else {
             if (JOptionPane.showConfirmDialog(null, "Cancelar o orçamento?",
                 "Cancelar?", 2) == 0) {
-                ec.alteraStatusOrcamento(3, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                ec.alterarStatus(3, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
                 listar();
             }
         }
@@ -444,8 +443,8 @@ public class Orcamentos extends javax.swing.JPanel {
                 } else {
                     gerarValores = false;
                 }
-                ec.puxarDadosOrcamento(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-                go.Orcamento(vm, gerarCliente,gerarPlaca,gerarProdutos,gerarValores, ec.puxarDadosProdutosOrcamento(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())));
+                ec.puxarDados(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                go.Orcamento(vm, gerarCliente,gerarPlaca,gerarProdutos,gerarValores, ec.puxarDadosItens(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())));
             }
         }
     }//GEN-LAST:event_btnGerarPDFMouseReleased
@@ -468,7 +467,7 @@ public class Orcamentos extends javax.swing.JPanel {
         if (txtStatus.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(null, "Selecione algum status!");
         } else {
-            ec.alteraStatusOrcamento(txtStatus.getSelectedIndex(), Integer.parseInt(lblCodOrcamento.getText()));
+            ec.alterarStatus(txtStatus.getSelectedIndex(), Integer.parseInt(lblCodOrcamento.getText()));
             JOptionPane.showMessageDialog(null, "Status do orçamento alterado com sucesso!");
             alterarStatus.setVisible(false);
         }

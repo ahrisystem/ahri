@@ -5,7 +5,7 @@ Entidades
 Vendas
 --No campo TIPO da tabela VENDAS: 
     1 orçamento
-    2 registro venda no caixa
+    2 venda no caixa
 
 --No campo STATUS da tabela VENDAS:
     1 - Emitido
