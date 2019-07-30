@@ -101,7 +101,6 @@ public class PDV extends javax.swing.JFrame{
         txtDataCaixa.setText(data);
         setTela("inicio");
         lblTitulo.setText("CAIXA LIVRE");
-        lblLogadoComo.setText("Logado como: "+usuario);
         
         //Novo caixa
         if (acao == 1) {
@@ -140,11 +139,11 @@ public class PDV extends javax.swing.JFrame{
             lblTitulo.setText("NOVA VENDA");
             F1.setText("\nF1\nDinheiro");
             F2.setText("\nF2\nCliente");
-            F3.setText("\nF3\nOrçamento");
+            F3.setText("\nF3\nProduto");
             F4.setText("\nF4\nPlaca");
             F5.setText("\nF5\nSubtotal");
             F6.setText("\nF6\nCancelar");
-            F7.setText("\nF7\n");
+            F7.setText("\nF7\nOrçamentos");
         }
         if (tela.equalsIgnoreCase("caixa")) {
             lblTitulo.setText("CAIXA");
@@ -231,14 +230,18 @@ public class PDV extends javax.swing.JFrame{
     /////////////////////Pesquisar
     
     
-    public void busca(){
-        ProdutoModel pm = new ProdutoModel();
-        buscar.buscarProduto(pm, txtInput.getText(), pesquisar);
+    public void busca(String tipo){
+        if (tipo.equalsIgnoreCase("produtos")) {
+            ProdutoModel pm = new ProdutoModel();
+            buscar.buscarProduto(pm, txtInput.getText(), pesquisar);
+            listar();
+        }
     }
     
-    public void preencherDadosBuscaProdutos(ProdutoModel pm){
-        txtProduto.setText(Integer.toString(pm.getCod()));
+    public void listar(){
+        buscar.listar(pesquisar.getTitle(), txtPesquisa.getText(), pesquisar, tblPesquisar);
     }
+    
     
     public void limpaCampos(){
         txtCliente.setText("");
@@ -290,9 +293,8 @@ public class PDV extends javax.swing.JFrame{
         backgroundPesquisa = new javax.swing.JPanel();
         txtPesquisa = new javax.swing.JTextField();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
-        btnSelecionarPesquisa = new javax.swing.JLabel();
-        lblTituloPesquisa = new javax.swing.JLabel();
+        tblPesquisar = new javax.swing.JTable();
+        btnSelecionarBusca = new javax.swing.JButton();
         Itens = new javax.swing.JDialog();
         painelItens = new javax.swing.JPanel();
         lblTituloProdutos = new javax.swing.JLabel();
@@ -537,8 +539,6 @@ public class PDV extends javax.swing.JFrame{
             .addComponent(backgroundValoresCaixa2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pesquisar.setResizable(false);
-
         backgroundPesquisa.setBackground(new java.awt.Color(255, 255, 255));
 
         txtPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -553,14 +553,13 @@ public class PDV extends javax.swing.JFrame{
             }
         });
 
-        tabela.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tblPesquisar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tblPesquisar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Código", "Nome", ""
+                "", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -571,57 +570,46 @@ public class PDV extends javax.swing.JFrame{
                 return canEdit [columnIndex];
             }
         });
-        tabela.setFocusable(false);
-        tabela.setGridColor(new java.awt.Color(204, 204, 204));
-        tabela.setRowHeight(18);
-        tabela.setSelectionBackground(new java.awt.Color(102, 153, 255));
-        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
+        tblPesquisar.setGridColor(new java.awt.Color(204, 204, 204));
+        tblPesquisar.setRowHeight(18);
+        tblPesquisar.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tblPesquisar.getTableHeader().setReorderingAllowed(false);
+        tblPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                tabelaKeyReleased(evt);
+                tblPesquisarKeyReleased(evt);
             }
         });
-        jScrollPane4.setViewportView(tabela);
+        jScrollPane4.setViewportView(tblPesquisar);
 
-        btnSelecionarPesquisa.setBackground(new java.awt.Color(102, 153, 255));
-        btnSelecionarPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnSelecionarPesquisa.setForeground(new java.awt.Color(255, 255, 255));
-        btnSelecionarPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnSelecionarPesquisa.setText("Selecionar");
-        btnSelecionarPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSelecionarPesquisa.setOpaque(true);
-        btnSelecionarPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnSelecionarBusca.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnSelecionarBusca.setText("Selecionar");
+        btnSelecionarBusca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnSelecionarPesquisaMouseReleased(evt);
+                btnSelecionarBuscaMouseReleased(evt);
             }
         });
-
-        lblTituloPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblTituloPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloPesquisa.setText("Pesquisa");
 
         javax.swing.GroupLayout backgroundPesquisaLayout = new javax.swing.GroupLayout(backgroundPesquisa);
         backgroundPesquisa.setLayout(backgroundPesquisaLayout);
         backgroundPesquisaLayout.setHorizontalGroup(
             backgroundPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
             .addGroup(backgroundPesquisaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backgroundPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPesquisa))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                    .addComponent(btnSelecionarBusca, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addComponent(lblTituloPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         backgroundPesquisaLayout.setVerticalGroup(
             backgroundPesquisaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundPesquisaLayout.createSequentialGroup()
-                .addComponent(lblTituloPesquisa)
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSelecionarBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -1480,7 +1468,7 @@ public class PDV extends javax.swing.JFrame{
             if (txtInput.getText().equalsIgnoreCase("")) {
             
             } else {
-                busca();
+                busca("produtos");
             }
         }
         if (txtInput.getText().matches("[A-Za-z]+")) {
@@ -1525,7 +1513,7 @@ public class PDV extends javax.swing.JFrame{
         }
         if (evt.getKeyCode() == KeyEvent.VK_F3) {
             if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
-                
+                busca("produtos");
             }
             if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
                 
@@ -1536,7 +1524,7 @@ public class PDV extends javax.swing.JFrame{
                 
             }
             if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
-                busca();
+                busca("produtos");
             }
         }
         if (evt.getKeyCode() == KeyEvent.VK_F5) {
@@ -1577,18 +1565,14 @@ public class PDV extends javax.swing.JFrame{
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void txtPesquisaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyReleased
-        
+        listar();
     }//GEN-LAST:event_txtPesquisaKeyReleased
 
-    private void tabelaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyReleased
+    private void tblPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblPesquisarKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             pesquisar.setVisible(false);
         }
-    }//GEN-LAST:event_tabelaKeyReleased
-
-    private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
-        
-    }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
+    }//GEN-LAST:event_tblPesquisarKeyReleased
 
     private void txtTotalDescontosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTotalDescontosFocusLost
 
@@ -1917,7 +1901,7 @@ public class PDV extends javax.swing.JFrame{
 
         }
         if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
-            busca();
+            busca("produtos");
         }
     }//GEN-LAST:event_F4MouseReleased
 
@@ -1937,6 +1921,12 @@ public class PDV extends javax.swing.JFrame{
     private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProdutoActionPerformed
+
+    private void btnSelecionarBuscaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarBuscaMouseReleased
+        if(pesquisar.getTitle().equalsIgnoreCase("produtos")){
+            
+        }
+    }//GEN-LAST:event_btnSelecionarBuscaMouseReleased
 
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc="Look and feel setting code">
@@ -1988,7 +1978,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JButton btnLimparCamposProduto;
     private javax.swing.JButton btnLimparPlaca;
     private javax.swing.JButton btnRemoverProduto;
-    private javax.swing.JLabel btnSelecionarPesquisa;
+    private javax.swing.JButton btnSelecionarBusca;
     private javax.swing.JLabel btnValoresCaixa1;
     private javax.swing.JDialog caixa;
     private javax.swing.JCheckBox cbxGerarNFE;
@@ -2019,7 +2009,6 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JLabel lblTitulo13;
     private javax.swing.JLabel lblTitulo14;
     private javax.swing.JLabel lblTitulo15;
-    private javax.swing.JLabel lblTituloPesquisa;
     private javax.swing.JLabel lblTituloProdutos;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblTotalDesconto;
@@ -2038,7 +2027,7 @@ public class PDV extends javax.swing.JFrame{
     private javax.swing.JPanel painelItens;
     private javax.swing.JPanel painelTela;
     private javax.swing.JDialog pesquisar;
-    private javax.swing.JTable tabela;
+    private javax.swing.JTable tblPesquisar;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtCliente2;

@@ -76,7 +76,7 @@ public class Buscar {
             pesquisar.setVisible(true);
             pesquisar.setTitle("Produtos");
             pesquisar.setLocation(100, 100);
-            pesquisar.setSize(300, 300);
+            pesquisar.setSize(600, 400);
         }
     }
 }
