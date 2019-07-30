@@ -62,6 +62,7 @@ public class PesquisarController {
         }
         return fms;
     }
+    
     public List<VendasModel> listaOrcamentos(String nome) {
         List<VendasModel> vms = new ArrayList<>();
         String sql = "SELECT cod,nomecliente,valortotal FROM vendas where status = 1 and  nomecliente LIKE '%" + nome + "%';";
