@@ -95,6 +95,7 @@ public class CaixaController {
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 CaixaModel model = new CaixaModel();
+                model.setId(rs.getInt("id"));
                 model.setData(rs.getString("data"));
                 model.setFechado(rs.getBoolean("fechado"));
                 model.setUsuario(rs.getString("usuario"));
@@ -139,28 +140,28 @@ public class CaixaController {
         return retorno;
     }
     
-    public void puxarDadosCaixa(VendasModel Model, int cod) {
-        String sql = "SELECT id,cod,tipo,status,cliente,placa,valortotalbruto,valortotaldesconto,valortotal,criacao,alteracao,usuario,obs FROM public.vendas where cod = " + cod + ";";
+    public void puxarDadosCaixa(CaixaModel Model, int id) {
+        String sql = "SELECT * FROM public.vendas where id = '" + id + "';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Model.setCod(rs.getInt("cod"));
-                Model.setTipo(rs.getInt("tipo"));
-                Model.setStatus(rs.getInt("status"));
-                Model.setCliente(rs.getInt("cliente"));
-                Model.setPlaca(rs.getString("placa"));
-                Model.setValorTotalBruto(rs.getDouble("valortotalbruto"));
-                Model.setValorTotalDesconto(rs.getDouble("valortotaldesconto"));
-                Model.setValorTotal(rs.getDouble("valortotal"));
-                Model.setCriacao(rs.getDate("criacao"));
-                Model.setAlteracao(rs.getDate("alteracao"));
+                //id|data|usuario|fechado| fundo | sangria | suprimento | saida | entrada | descontos | bruto | total
+                Model.setData(rs.getString("data"));
                 Model.setUsuario(rs.getString("usuario"));
-                Model.setObs(rs.getString("obs"));
+                Model.setFechado(rs.getBoolean("fechado"));
+                Model.setFundo(rs.getDouble("fundo"));
+                Model.setSangria(rs.getDouble("sangria"));
+                Model.setSuprimento(rs.getDouble("suprimento"));
+                Model.setSaida(rs.getDouble("saida"));
+                Model.setEntrada(rs.getDouble("entrada"));
+                Model.setDescontos(rs.getDouble("descontos"));
+                Model.setBruto(rs.getDouble("bruto"));
+                Model.setTotal(rs.getDouble("total"));
             }
             stmt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Falha ao buscar dados para alteração.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Falha ao buscar dados de caixas.\n" + e.getMessage());
         }
     }
 }

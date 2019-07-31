@@ -1,8 +1,7 @@
 package model.vendas;
 
-import java.sql.Date;
-
 public class CaixaModel {
+    private int id;
     private String data;
     private int status;
     private String usuario;
@@ -25,6 +24,14 @@ public class CaixaModel {
     }
     public int getStatus() {
         return status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setStatus(int status) {

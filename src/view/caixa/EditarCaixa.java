@@ -1,17 +1,13 @@
 package view.caixa;
 
-import controller.cadastros.entidades.EntidadeController;
-import controller.funcoes.PesquisarController;
+import controller.vendas.CaixaController;
 import java.awt.event.KeyEvent;
+import model.vendas.CaixaModel;
 import view.TelaInicial;
 
 
 public class EditarCaixa extends javax.swing.JFrame {
-    final int fisica = 0;
-    EntidadeController ec = new EntidadeController();
-    PesquisarController pc = new PesquisarController();
-    String pesquisaAtual;
-    
+    CaixaController cc = new CaixaController();
     private static final EditarCaixa INSTANCIA = new EditarCaixa();
 
     public static EditarCaixa getInstancia() {
@@ -24,6 +20,11 @@ public class EditarCaixa extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
     
+    public void puxarDados(int id){
+        CaixaModel cm = new CaixaModel();
+        cc.puxarDadosCaixa(cm, id);
+        txtData.setText(cm.getData());
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -39,7 +40,7 @@ public class EditarCaixa extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        txtData = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         jTabbedPane = new javax.swing.JTabbedPane();
@@ -199,12 +200,12 @@ public class EditarCaixa extends javax.swing.JFrame {
         lblCodigo.setText("Data");
         painelPrincipal.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 100, 20));
 
-        txtCodigo.setEditable(false);
-        txtCodigo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        txtCodigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCodigo.setText("01/01/2019");
-        txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 100, 20));
+        txtData.setEditable(false);
+        txtData.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        txtData.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtData.setText("01/01/2019");
+        txtData.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 100, 20));
 
         txtNome.setEditable(false);
         txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -504,7 +505,7 @@ public class EditarCaixa extends javax.swing.JFrame {
     private javax.swing.JPanel planoDeFundo1;
     private javax.swing.JTable tabela;
     private javax.swing.JTable tabela1;
-    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtData;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JFormattedTextField txtPreco;

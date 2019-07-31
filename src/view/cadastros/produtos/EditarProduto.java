@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.cadastros.produtos.GrupoModel;
 import model.cadastros.produtos.ProdutoModel;
 import model.fiscal.TributacaoModel;
 
@@ -281,6 +280,7 @@ public class EditarProduto extends javax.swing.JFrame {
         lblCodigo.setText("Código");
         painelPrincipal.add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 20));
 
+        txtCodigo.setEditable(false);
         txtCodigo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtCodigo.setToolTipText("Se você deixar o campo vazio e dar um enter, ele adiciona o próximo código!");
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
@@ -539,6 +539,7 @@ public class EditarProduto extends javax.swing.JFrame {
                 } else {
                     pm.setServico(false);
                 }
+                pm.setCod(Integer.parseInt(txtCodigo.getText()));
                 pm.setCodigoBarras(txtEAN.getText());
                 pm.setNome(txtNome.getText());
                 pm.setInativo(false);

@@ -1,6 +1,7 @@
 package view.caixa;
 
 import controller.vendas.CaixaController;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.vendas.CaixaModel;
 
@@ -17,6 +18,17 @@ public class Caixas extends javax.swing.JPanel {
         listar();
     }
     
+    public void fecharCaixa(){
+        CaixaModel cm = new CaixaModel();
+        cc.puxarDadosCaixa(cm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+        lblUsuarioFC.setText(cm.getUsuario());
+        lblDataFC.setText(cm.getData());
+        txtFundoAtual.setText(Double.toString(cm.getFundo()));
+        txtTotaldeVendas.setText(Double.toString(cm.getTotal()));
+        fecharcaixa.setSize(380, 250);
+        fecharcaixa.setVisible(true);
+    }
+    
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
         modelo.setNumRows(0);
@@ -28,6 +40,7 @@ public class Caixas extends javax.swing.JPanel {
                 status = "Aberto";
             }
             modelo.addRow(new Object[]{
+                e.getId(),
                 e.getData(),
                 status,
                 e.getUsuario(),
@@ -40,11 +53,21 @@ public class Caixas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        fecharcaixa = new javax.swing.JDialog();
+        backgroundValoresCaixa2 = new javax.swing.JPanel();
+        btnValoresCaixa1 = new javax.swing.JLabel();
+        lblUsuarioFC = new javax.swing.JLabel();
+        lblDataFC = new javax.swing.JLabel();
+        lblSangriaFC = new javax.swing.JLabel();
+        lbltdv = new javax.swing.JLabel();
+        txtFundoAtual = new javax.swing.JFormattedTextField();
+        txtTotaldeVendas = new javax.swing.JFormattedTextField();
+        txtSangria = new javax.swing.JFormattedTextField();
+        lblfafc = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JLabel();
         btnFechar = new javax.swing.JLabel();
-        btnAjuda = new javax.swing.JLabel();
         btnVisualizar = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -52,6 +75,85 @@ public class Caixas extends javax.swing.JPanel {
         btnAtualizar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         cbxFechado = new javax.swing.JCheckBox();
+
+        fecharcaixa.setResizable(false);
+        fecharcaixa.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        backgroundValoresCaixa2.setBackground(new java.awt.Color(255, 255, 255));
+        backgroundValoresCaixa2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                backgroundValoresCaixa2MousePressed(evt);
+            }
+        });
+        backgroundValoresCaixa2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnValoresCaixa1.setBackground(new java.awt.Color(102, 153, 255));
+        btnValoresCaixa1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnValoresCaixa1.setForeground(new java.awt.Color(255, 255, 255));
+        btnValoresCaixa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnValoresCaixa1.setText("Fechar!");
+        btnValoresCaixa1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnValoresCaixa1.setOpaque(true);
+        btnValoresCaixa1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnValoresCaixa1MouseReleased(evt);
+            }
+        });
+        backgroundValoresCaixa2.add(btnValoresCaixa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 380, 40));
+
+        lblUsuarioFC.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        lblUsuarioFC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsuarioFC.setText("Usuário");
+        backgroundValoresCaixa2.add(lblUsuarioFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 30));
+
+        lblDataFC.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblDataFC.setForeground(new java.awt.Color(51, 51, 51));
+        lblDataFC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDataFC.setText("data");
+        lblDataFC.setToolTipText("Data");
+        backgroundValoresCaixa2.add(lblDataFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 26));
+
+        lblSangriaFC.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblSangriaFC.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblSangriaFC.setText("Sangria");
+        backgroundValoresCaixa2.add(lblSangriaFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 156, 100, 30));
+
+        lbltdv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lbltdv.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbltdv.setText("Total de vendas");
+        backgroundValoresCaixa2.add(lbltdv, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 120, 26));
+
+        txtFundoAtual.setEditable(false);
+        txtFundoAtual.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtFundoAtual.setText("0,00");
+        txtFundoAtual.setToolTipText("Total descontos");
+        txtFundoAtual.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        txtFundoAtual.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFundoAtualFocusLost(evt);
+            }
+        });
+        backgroundValoresCaixa2.add(txtFundoAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
+
+        txtTotaldeVendas.setEditable(false);
+        txtTotaldeVendas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtTotaldeVendas.setText("0,00");
+        txtTotaldeVendas.setToolTipText("Total descontos");
+        txtTotaldeVendas.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        backgroundValoresCaixa2.add(txtTotaldeVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 100, -1));
+
+        txtSangria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtSangria.setText("0,00");
+        txtSangria.setToolTipText("Total descontos");
+        txtSangria.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
+        backgroundValoresCaixa2.add(txtSangria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 158, 100, 30));
+
+        lblfafc.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblfafc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblfafc.setText("Fundo atual");
+        backgroundValoresCaixa2.add(lblfafc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 100, 26));
+
+        fecharcaixa.getContentPane().add(backgroundValoresCaixa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -94,18 +196,6 @@ public class Caixas extends javax.swing.JPanel {
             }
         });
 
-        btnAjuda.setBackground(new java.awt.Color(255, 255, 255));
-        btnAjuda.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnAjuda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnAjuda.setText("Ajuda");
-        btnAjuda.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAjuda.setOpaque(true);
-        btnAjuda.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnAjudaMouseReleased(evt);
-            }
-        });
-
         btnVisualizar.setBackground(new java.awt.Color(51, 105, 191));
         btnVisualizar.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         btnVisualizar.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,8 +224,7 @@ public class Caixas extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAjuda, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -152,9 +241,7 @@ public class Caixas extends javax.swing.JPanel {
                 .addComponent(btnFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(btnAjuda, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
                 .addContainerGap())
         );
@@ -162,16 +249,16 @@ public class Caixas extends javax.swing.JPanel {
         tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Data do caixa", "Status", "Usuário", "Entradas", "Saídas"
+                "Id", "Data do caixa", "Status", "Usuário", "Entradas", "Saídas"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -190,9 +277,10 @@ public class Caixas extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
-            tabela.getColumnModel().getColumn(0).setMaxWidth(80);
-            tabela.getColumnModel().getColumn(3).setMaxWidth(80);
+            tabela.getColumnModel().getColumn(0).setMaxWidth(50);
+            tabela.getColumnModel().getColumn(1).setMaxWidth(80);
             tabela.getColumnModel().getColumn(4).setMaxWidth(80);
+            tabela.getColumnModel().getColumn(5).setMaxWidth(80);
         }
 
         btnAtualizar.setBackground(new java.awt.Color(255, 255, 255));
@@ -290,34 +378,69 @@ public class Caixas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarMouseReleased
 
     private void btnFecharMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharMouseReleased
-        // TODO add your handling code here:
+        if (tabela.getSelectedRow() > -1 & tabela.getValueAt(tabela.getSelectedRow(), 2).toString().equalsIgnoreCase("aberto")) {
+            fecharCaixa();
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecine algum caixa em aberto!");
+        }
     }//GEN-LAST:event_btnFecharMouseReleased
 
-    private void btnAjudaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAjudaMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAjudaMouseReleased
-
     private void btnVisualizarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisualizarMouseReleased
-        // TODO add your handling code here:
+        if (tabela.getSelectedRow()<0) {
+            JOptionPane.showMessageDialog(null, "Nenhum orçamento selecionado.");
+        } else {
+            if (tabela.getValueAt(tabela.getSelectedRow(), 1).toString().equalsIgnoreCase("Finalizado")) {
+                JOptionPane.showMessageDialog(null, "Não é possível alterar orçamentos FINALIZADOS.");
+            } else {
+                EditarCaixa edit = EditarCaixa.getInstancia();
+                edit.puxarDados(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                edit.setVisible(true);
+                listar();
+            }
+        }
     }//GEN-LAST:event_btnVisualizarMouseReleased
 
     private void cbxFechadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFechadoActionPerformed
         listar();
     }//GEN-LAST:event_cbxFechadoActionPerformed
 
+    private void btnValoresCaixa1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValoresCaixa1MouseReleased
+        if (JOptionPane.showConfirmDialog(null, "Deseja mesmo fechar o caixa?") == 1) {
+
+        }
+    }//GEN-LAST:event_btnValoresCaixa1MouseReleased
+
+    private void txtFundoAtualFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFundoAtualFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFundoAtualFocusLost
+
+    private void backgroundValoresCaixa2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundValoresCaixa2MousePressed
+
+    }//GEN-LAST:event_backgroundValoresCaixa2MousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnAjuda;
+    private javax.swing.JPanel backgroundValoresCaixa2;
     private javax.swing.JLabel btnAtualizar;
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnFechar;
+    private javax.swing.JLabel btnValoresCaixa1;
     private javax.swing.JLabel btnVisualizar;
     private javax.swing.JCheckBox cbxFechado;
+    private javax.swing.JDialog fecharcaixa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDataFC;
+    private javax.swing.JLabel lblSangriaFC;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblUsuarioFC;
+    private javax.swing.JLabel lblfafc;
+    private javax.swing.JLabel lbltdv;
     private javax.swing.JTable tabela;
+    private javax.swing.JFormattedTextField txtFundoAtual;
+    private javax.swing.JFormattedTextField txtSangria;
+    private javax.swing.JFormattedTextField txtTotaldeVendas;
     // End of variables declaration//GEN-END:variables
 }

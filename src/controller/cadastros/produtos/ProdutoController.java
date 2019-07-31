@@ -149,10 +149,11 @@ public class ProdutoController {
             pstmt.setDouble(10, pModel.getCusto());
             pstmt.setString(11, pModel.getNcm());
             pstmt.setString(12, pModel.getCest());
-            pstmt.setString(13, pModel.getCest());
-            pstmt.setString(14, pModel.getCest());
+            pstmt.setString(13, pModel.getTributacao());
+            pstmt.setString(14, pModel.getTributacaonome());
             pstmt.executeUpdate();
             pstmt.close();
+            JOptionPane.showMessageDialog(null, "Produto "+pModel.getNome()+" alterado com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Falha ao alterar produto.\n" + e.getMessage());
         }
