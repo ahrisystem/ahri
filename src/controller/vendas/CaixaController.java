@@ -67,8 +67,8 @@ public class CaixaController {
         }
     }
     
-    public void fecharCaixa(CaixaModel model, int data) {
-        String sql = "UPDATE public.caixa SET fechado=true, fundo=?,sangria=? WHERE data = '"+data+"';";
+    public void fecharCaixa(CaixaModel model, int id) {
+        String sql = "UPDATE public.caixa SET fechado=true, fundo=?,sangria=? WHERE id = '"+id+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             //data do banco
@@ -78,7 +78,7 @@ public class CaixaController {
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar caixa.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao fechar caixa.\n" + e.getMessage());
         }
     }
 

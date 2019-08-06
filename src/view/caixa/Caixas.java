@@ -21,8 +21,9 @@ public class Caixas extends javax.swing.JPanel {
     public void fecharCaixa(){
         CaixaModel cm = new CaixaModel();
         cc.puxarDadosCaixa(cm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-        lblUsuarioFC.setText(cm.getUsuario());
+        lblId.setText(Integer.toString(cm.getId()));
         lblDataFC.setText(cm.getData());
+        lblUsuarioFC.setText(cm.getUsuario());
         txtFundoAtual.setText(Double.toString(cm.getFundo()));
         txtTotaldeVendas.setText(Double.toString(cm.getTotal()));
         fecharcaixa.setSize(380, 250);
@@ -54,16 +55,17 @@ public class Caixas extends javax.swing.JPanel {
     private void initComponents() {
 
         fecharcaixa = new javax.swing.JDialog();
-        backgroundValoresCaixa2 = new javax.swing.JPanel();
-        btnValoresCaixa1 = new javax.swing.JLabel();
-        lblUsuarioFC = new javax.swing.JLabel();
+        painelFecharCaixa = new javax.swing.JPanel();
+        btnFecharCaixa = new javax.swing.JLabel();
         lblDataFC = new javax.swing.JLabel();
+        lblUsuarioFC = new javax.swing.JLabel();
         lblSangriaFC = new javax.swing.JLabel();
         lbltdv = new javax.swing.JLabel();
         txtFundoAtual = new javax.swing.JFormattedTextField();
         txtTotaldeVendas = new javax.swing.JFormattedTextField();
         txtSangria = new javax.swing.JFormattedTextField();
         lblfafc = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnEditar = new javax.swing.JLabel();
@@ -79,49 +81,51 @@ public class Caixas extends javax.swing.JPanel {
         fecharcaixa.setResizable(false);
         fecharcaixa.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        backgroundValoresCaixa2.setBackground(new java.awt.Color(255, 255, 255));
-        backgroundValoresCaixa2.addMouseListener(new java.awt.event.MouseAdapter() {
+        painelFecharCaixa.setBackground(new java.awt.Color(255, 255, 255));
+        painelFecharCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                backgroundValoresCaixa2MousePressed(evt);
+                painelFecharCaixaMousePressed(evt);
             }
         });
-        backgroundValoresCaixa2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        painelFecharCaixa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnValoresCaixa1.setBackground(new java.awt.Color(102, 153, 255));
-        btnValoresCaixa1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        btnValoresCaixa1.setForeground(new java.awt.Color(255, 255, 255));
-        btnValoresCaixa1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnValoresCaixa1.setText("Fechar!");
-        btnValoresCaixa1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnValoresCaixa1.setOpaque(true);
-        btnValoresCaixa1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnFecharCaixa.setBackground(new java.awt.Color(102, 153, 255));
+        btnFecharCaixa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnFecharCaixa.setForeground(new java.awt.Color(255, 255, 255));
+        btnFecharCaixa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnFecharCaixa.setText("Fechar!");
+        btnFecharCaixa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFecharCaixa.setOpaque(true);
+        btnFecharCaixa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                btnValoresCaixa1MouseReleased(evt);
+                btnFecharCaixaMouseReleased(evt);
             }
         });
-        backgroundValoresCaixa2.add(btnValoresCaixa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 380, 40));
-
-        lblUsuarioFC.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
-        lblUsuarioFC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblUsuarioFC.setText("Usuário");
-        backgroundValoresCaixa2.add(lblUsuarioFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 30));
+        painelFecharCaixa.add(btnFecharCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 380, 40));
 
         lblDataFC.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblDataFC.setForeground(new java.awt.Color(51, 51, 51));
         lblDataFC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDataFC.setText("data");
+        lblDataFC.setText("Data");
         lblDataFC.setToolTipText("Data");
-        backgroundValoresCaixa2.add(lblDataFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 26));
+        painelFecharCaixa.add(lblDataFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 270, 26));
+
+        lblUsuarioFC.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblUsuarioFC.setForeground(new java.awt.Color(51, 51, 51));
+        lblUsuarioFC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsuarioFC.setText("adm");
+        lblUsuarioFC.setToolTipText("Data");
+        painelFecharCaixa.add(lblUsuarioFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 360, 26));
 
         lblSangriaFC.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblSangriaFC.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblSangriaFC.setText("Sangria");
-        backgroundValoresCaixa2.add(lblSangriaFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 156, 100, 30));
+        painelFecharCaixa.add(lblSangriaFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 156, 100, 30));
 
         lbltdv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lbltdv.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbltdv.setText("Total de vendas");
-        backgroundValoresCaixa2.add(lbltdv, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 120, 26));
+        painelFecharCaixa.add(lbltdv, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 120, 26));
 
         txtFundoAtual.setEditable(false);
         txtFundoAtual.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
@@ -133,27 +137,32 @@ public class Caixas extends javax.swing.JPanel {
                 txtFundoAtualFocusLost(evt);
             }
         });
-        backgroundValoresCaixa2.add(txtFundoAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
+        painelFecharCaixa.add(txtFundoAtual, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 100, -1));
 
         txtTotaldeVendas.setEditable(false);
         txtTotaldeVendas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtTotaldeVendas.setText("0,00");
         txtTotaldeVendas.setToolTipText("Total descontos");
         txtTotaldeVendas.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa2.add(txtTotaldeVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 100, -1));
+        painelFecharCaixa.add(txtTotaldeVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 100, -1));
 
         txtSangria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtSangria.setText("0,00");
         txtSangria.setToolTipText("Total descontos");
         txtSangria.setFont(new java.awt.Font("Consolas", 0, 18)); // NOI18N
-        backgroundValoresCaixa2.add(txtSangria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 158, 100, 30));
+        painelFecharCaixa.add(txtSangria, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 158, 100, 30));
 
         lblfafc.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblfafc.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblfafc.setText("Fundo atual");
-        backgroundValoresCaixa2.add(lblfafc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 100, 26));
+        painelFecharCaixa.add(lblfafc, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 100, 26));
 
-        fecharcaixa.getContentPane().add(backgroundValoresCaixa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        lblId.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
+        lblId.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblId.setText("0");
+        painelFecharCaixa.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 20));
+
+        fecharcaixa.getContentPane().add(painelFecharCaixa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -404,27 +413,26 @@ public class Caixas extends javax.swing.JPanel {
         listar();
     }//GEN-LAST:event_cbxFechadoActionPerformed
 
-    private void btnValoresCaixa1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnValoresCaixa1MouseReleased
-        if (JOptionPane.showConfirmDialog(null, "Deseja mesmo fechar o caixa?") == 1) {
-
-        }
-    }//GEN-LAST:event_btnValoresCaixa1MouseReleased
+    private void btnFecharCaixaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharCaixaMouseReleased
+        CaixaModel cm = new CaixaModel();
+        cm.setId(Integer.parseInt(lblId.getText()));
+        cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
+    }//GEN-LAST:event_btnFecharCaixaMouseReleased
 
     private void txtFundoAtualFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFundoAtualFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFundoAtualFocusLost
 
-    private void backgroundValoresCaixa2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backgroundValoresCaixa2MousePressed
+    private void painelFecharCaixaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelFecharCaixaMousePressed
 
-    }//GEN-LAST:event_backgroundValoresCaixa2MousePressed
+    }//GEN-LAST:event_painelFecharCaixaMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel backgroundValoresCaixa2;
     private javax.swing.JLabel btnAtualizar;
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnFechar;
-    private javax.swing.JLabel btnValoresCaixa1;
+    private javax.swing.JLabel btnFecharCaixa;
     private javax.swing.JLabel btnVisualizar;
     private javax.swing.JCheckBox cbxFechado;
     private javax.swing.JDialog fecharcaixa;
@@ -432,12 +440,14 @@ public class Caixas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDataFC;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblSangriaFC;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioFC;
     private javax.swing.JLabel lblfafc;
     private javax.swing.JLabel lbltdv;
+    private javax.swing.JPanel painelFecharCaixa;
     private javax.swing.JTable tabela;
     private javax.swing.JFormattedTextField txtFundoAtual;
     private javax.swing.JFormattedTextField txtSangria;
