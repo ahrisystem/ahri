@@ -70,7 +70,7 @@ public class TributacaoController {
 
     public List<TributacaoModel> listaTributacao(String nome) {
         List<TributacaoModel> tributacoes = new ArrayList<>();
-        String sql = "SELECT cod,descricao FROM public.tributacao where descricao LIKE '%" + nome + "%';";
+        String sql = "SELECT cod,descricao FROM public.tributacao where descricao iLIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

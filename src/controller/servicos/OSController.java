@@ -19,7 +19,7 @@ public class OSController {
     public OSController(){
         this.conexao = new connection().obterConexao("Controle de OS.");
     }
-/////////////////////////ORCAMENTOS/////////////////////////////////////////////       
+    
     public void cadastraOS(OSModel model) {
         String sql = "INSERT INTO public.os(cod,status,cliente,nomecliente,cnpjcliente,"
                 + "placa,nomeplaca,valortotal,criacao,alteracao,usuario,obs) "
@@ -41,13 +41,13 @@ public class OSController {
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "OS Nº "+model.getCod()+" salva!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar OS.\n" + e.getMessage());
         }
     }
     public void cadastraServicosOS(OSItensModel model) {
         String sql = "INSERT INTO public.ositens("
-                + "venda,os,nome,quantidade,valorunitario,valortotal)  "
-                + "VALUES (?, ?, ?, ?,?,?);";
+                + "os,cod,nome,valorunitario,quantidade,valortotal)  "
+                + "VALUES (?,? ?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setInt(1, model.getOs());
@@ -58,7 +58,7 @@ public class OSController {
             pstmt.setDouble(6, model.getValortotal());
             pstmt.execute();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar serviços do orçamento.\n" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao salvar serviços da OS.\n" + e.getMessage());
         }
     }
     
@@ -100,7 +100,7 @@ public class OSController {
         List<OSModel> ordens = new ArrayList<>();
         String sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
                 + "FROM os v, entidade e WHERE v.cliente = e.cod and "
-                + " e."+filtro+" like '%"+valor+"%';";
+                + " e."+filtro+" ilike '%"+valor+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

@@ -24,6 +24,7 @@ import model.cadastros.placa.PlacaModel;
 import model.cadastrosUnicos.EmpresaModel;
 import model.servicos.OSItensModel;
 import model.servicos.OSModel;
+import model.vendas.VendasItensModel;
 
 public class GerarOSPDF {
 
@@ -62,7 +63,7 @@ public class GerarOSPDF {
         return em;
     }
 
-    public static void OS(OSModel om, List<OSItensModel> s) {
+    public static void OS(OSModel om, List<OSItensModel> itens, boolean emBranco) {
         PdfWriter writer;
         try {
             writer = new PdfWriter(new FileOutputStream(getCaminho()+"os"+om.getCod()+".pdf"));
@@ -92,38 +93,71 @@ public class GerarOSPDF {
             //Sobre o cliente
             Table cabeçalhoCliente = new Table(new float[]{1});
             cabeçalhoCliente.setWidth(UnitValue.createPercentValue(100));
-            cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph(
-                "Cliente: " + getDadosCliente(om.getCliente()).getNome() + "\n"
-                + getDadosCliente(om.getCliente()).getCNPJ() + " - " + getDadosCliente(om.getCliente()).getFone1()+"\n")
-                .setFont(font)));
+            if (emBranco) {
+                cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph("\n\n").setFont(font)));
+            } else {
+                cabeçalhoCliente.addHeaderCell(new Cell().add(new Paragraph(
+                    "Cliente: " + getDadosCliente(om.getCliente()).getNome() + "\n"
+                    + getDadosCliente(om.getCliente()).getCNPJ() + " - " + getDadosCliente(om.getCliente()).getFone1()+"\n")
+                    .setFont(font)));
+            }
 
             //Sobre a placa
             Table cabeçalhoPlaca = new Table(new float[]{1});
             cabeçalhoPlaca.setWidth(UnitValue.createPercentValue(100));
             
-            cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph(
-                "Placa: " + om.getPlaca() + " - " + getDadosPlaca(om.getPlaca()).getNome()).setFont(font)));
-
+            if (emBranco) {
+                cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph(
+                    "Placa: ")).setFont(font));
+            } else {
+                cabeçalhoPlaca.addHeaderCell(new Cell().add(new Paragraph(
+                    "Placa: " + om.getPlaca() + " - " + getDadosPlaca(om.getPlaca()).getNome()).setFont(font)));
+            }
             //Tabela de serviços
             Table tabelaServicos = new Table(new float[]{1, 4, 4, 4,});
             tabelaServicos.setWidth(UnitValue.createPercentValue(100));
-
+            
             // Adicionando cabeçalho servicos
             tabelaServicos.addHeaderCell(new Cell().add(new Paragraph("Servico").setFont(headerFont)));
             tabelaServicos.addHeaderCell(new Cell().add(new Paragraph("Valor").setFont(headerFont)));
             tabelaServicos.addHeaderCell(new Cell().add(new Paragraph("HRS").setFont(headerFont)));
             tabelaServicos.addHeaderCell(new Cell().add(new Paragraph("Total").setFont(headerFont)));
-           
-            for (OSItensModel produto : s) {
-                tabelaServicos.addCell(new Cell().add(new Paragraph(produto.getNome()).setFont(font)));
-                tabelaServicos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValorunitario())).setFont(font)));
-                tabelaServicos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getQuantidade())).setFont(font)));
-                tabelaServicos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValortotal())).setFont(font)));
+            
+            //tabela de serviços
+            if (emBranco) {
+                for (int i = 0; i < 15; i++) {
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                }
+            } else {
+                int contador = 0;
+                for (OSItensModel produto : itens) {
+                    tabelaServicos.addCell(new Cell().add(new Paragraph(produto.getNome()).setFont(font)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValorunitario())).setFont(font)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getQuantidade())).setFont(font)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph(Double.toString(produto.getValortotal())).setFont(font)));
+                }
+                //Linhas restantes de produtos
+                int i;
+                for (i = contador; i < 10; i++) {
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                }
             }
-            tabelaServicos.addFooterCell(new Cell().add(new Paragraph("").setFont(headerFont)));
-            tabelaServicos.addFooterCell(new Cell().setFont(headerFont));
-            tabelaServicos.addFooterCell(new Cell().setFont(headerFont));
-            tabelaServicos.addFooterCell(new Cell().add(new Paragraph("R$ " + om.getValorTotal()).setFont(headerFont)));
+            
+            if (emBranco) {
+            } else {
+                tabelaServicos.addFooterCell(new Cell().add(new Paragraph("").setFont(headerFont)));
+                tabelaServicos.addFooterCell(new Cell().setFont(headerFont));
+                tabelaServicos.addFooterCell(new Cell().setFont(headerFont));
+                tabelaServicos.addFooterCell(new Cell().add(new Paragraph("R$ " + om.getValorTotal()).setFont(headerFont)));
+            }
             
             //Observações
             Table obs = new Table(new float[]{1});
@@ -167,6 +201,6 @@ public class GerarOSPDF {
         p.setValortotal(50.0);
         produtos.add(p);
         produtos.add(p);
-        OS(om, produtos);
+        OS(om, produtos, false);
     }
 }

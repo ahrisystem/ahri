@@ -328,6 +328,7 @@ public class NovoProduto extends javax.swing.JFrame {
 
         txtPreco.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtPreco.setText("0,00");
         txtPreco.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         painelPrincipal.add(txtPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 30));
 
@@ -339,6 +340,7 @@ public class NovoProduto extends javax.swing.JFrame {
 
         txtCusto.setForeground(new java.awt.Color(204, 0, 51));
         txtCusto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtCusto.setText("0,00");
         txtCusto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         txtCusto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

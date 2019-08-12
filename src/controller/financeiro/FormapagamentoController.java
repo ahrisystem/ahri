@@ -39,7 +39,7 @@ public class FormapagamentoController {
 
     public List<FormapagamentoModel> listaFormas(String nome) {
         List<FormapagamentoModel> formas = new ArrayList<>();
-        String sql = "SELECT * FROM formapagamento where nome LIKE '%" + nome + "%';";
+        String sql = "SELECT * FROM formapagamento where nome iLIKE '%" + nome + "%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

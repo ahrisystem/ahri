@@ -47,7 +47,7 @@ public class ProdutoController {
 
     public List<ProdutoModel> listaProdutos(String nome) {
         List<ProdutoModel> produtos = new ArrayList<>();
-        String sql = "SELECT cod, \"codigoBarras\", nome,\"unidadeMedida\",preco, grupo FROM produto where inativo=FALSE and nome LIKE '%" + nome + "%' order by nome;";
+        String sql = "SELECT cod, \"codigoBarras\", nome,\"unidadeMedida\",preco, grupo FROM produto where inativo=FALSE and nome ilike '%" + nome + "%' order by nome;";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

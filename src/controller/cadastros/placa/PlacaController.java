@@ -38,7 +38,7 @@ public class PlacaController {
 
     public List<PlacaModel> listaPlacas(String filtro, String nome) {
         List<PlacaModel> entidades = new ArrayList<>();
-        String sql = "Select cod,nome,nomecliente from placa where inativo = false and "+filtro+" like '%"+nome+"%';";
+        String sql = "Select cod,nome,nomecliente from placa where inativo = false and "+filtro+" ilike '%"+nome+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -58,7 +58,7 @@ public class PlacaController {
     
     public List<PlacaModel> listaPlacasExcluidas(String cod) {
         List<PlacaModel> placas = new ArrayList<>();
-        String sql = "Select cod,nome from placa where inativo = true and nome like '%"+cod+"%';";
+        String sql = "Select cod,nome from placa where inativo = true and nome ilike '%"+cod+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

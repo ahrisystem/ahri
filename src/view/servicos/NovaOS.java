@@ -751,10 +751,10 @@ public class NovaOS extends javax.swing.JFrame {
                 vim.setValorunitario(Double.parseDouble(tblProdutos.getValueAt(i, 2).toString().replace(",", ".")));
                 vim.setQuantidade(Double.parseDouble(tblProdutos.getValueAt(i, 3).toString().replace(",", ".")));
                 vim.setValortotal(Double.parseDouble(tblProdutos.getValueAt(i, 4).toString().replace(",", ".")));
-                oc.cadastraServicosOS(vim);
                 servicos.add(vim);
+                oc.cadastraServicosOS(vim);
             }
-            g.OS(om, servicos);
+            g.OS(om, servicos, false);
             
             limpaCampos();
             this.dispose();

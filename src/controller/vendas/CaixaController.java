@@ -71,10 +71,8 @@ public class CaixaController {
         String sql = "UPDATE public.caixa SET fechado=true, fundo=?,sangria=? WHERE id = '"+id+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            //data do banco
-            pstmt.setBoolean(2, model.isFechado());
-            pstmt.setDouble(3, model.getFundo());
-            pstmt.setDouble(4, model.getSangria());
+            pstmt.setDouble(2, model.getFundo());
+            pstmt.setDouble(3, model.getSangria());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
         } catch (Exception e) {

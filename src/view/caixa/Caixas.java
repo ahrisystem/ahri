@@ -23,7 +23,7 @@ public class Caixas extends javax.swing.JPanel {
         cc.puxarDadosCaixa(cm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
         lblId.setText(Integer.toString(cm.getId()));
         lblDataFC.setText(cm.getData());
-        lblUsuarioFC.setText(cm.getUsuario());
+        lblUsuarioFC.setText(lblUsuario.getText());
         txtFundoAtual.setText(Double.toString(cm.getFundo()));
         txtTotaldeVendas.setText(Double.toString(cm.getTotal()));
         fecharcaixa.setSize(380, 250);
@@ -443,7 +443,7 @@ public class Caixas extends javax.swing.JPanel {
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblSangriaFC;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblUsuario;
+    public javax.swing.JLabel lblUsuario;
     private javax.swing.JLabel lblUsuarioFC;
     private javax.swing.JLabel lblfafc;
     private javax.swing.JLabel lbltdv;

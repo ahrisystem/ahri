@@ -797,6 +797,7 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         if (financeiro) {
             Caixas caixas = Caixas.getInstancia();
+            caixas.lblUsuario.setText(btnUsuario.getText());
             painelPrincipal.add("Caixas", caixas);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));

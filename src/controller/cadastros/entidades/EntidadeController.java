@@ -88,7 +88,7 @@ public class EntidadeController {
 
     public List<EntidadeModel> listaClientes(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
-        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1 and nome like '%"+nome+"%';";
+        String sql = "Select cod,nome,cnpj,uf,xmun from entidade where inativo = false and cliente = 1 and nome ilike '%"+nome+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -109,7 +109,7 @@ public class EntidadeController {
     }
     public List<EntidadeModel> listaClientesExcluidos(String nome) {
         List<EntidadeModel> clientes = new ArrayList<>();
-        String sql = "Select cod,nome from entidade where inativo = true and cliente = 1 and nome like '%"+nome+"%';";
+        String sql = "Select cod,nome from entidade where inativo = true and cliente = 1 and nome ilike '%"+nome+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -149,7 +149,7 @@ public class EntidadeController {
     }
     public List<EntidadeModel> listaFornecedoresExcluidos(String nome) {
         List<EntidadeModel> fornecedores = new ArrayList<>();
-        String sql = "Select cod,nome from entidade where inativo = true and fornecedor = 1 and nome like '%"+nome+"%';";
+        String sql = "Select cod,nome from entidade where inativo = true and fornecedor = 1 and nome ilike '%"+nome+"%';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

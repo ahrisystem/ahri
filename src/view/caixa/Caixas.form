@@ -411,6 +411,9 @@
                 <Property name="text" type="java.lang.String" value="Usuario"/>
                 <Property name="toolTipText" type="java.lang.String" value="Usu&#xe1;rio logado"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

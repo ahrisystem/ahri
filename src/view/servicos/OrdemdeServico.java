@@ -2,8 +2,11 @@ package view.servicos;
 
 import controller.servicos.OSController;
 import funcoes.GerarOSPDF;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.servicos.OSItensModel;
 import model.servicos.OSModel;
 
 public class OrdemdeServico extends javax.swing.JPanel {
@@ -348,15 +351,14 @@ public class OrdemdeServico extends javax.swing.JPanel {
 
     private void btnGerarPDFMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarPDFMouseReleased
         OSModel vm = new OSModel();
-
         if (tabela.getSelectedRow()<0) {
             JOptionPane.showMessageDialog(null, "Nenhuma OS selecionada.");
         } else {
             if (JOptionPane.showConfirmDialog(null, "Gerar o PDF?",
                 "GERAR PDF?", 2) == 0) {
-            oc.puxarDadosOS(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
-            go.OS(vm, oc.puxarDadosItensOS(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())));
-        }
+                oc.puxarDadosOS(vm, Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString()));
+                go.OS(vm, oc.puxarDadosItensOS(Integer.parseInt(tabela.getValueAt(tabela.getSelectedRow(), 0).toString())), false);
+            }
         }
     }//GEN-LAST:event_btnGerarPDFMouseReleased
 
@@ -365,7 +367,12 @@ public class OrdemdeServico extends javax.swing.JPanel {
     }//GEN-LAST:event_tabelaMouseReleased
 
     private void btnGerarEmBrancoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGerarEmBrancoMouseReleased
-        // TODO add your handling code here:
+        OSModel vm = new OSModel();
+        if (JOptionPane.showConfirmDialog(null, "Gerar PDF em branco?",
+                "Gerar PDF em branco?", 2) == 0) {
+            List<OSItensModel> itens = new ArrayList<>();
+            go.OS(vm, itens, true);
+        }
     }//GEN-LAST:event_btnGerarEmBrancoMouseReleased
 
 

@@ -981,7 +981,7 @@ public class EditarOS extends javax.swing.JFrame {
                 servicos.add(vim);
             }
             GerarOSPDF g = new GerarOSPDF();
-            g.OS(vm, servicos);
+            g.OS(vm, servicos, false);
 
             limpaCampos();
             this.dispose();
