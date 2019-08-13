@@ -3,8 +3,10 @@ package view.controles;
 import controller.controles.StatusController;
 
 public class Status extends javax.swing.JPanel {
-    private static final Status INSTANCIA = new Status();
     StatusController sc = new StatusController();
+    
+    private static final Status INSTANCIA = new Status();
+    
     
     public static Status getInstancia() {
         return INSTANCIA;

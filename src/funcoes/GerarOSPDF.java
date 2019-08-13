@@ -16,6 +16,7 @@ import com.itextpdf.layout.property.UnitValue;
 import controller.cadastros.entidades.EntidadeController;
 import controller.cadastros.placa.PlacaController;
 import controller.cadastrosUnicos.EmpresaController;
+import java.awt.Font;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,12 +68,11 @@ public class GerarOSPDF {
         PdfWriter writer;
         try {
             writer = new PdfWriter(new FileOutputStream(getCaminho()+"os"+om.getCod()+".pdf"));
-            PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
-            PdfFont headerFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+            PdfFont font = PdfFontFactory.createFont(StandardFonts.COURIER);
+            PdfFont headerFont = PdfFontFactory.createFont(StandardFonts.COURIER_BOLD);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             //Adicionar linha separadora
-            final SolidLine lineDrawer = new SolidLine(1f);
 
             // Adicionando cabeçalho
             Table cabeçalho = new Table(new float[]{10, 2});
@@ -125,9 +125,7 @@ public class GerarOSPDF {
             
             //tabela de serviços
             if (emBranco) {
-                for (int i = 0; i < 15; i++) {
-                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
-                    tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
+                for (int i = 0; i < 10; i++) {
                     tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                     tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));
                     tabelaServicos.addCell(new Cell().add(new Paragraph().setHeight(18)));

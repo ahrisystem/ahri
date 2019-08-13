@@ -23,7 +23,24 @@ public class EditarCaixa extends javax.swing.JFrame {
     public void puxarDados(int id){
         CaixaModel cm = new CaixaModel();
         cc.puxarDadosCaixa(cm, id);
+        
         txtData.setText(cm.getData());
+        txtUsuario.setText(cm.getUsuario());
+        
+        if (cm.isFechado()) {
+            lblStatus.setText("Fechado");
+        } else {
+            lblStatus.setText("Aberto");
+        }
+        
+        txtFundodeTroco.setText(Double.toString(cm.getFundo()).replace(".", ","));
+        txtSuprimento.setText(Double.toString(cm.getSuprimento()).replace(".", ","));
+        txtSangria.setText(Double.toString(cm.getSangria()).replace(".", ","));
+        txtSaidas.setText(Double.toString(cm.getSaida()).replace(".", ","));
+        txtEntradas.setText(Double.toString(cm.getEntrada()).replace(".", ","));
+        
+        txtDesconto.setText(Double.toString(cm.getDescontos()).replace(".", ","));
+        txtVendas.setText(Double.toString(cm.getTotal()).replace(".", ","));
     }
     
     @SuppressWarnings("unchecked")
@@ -41,30 +58,31 @@ public class EditarCaixa extends javax.swing.JFrame {
         painelPrincipal = new javax.swing.JPanel();
         lblCodigo = new javax.swing.JLabel();
         txtData = new javax.swing.JTextField();
-        txtNome = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         jTabbedPane = new javax.swing.JTabbedPane();
         abaFiscal = new javax.swing.JPanel();
-        txtPreco = new javax.swing.JFormattedTextField();
+        txtFundodeTroco = new javax.swing.JFormattedTextField();
         lblNome = new javax.swing.JLabel();
         lblNome2 = new javax.swing.JLabel();
-        txtPreco1 = new javax.swing.JFormattedTextField();
+        txtSuprimento = new javax.swing.JFormattedTextField();
         lblNome3 = new javax.swing.JLabel();
-        txtPreco2 = new javax.swing.JFormattedTextField();
+        txtSangria = new javax.swing.JFormattedTextField();
         lblNome4 = new javax.swing.JLabel();
-        txtPreco3 = new javax.swing.JFormattedTextField();
+        txtSaidas = new javax.swing.JFormattedTextField();
         lblNome5 = new javax.swing.JLabel();
-        txtPreco4 = new javax.swing.JFormattedTextField();
+        txtEntradas = new javax.swing.JFormattedTextField();
         lblNome6 = new javax.swing.JLabel();
-        txtPreco5 = new javax.swing.JFormattedTextField();
+        txtDesconto = new javax.swing.JFormattedTextField();
         lblNome7 = new javax.swing.JLabel();
-        txtPreco6 = new javax.swing.JFormattedTextField();
+        txtVendas = new javax.swing.JFormattedTextField();
+        jSeparator1 = new javax.swing.JSeparator();
         abaPlacas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela1 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btnNovo4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
         lblNome1 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
 
@@ -207,11 +225,11 @@ public class EditarCaixa extends javax.swing.JFrame {
         txtData.setPreferredSize(new java.awt.Dimension(200, 20));
         painelPrincipal.add(txtData, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 100, 20));
 
-        txtNome.setEditable(false);
-        txtNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtNome.setText("adm");
-        txtNome.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelPrincipal.add(txtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 540, 20));
+        txtUsuario.setEditable(false);
+        txtUsuario.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtUsuario.setText("adm");
+        txtUsuario.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelPrincipal.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 40, 540, 20));
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSalvar.setText("Fechar");
@@ -228,96 +246,98 @@ public class EditarCaixa extends javax.swing.JFrame {
         abaFiscal.setOpaque(false);
         abaFiscal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtPreco.setEditable(false);
-        txtPreco.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco.setText("0,00");
-        txtPreco.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 130, 30));
+        txtFundodeTroco.setEditable(false);
+        txtFundodeTroco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtFundodeTroco.setText("0,00");
+        txtFundodeTroco.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtFundodeTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 130, 30));
 
         lblNome.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(51, 105, 191));
         lblNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome.setText("Fundo de troco");
-        abaFiscal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 140, 30));
+        abaFiscal.add(lblNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 140, 30));
 
         lblNome2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome2.setForeground(new java.awt.Color(51, 105, 191));
         lblNome2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome2.setText("Suprimentos");
-        abaFiscal.add(lblNome2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 140, 30));
+        abaFiscal.add(lblNome2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 110, 30));
 
-        txtPreco1.setEditable(false);
-        txtPreco1.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco1.setText("0,00");
-        txtPreco1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 130, 30));
+        txtSuprimento.setEditable(false);
+        txtSuprimento.setForeground(new java.awt.Color(0, 153, 0));
+        txtSuprimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtSuprimento.setText("0,00");
+        txtSuprimento.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtSuprimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 130, 30));
 
         lblNome3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome3.setForeground(new java.awt.Color(51, 105, 191));
         lblNome3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome3.setText("Sangria");
-        abaFiscal.add(lblNome3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 140, 30));
+        abaFiscal.add(lblNome3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 140, 30));
 
-        txtPreco2.setEditable(false);
-        txtPreco2.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco2.setText("0,00");
-        txtPreco2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, 130, 30));
+        txtSangria.setEditable(false);
+        txtSangria.setForeground(new java.awt.Color(204, 51, 0));
+        txtSangria.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtSangria.setText("0,00");
+        txtSangria.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtSangria, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 130, 30));
 
         lblNome4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome4.setForeground(new java.awt.Color(51, 105, 191));
         lblNome4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome4.setText("Saídas");
-        abaFiscal.add(lblNome4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, 140, 30));
+        abaFiscal.add(lblNome4, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 140, 30));
 
-        txtPreco3.setEditable(false);
-        txtPreco3.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco3.setText("0,00");
-        txtPreco3.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 130, 30));
+        txtSaidas.setEditable(false);
+        txtSaidas.setForeground(new java.awt.Color(204, 51, 0));
+        txtSaidas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtSaidas.setText("0,00");
+        txtSaidas.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtSaidas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 130, 30));
 
         lblNome5.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome5.setForeground(new java.awt.Color(51, 105, 191));
         lblNome5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome5.setText("Entradas");
-        abaFiscal.add(lblNome5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 140, 30));
+        abaFiscal.add(lblNome5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 140, 30));
 
-        txtPreco4.setEditable(false);
-        txtPreco4.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco4.setText("0,00");
-        txtPreco4.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco4, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 130, 30));
+        txtEntradas.setEditable(false);
+        txtEntradas.setForeground(new java.awt.Color(0, 153, 0));
+        txtEntradas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtEntradas.setText("0,00");
+        txtEntradas.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtEntradas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 130, 30));
 
         lblNome6.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome6.setForeground(new java.awt.Color(51, 105, 191));
         lblNome6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome6.setText("Descontos");
-        abaFiscal.add(lblNome6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 140, 30));
+        abaFiscal.add(lblNome6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 120, 30));
 
-        txtPreco5.setEditable(false);
-        txtPreco5.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco5.setText("0,00");
-        txtPreco5.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 130, 30));
+        txtDesconto.setEditable(false);
+        txtDesconto.setForeground(new java.awt.Color(204, 153, 0));
+        txtDesconto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtDesconto.setText("0,00");
+        txtDesconto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtDesconto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 150, 130, 30));
 
         lblNome7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome7.setForeground(new java.awt.Color(51, 105, 191));
         lblNome7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblNome7.setText("Total vendas");
-        abaFiscal.add(lblNome7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 140, 30));
+        abaFiscal.add(lblNome7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, 140, 30));
 
-        txtPreco6.setEditable(false);
-        txtPreco6.setForeground(new java.awt.Color(0, 153, 0));
-        txtPreco6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        txtPreco6.setText("0,00");
-        txtPreco6.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        abaFiscal.add(txtPreco6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 130, 30));
+        txtVendas.setEditable(false);
+        txtVendas.setForeground(new java.awt.Color(0, 153, 0));
+        txtVendas.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtVendas.setText("0,00");
+        txtVendas.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaFiscal.add(txtVendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 130, 30));
+
+        jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
+        abaFiscal.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 750, 20));
 
         jTabbedPane.addTab("Totais", abaFiscal);
 
@@ -395,10 +415,10 @@ public class EditarCaixa extends javax.swing.JFrame {
 
         painelPrincipal.add(jTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 750, 240));
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("STATUS");
-        painelPrincipal.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 10, 130, 20));
+        lblStatus.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStatus.setText("STATUS");
+        painelPrincipal.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(524, 10, 130, 20));
 
         lblNome1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblNome1.setForeground(new java.awt.Color(51, 105, 191));
@@ -483,11 +503,11 @@ public class EditarCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel btnNovo4;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionarPesquisa;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblNome;
@@ -498,6 +518,7 @@ public class EditarCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome5;
     private javax.swing.JLabel lblNome6;
     private javax.swing.JLabel lblNome7;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloPesquisa;
     private javax.swing.JPanel painelPrincipal;
@@ -506,14 +527,14 @@ public class EditarCaixa extends javax.swing.JFrame {
     private javax.swing.JTable tabela;
     private javax.swing.JTable tabela1;
     private javax.swing.JTextField txtData;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JFormattedTextField txtDesconto;
+    private javax.swing.JFormattedTextField txtEntradas;
+    private javax.swing.JFormattedTextField txtFundodeTroco;
     private javax.swing.JTextField txtPesquisa;
-    private javax.swing.JFormattedTextField txtPreco;
-    private javax.swing.JFormattedTextField txtPreco1;
-    private javax.swing.JFormattedTextField txtPreco2;
-    private javax.swing.JFormattedTextField txtPreco3;
-    private javax.swing.JFormattedTextField txtPreco4;
-    private javax.swing.JFormattedTextField txtPreco5;
-    private javax.swing.JFormattedTextField txtPreco6;
+    private javax.swing.JFormattedTextField txtSaidas;
+    private javax.swing.JFormattedTextField txtSangria;
+    private javax.swing.JFormattedTextField txtSuprimento;
+    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JFormattedTextField txtVendas;
     // End of variables declaration//GEN-END:variables
 }

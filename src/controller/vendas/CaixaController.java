@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.vendas.CaixaModel;
-import model.vendas.VendasItensModel;
-import model.vendas.VendasModel;
 
 public class CaixaController {
 
@@ -71,8 +69,8 @@ public class CaixaController {
         String sql = "UPDATE public.caixa SET fechado=true, fundo=?,sangria=? WHERE id = '"+id+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            pstmt.setDouble(2, model.getFundo());
-            pstmt.setDouble(3, model.getSangria());
+            pstmt.setDouble(1, model.getFundo());
+            pstmt.setDouble(2, model.getSangria());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
         } catch (Exception e) {
@@ -139,12 +137,13 @@ public class CaixaController {
     }
     
     public void puxarDadosCaixa(CaixaModel Model, int id) {
-        String sql = "SELECT * FROM public.vendas where id = '" + id + "';";
+        String sql = "SELECT * FROM public.caixa where id = '" + id + "';";
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 //id|data|usuario|fechado| fundo | sangria | suprimento | saida | entrada | descontos | bruto | total
+                Model.setId(rs.getInt("id"));
                 Model.setData(rs.getString("data"));
                 Model.setUsuario(rs.getString("usuario"));
                 Model.setFechado(rs.getBoolean("fechado"));

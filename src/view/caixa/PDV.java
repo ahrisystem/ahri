@@ -186,7 +186,6 @@ public class PDV extends javax.swing.JFrame{
                 "Cancelar venda em aberto", 2) == 0) {
             setTela("inicio");
             painelTela.remove(painelItens);
-            
         }
     }
     
@@ -248,6 +247,7 @@ public class PDV extends javax.swing.JFrame{
         txtValorBrutoFinalizar.setText("0,00");
         txtTotalDescontosFinalzar.setText("0,00");
         txtTotalFinalizar.setText("0,00");
+        painelTela.remove(painelItens);
     }
     
     @SuppressWarnings("unchecked")
