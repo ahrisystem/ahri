@@ -406,12 +406,16 @@ public class Caixas extends javax.swing.JPanel {
                 cm.setFundo(diferença);
                 cm.setSangria(Double.parseDouble(txtSangria.getText().replace(",", ".")));
                 cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
+                fecharcaixa.setVisible(false);
+                txtSangria.setText("0,00");
             }
         } else {
             cm.setId(Integer.parseInt(lblId.getText()));
             cm.setFundo(0);
             cm.setSangria(Double.parseDouble(txtSangria.getText().replace(",", ".")));
             cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
+            fecharcaixa.setVisible(false);
+            txtSangria.setText("0,00");
         }
     }//GEN-LAST:event_btnFecharCaixaMouseReleased
 

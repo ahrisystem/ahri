@@ -4,6 +4,7 @@ Entidades
 
 Vendas
 --No campo TIPO da tabela VENDAS: 
+    0 tudo
     1 orçamento
     2 venda no caixa
 

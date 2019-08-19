@@ -125,11 +125,11 @@ public class main extends javax.swing.JFrame {
             temporizador++;
             jProgressBar1.setValue(temporizador);
             if (temporizador == 10) {
+                temporizador++;
                 lblRecurso.setText("Conectando ao banco de dados...");
                 new connection().obterConexao("Conexão inicial.");
-                temporizador++;
             }
-            if (temporizador > 20) {
+            if (temporizador == 20) {
                 lblRecurso.setText("");
                 lblRecurso.setText("Abrindo sistema...");
             }

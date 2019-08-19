@@ -156,9 +156,18 @@ public class VendasController {
 
     public List<VendasModel> listar(String filtro,String valor, int tipo) {
         List<VendasModel> clientes = new ArrayList<>();
-        String sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
-                + "FROM vendas v, entidade e WHERE tipo = '"+tipo+"' and v.cliente = e.cod and "
-                + "tipo = 1 and e."+filtro+" like '%"+valor+"%';";
+        String sql = "";
+        if (tipo == 0) {
+            sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
+                + "FROM vendas v, entidade e WHERE v.cliente = e.cod "
+                + "and e."+filtro+" like '%"+valor+"%';";
+        } else {
+            sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
+                + "FROM vendas v, entidade e WHERE tipo = '"+tipo+"' and v.cliente = e.cod "
+                + "and e."+filtro+" like '%"+valor+"%';";
+        }
+        
+        
         try {
             Statement stmt = conexao.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
