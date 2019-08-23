@@ -49,8 +49,9 @@ public class EditarCaixa extends javax.swing.JFrame {
         //vendas
         DefaultTableModel modelo = (DefaultTableModel) tabelaVendas.getModel();
         modelo.setNumRows(0);
+        Double totalVendas = 0.0;
         for (VendasModel e : vc.listar("criacao", cm.getData(), 0)) {
-            String status = "";
+            String status = "Finalizado";
             if (e.getStatus()==1) {
                 status = "Emitido";
             }
@@ -67,8 +68,11 @@ public class EditarCaixa extends javax.swing.JFrame {
                 e.getCnpjcliente(),
                 e.getValorTotal()
             });
+            totalVendas = totalVendas + e.getValorTotal();
         }
-        
+        //totais de venda (valor total das vendas somado)
+        txtVendas.setText(totalVendas.toString());
+        txtVendas1.setText(totalVendas.toString());
     }
     
     @SuppressWarnings("unchecked")
@@ -103,6 +107,8 @@ public class EditarCaixa extends javax.swing.JFrame {
         tabelaVendas = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btnNovo4 = new javax.swing.JLabel();
+        txtVendas1 = new javax.swing.JFormattedTextField();
+        lblNome8 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         lblUsuário = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -258,16 +264,16 @@ public class EditarCaixa extends javax.swing.JFrame {
         tabelaVendas.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tabelaVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Código", "Tipo", "Valor"
+                "Código", "Status", "Cliente", "CPF CNPJ", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -286,9 +292,10 @@ public class EditarCaixa extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaVendas);
 
-        abaPlacas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 630, 190));
+        abaPlacas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 630, 150));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnNovo4.setBackground(new java.awt.Color(51, 105, 191));
         btnNovo4.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -302,25 +309,22 @@ public class EditarCaixa extends javax.swing.JFrame {
                 btnNovo4MouseReleased(evt);
             }
         });
+        jPanel4.add(btnNovo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 70, 38));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNovo4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNovo4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(140, Short.MAX_VALUE))
-        );
+        abaPlacas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 10, 90, 190));
 
-        abaPlacas.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(646, 10, 90, -1));
+        txtVendas1.setEditable(false);
+        txtVendas1.setForeground(new java.awt.Color(0, 153, 0));
+        txtVendas1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtVendas1.setText("0,00");
+        txtVendas1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        abaPlacas.add(txtVendas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 130, 30));
+
+        lblNome8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        lblNome8.setForeground(new java.awt.Color(51, 105, 191));
+        lblNome8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNome8.setText("Total vendas");
+        abaPlacas.add(lblNome8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, 140, 30));
 
         jTabbedPane.addTab("Vendas", abaPlacas);
 
@@ -408,6 +412,7 @@ public class EditarCaixa extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome5;
     private javax.swing.JLabel lblNome6;
     private javax.swing.JLabel lblNome7;
+    private javax.swing.JLabel lblNome8;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuário;
@@ -422,5 +427,6 @@ public class EditarCaixa extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtSuprimento;
     private javax.swing.JTextField txtUsuario;
     private javax.swing.JFormattedTextField txtVendas;
+    private javax.swing.JFormattedTextField txtVendas1;
     // End of variables declaration//GEN-END:variables
 }

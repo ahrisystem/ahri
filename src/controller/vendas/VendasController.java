@@ -157,11 +157,14 @@ public class VendasController {
     public List<VendasModel> listar(String filtro,String valor, int tipo) {
         List<VendasModel> clientes = new ArrayList<>();
         String sql = "";
+        //todas as vendas
         if (tipo == 0) {
             sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
                 + "FROM vendas v, entidade e WHERE v.cliente = e.cod "
-                + "and e."+filtro+" like '%"+valor+"%';";
-        } else {
+                + "and v."+filtro+" = '%"+valor+"%';";
+        }
+        //orcamentos
+        if (tipo == 1) {
             sql = "SELECT v.cod,v.status,e.nome,e.cnpj,v.valortotal "
                 + "FROM vendas v, entidade e WHERE tipo = '"+tipo+"' and v.cliente = e.cod "
                 + "and e."+filtro+" like '%"+valor+"%';";
