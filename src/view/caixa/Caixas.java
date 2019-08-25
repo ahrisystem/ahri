@@ -43,9 +43,7 @@ public class Caixas extends javax.swing.JPanel {
                 e.getId(),
                 e.getData(),
                 status,
-                e.getUsuario(),
-                e.getEntrada(),
-                e.getSaida()
+                e.getUsuario()
             });
         }
     }
@@ -243,16 +241,16 @@ public class Caixas extends javax.swing.JPanel {
         tabela.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Data do caixa", "Status", "Usuário", "Entradas", "Saídas"
+                "Id", "Data do caixa", "Status", "Usuário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -272,9 +270,8 @@ public class Caixas extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabela);
         if (tabela.getColumnModel().getColumnCount() > 0) {
             tabela.getColumnModel().getColumn(0).setMaxWidth(50);
-            tabela.getColumnModel().getColumn(1).setMaxWidth(80);
-            tabela.getColumnModel().getColumn(4).setMaxWidth(80);
-            tabela.getColumnModel().getColumn(5).setMaxWidth(80);
+            tabela.getColumnModel().getColumn(1).setMinWidth(120);
+            tabela.getColumnModel().getColumn(1).setMaxWidth(120);
         }
 
         btnAtualizar.setBackground(new java.awt.Color(255, 255, 255));
@@ -404,7 +401,6 @@ public class Caixas extends javax.swing.JPanel {
                 "Fechar o caixa?", 1) == 0) {
                 cm.setId(Integer.parseInt(lblId.getText()));
                 cm.setFundo(diferença);
-                cm.setSangria(Double.parseDouble(txtSangria.getText().replace(",", ".")));
                 cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
                 fecharcaixa.setVisible(false);
                 txtSangria.setText("0,00");
@@ -412,7 +408,6 @@ public class Caixas extends javax.swing.JPanel {
         } else {
             cm.setId(Integer.parseInt(lblId.getText()));
             cm.setFundo(0);
-            cm.setSangria(Double.parseDouble(txtSangria.getText().replace(",", ".")));
             cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
             fecharcaixa.setVisible(false);
             txtSangria.setText("0,00");

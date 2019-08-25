@@ -38,13 +38,6 @@ public class EditarCaixa extends javax.swing.JFrame {
         }
         
         txtFundodeTroco.setText(Double.toString(cm.getFundo()).replace(".", ","));
-        txtSuprimento.setText(Double.toString(cm.getSuprimento()).replace(".", ","));
-        txtSangria.setText(Double.toString(cm.getSangria()).replace(".", ","));
-        txtSaidas.setText(Double.toString(cm.getSaida()).replace(".", ","));
-        txtEntradas.setText(Double.toString(cm.getEntrada()).replace(".", ","));
-        
-        txtDesconto.setText(Double.toString(cm.getDescontos()).replace(".", ","));
-        txtVendas.setText(Double.toString(cm.getTotal()).replace(".", ","));
         
         //vendas
         DefaultTableModel modelo = (DefaultTableModel) tabelaVendas.getModel();

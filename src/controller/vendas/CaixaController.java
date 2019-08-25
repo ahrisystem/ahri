@@ -20,21 +20,14 @@ public class CaixaController {
     }
     
     public void novoCaixa(CaixaModel model) {
-        String sql = "INSERT INTO public.caixa(data,usuario,fechado,fundo,sangria,suprimento,saida,entrada,descontos,bruto,total) "
-                + "VALUES ((select now()),?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO public.caixa(data,usuario,fechado,fundo) "
+                + "VALUES ((select now()),?,?,?,?);";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             //data do banco
             pstmt.setString(1, model.getUsuario());
             pstmt.setBoolean(2, model.isFechado());
             pstmt.setDouble(3, model.getFundo());
-            pstmt.setDouble(4, model.getSangria());
-            pstmt.setDouble(5, model.getSuprimento());
-            pstmt.setDouble(6, model.getSaida());
-            pstmt.setDouble(7, model.getEntrada());
-            pstmt.setDouble(8, model.getDescontos());
-            pstmt.setDouble(9, model.getBruto());
-            pstmt.setDouble(10, model.getTotal());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Caixa aberto!");
         } catch (Exception e) {
@@ -42,35 +35,11 @@ public class CaixaController {
         }
     }
     
-    public void alteraCaixa(CaixaModel model, int data) {
-        String sql = "UPDATE public.caixa SET usuario=?,fechado=?,fundo=?,"
-                + "sangria=?,suprimento=?,saida=?,entrada=?,descontos=?,bruto=?,total=? WHERE data = '"+data+"';";
-        try {
-            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
-            //data do banco
-            pstmt.setString(1, model.getUsuario());
-            pstmt.setBoolean(2, model.isFechado());
-            pstmt.setDouble(3, model.getFundo());
-            pstmt.setDouble(4, model.getSangria());
-            pstmt.setDouble(5, model.getSuprimento());
-            pstmt.setDouble(6, model.getSaida());
-            pstmt.setDouble(7, model.getEntrada());
-            pstmt.setDouble(8, model.getDescontos());
-            pstmt.setDouble(9, model.getBruto());
-            pstmt.setDouble(10, model.getTotal());
-            pstmt.execute();
-            JOptionPane.showMessageDialog(null, "Caixa alterado com sucesso!");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar caixa.\n" + e.getMessage());
-        }
-    }
-    
     public void fecharCaixa(CaixaModel model, int id) {
-        String sql = "UPDATE public.caixa SET fechado=true, fundo=?,sangria=? WHERE id = '"+id+"';";
+        String sql = "UPDATE public.caixa SET fechado=true, fundo=? WHERE id = '"+id+"';";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setDouble(1, model.getFundo());
-            pstmt.setDouble(2, model.getSangria());
             pstmt.execute();
             JOptionPane.showMessageDialog(null, "Caixa fechado com sucesso!");
         } catch (Exception e) {
@@ -95,8 +64,6 @@ public class CaixaController {
                 model.setData(rs.getString("data"));
                 model.setFechado(rs.getBoolean("fechado"));
                 model.setUsuario(rs.getString("usuario"));
-                model.setEntrada(rs.getDouble("entrada"));
-                model.setSaida(rs.getDouble("saida"));
                 caixas.add(model);
             }
             stmt.close();
@@ -148,13 +115,6 @@ public class CaixaController {
                 Model.setUsuario(rs.getString("usuario"));
                 Model.setFechado(rs.getBoolean("fechado"));
                 Model.setFundo(rs.getDouble("fundo"));
-                Model.setSangria(rs.getDouble("sangria"));
-                Model.setSuprimento(rs.getDouble("suprimento"));
-                Model.setSaida(rs.getDouble("saida"));
-                Model.setEntrada(rs.getDouble("entrada"));
-                Model.setDescontos(rs.getDouble("descontos"));
-                Model.setBruto(rs.getDouble("bruto"));
-                Model.setTotal(rs.getDouble("total"));
             }
             stmt.close();
         } catch (Exception e) {

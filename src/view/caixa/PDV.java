@@ -1501,13 +1501,6 @@ public class PDV extends javax.swing.JFrame{
         cm.setUsuario(lblDataAbrirCaixa.getText());
         cm.setFechado(false);
         cm.setFundo(Double.parseDouble(txtSuprimento.getText().replace(",", ".")));
-        cm.setSangria(0.00);
-        cm.setSuprimento(Double.parseDouble(txtSuprimento.getText().replace(",", ".")));
-        cm.setSaida(0.00);
-        cm.setEntrada(Double.parseDouble(txtSuprimento.getText().replace(",", ".")));
-        cm.setDescontos(0.00);
-        cm.setBruto(0.00);
-        cm.setTotal(0.00);
         cc.novoCaixa(cm);
         abrircaixa.setVisible(false);
         this.setVisible(true);
@@ -1515,7 +1508,7 @@ public class PDV extends javax.swing.JFrame{
 
     private void F1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F1MouseReleased
         if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
-            finalizarVenda("");
+            finalizarVenda("dinheiro");
         }
         if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
             abrirVenda();
@@ -1772,10 +1765,10 @@ public class PDV extends javax.swing.JFrame{
 
     private void F3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_F3MouseReleased
         if (lblTitulo.getText().equalsIgnoreCase("nova venda")) {
-
+            
         }
         if (lblTitulo.getText().equalsIgnoreCase("caixa livre")) {
-            
+            listar("cliente");
         }
     }//GEN-LAST:event_F3MouseReleased
 
@@ -1835,13 +1828,11 @@ public class PDV extends javax.swing.JFrame{
                 "Fechar o caixa?", 1) == 0) {
             cm.setId(Integer.parseInt(lblId.getText()));
             cm.setFundo(diferença);
-            cm.setSangria(Double.parseDouble(txtSangria.getText().replace(",", ".")));
             cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
         }
         } else {
             cm.setId(Integer.parseInt(lblId.getText()));
             cm.setFundo(0);
-            cm.setSangria(Double.parseDouble(txtSangria.getText().replace(",", ".")));
             cc.fecharCaixa(cm, Integer.parseInt(lblId.getText()));
         }
     }//GEN-LAST:event_btnFecharCaixaMouseReleased

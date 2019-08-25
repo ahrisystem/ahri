@@ -2,7 +2,6 @@ Cadastros
 Entidades
 --No campo 
 
-Vendas
 --No campo TIPO da tabela VENDAS: 
     0 tudo
     1 orçamento
@@ -21,3 +20,7 @@ Vendas
 --No PDV, siglas
     FV = Finalizar venda
     VC = Valores caixa
+
+--Na tabela lancamento, os tipos sao:
+    1- Suprimento
+    2- Sangria
