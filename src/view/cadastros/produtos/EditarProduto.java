@@ -146,6 +146,7 @@ public class EditarProduto extends javax.swing.JFrame {
         lblNCM1 = new javax.swing.JLabel();
         txtTributacao = new javax.swing.JTextField();
         txtTributacao2 = new javax.swing.JTextField();
+        cbxControlarEstoque = new javax.swing.JCheckBox();
 
         planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -267,7 +268,7 @@ public class EditarProduto extends javax.swing.JFrame {
         lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTítulo.setText("Editar Produto");
+        lblTítulo.setText("Novo Produto / Serviço");
         lblTítulo.setOpaque(true);
         getContentPane().add(lblTítulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 30));
 
@@ -358,6 +359,7 @@ public class EditarProduto extends javax.swing.JFrame {
 
         txtPreco.setForeground(new java.awt.Color(0, 153, 0));
         txtPreco.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtPreco.setText("0,00");
         txtPreco.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         painelPrincipal.add(txtPreco, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 100, 30));
 
@@ -369,6 +371,7 @@ public class EditarProduto extends javax.swing.JFrame {
 
         txtCusto.setForeground(new java.awt.Color(204, 0, 51));
         txtCusto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtCusto.setText("0,00");
         txtCusto.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         txtCusto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -520,6 +523,17 @@ public class EditarProduto extends javax.swing.JFrame {
         painelAbas.addTab("Informações fiscais", painelInformacoesFiscais);
 
         painelPrincipal.add(painelAbas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 760, 220));
+
+        cbxControlarEstoque.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxControlarEstoque.setForeground(new java.awt.Color(51, 51, 51));
+        cbxControlarEstoque.setText("Controlar estoque");
+        cbxControlarEstoque.setOpaque(false);
+        cbxControlarEstoque.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cbxControlarEstoqueMouseReleased(evt);
+            }
+        });
+        painelPrincipal.add(cbxControlarEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 180, -1));
 
         getContentPane().add(painelPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 760, 400));
 
@@ -682,6 +696,10 @@ public class EditarProduto extends javax.swing.JFrame {
         limpaCampos();
     }//GEN-LAST:event_formWindowClosing
 
+    private void cbxControlarEstoqueMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxControlarEstoqueMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxControlarEstoqueMouseReleased
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -715,6 +733,7 @@ public class EditarProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnSair;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionar;
+    private javax.swing.JCheckBox cbxControlarEstoque;
     private javax.swing.JCheckBox cbxServico;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCodigo;

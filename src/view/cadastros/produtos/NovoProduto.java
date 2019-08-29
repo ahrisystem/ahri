@@ -103,6 +103,7 @@ public class NovoProduto extends javax.swing.JFrame {
         txtPreco = new javax.swing.JFormattedTextField();
         lblCusto = new javax.swing.JLabel();
         txtCusto = new javax.swing.JFormattedTextField();
+        cbxServico1 = new javax.swing.JCheckBox();
         btnSair = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
         painelAbas = new javax.swing.JTabbedPane();
@@ -234,7 +235,7 @@ public class NovoProduto extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTítulo.setBackground(new java.awt.Color(51, 51, 51));
+        lblTítulo.setBackground(new java.awt.Color(51, 105, 191));
         lblTítulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         lblTítulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTítulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -272,6 +273,7 @@ public class NovoProduto extends javax.swing.JFrame {
         painelPrincipal.add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 170, 20));
 
         cbxServico.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxServico.setForeground(new java.awt.Color(51, 51, 51));
         cbxServico.setText("Serviço ?");
         cbxServico.setOpaque(false);
         cbxServico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -348,6 +350,17 @@ public class NovoProduto extends javax.swing.JFrame {
             }
         });
         painelPrincipal.add(txtCusto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 100, 30));
+
+        cbxServico1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbxServico1.setForeground(new java.awt.Color(51, 51, 51));
+        cbxServico1.setText("Controlar estoque");
+        cbxServico1.setOpaque(false);
+        cbxServico1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cbxServico1MouseReleased(evt);
+            }
+        });
+        painelPrincipal.add(cbxServico1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 180, -1));
 
         btnSair.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         btnSair.setText("Sair");
@@ -654,6 +667,10 @@ public class NovoProduto extends javax.swing.JFrame {
         limpaCampos();
     }//GEN-LAST:event_formWindowClosed
 
+    private void cbxServico1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxServico1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxServico1MouseReleased
+
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -688,6 +705,7 @@ public class NovoProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel btnSelecionar;
     private javax.swing.JCheckBox cbxServico;
+    private javax.swing.JCheckBox cbxServico1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblCodigo2;
