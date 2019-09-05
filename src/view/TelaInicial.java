@@ -791,6 +791,7 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         if (cadastros) {
             Produtos produtos = Produtos.getInstancia();
+            produtos.usuario(btnUsuario.getText());
             painelPrincipal.add("Produtos", produtos);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));
@@ -1077,6 +1078,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private void opcao8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_opcao8MousePressed
         if (inicial) {
             Produtos produtos = Produtos.getInstancia();
+            produtos.usuario(btnUsuario.getText());
             painelPrincipal.add("Produtos", produtos);
             painelPrincipal.setSelectedIndex(painelPrincipal.getTabCount() - 1);
             painelPrincipal.setTabComponentAt(painelPrincipal.getSelectedIndex(), new ButtonTabComponent(painelPrincipal));

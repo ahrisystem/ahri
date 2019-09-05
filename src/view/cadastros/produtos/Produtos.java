@@ -1,12 +1,17 @@
 package view.cadastros.produtos;
 
+import controller.acoes.MovimentoController;
 import controller.cadastros.produtos.ProdutoController;
+import controller.funcoes.PesquisarController;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.acoes.MovimentoModel;
 import model.cadastros.produtos.ProdutoModel;
 import view.funcoes.RegistrosExcluidos;
 
 public class Produtos extends javax.swing.JPanel {
+    
     private static final Produtos INSTANCIA = new Produtos();
             
     public static Produtos getInstancia() {
@@ -18,7 +23,9 @@ public class Produtos extends javax.swing.JPanel {
         listar();
     }
     
+    PesquisarController pc = new PesquisarController();
     ProdutoController prodc = new ProdutoController();
+    MovimentoController movc = new MovimentoController();
     
     public void listar(){
         DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
@@ -32,6 +39,45 @@ public class Produtos extends javax.swing.JPanel {
                 p.getPreco(),
                 p.getGrupo(),
             });
+        }
+    }
+    public void usuario(String usuario){
+        lblUsuario.setText(usuario);
+    }
+    
+    public void buscarProduto() {
+        ProdutoModel pm = new ProdutoModel();
+        if (txtProdutoEstoque.getText().matches("[0-9]+")) {
+            if (txtProdutoEstoque.getText().length() > 5) {
+                pc.buscarProduto(pm, "\"codigoBarras\"", txtProdutoEstoque.getText());
+                if (pm.getCod() == 0) {
+
+                } else {
+                    txtProdutoEstoque.setText(Integer.toString(pm.getCod()));
+                    txtProdutoEstoque2.setText(pm.getNome());
+                }
+            } else {
+                pc.buscarProduto(pm, "cod", txtProdutoEstoque.getText());
+                txtProdutoEstoque.setText(Integer.toString(pm.getCod()));
+                txtProdutoEstoque2.setText(pm.getNome());
+            }
+        } else {
+            pesquisar.setVisible(true);
+            lblTituloPesquisa.setText("Produtos");
+            listarProdutos();
+            txtPesquisa.setText(txtProdutoEstoque.getText());
+            pesquisar.setLocation(this.getX(), this.getY());
+            pesquisar.setSize(this.getSize());
+        }
+    }
+    public void listarProdutos() {
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        for (ProdutoModel p : pc.listaProdutos(txtPesquisa.getText())) {
+            modelo.addRow(new Object[]{
+                p.getCod(),
+                p.getNome(),
+                p.getPreco(),});
         }
     }
     @SuppressWarnings("unchecked")
@@ -51,11 +97,18 @@ public class Produtos extends javax.swing.JPanel {
         lblAjusteEstoque = new javax.swing.JLabel();
         lblTituloEstoque = new javax.swing.JLabel();
         btnSalvarEstoque = new javax.swing.JLabel();
-        txtProduto2 = new javax.swing.JTextField();
+        txtProdutoEstoque2 = new javax.swing.JTextField();
         btnCancelarAjusteEstoque = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtObs = new javax.swing.JTextArea();
         lblAjusteEstoque1 = new javax.swing.JLabel();
+        pesquisar = new javax.swing.JDialog();
+        planoDeFundo1 = new javax.swing.JPanel();
+        txtPesquisa1 = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tabela1 = new javax.swing.JTable();
+        btnSelecionarPesquisa = new javax.swing.JLabel();
+        lblTituloPesquisa = new javax.swing.JLabel();
         fundo = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
@@ -67,6 +120,7 @@ public class Produtos extends javax.swing.JPanel {
         btnProdutosExcluidos = new javax.swing.JLabel();
         btnAlterarCodigo = new javax.swing.JLabel();
         btnAjusteDeEstoque = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         btnAtualizar = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
 
@@ -181,11 +235,11 @@ public class Produtos extends javax.swing.JPanel {
         });
         painelEstoque.add(btnSalvarEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 210, 170, 40));
 
-        txtProduto2.setEditable(false);
-        txtProduto2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtProduto2.setFocusable(false);
-        txtProduto2.setPreferredSize(new java.awt.Dimension(200, 20));
-        painelEstoque.add(txtProduto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 300, 20));
+        txtProdutoEstoque2.setEditable(false);
+        txtProdutoEstoque2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtProdutoEstoque2.setFocusable(false);
+        txtProdutoEstoque2.setPreferredSize(new java.awt.Dimension(200, 20));
+        painelEstoque.add(txtProdutoEstoque2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 300, 20));
 
         btnCancelarAjusteEstoque.setBackground(new java.awt.Color(255, 102, 102));
         btnCancelarAjusteEstoque.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -217,6 +271,115 @@ public class Produtos extends javax.swing.JPanel {
         painelEstoque.add(lblAjusteEstoque1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 500, 20));
 
         estoque.getContentPane().add(painelEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 250));
+
+        planoDeFundo1.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtPesquisa1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesquisa1ActionPerformed(evt);
+            }
+        });
+        txtPesquisa1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisa1KeyReleased(evt);
+            }
+        });
+
+        tabela1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tabela1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Código", "Nome", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabela1.setFocusable(false);
+        tabela1.setGridColor(new java.awt.Color(204, 204, 204));
+        tabela1.setRowHeight(18);
+        tabela1.setSelectionBackground(new java.awt.Color(102, 153, 255));
+        tabela1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tabela1KeyReleased(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tabela1);
+
+        btnSelecionarPesquisa.setBackground(new java.awt.Color(102, 153, 255));
+        btnSelecionarPesquisa.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        btnSelecionarPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        btnSelecionarPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSelecionarPesquisa.setText("Selecionar");
+        btnSelecionarPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSelecionarPesquisa.setOpaque(true);
+        btnSelecionarPesquisa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnSelecionarPesquisaMouseReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout planoDeFundo1Layout = new javax.swing.GroupLayout(planoDeFundo1);
+        planoDeFundo1.setLayout(planoDeFundo1Layout);
+        planoDeFundo1Layout.setHorizontalGroup(
+            planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+            .addGroup(planoDeFundo1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPesquisa1))
+                .addContainerGap())
+        );
+        planoDeFundo1Layout.setVerticalGroup(
+            planoDeFundo1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(planoDeFundo1Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(txtPesquisa1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSelecionarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        lblTituloPesquisa.setBackground(new java.awt.Color(153, 153, 153));
+        lblTituloPesquisa.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        lblTituloPesquisa.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloPesquisa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloPesquisa.setOpaque(true);
+
+        javax.swing.GroupLayout pesquisarLayout = new javax.swing.GroupLayout(pesquisar.getContentPane());
+        pesquisar.getContentPane().setLayout(pesquisarLayout);
+        pesquisarLayout.setHorizontalGroup(
+            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblTituloPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pesquisarLayout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(planoDeFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
+        );
+        pesquisarLayout.setVerticalGroup(
+            pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pesquisarLayout.createSequentialGroup()
+                .addComponent(lblTituloPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 266, Short.MAX_VALUE))
+            .addGroup(pesquisarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pesquisarLayout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(planoDeFundo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0)))
+        );
 
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -355,6 +518,11 @@ public class Produtos extends javax.swing.JPanel {
             }
         });
 
+        lblUsuario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsuario.setText("Usuario");
+        lblUsuario.setToolTipText("Usuário logado");
+
         javax.swing.GroupLayout painelBotoesLayout = new javax.swing.GroupLayout(painelBotoes);
         painelBotoes.setLayout(painelBotoesLayout);
         painelBotoesLayout.setHorizontalGroup(
@@ -370,7 +538,8 @@ public class Produtos extends javax.swing.JPanel {
                             .addComponent(btnProdutosExcluidos, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btnAlterarCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAjusteDeEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAjusteDeEstoque, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         painelBotoesLayout.setVerticalGroup(
@@ -388,6 +557,8 @@ public class Produtos extends javax.swing.JPanel {
                 .addComponent(btnAjusteDeEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnProdutosExcluidos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUsuario)
                 .addContainerGap())
         );
 
@@ -439,9 +610,7 @@ public class Produtos extends javax.swing.JPanel {
                             .addComponent(txtPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
-                    .addGroup(fundoLayout.createSequentialGroup()
-                        .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(painelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -518,18 +687,24 @@ public class Produtos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAtualizarMouseReleased
 
     private void btnAjusteDeEstoqueMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAjusteDeEstoqueMouseReleased
+        if (tabela.getSelectedRow() < 0) {
+            
+        } else {
+            txtProdutoEstoque.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+            txtProdutoEstoque2.setText(tabela.getValueAt(tabela.getSelectedRow(), 2).toString());
+        }
         estoque.setVisible(true);
         estoque.setLocation(200, 200);
         estoque.setSize(535,288);
     }//GEN-LAST:event_btnAjusteDeEstoqueMouseReleased
 
     private void txtProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoEstoqueActionPerformed
-        
+        buscarProduto();
     }//GEN-LAST:event_txtProdutoEstoqueActionPerformed
 
     private void btnLimparProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparProdutoEstoqueActionPerformed
         txtProdutoEstoque.setText("");
-        txtProduto2.setText("");
+        txtProdutoEstoque2.setText("");
     }//GEN-LAST:event_btnLimparProdutoEstoqueActionPerformed
 
     private void btnSalvarEstoqueMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEstoqueMouseReleased
@@ -545,12 +720,19 @@ public class Produtos extends javax.swing.JPanel {
             txtAjusteEstoque.requestFocus();
             txtAjusteEstoque.selectAll();
         } else {
-            if (Double.parseDouble(txtAjusteEstoque.getText()) < 0) {
+            if (Double.parseDouble(txtAjusteEstoque.getText().replace(",", ".")) < 0) {
                 tipoMovimentoEstoque = 2;
             } else {
                 tipoMovimentoEstoque = 1;
             }
-            
+            MovimentoModel mm = new MovimentoModel();
+            mm.setTipo(tipoMovimentoEstoque);
+            mm.setValor(Double.parseDouble(txtResultadoEstoque.getText().replace(",", ".")));
+            mm.setUsuario(lblUsuario.getText());
+            mm.setObs(txtObs.getText());
+            movc.novoMovimento(mm);
+            JOptionPane.showMessageDialog(null, "Ajuste realizado com sucesso!");
+            estoque.setVisible(false);
         }
     }//GEN-LAST:event_btnSalvarEstoqueMouseReleased
 
@@ -577,6 +759,37 @@ public class Produtos extends javax.swing.JPanel {
         txtAjusteEstoque.selectAll();
     }//GEN-LAST:event_txtAjusteEstoqueFocusGained
 
+    private void txtPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesquisa1ActionPerformed
+
+    private void txtPesquisa1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisa1KeyReleased
+        if (lblTituloPesquisa.getText().equalsIgnoreCase("produtos")) {
+            listarProdutos();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            pesquisar.setVisible(false);
+        }
+    }//GEN-LAST:event_txtPesquisa1KeyReleased
+
+    private void tabela1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabela1KeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            pesquisar.setVisible(false);
+        }
+    }//GEN-LAST:event_tabela1KeyReleased
+
+    private void btnSelecionarPesquisaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelecionarPesquisaMouseReleased
+        if (lblTituloPesquisa.getText().equalsIgnoreCase("produtos")) {
+            if (tabela.getSelectedRow() < 0) {
+                JOptionPane.showMessageDialog(null, "Nenhum produto selecionado!");
+            } else {
+                txtProdutoEstoque.setText(tabela.getValueAt(tabela.getSelectedRow(), 0).toString());
+                txtProdutoEstoque2.setText(tabela.getValueAt(tabela.getSelectedRow(), 1).toString());
+                pesquisar.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_btnSelecionarPesquisaMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnAjusteDeEstoque;
@@ -589,10 +802,12 @@ public class Produtos extends javax.swing.JPanel {
     private javax.swing.JLabel btnNovo;
     private javax.swing.JLabel btnProdutosExcluidos;
     private javax.swing.JLabel btnSalvarEstoque;
+    private javax.swing.JLabel btnSelecionarPesquisa;
     private javax.swing.JDialog estoque;
     private javax.swing.JPanel fundo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblAjusteEstoque;
     private javax.swing.JLabel lblAjusteEstoque1;
     private javax.swing.JLabel lblEstoqueAtual;
@@ -600,15 +815,21 @@ public class Produtos extends javax.swing.JPanel {
     private javax.swing.JLabel lblResultadoEstoque;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloEstoque;
+    private javax.swing.JLabel lblTituloPesquisa;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelEstoque;
+    private javax.swing.JDialog pesquisar;
+    private javax.swing.JPanel planoDeFundo1;
     private javax.swing.JTable tabela;
+    private javax.swing.JTable tabela1;
     private javax.swing.JFormattedTextField txtAjusteEstoque;
     private javax.swing.JFormattedTextField txtEstoqueAtual;
     private javax.swing.JTextArea txtObs;
     private javax.swing.JTextField txtPesquisa;
-    private javax.swing.JTextField txtProduto2;
+    private javax.swing.JTextField txtPesquisa1;
     private javax.swing.JTextField txtProdutoEstoque;
+    private javax.swing.JTextField txtProdutoEstoque2;
     private javax.swing.JFormattedTextField txtResultadoEstoque;
     // End of variables declaration//GEN-END:variables
 }

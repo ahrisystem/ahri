@@ -296,11 +296,11 @@ public class Orcamentos extends javax.swing.JPanel {
             }
         });
 
-        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setBackground(new java.awt.Color(51, 51, 51));
         lblTitulo.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("ORÇAMENTOS");
+        lblTitulo.setText("Orçamentos");
         lblTitulo.setOpaque(true);
 
         txtFiltro.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
